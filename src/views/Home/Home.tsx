@@ -1,10 +1,12 @@
-import React, { Component, useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 // 图片导入
 import logo from "../../assets/MOS_LOGO/logo200.png";
 
 const Home: React.FC = (props) => {
   let charts = useRef(null);
+  let homeBox = useRef(null)
+  let [maskFlag, setMaskflag] = useState(false)
   useEffect(() => {
     if (charts.current) {
       const canvas = charts.current as unknown as HTMLCanvasElement;
@@ -13,8 +15,9 @@ const Home: React.FC = (props) => {
         ctx.strokeStyle = "#21d9ad";
         ctx.lineWidth = 2;
         ctx.beginPath();
-        ctx.moveTo(2, 48);
-        ctx.bezierCurveTo(50, -8, 124, 88, 204, 0);
+        ctx.moveTo(8, 70);
+        // ctx.bezierCurveTo(50, -8, 124, 88, 204, 0);
+        ctx.bezierCurveTo(51, -2, 128, 86, 161, 0);
         ctx.shadowColor = "rgba(33,217,173,0.2)";
         ctx.shadowOffsetX = 0;
         ctx.shadowOffsetY = 6;
@@ -23,8 +26,15 @@ const Home: React.FC = (props) => {
       }
     }
   });
+  // 点击弹出钱包登录
+  const show_connect = () => {
+    if (homeBox.current) {
+      homeBox.current.style.height = '100vh'
+    }
+    setMaskflag(true)
+  }
   return (
-    <HomeStyle>
+    <HomeStyle ref={homeBox}>
       {/* header */}
       <div className="header">
         {/* logo */}
@@ -33,12 +43,53 @@ const Home: React.FC = (props) => {
         </div>
         {/* header-nav */}
         <div className="header-nav">
-          <div className="item">Staking</div>
-          <div className="item">NFT</div>
-          <div className="item">Survivor</div>
-          <div className="item">Community</div>
-          <div className="item">More</div>
-          <div className="connect">Connect</div>
+          <div className="item staking">
+            Staking
+            {/* select */}
+            <div className="select">
+              <div className="select-con">
+                <div className="select-item">Buy SUV</div>
+                <div className="select-item">Pool</div>
+              </div>
+            </div>
+          </div>
+          <div className="item nft">
+            NFT
+            {/* select */}
+            <div className="select">
+              <div className="select-con">
+                <div className="select-item">SUV Box</div>
+                <div className="select-item">NFT Farms</div>
+                <div className="select-item">Owned</div>
+              </div>
+            </div>
+          </div>
+          <div className="item survivor">Survivor</div>
+          <div className="item">
+            Community
+            {/* select */}
+            <div className="select">
+              <div className="select-con">
+                <div className="select-item">Bolg</div>
+                <div className="select-item">Discord</div>
+                <div className="select-item">Telegram</div>
+                <div className="select-item">Twitter</div>
+              </div>
+            </div>
+          </div>
+          <div className="item more" >
+            More
+            {/* select */}
+            <div className="select">
+              <div className="select-con">
+                <div className="select-item">FAQ</div>
+                <div className="select-item">Staking FAQ</div>
+                <div className="select-item">Litepaper</div>
+                <div className="select-item">Whitepaper</div>
+              </div>
+            </div>
+          </div>
+          <div className="connect" onClick={show_connect}>Connect</div>
         </div>
       </div>
       {/* content-top */}
@@ -137,6 +188,7 @@ const Home: React.FC = (props) => {
           </div>
           <div className="center">
             <div className="center-data-bg">
+              <div className="line"></div>
               <div className="center-data">
                 <div className="left-logo">
                   <img
@@ -210,16 +262,56 @@ const Home: React.FC = (props) => {
         </div>
         <div className="reserved">Illuvium © 2021, All rights reserved</div>
       </div>
+      {/* connect  Popup*/}
+      <ConnectPoPup style={{ display: maskFlag ? 'block' : 'none' }}>
+        <div className="mask">
+          <div className="connect-box">
+            <div className="title">
+              Connect your wallet
+            </div>
+            <div className="connection-mode-list">
+              <div className="connection-mode-item">
+                <div className="connect-logo">
+                  <img src={require('../../assets/PC-config/home/metamask.svg').default} alt="" />
+                  <div className="text">
+                    Metamask
+                  </div>
+                </div>
+                <div className="connect-logo">
+                  <img src={require('../../assets/PC-config/home/tokenpocket.svg').default} alt="" />
+                  <div className="text">
+                    TokenPocket
+                  </div>
+                </div>
+                <div className="connect-logo">
+                  <img src={require('../../assets/PC-config/home/bitkeep.svg').default} alt="" />
+                  <div className="text">
+                    Bitkeep
+                  </div>
+                </div>
+                <div className="connect-logo">
+                  <img src={require('../../assets/PC-config/home/mathwallet.svg').default} alt="" />
+                  <div className="text">
+                    MathWallet
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ConnectPoPup>
     </HomeStyle>
+
   );
 };
+// home style start
 const HomeStyle = styled.div`
   position: relative;
   width: 1920px;
   height: 3817px;
   margin: auto;
-  background-image: url(${require("../../assets/PC-config/shouye_bg.jpg")
-    .default});
+  overflow: hidden;
+  background-image: url(${require("../../assets/PC-config/shouye_bg.jpg").default});
   background-repeat: no-repeat;
   background-position-x: center;
   /* header */
@@ -245,6 +337,7 @@ const HomeStyle = styled.div`
       display: flex;
       padding-top: 28px;
       .item {
+        position: relative;
         color: #fff;
         margin-right: 60px;
         font-family: Roboto;
@@ -252,8 +345,99 @@ const HomeStyle = styled.div`
         font-weight: bold;
         font-size: 18px;
         line-height: 21px;
-        height: 43px;
+        height: 80px;
         line-height: 43px;
+        position: relative;
+        .select{
+          position: absolute;
+          left: -50%;
+          top:50px;
+          width: 147px;
+          display: none;
+          /* height: 94px; */
+         /* 实现四个边角切割 */
+         clip-path: polygon(15px 0px, calc(100% - 15px) 0, 100% 15px, 100% calc(100% - 15px), calc(100% - 15px) 100%, 15px 100%, 0 calc(100% - 15px), 0 15px);
+            background: linear-gradient(-45deg, #3AEBF7 10px, rgba(5, 28, 65, 0.06) 0) bottom right,
+                linear-gradient(45deg, #3AEBF7 10px, rgba(5, 28, 65, 0.06) 0) bottom left,
+                linear-gradient(135deg, #3AEBF7 10px, rgba(5, 28, 65, 0.06) 0) top left,
+                linear-gradient(-135deg, #3AEBF7 10px, rgba(5, 28, 65, 0.06) 0) top right;
+            background-size: 300px 200px;
+            background-repeat: no-repeat;
+            /* border: solid 1px #4C829A; */
+            border: 1px solid #3AEBF7;
+            box-shadow: inset 0px 0px 10px #39EBF6;
+           
+          
+          .select-con{
+            box-sizing: border-box;
+            box-shadow: inset 0px 0px 10px #39EBF6;
+            padding-top:21px;
+            padding-bottom: 21px;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(6, 37, 60, 0.6) 6.38%, rgba(6, 37, 60, 0.3) 93.62%);
+          }
+          .select-item{
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 18px;
+            line-height: 21px;
+            color: rgba(255, 255, 255, 0.8);
+            text-align:center;
+            padding-bottom:10px;
+          }
+          .select-item:hover{
+            color: rgba(57, 235, 246, 1);
+          }
+          .select-item:last-of-type{
+            padding: 0;
+          }
+        }
+      }
+      .item::after{
+        position: absolute;
+        transition: all 0.5s;
+        right: -27px;
+        top:25%;
+        display: block;
+        content: '';
+        width: 0px;
+        height: 0px;
+        /* background: rgba(255, 255, 255, 0.8); */
+        border-radius: 5px;
+        transform: rotate(-180deg);
+        border-bottom: 11px solid rgba(255, 255, 255, 0.8);
+        border-left: 11px solid transparent;   
+        border-right: 11px solid transparent;
+      }
+      .item:hover{
+        cursor:pointer;
+      }
+      .item:hover .select{
+          display: block;
+      }
+      .item:hover::after{
+        transform:  rotate(0deg);
+      }
+      
+      .survivor::after{
+        display: none;
+      }
+      .item:nth-child(2){
+        .select{
+          left: 16px;
+        }
+      }
+      .item:nth-child(4){
+        .select{
+          left: -4px;
+        }
+      }
+      .more{
+        .select{
+          left: -4px;
+        }
       }
       .connect {
         height: 43px;
@@ -271,6 +455,9 @@ const HomeStyle = styled.div`
         font-family: Roboto;
         font-style: normal;
         font-weight: bold;
+      }
+      .connect:hover{
+        cursor:pointer;
       }
     }
   }
@@ -496,7 +683,7 @@ const HomeStyle = styled.div`
     padding-top: 71px;
     .reserved {
       width: 100%;
-      text-align:center;
+      text-align: center;
       font-family: Roboto;
       font-style: normal;
       font-weight: bold;
@@ -542,26 +729,71 @@ const HomeStyle = styled.div`
       }
       .center {
         .center-data-bg {
-          width: 425px;
+          width: 348px;
           height: 171px;
           box-sizing: border-box;
-          padding: 1px;
-          background: linear-gradient(
+          /* padding: 1px; */
+          /* background: linear-gradient(
             180deg,
             #32c2d6 0%,
             rgba(50, 194, 214, 0) 100%
-          );
+          ); */
           border-radius: 10px;
+          position: relative;
+
         }
+        .line {
+            position: absolute;
+            left: -1px;
+            top: -1px;
+            width: 350px;
+            height: 23px;
+            /* borderradius: 10px;
+             */
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            /* background-color: #32c2d6; */
+            border: 1px solid #32c2d6;
+            box-sizing: border-box;
+            border-bottom: none;
+        }
+
         .center-data {
           width: 100%;
           height: 100%;
           position: relative;
-          background: linear-gradient(180deg, #333854 0%, transparent 100%);
+          background: linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 100%);
           backdrop-filter: blur(5px);
           border-radius: 10px;
-          overflow: hidden;
           display: flex;
+          position: relative;
+        }
+        .center-data::before {
+            display: block;
+            content: '';
+            height: 162px;
+            width: 1px;
+            position: absolute;
+            left: -1px;
+            top: 9px;
+            background: linear-gradient(180deg,
+                    #32c2d6 0%,
+                    rgba(50, 194, 214, 0) 100%);
+            /* border-radius: 50px; */
+        }
+        .center-data::after {
+            display: block;
+            content: '';
+            height: 162px;
+            width: 1px;
+            position: absolute;
+            right: -1px;
+            top: 10px;
+            background: linear-gradient(180deg,
+                    #32c2d6 0%,
+                    rgba(50, 194, 214, 0) 100%);
+            /* border-radius: 50px; */
+        }
           .left-logo {
             text-align: center;
             padding-top: 34px;
@@ -646,4 +878,30 @@ const HomeStyle = styled.div`
     }
   }
 `;
+// home style end
+// connect popup srtyle start
+const ConnectPoPup = styled.div`
+.mask{
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  position: fixed;
+  left:0;
+  top:0;
+  /* 登录框 */
+  .connect-box{
+    position: absolute;
+    width: 437px;
+    height: 513px;
+    background: #041733;
+    box-shadow: inset 0px 0px 30px #00A3FF;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%)
+  }
+}
+`
+// connect popup srtyle end
+
+
 export default Home;
