@@ -2,11 +2,16 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 // 图片导入
 import logo from "../../assets/MOS_LOGO/logo200.png";
-
+// 组件导入
+import Connect from "../../components/Connect/Connect";//connect popup
+import ConnectButton from "../../components/ConnectButton/ConnectButton";//connect button
 const Home: React.FC = (props) => {
   let charts = useRef(null);
-  let homeBox = useRef(null)
-  let [maskFlag, setMaskflag] = useState(false)
+  let homeBox = useRef(null);
+  let [homeState,setState]=useState(false)
+  const chengeState=()=>{
+    homeState?setState(false):setState(true);
+  }
   useEffect(() => {
     if (charts.current) {
       const canvas = charts.current as unknown as HTMLCanvasElement;
@@ -26,13 +31,8 @@ const Home: React.FC = (props) => {
       }
     }
   });
-  // 点击弹出钱包登录
-  const show_connect = () => {
-    if (homeBox.current) {
-      homeBox.current.style.height = '100vh'
-    }
-    setMaskflag(true)
-  }
+ 
+
   return (
     <HomeStyle ref={homeBox}>
       {/* header */}
@@ -77,7 +77,7 @@ const Home: React.FC = (props) => {
               </div>
             </div>
           </div>
-          <div className="item more" >
+          <div className="item more">
             More
             {/* select */}
             <div className="select">
@@ -89,7 +89,8 @@ const Home: React.FC = (props) => {
               </div>
             </div>
           </div>
-          <div className="connect" onClick={show_connect}>Connect</div>
+          {/* connect button */}
+         <ConnectButton change={chengeState}></ConnectButton>
         </div>
       </div>
       {/* content-top */}
@@ -263,45 +264,8 @@ const Home: React.FC = (props) => {
         <div className="reserved">Illuvium © 2021, All rights reserved</div>
       </div>
       {/* connect  Popup*/}
-      <ConnectPoPup style={{ display: maskFlag ? 'block' : 'none' }}>
-        <div className="mask">
-          <div className="connect-box">
-            <div className="title">
-              Connect your wallet
-            </div>
-            <div className="connection-mode-list">
-              <div className="connection-mode-item">
-                <div className="connect-logo">
-                  <img src={require('../../assets/PC-config/home/metamask.svg').default} alt="" />
-                  <div className="text">
-                    Metamask
-                  </div>
-                </div>
-                <div className="connect-logo">
-                  <img src={require('../../assets/PC-config/home/tokenpocket.svg').default} alt="" />
-                  <div className="text">
-                    TokenPocket
-                  </div>
-                </div>
-                <div className="connect-logo">
-                  <img src={require('../../assets/PC-config/home/bitkeep.svg').default} alt="" />
-                  <div className="text">
-                    Bitkeep
-                  </div>
-                </div>
-                <div className="connect-logo">
-                  <img src={require('../../assets/PC-config/home/mathwallet.svg').default} alt="" />
-                  <div className="text">
-                    MathWallet
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </ConnectPoPup>
+      <Connect change={chengeState}></Connect>
     </HomeStyle>
-
   );
 };
 // home style start
@@ -311,7 +275,9 @@ const HomeStyle = styled.div`
   height: 3817px;
   margin: auto;
   overflow: hidden;
-  background-image: url(${require("../../assets/PC-config/shouye_bg.jpg").default});
+  background-image: url(${
+    require("../../assets/PC-config/shouye_bg.jpg").default
+  });
   background-repeat: no-repeat;
   background-position-x: center;
   /* header */
@@ -366,8 +332,6 @@ const HomeStyle = styled.div`
             /* border: solid 1px #4C829A; */
             border: 1px solid #3AEBF7;
             box-shadow: inset 0px 0px 10px #39EBF6;
-           
-          
           .select-con{
             box-sizing: border-box;
             box-shadow: inset 0px 0px 10px #39EBF6;
@@ -439,26 +403,7 @@ const HomeStyle = styled.div`
           left: -4px;
         }
       }
-      .connect {
-        height: 43px;
-        width: 115px;
-        border-radius: 0px;
-        /* padding: 10px 20px 10px 20px; */
-        text-align: center;
-        line-height: 43px;
-        font-size: 20px;
-        background: rgba(88, 10, 26, 0.1);
-        border: 1px solid #6dffe5;
-        box-sizing: border-box;
-        box-shadow: inset 0px 0px 30px #53c1ff;
-        color: #ffffff;
-        font-family: Roboto;
-        font-style: normal;
-        font-weight: bold;
-      }
-      .connect:hover{
-        cursor:pointer;
-      }
+     
     }
   }
   /* content-top */
@@ -879,29 +824,5 @@ const HomeStyle = styled.div`
   }
 `;
 // home style end
-// connect popup srtyle start
-const ConnectPoPup = styled.div`
-.mask{
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.8);
-  position: fixed;
-  left:0;
-  top:0;
-  /* 登录框 */
-  .connect-box{
-    position: absolute;
-    width: 437px;
-    height: 513px;
-    background: #041733;
-    box-shadow: inset 0px 0px 30px #00A3FF;
-    left:50%;
-    top:50%;
-    transform:translate(-50%,-50%)
-  }
-}
-`
-// connect popup srtyle end
-
 
 export default Home;

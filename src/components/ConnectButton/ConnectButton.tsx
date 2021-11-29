@@ -1,0 +1,185 @@
+import React, { useRef,useState } from "react";
+import styled from "styled-components";
+// 导入图片
+import logo from "../../assets/PC-config/home/my-wallet_logo.svg";
+interface Props {
+  change: Function;
+}
+
+const ConnectButton: React.FC<Props> = (props) => {
+  let { change } = props;
+  const buttonRef = useRef(null);
+  let [selectFlag,setSelectFlag]=useState(false)
+  let flag = true;
+  // 点击弹出钱包登录
+  const show_connect = () => {
+    if (buttonRef.current) {
+      let button = buttonRef.current as HTMLDivElement;
+      let homeWhole = button.parentNode?.parentNode
+        ?.parentNode as HTMLDivElement;
+      homeWhole.style.position = "fixed";
+    }
+    change();
+    sessionStorage.setItem("show", "1");
+  };
+  const show_Wallet = () => {
+    selectFlag?setSelectFlag(false):setSelectFlag(true)
+  };
+  return (
+    <ButtonStyle ref={buttonRef}>
+      {/* 未登录状态 */}
+      <div
+        className="connect"
+        onClick={show_connect}
+        style={{ display: flag ? "none" : "block" }}
+      >
+        Connect
+      </div>
+      {/* 登录状态 */}
+      <div className="my-wallet" style={{ display: flag ? "block" : "none" }} onClick={show_Wallet}>
+        My Wallet
+        {/* select */}
+        <div className="select" style={{display:selectFlag?'block':'none'}}>
+          <div className="top">
+            {/* logo */}
+            <img src={logo} alt="" className="myWallet-logo" />
+            <div className="money">123,123.1235</div>
+          </div>
+          <div className="content">
+            <div className="content-item active">View on Bscscan</div>
+            <div className="content-item">Logout</div>
+          </div>
+        </div>
+      </div>
+    </ButtonStyle>
+  );
+};
+// button style start
+const ButtonStyle = styled.div`
+  /*未登录 */
+  .connect {
+    height: 43px;
+    width: 115px;
+    border-radius: 0px;
+    /* padding: 10px 20px 10px 20px; */
+    text-align: center;
+    line-height: 43px;
+    font-size: 20px;
+    background: rgba(88, 10, 26, 0.1);
+    border: 1px solid #6dffe5;
+    box-sizing: border-box;
+    box-shadow: inset 0px 0px 30px #53c1ff;
+    color: #ffffff;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+  }
+  .connect:hover {
+    cursor: pointer;
+  }
+  /* 已登录 */
+  .my-wallet {
+    position: relative;
+    height: 43px;
+    width: 129px;
+    border-radius: 0px;
+    padding: 10px, 20px, 10px, 20px;
+    background: rgba(88, 10, 26, 0.1);
+    border: 1px solid #53c1ff;
+    box-sizing: border-box;
+    box-shadow: inset 0px 0px 30px #53c1ff;
+    border: 1px solid rgba(83, 193, 255, 1);
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 43px;
+    text-align: center;
+    color: #ffffff;
+    /* select  */
+
+    .select {
+      display: none;
+      position: absolute;
+      bottom: -192px;
+      right: 0px;
+      width: 227px;
+      height: 186px;
+      background: #041733;
+      box-shadow: inset 0px 0px 25px #39ebf6;
+      backdrop-filter: blur(10px);
+      box-sizing: border-box;
+      padding: 23px 26px 0;
+      clip-path: polygon(
+        15px 0px,
+        calc(100% - 15px) 0,
+        100% 15px,
+        100% calc(100% - 15px),
+        calc(100% - 15px) 100%,
+        15px 100%,
+        0 calc(100% - 15px),
+        0 15px
+      );
+      background: linear-gradient(-45deg, #041733 10px, #041733 0) bottom right,
+        linear-gradient(45deg, #041733 10px, #041733 0) bottom left,
+        linear-gradient(135deg, #041733 10px, #041733 0) top left,
+        linear-gradient(-135deg, #041733 10px, #041733 0) top right;
+      border: 1px solid #3aebf7;
+      background-size: 300px 200px;
+      background-repeat: no-repeat;
+
+      .top {
+        /* height: 69px; */
+        display: flex;
+        justify-content: space-between;
+        .myWallet-logo {
+          width: 27px;
+          height: 26px;
+        }
+        .money {
+          font-family: PingFang SC;
+          font-style: normal;
+          font-weight: bold;
+          font-size: 14px;
+          line-height: 20px;
+          color: #39ebf6;
+        }
+      }
+      .content {
+        padding-top: 23px;
+        .content-item {
+          width: 100%;
+          height: 40px;
+          margin-bottom: 12px;
+          background: linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.5) 0%,
+            rgba(255, 255, 255, 0) 103.18%
+          );
+          font-family: Roboto;
+          font-style: normal;
+          font-weight: bold;
+          font-size: 16px;
+          line-height: 40px;
+          /* identical to box height */
+          color: #ffffff;
+        }
+        .content-item:active {
+          color: #6dffe5;
+        }
+        .content-item:hover {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+  .my-wallet:hover .select {
+    display: block;
+  }
+  .my-wallet:hover {
+    cursor: pointer;
+  }
+`;
+// button style end
+
+export default ConnectButton;
