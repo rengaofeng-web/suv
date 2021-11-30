@@ -1,4 +1,4 @@
-import React, {  useRef } from "react";
+import React from "react";
 import styled from "styled-components";
 interface Props {
   change: Function;
@@ -8,19 +8,14 @@ const Connect: React.FC<Props> = (props) => {
   let show = sessionStorage.getItem("show")
     ? Number(sessionStorage.getItem("show"))
     : 0;
-  let maskBox = useRef(null);
   // 登录点击 ×
   const closeConnect = () => {
-    if (maskBox.current) {
-      let maskWhole = maskBox.current as HTMLDivElement;
-      let homeWhole = maskWhole.parentNode as HTMLDivElement;
-      homeWhole.style.position = "relative";
-    }
+    document.body.style.cssText = "overflow:visible;height:100%;";
     change();
     sessionStorage.setItem("show", "0");
   };
   return (
-    <ConnectStyle style={{ display: show ? "block" : "none" }} ref={maskBox}>
+    <ConnectStyle style={{ display: show ? "block" : "none" }}>
       <div className="mask">
         <div className="connect-box">
           <div className="left-shadow"></div>
@@ -91,13 +86,14 @@ const Connect: React.FC<Props> = (props) => {
 };
 // connect popup style start
 const ConnectStyle = styled.div`
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 100;
   .mask {
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.8);
-    position: fixed;
-    left: 0;
-    top: 0;
     /* 登录框 */
     .connect-box {
       position: absolute;
@@ -107,6 +103,7 @@ const ConnectStyle = styled.div`
       top: 50%;
       transform: translate(-50%, -50%);
       overflow: hidden;
+      /* overflow: visible; */
 
       background: linear-gradient(-135deg, transparent 60px, #041733 0);
       .left-shadow {

@@ -11,11 +11,12 @@
 body {
   /* background-color: #333f4f; */
   margin: 0;
+  width: 100%;
   font-family: 'TitilliumWeb-Regular';
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
 }
 
 

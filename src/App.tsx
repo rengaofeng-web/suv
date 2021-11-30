@@ -1,18 +1,22 @@
-import React from 'react';
+import React from "react";
 // import logo from './logo.svg';
 // import './App.css';
 // import { HashRouter, Route, Switch } from 'react-router-dom';
-
-import { Route, HashRouter } from 'react-keeper'
-import Home from './views/Home/Home'
+// 组件导入
+import Header from "./components/Header/Header"; //header
+import { Route, HashRouter } from "react-keeper";
+import Home from "./views/Home/Home";
+import Pool from "./views/Pool/Pool";
 function App() {
   return (
     <div className="App">
-     <HashRouter>
-          <div>
-            <Route cache  path="/" component={()=><Home/>} />
-          </div>
-        </HashRouter>
+      <Header></Header>
+      <HashRouter>
+        <div className="rooter-view">
+          <Route cache path="/" component={() => <Home />} />
+          <Route cache path="/pool" component={() => <Pool />} />
+        </div>
+      </HashRouter>
     </div>
   );
 }

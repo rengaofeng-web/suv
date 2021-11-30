@@ -1,4 +1,4 @@
-import React, { useRef,useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 // 导入图片
 import logo from "../../assets/PC-config/home/my-wallet_logo.svg";
@@ -8,25 +8,27 @@ interface Props {
 
 const ConnectButton: React.FC<Props> = (props) => {
   let { change } = props;
-  const buttonRef = useRef(null);
-  let [selectFlag,setSelectFlag]=useState(false)
-  let flag = true;
+  let [selectFlag, setSelectFlag] = useState(false);
+  let flag = false;
   // 点击弹出钱包登录
   const show_connect = () => {
-    if (buttonRef.current) {
-      let button = buttonRef.current as HTMLDivElement;
-      let homeWhole = button.parentNode?.parentNode
-        ?.parentNode as HTMLDivElement;
-      homeWhole.style.position = "fixed";
-    }
+    document.body.style.cssText = "overflow:hidden;height:100%;";
     change();
     sessionStorage.setItem("show", "1");
   };
-  const show_Wallet = () => {
-    selectFlag?setSelectFlag(false):setSelectFlag(true)
+  const show_Wallet = (e: React.MouseEvent) => {
+    e = e || window.event;
+    e.stopPropagation ? e.stopPropagation() : (e.cancelable = true); //阻止冒泡
+    selectFlag ? setSelectFlag(false) : setSelectFlag(true);
   };
+  useEffect(() => {
+    document.onclick = (e: MouseEvent) => {
+      setSelectFlag(false);
+    };
+  });
+
   return (
-    <ButtonStyle ref={buttonRef}>
+    <ButtonStyle>
       {/* 未登录状态 */}
       <div
         className="connect"
@@ -36,10 +38,17 @@ const ConnectButton: React.FC<Props> = (props) => {
         Connect
       </div>
       {/* 登录状态 */}
-      <div className="my-wallet" style={{ display: flag ? "block" : "none" }} onClick={show_Wallet}>
+      <div
+        className="my-wallet"
+        style={{ display: flag ? "block" : "none" }}
+        onClick={show_Wallet}
+      >
         My Wallet
         {/* select */}
-        <div className="select" style={{display:selectFlag?'block':'none'}}>
+        <div
+          className="select"
+          style={{ display: selectFlag ? "block" : "none" }}
+        >
           <div className="top">
             {/* logo */}
             <img src={logo} alt="" className="myWallet-logo" />
@@ -96,10 +105,14 @@ const ButtonStyle = styled.div`
     line-height: 43px;
     text-align: center;
     color: #ffffff;
+    -moz-user-select: none; /*火狐*/
+    -webkit-user-select: none; /*webkit浏览器*/
+    -ms-user-select: none; /*IE10*/
+    -khtml-user-select: none; /*早期浏览器*/
+    user-select: none;
     /* select  */
-
     .select {
-      display: none;
+      /* display: none; */
       position: absolute;
       bottom: -192px;
       right: 0px;
@@ -120,14 +133,18 @@ const ButtonStyle = styled.div`
         0 calc(100% - 15px),
         0 15px
       );
-      background: linear-gradient(-45deg, #041733 10px, #041733 0) bottom right,
-        linear-gradient(45deg, #041733 10px, #041733 0) bottom left,
-        linear-gradient(135deg, #041733 10px, #041733 0) top left,
-        linear-gradient(-135deg, #041733 10px, #041733 0) top right;
+      background: linear-gradient(-45deg, #3aebf7 10px, #041733 0) bottom right,
+        linear-gradient(45deg, #3aebf7 10px, #041733 0) bottom left,
+        linear-gradient(135deg, #3aebf7 10px, #041733 0) top left,
+        linear-gradient(-135deg, #3aebf7 10px, #041733 0) top right;
       border: 1px solid #3aebf7;
-      background-size: 300px 200px;
+      background-size: 52% 51%;
       background-repeat: no-repeat;
-
+      -moz-user-select: none; /*火狐*/
+      -webkit-user-select: none; /*webkit浏览器*/
+      -ms-user-select: none; /*IE10*/
+      -khtml-user-select: none; /*早期浏览器*/
+      user-select: none;
       .top {
         /* height: 69px; */
         display: flex;
