@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import { Control } from "react-keeper";
+
 // 图片导入
 import wholeBg from "../../assets/PC-config/bg2.jpg"; //整体背景图
 const Pool: React.FC<{}> = () => {
@@ -31,7 +33,14 @@ const Pool: React.FC<{}> = () => {
                 <div className="tvl">$1,131,475,658.83</div>
                 <div className="apr">41.61%</div>
                 <div className="button-box">
-                  <div className="details">DETAILS</div>
+                  <div
+                    className="details"
+                    onClick={() => {
+                      Control.go("/details");
+                    }}
+                  >
+                    DETAILS
+                  </div>
                   <div className="stake">STAKE</div>
                 </div>
               </div>
@@ -249,7 +258,7 @@ const Pool: React.FC<{}> = () => {
 const PoolStyle = styled.div`
   position: relative;
   max-width: 1920px;
-  min-width: 1216px;
+  min-width: 1200px;
   height: 1541px;
   margin: auto;
   background-image: url(${wholeBg});
@@ -413,8 +422,8 @@ const PoolStyle = styled.div`
               }
             }
           }
-          .list-item:hover{
-              cursor: pointer;
+          .list-item:hover {
+            cursor: pointer;
           }
           .angle-mark {
             position: relative;

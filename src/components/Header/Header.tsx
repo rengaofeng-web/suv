@@ -11,13 +11,13 @@ const Header: React.FC<{}> = () => {
   let [homeState, setState] = useState(false);
   const chengeState = () => {
     homeState ? setState(false) : setState(true);
-    console.log(1111);
   };
   //  显示下拉菜单
   const showSelct = (e: React.MouseEvent) => {
     e = e || window.event;
     e.stopPropagation ? e.stopPropagation() : (e.cancelable = true);
     const target = e.target as HTMLDivElement;
+    if (!target.classList.contains("item")) return false;
     const select = target.children[0] as HTMLDivElement;
     const state = select.style.display;
     removeStats();
@@ -36,12 +36,16 @@ const Header: React.FC<{}> = () => {
       const brother = parent.children as HTMLCollection;
       for (let i = 0; i < brother?.length; i++) {
         const select = brother[i].children[0] as HTMLDivElement;
-        if (select) select.style.display = "none";
+        if (select && select.classList.contains("select"))
+          select.style.display = "none";
         brother[i].classList.remove("active");
       }
     }
   };
   useEffect(() => {
+    document.onclick = () => {
+      removeStats();
+    };
     window.onhashchange = () => {
       removeStats();
     };
@@ -62,7 +66,9 @@ const Header: React.FC<{}> = () => {
               {/* select */}
               <div className="select">
                 <div className="select-con">
-                  <div className="select-item">Buy SUV</div>
+                  <div className="select-item">
+                    <a href="*">Buy SUV</a>
+                  </div>
                   <div
                     className="select-item"
                     onClick={(e: React.MouseEvent) => {
@@ -83,22 +89,38 @@ const Header: React.FC<{}> = () => {
               {/* select */}
               <div className="select">
                 <div className="select-con">
-                  <div className="select-item">SUV Box</div>
-                  <div className="select-item">NFT Farms</div>
-                  <div className="select-item">Owned</div>
+                  <div className="select-item">
+                    <a href="*">SUV Box</a>
+                  </div>
+                  <div className="select-item">
+                    <a href="*">NFT Farms</a>
+                  </div>
+                  <div className="select-item">
+                    <a href="*">Owned</a>
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="item survivor">Survivor</div>
+            <div className="item survivor">
+              <a href="*">Survivor</a>
+            </div>
             <div className="item" onClick={showSelct}>
               Community
               {/* select */}
               <div className="select">
                 <div className="select-con">
-                  <div className="select-item">Bolg</div>
-                  <div className="select-item">Discord</div>
-                  <div className="select-item">Telegram</div>
-                  <div className="select-item">Twitter</div>
+                  <div className="select-item">
+                    <a href="*">Bolg</a>
+                  </div>
+                  <div className="select-item">
+                    <a href="*">Discord</a>
+                  </div>
+                  <div className="select-item">
+                    <a href="*">Telegram</a>
+                  </div>
+                  <div className="select-item">
+                    <a href="*">Twitter</a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -107,10 +129,18 @@ const Header: React.FC<{}> = () => {
               {/* select */}
               <div className="select">
                 <div className="select-con">
-                  <div className="select-item">FAQ</div>
-                  <div className="select-item">Staking FAQ</div>
-                  <div className="select-item">Litepaper</div>
-                  <div className="select-item">Whitepaper</div>
+                  <div className="select-item">
+                    <a href="*">FAQ</a>
+                  </div>
+                  <div className="select-item">
+                    <a href="*">Staking FAQ</a>
+                  </div>
+                  <div className="select-item">
+                    <a href="*">Litepaper</a>
+                  </div>
+                  <div className="select-item">
+                    <a href="*">Whitepaper</a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -137,7 +167,6 @@ const HeaderStyle = styled.div`
     transform: translate(-50%, 0);
     /* padding-right: 360px;
     padding-left: 360px; */
-
     .logo {
       width: 64px;
       padding-top: 22px;
@@ -172,6 +201,9 @@ const HeaderStyle = styled.div`
         -ms-user-select: none; /*IE10*/
         -khtml-user-select: none; /*早期浏览器*/
         user-select: none;
+        a {
+          color: rgba(255, 255, 255, 0.8);
+        }
         .select {
           position: absolute;
           left: -50%;
@@ -236,6 +268,9 @@ const HeaderStyle = styled.div`
             user-select: none;
           }
           .select-item:hover {
+            color: rgba(57, 235, 246, 1);
+          }
+          .select-item:hover a {
             color: rgba(57, 235, 246, 1);
           }
           .select-item:last-of-type {
