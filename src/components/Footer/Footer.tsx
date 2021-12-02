@@ -85,6 +85,7 @@ const Footer: React.FC<{}> = () => {
           <div className="right">
             <div className="trademark-bg">
               <div className="trademark">
+              <a href="*">
                 <img
                   src={
                     require("../../assets/PC-config/home/foot_twitter.svg")
@@ -92,10 +93,12 @@ const Footer: React.FC<{}> = () => {
                   }
                   alt=""
                 />
+                </a>
               </div>
             </div>
             <div className="trademark-bg">
               <div className="trademark">
+                <a href="*">
                 <img
                   src={
                     require("../../assets/PC-config/home/foot_telegram.svg")
@@ -103,10 +106,12 @@ const Footer: React.FC<{}> = () => {
                   }
                   alt=""
                 />
+                </a> 
               </div>
             </div>
             <div className="trademark-bg">
               <div className="trademark">
+              <a href="*">
                 <img
                   src={
                     require("../../assets/PC-config/home/foot_discord.svg")
@@ -114,10 +119,12 @@ const Footer: React.FC<{}> = () => {
                   }
                   alt=""
                 />
+                </a>
               </div>
             </div>
             <div className="trademark-bg">
               <div className="trademark">
+              <a href="*">
                 <img
                   src={
                     require("../../assets/PC-config/home/foot_medium.svg")
@@ -125,6 +132,7 @@ const Footer: React.FC<{}> = () => {
                   }
                   alt=""
                 />
+                </a>
               </div>
             </div>
           </div>

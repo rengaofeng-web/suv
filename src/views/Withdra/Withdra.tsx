@@ -103,6 +103,7 @@ const Withdra: React.FC<{}> = () => {
     </WithdraStyle>
   );
 };
+// withdra style start
 const WithdraStyle = styled.div`
   position: relative;
   max-width: 1920px;
@@ -526,4 +527,6 @@ const WithdraStyle = styled.div`
     }
   }
 `;
+// withdra style end
+
 export default Withdra;

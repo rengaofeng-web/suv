@@ -12,6 +12,7 @@ import Pool from "./views/Pool/Pool";
 import Details from "./views/Details/Details";
 import Harvest from './views/Harvest/Harvest'
 import Withdra from "./views/Withdra/Withdra";
+import Nft from "./views/Nft/Nft";
 const App: React.FC = (props) => {
   return (
     <AppStyle className="App">
@@ -22,8 +23,8 @@ const App: React.FC = (props) => {
           <Route  path="/pool" component={() => <Pool />} />
           <Route  path="/details" component={() => <Details />} />
           <Route  path="/harvest" component={() => <Harvest />} />
-          <Route  path="/harvest" component={() => <Harvest />} />
           <Route  path="/withdra" component={() => <Withdra />} />
+          <Route  path="/nft" component={() => <Nft />} />
         </div>
       </HashRouter>
     </AppStyle>

@@ -114,6 +114,7 @@ const Harvest: React.FC<{}> = () => {
     </HarvestStyle>
   );
 };
+// harvest style start
 const HarvestStyle = styled.div`
   position: relative;
   max-width: 1920px;
@@ -519,6 +520,12 @@ const HarvestStyle = styled.div`
       line-height: 60px;
       background: linear-gradient(90deg, #00be79 0%, #1be69c 100%);
       margin-top: 40px;
+      -moz-user-select: none; /*火狐*/
+      -webkit-user-select: none; /*webkit浏览器*/
+      -ms-user-select: none; /*IE10*/
+      -khtml-user-select: none; /*早期浏览器*/
+      user-select: none;
+      cursor: pointer;
     }
     .stake {
       -moz-user-select: none; /*火狐*/
@@ -558,4 +565,6 @@ const HarvestStyle = styled.div`
     background-image: linear-gradient(to bottom, #31bce8, transparent);
   }
 `;
+// harvest style end
+
 export default Harvest;
