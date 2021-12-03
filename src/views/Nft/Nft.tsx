@@ -2,10 +2,13 @@ import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import Swiper from "swiper";
 import "swiper/css/swiper.css";
+// 组件引入
+import NftPopup from "../../components/NftPopup/NftPopup";
+// 图片引入
 import wholeBg from "../../assets/PC-config/bg1.jpg"; //整体背景图
 import kejikuang from "../../assets/PC-config/NFT/kejikuang.png"; //宝箱背景
 import baoxiang_bg from "../../assets/gif+mov/gif.gif"; //宝箱背景 gif
-// import mov from "../../assets/gif+mov/mov.mov";
+
 const Nft: React.FC<{}> = () => {
   let [swiperIndex, setSwiperIndex] = useState(0);
   let [quantity, setquantity] = useState(1);
@@ -42,6 +45,8 @@ const Nft: React.FC<{}> = () => {
   });
   return (
     <NftStyle>
+      {/* 弹出框 */}
+      <NftPopup></NftPopup>
       <div className="content-box">
         <div className="left-operation-main">
           {/* 模拟外边框 */}
@@ -85,19 +90,15 @@ const Nft: React.FC<{}> = () => {
               </div>
             </div>
             <div className="control">
-              <div className="previous" ref={leftButton}>
+              <div className="control-bg">
                 <img
-                  src={require("../../assets/PC-config/NFT/left.png").default}
+                  src={require("../../assets/PC-config/NFT/anniu.svg").default}
                   alt=""
                 />
               </div>
+              <div className="previous" ref={leftButton}></div>
               <div className="number">{swiperIndex + 1}/3</div>
-              <div className="next" ref={rightButton}>
-                <img
-                  src={require("../../assets/PC-config/NFT/left.png").default}
-                  alt=""
-                />
-              </div>
+              <div className="next" ref={rightButton}></div>
             </div>
           </div>
           <div className="right-opertion">
@@ -130,13 +131,33 @@ const Nft: React.FC<{}> = () => {
             <div className="buy">BUY NOW</div>
           </div>
         </div>
-        <div className="right-jackpot">
-          {/* <video src={mov}></video> */}
+        <div className="right-bg">
+          <div className="right-jackpot">
+            <div className="title">
+              You have a chance to win the following prizes
+            </div>
+            <video
+              src={require("../../assets/gif+mov/最终效果2.mp4").default}
+              autoPlay={true}
+              loop={true}
+              muted
+              style={{ width: "607px" }}
+            ></video>
+            <div className="bottom-decorate">
+              <img
+                src={
+                  require("../../assets/PC-config/NFT/zhuangshi.svg").default
+                }
+                alt=""
+              />
+            </div>
+          </div>
         </div>
       </div>
     </NftStyle>
   );
 };
+// nft style start
 const NftStyle = styled.div`
   position: relative;
   max-width: 1920px;
@@ -144,20 +165,24 @@ const NftStyle = styled.div`
   height: 1035px;
   margin: auto;
   background-image: url(${wholeBg});
+  background-repeat: no-repeat;
+  background-size: cover;
   box-sizing: border-box;
   .content-box {
     position: absolute;
     left: 50%;
-    top: 202px;
+    top: 176px;
     transform: translate(-50%, 0);
-    width: 1200px;
+    width: 1400px;
     height: 558px;
+    display: flex;
     .left-operation-main {
       position: relative;
-      width: 530px;
+      /* width: 530px; */
+      margin-top: 80px;
       .top-line {
         position: absolute;
-        top: -14px;
+        top: -16px;
         left: 34px;
         background-image: linear-gradient(to right, #2ba3c9, transparent);
         width: 90%;
@@ -186,8 +211,8 @@ const NftStyle = styled.div`
       }
       .bottom-line {
         position: absolute;
-        bottom: -20px;
-        right: 25px;
+        bottom: -25px;
+        right: 29px;
         background-image: linear-gradient(to right, transparent, #2ea8d0);
         width: 90%;
         height: 5px;
@@ -219,11 +244,11 @@ const NftStyle = styled.div`
         /* background-image: linear-gradient(to bottom, #2ba3c9, #31bae6); */
       }
       .left-operation {
-        width: 530px;
-        height: 550px;
+        width: 523.19px;
+        height: 487.92px;
         box-sizing: border-box;
         padding-left: 54px;
-        padding-top: 54px;
+        padding-top: 65px;
         box-shadow: inset 0px 0px 30px #00a3ff;
         -webkit-clip-path: polygon(
           35px 0px,
@@ -251,11 +276,12 @@ const NftStyle = styled.div`
           .baoxiang_bg {
             position: absolute;
             z-index: -1;
+            top: 24px;
           }
           .swiper {
             position: absolute;
             left: 12px;
-            top: 51px;
+            top: 76px;
             /* padding-top: 50px;
             padding-left: 22px; */
             width: 165px;
@@ -271,19 +297,20 @@ const NftStyle = styled.div`
         }
       }
       .control {
-        background: rgba(0, 0, 0, 0.6);
+        position: relative;
+        /* background: rgba(0, 0, 0, 0.6); */
         display: flex;
         align-items: center;
         padding-left: 24px;
         padding-right: 0px;
         width: 233px;
+        .control-bg {
+          position: absolute;
+          z-index: -1;
+        }
         .previous {
           width: 46px;
           height: 46px;
-          img {
-            width: 35.06px;
-            height: 46.13px;
-          }
           cursor: pointer;
         }
         .number {
@@ -292,15 +319,11 @@ const NftStyle = styled.div`
           font-style: normal;
           font-weight: 500;
           font-size: 16px;
-          padding-left: 12px;
-          padding-right: 20px;
+          padding: 0 20px 5px;
         }
         .next {
-          img {
-            width: 35.06px;
-            height: 46.13px;
-            transform: rotate(180deg);
-          }
+          width: 46px;
+          height: 46px;
           cursor: pointer;
         }
       }
@@ -418,6 +441,70 @@ const NftStyle = styled.div`
         }
       }
     }
+    .right-bg {
+      width: 100%;
+      background-color: #000;
+      margin-left: 110px;
+      width: 805.19px;
+      height: 667.92px;
+      -webkit-clip-path: polygon(
+        35px 0px,
+        calc(100% - 35px) 0,
+        100% 35px,
+        100% calc(100% - 35px),
+        calc(100% - 35px) 100%,
+        35px 100%,
+        0 calc(100% - 35px),
+        0 35px
+      );
+    }
+    .right-jackpot {
+      position: relative;
+      width: 805.19px;
+      height: 667.92px;
+      border: 3px solid #1777ad;
+      box-sizing: border-box;
+      box-shadow: inset 0px 0px 60px #00a3ff;
+      -webkit-clip-path: polygon(
+        35px 0px,
+        calc(100% - 35px) 0,
+        100% 35px,
+        100% calc(100% - 35px),
+        calc(100% - 35px) 100%,
+        35px 100%,
+        0 calc(100% - 35px),
+        0 35px
+      );
+      background: linear-gradient(-45deg, #1777ad 23px, rgba(0, 0, 0, 0.6) 0)
+          bottom right,
+        linear-gradient(45deg, #1777ad 23px, #000 0) bottom left,
+        linear-gradient(135deg, #1777ad 23px, rgba(0, 0, 0, 1) 0) top left,
+        linear-gradient(-135deg, #1777ad 23px, rgba(0, 0, 0, 1) 0) top right;
+      background-size: 50% 51%;
+      background-repeat: no-repeat;
+      .title {
+        font-family: Impact;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 26px;
+        line-height: 32px;
+        /* identical to box height */
+        letter-spacing: 0.05em;
+        color: #53c1ff;
+        padding-top: 56px;
+        text-align: center;
+      }
+      video {
+        mix-blend-mode: screen;
+        margin-left: 105px;
+        margin-top: 80px;
+      }
+      .bottom-decorate {
+        margin: 24px 40px 0;
+      }
+    }
   }
 `;
+// nft style end
+
 export default Nft;

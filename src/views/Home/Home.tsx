@@ -115,8 +115,9 @@ const HomeStyle = styled.div`
         width: 500px;
         .sanjiao {
           width: 252px;
-          height: 300px;
+          height: 255px;
           position: absolute;
+          left: -25px;
           transform: matrix(1, 0, 0, -1, 0, 0);
           /* transform: translate(0,-90px); */
           overflow: hidden;
@@ -142,7 +143,7 @@ const HomeStyle = styled.div`
           color: #ffffff;
           width: 423px;
           text-align: center;
-          padding-top: 244px;
+          padding-top: 204px;
           transform: translate(-30px, 0);
         }
         .article {
@@ -153,7 +154,7 @@ const HomeStyle = styled.div`
           line-height: 22px;
           padding-top: 35px;
           transform: translate(-30px, 0);
-          letter-spacing: 0.5px;
+          /* letter-spacing: 0.5px; */
         }
       }
     }
@@ -183,8 +184,9 @@ const HomeStyle = styled.div`
       width: 500px;
       .sanjiao {
         width: 252px;
-        height: 300px;
+        height: 255px;
         position: absolute;
+        left: 357px;
         transform: matrix(1, 0, 0, -1, 0, 0);
         /* transform: translate(0,-90px); */
         overflow: hidden;
@@ -210,7 +212,7 @@ const HomeStyle = styled.div`
         color: #ffffff;
         width: 423px;
         text-align: center;
-        padding-top: 244px;
+        padding-top: 204px;
         transform: translate(-30px, 0);
       }
       .article {
@@ -221,7 +223,7 @@ const HomeStyle = styled.div`
         line-height: 22px;
         padding-top: 35px;
         transform: translate(-30px, 0);
-        letter-spacing: 0.5px;
+        /* letter-spacing: 0.5px; */
       }
     }
   }
@@ -251,8 +253,9 @@ const HomeStyle = styled.div`
       width: 500px;
       .sanjiao {
         width: 252px;
-        height: 300px;
+        height: 255px;
         position: absolute;
+        right: -582px;
         transform: matrix(1, 0, 0, -1, 0, 0);
         /* transform: translate(0,-90px); */
         overflow: hidden;
@@ -276,9 +279,9 @@ const HomeStyle = styled.div`
         font-weight: normal;
         font-size: 30px;
         color: #ffffff;
-        width: 423px;
+        width: 432px;
         text-align: center;
-        padding-top: 244px;
+        padding-top: 204px;
         transform: translate(-30px, 0);
       }
       .article {
@@ -289,7 +292,7 @@ const HomeStyle = styled.div`
         line-height: 22px;
         padding-top: 35px;
         transform: translate(-30px, 0);
-        letter-spacing: 0.5px;
+        /* letter-spacing: 0.5px; */
       }
     }
   }
