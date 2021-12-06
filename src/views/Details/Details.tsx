@@ -48,24 +48,24 @@ const Details: React.FC<{}> = () => {
             </div>
           </div>
         </div>
-        <div className="stake">STAKE</div>
+        <div
+          className="stake"
+          onClick={() => {
+            Control.go("/harvest");
+          }}
+        >
+          STAKE
+        </div>
         <div className="bottom-button">
           <div
-            className="withdra"
+            className="withdraw"
             onClick={() => {
-              Control.go("/withdra");
+              Control.go("/withdraw");
             }}
           >
-            WITHDRA
+            WITHDRAW
           </div>
-          <div
-            className="harvest"
-            onClick={() => {
-              Control.go("/harvest");
-            }}
-          >
-            HARVEST
-          </div>
+          <div className="harvest">HARVEST</div>
         </div>
       </div>
     </DetailsStyle>
@@ -254,7 +254,7 @@ const DetailsStyle = styled.div`
         color: #ffffff;
         cursor: pointer;
       }
-      .withdra {
+      .withdraw {
         background: linear-gradient(90deg, #0cc2cd 0%, #21e5f1 100%);
       }
       .harvest {

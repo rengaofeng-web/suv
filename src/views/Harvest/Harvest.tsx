@@ -1,10 +1,47 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import wholeBg from "../../assets/PC-config/bg1.jpg"; //整体背景图
 // import { Control } from "react-keeper";
 
 const Harvest: React.FC<{}> = () => {
   let [current, setCurrent] = useState(true);
+  const ball = useRef(null);
+
+  let [dragValue, setdragValue] = useState(0);
+  let dis: number = 0;
+  // 小球拖拽代码
+  let dragStart = (e: MouseEvent) => {
+    e = e || window.event;
+    let target = e.target as HTMLDivElement;
+    if (target.className === "ball") {
+      dis = e.pageX - target.offsetLeft;
+      document.onmousemove = dragMove;
+    }
+  };
+  const dragMove = (e: MouseEvent) => {
+    e = e || window.event;
+    if (ball.current) {
+      let target = ball.current as HTMLDivElement;
+      let parent = target.parentNode as HTMLDivElement;
+      let line = parent.children[0] as HTMLDivElement;
+      let moveValue = e.pageX - dis;
+      if (moveValue < 0) {
+        moveValue = 0;
+      }
+      if (moveValue > parent.offsetWidth) {
+        moveValue = parent.offsetWidth;
+      }
+      let cale = parent.offsetWidth / 52;
+      setdragValue(parseInt(String(moveValue / cale))); 
+      target.style.left = moveValue + "px";
+      line.style.width = moveValue + "px";
+    }
+  };
+  const dragEnd = () => {
+    document.onmousemove = null;
+  };
+  document.onmousedown = dragStart;
+  document.onmouseup = dragEnd;
   return (
     <HarvestStyle>
       <div className="content-box">
@@ -72,7 +109,7 @@ const Harvest: React.FC<{}> = () => {
             >
               <div className="lovk-box">
                 <div className="lovk">
-                  Lovk for:<span>26 WEEK</span>
+                  Lovk for:<span>{dragValue} WEEK</span>
                 </div>
                 <div className="weight">
                   Weight:<span>1.02</span>
@@ -81,7 +118,7 @@ const Harvest: React.FC<{}> = () => {
               <div className="progress-bar">
                 <div className="progress-border">
                   <div className="progress"></div>
-                  <div className="ball"></div>
+                  <div className="ball" ref={ball}></div>
                 </div>
                 <div className="scale">
                   <div className="min">1</div>
@@ -379,6 +416,13 @@ const HarvestStyle = styled.div`
               box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
               transform: translate(-50%, -50%);
               border-radius: 50%;
+              /* 阻止选中文字 */
+              -moz-user-select: none; /*火狐*/
+              -webkit-user-select: none; /*webkit浏览器*/
+              -ms-user-select: none; /*IE10*/
+              -khtml-user-select: none; /*早期浏览器*/
+              user-select: none;
+              cursor: pointer;
             }
           }
           .scale {

@@ -96,13 +96,22 @@ const Header: React.FC<{}> = () => {
                         ? e.stopPropagation()
                         : (e.cancelable = true);
                       removeStats();
-                      Control.go("/nft");
+                      Control.go("/suvBox");
                     }}
                   >
                     SUV Box
                   </div>
-                  <div className="select-item">
-                    <a href="*">NFT Farms</a>
+                  <div
+                    className="select-item"
+                    onClick={(e: React.MouseEvent) => {
+                      e.stopPropagation
+                        ? e.stopPropagation()
+                        : (e.cancelable = true);
+                      removeStats();
+                      Control.go("/nftFarams");
+                    }}
+                  >
+                    NFT Farms
                   </div>
                   <div className="select-item">
                     <a href="*">Owned</a>
@@ -195,7 +204,7 @@ const HeaderStyle = styled.div`
       }
       .item {
         position: relative;
-        color: #fff;
+        color: rgba(255, 255, 255, 0.8);
         margin-right: 60px;
         font-family: Roboto;
         font-style: normal;

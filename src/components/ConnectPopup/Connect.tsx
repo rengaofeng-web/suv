@@ -23,7 +23,6 @@ const Connect: React.FC<Props> = (props) => {
           <div className="bottom-shadow"></div>
           <div className="right-shadow"></div>
           <div className="right-top-shadow"></div>
-
           <div className="title">Connect your wallet</div>
           <div className="connection-mode-list">
             <div className="connection-mode-item">

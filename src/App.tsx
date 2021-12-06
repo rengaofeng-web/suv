@@ -6,25 +6,27 @@ import styled from "styled-components";
 // import { HashRouter, Route, Switch } from 'react-router-dom';
 import { Route, HashRouter } from "react-keeper";
 // 组件导入
-import Header from "./components/Header/Header"; 
+import Header from "./components/Header/Header";
 import Home from "./views/Home/Home";
 import Pool from "./views/Pool/Pool";
 import Details from "./views/Details/Details";
-import Harvest from './views/Harvest/Harvest'
-import Withdra from "./views/Withdra/Withdra";
-import Nft from "./views/Nft/Nft";
+import Harvest from "./views/Harvest/Harvest";
+import Withdraw from "./views/Withdraw/Withdraw";
+import SuvBox from "./views/SuvBox/SuvBox";
+import { NftFarams } from "./views/NftFarams/NftFarams";
 const App: React.FC = (props) => {
   return (
     <AppStyle className="App">
       <Header></Header>
       <HashRouter>
         <div className="router-view">
-          <Route  path="/" component={() => <Home />} />
-          <Route  path="/pool" component={() => <Pool />} />
-          <Route  path="/details" component={() => <Details />} />
-          <Route  path="/harvest" component={() => <Harvest />} />
-          <Route  path="/withdra" component={() => <Withdra />} />
-          <Route  path="/nft" component={() => <Nft />} />
+          <Route path="/" component={() => <Home />} />
+          <Route path="/pool" component={() => <Pool />} />
+          <Route path="/details" component={() => <Details />} />
+          <Route path="/harvest" component={() => <Harvest />} />
+          <Route path="/withdraw" component={() => <Withdraw />} />
+          <Route path="/suvBox" component={() => <SuvBox />} />
+          <Route path="/nftFarams" component={() => <NftFarams />} />
         </div>
       </HashRouter>
     </AppStyle>
