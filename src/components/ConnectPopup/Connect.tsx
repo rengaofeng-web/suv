@@ -5,9 +5,7 @@ interface Props {
 }
 const Connect: React.FC<Props> = (props) => {
   let { change } = props;
-  let show = sessionStorage.getItem("show")
-    ? Number(sessionStorage.getItem("show"))
-    : 0;
+  let show = sessionStorage.getItem("show") ? Number(sessionStorage.getItem("show")) : 0;
   // 登录点击 ×
   const closeConnect = () => {
     document.body.style.cssText = "overflow:visible;height:100%;";
@@ -27,47 +25,25 @@ const Connect: React.FC<Props> = (props) => {
           <div className="connection-mode-list">
             <div className="connection-mode-item">
               <div className="connect-logo">
-                <img
-                  src={
-                    require("../../assets/PC-config/home/metamask.svg").default
-                  }
-                  alt=""
-                />
+                <img src={require("../../assets/PC-config/home/metamask.svg").default} alt="" />
               </div>
               <div className="text">Metamask</div>
             </div>
             <div className="connection-mode-item">
               <div className="connect-logo">
-                <img
-                  src={
-                    require("../../assets/PC-config/home/tokenpocket.svg")
-                      .default
-                  }
-                  alt=""
-                />
+                <img src={require("../../assets/PC-config/home/tokenpocket.svg").default} alt="" />
               </div>
               <div className="text">TokenPocket</div>
             </div>
             <div className="connection-mode-item">
               <div className="connect-logo ">
-                <img
-                  src={
-                    require("../../assets/PC-config/home/bitkeep.svg").default
-                  }
-                  alt=""
-                />
+                <img src={require("../../assets/PC-config/home/bitkeep.svg").default} alt="" />
               </div>
               <div className="text">Bitkeep</div>
             </div>
             <div className="connection-mode-item">
               <div className="connect-logo">
-                <img
-                  src={
-                    require("../../assets/PC-config/home/mathwallet.svg")
-                      .default
-                  }
-                  alt=""
-                />
+                <img src={require("../../assets/PC-config/home/mathwallet.svg").default} alt="" />
               </div>
               <div className="text">MathWallet</div>
             </div>
@@ -177,11 +153,7 @@ const ConnectStyle = styled.div`
         width: 50%;
         height: 3px;
         z-index: 1;
-        background-image: linear-gradient(
-          to right,
-          #53c1ff,
-          rgba(83, 193, 255, 0)
-        );
+        background-image: linear-gradient(to right, #53c1ff, rgba(83, 193, 255, 0));
       }
       .title:after {
         content: "";
@@ -190,11 +162,7 @@ const ConnectStyle = styled.div`
         top: 0px;
         height: 250px;
         width: 3px;
-        background-image: linear-gradient(
-          to bottom,
-          #53c1ff,
-          rgba(83, 193, 255, 0)
-        );
+        background-image: linear-gradient(to bottom, #53c1ff, rgba(83, 193, 255, 0));
       }
       .connection-mode-list {
         position: relative;
@@ -211,6 +179,11 @@ const ConnectStyle = styled.div`
           box-sizing: border-box;
           margin: auto;
           margin-bottom: 21px;
+          -moz-user-select: none; /*火狐*/
+          -webkit-user-select: none; /*webkit浏览器*/
+          -ms-user-select: none; /*IE10*/
+          -khtml-user-select: none; /*早期浏览器*/
+          user-select: none;
           .connect-logo {
             height: 46px;
             width: 46px;
@@ -255,11 +228,7 @@ const ConnectStyle = styled.div`
         bottom: -56px;
         height: 250px;
         width: 3px;
-        background-image: linear-gradient(
-          to top,
-          #53c1ff,
-          rgba(83, 193, 255, 0)
-        );
+        background-image: linear-gradient(to top, #53c1ff, rgba(83, 193, 255, 0));
       }
       .connection-mode-list:after {
         content: "";
@@ -268,11 +237,7 @@ const ConnectStyle = styled.div`
         bottom: -56px;
         width: 50%;
         height: 3px;
-        background-image: linear-gradient(
-          to left,
-          #53c1ff,
-          rgba(83, 193, 255, 0)
-        );
+        background-image: linear-gradient(to left, #53c1ff, rgba(83, 193, 255, 0));
       }
       .close-box-bg {
         /* background: rgba(0, 0, 0, 1); */
@@ -280,16 +245,17 @@ const ConnectStyle = styled.div`
         right: -60px;
         top: -26px;
         transform: rotate(45deg);
+        -moz-user-select: none; /*火狐*/
+        -webkit-user-select: none; /*webkit浏览器*/
+        -ms-user-select: none; /*IE10*/
+        -khtml-user-select: none; /*早期浏览器*/
+        user-select: none;
         /* box-shadow: 0px 0px 30px #00a3ff; */
         .close-box {
           position: relative;
           width: 190.86px;
           height: 45.61px;
-          background: linear-gradient(
-            180deg,
-            #eb3f3f -1.01%,
-            rgba(235, 63, 63, 0) 144.7%
-          );
+          background: linear-gradient(180deg, #eb3f3f -1.01%, rgba(235, 63, 63, 0) 144.7%);
           .close-button {
             position: absolute;
             left: 113px;
@@ -304,11 +270,7 @@ const ConnectStyle = styled.div`
             color: #fff;
             transform: rotate(-7deg);
             text-align: center;
-            background: linear-gradient(
-              to bottom,
-              #fff 24.99%,
-              transparent 115.7%
-            );
+            background: linear-gradient(to bottom, #fff 24.99%, transparent 115.7%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
           }
@@ -335,11 +297,7 @@ const ConnectStyle = styled.div`
       bottom: 0px;
       width: 50%;
       height: 3px;
-      background-image: linear-gradient(
-        to right,
-        #53c1ff,
-        rgba(83, 193, 255, 0)
-      );
+      background-image: linear-gradient(to right, #53c1ff, rgba(83, 193, 255, 0));
     }
   }
 `;

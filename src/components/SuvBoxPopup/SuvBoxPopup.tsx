@@ -42,7 +42,7 @@ const SuvBoxPopup: React.FC<Props> = (props) => {
         <div className="content">
           <div className="congratulation">Congratulation! (1/4)</div>
           <div className="prize-exhibition">
-            {/* swiper-no-swiping  */}
+            {/* swiper-no-swiping  阻止拖动*/}
             <div className="prize ">
               <div className="swiper-container popup-swiper swiper-no-swiping">
                 <div className="swiper-wrapper ">
@@ -133,7 +133,6 @@ const PopupStyle = styled.div`
       height: 650px;
       background: rgba(5, 22, 43, 0.95);
       box-shadow: inset 0px 0px 60px #00a3ff;
-
       color: #fff;
       box-sizing: border-box;
       -webkit-clip-path: polygon(

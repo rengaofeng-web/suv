@@ -13,8 +13,10 @@ import Details from "./views/Details/Details";
 import Harvest from "./views/Harvest/Harvest";
 import Withdraw from "./views/Withdraw/Withdraw";
 import SuvBox from "./views/SuvBox/SuvBox";
-import  NftFarams  from "./views/NftFarams/NftFarams";
-const App: React.FC = (props) => {
+import NftFarams from "./views/NftFarams/NftFarams";
+import Owned from "./views/Owned/Owned";
+import OwnedNone from "./views/OwnedNone/OwnedNone";
+const App: React.FC<{}> = () => {
   return (
     <AppStyle className="App">
       <Header></Header>
@@ -27,6 +29,8 @@ const App: React.FC = (props) => {
           <Route path="/withdraw" component={() => <Withdraw />} />
           <Route path="/suvBox" component={() => <SuvBox />} />
           <Route path="/nftFarams" component={() => <NftFarams />} />
+          <Route path="/owned" component={() => <Owned />} />
+          <Route path="/ownedNone" component={() => <OwnedNone />} />
         </div>
       </HashRouter>
     </AppStyle>

@@ -113,8 +113,17 @@ const Header: React.FC<{}> = () => {
                   >
                     NFT Farms
                   </div>
-                  <div className="select-item">
-                    <a href="*">Owned</a>
+                  <div
+                    className="select-item"
+                    onClick={(e: React.MouseEvent) => {
+                      e.stopPropagation
+                        ? e.stopPropagation()
+                        : (e.cancelable = true);
+                      removeStats();
+                      Control.go("/owned");
+                    }}
+                  >
+                    Owned
                   </div>
                 </div>
               </div>
