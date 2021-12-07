@@ -243,15 +243,15 @@ const HeaderStyle = styled.div`
           );
           background: linear-gradient(
                 -45deg,
-                #3aebf7 10px,
+                #3aebf7 11px,
                 rgba(5, 28, 65, 0.06) 0
               )
               bottom right,
-            linear-gradient(45deg, #3aebf7 10px, rgba(5, 28, 65, 0.06) 0) bottom
+            linear-gradient(45deg, #3aebf7 11px, rgba(5, 28, 65, 0.06) 0) bottom
               left,
-            linear-gradient(135deg, #3aebf7 10px, rgba(5, 28, 65, 0.06) 0) top
+            linear-gradient(135deg, #3aebf7 11px, rgba(5, 28, 65, 0.06) 0) top
               left,
-            linear-gradient(-135deg, #3aebf7 10px, rgba(5, 28, 65, 0.06) 0) top
+            linear-gradient(-135deg, #3aebf7 11px, rgba(5, 28, 65, 0.06) 0) top
               right;
           background-size: 300px 200px;
           background-repeat: no-repeat;

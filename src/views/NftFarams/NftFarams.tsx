@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 // 图片导入
 import wholeBg from "../../assets/PC-config/bg2.jpg"; //整体背景图
 
-export const NftFarams: React.FC<{}> = () => {
+const NftFarams: React.FC<{}> = () => {
+  const [switchCurrent, setSwitchCurrent] = useState(true);
+  const [switchActive, setSwitchActive] = useState(true);
   return (
     <FaramsStyle>
       <div className="content-box">
@@ -32,7 +34,143 @@ export const NftFarams: React.FC<{}> = () => {
               </div>
             </div>
             <div className="bottom">
-              <div className="container"></div>
+              <div className="container">
+                <div className="switch-head">
+                  <div className="approve">Approve</div>
+                  <div
+                    className={switchCurrent ? "deposit active" : "deposit"}
+                    onClick={() => {
+                      setSwitchCurrent(true);
+                    }}
+                  >
+                    Deposit
+                  </div>
+                  <div
+                    className={!switchCurrent ? "withdraw active" : "withdraw"}
+                    onClick={() => {
+                      setSwitchCurrent(false);
+                    }}
+                  >
+                    Withdraw
+                  </div>
+                </div>
+                <div className="switch-content">
+                  <div
+                    className="switch-content-item"
+                    style={{ display: switchCurrent ? "block" : "none" }}
+                  >
+                    <div className="title">Available:124613563156515</div>
+                    <div className="uinput">
+                      <input
+                        type="number"
+                        value="123456789132"
+                        readOnly={true}
+                      />
+                      <div className="max">MAX</div>
+                    </div>
+                    <div className="button">Deposit</div>
+                  </div>
+                  <div
+                    className="switch-content-item"
+                    style={{ display: !switchCurrent ? "block" : "none" }}
+                  >
+                    <div className="title">Available:124613563156515</div>
+                    <div className="uinput">
+                      <input
+                        type="number"
+                        value="123456789132"
+                        readOnly={true}
+                      />
+                      <div className="max">MAX</div>
+                    </div>
+                    <div className="button">Withdraw</div>
+                  </div>
+                </div>
+              </div>
+              <div className="right-border"></div>
+            </div>
+          </div>
+        </div>
+        <div className="split-line"></div>
+        <div className="content-item">
+          <div className="left-blindBox">
+            <img
+              src={require("../../assets/PC-config/NFT/feichuan3.png").default}
+              alt=""
+            />
+          </div>
+          <div className="right-content">
+            <div className="top">
+              <div className="earned-box">
+                <div className="right-boreder"></div>
+                <div className="earned">
+                  <div className="earned-number">
+                    <div>Earned</div>
+                    <div className="number">1,123,155.12</div>
+                  </div>
+                  <div className="harvest">Harvest</div>
+                </div>
+              </div>
+              <div className="staked">
+                <div>staked</div>
+                <div>1,123,155.12</div>
+              </div>
+            </div>
+            <div className="bottom">
+              <div className="container">
+                <div className="switch-head">
+                  <div className="approve">Approve</div>
+                  <div
+                    className={switchActive ? "deposit active" : "deposit"}
+                    onClick={() => {
+                      setSwitchActive(true);
+                    }}
+                  >
+                    Deposit
+                  </div>
+                  <div
+                    className={!switchActive ? "withdraw active" : "withdraw"}
+                    onClick={() => {
+                      setSwitchActive(false);
+                    }}
+                  >
+                    Withdraw
+                  </div>
+                </div>
+                <div className="switch-content">
+                  <div
+                    className="switch-content-item"
+                    style={{ display: switchActive ? "block" : "none" }}
+                  >
+                    <div className="title">Available:124613563156515</div>
+                    <div className="uinput">
+                      <input
+                        type="number"
+                        value="123456789132"
+                        readOnly={true}
+                      />
+                      <div className="max">MAX</div>
+                    </div>
+                    <div className="button">Deposit</div>
+                  </div>
+                  <div
+                    className="switch-content-item"
+                    style={{ display: !switchActive ? "block" : "none" }}
+                  >
+                    <div className="title">Available:124613563156515</div>
+                    <div className="uinput">
+                      <input
+                        type="number"
+                        value="123456789132"
+                        readOnly={true}
+                      />
+                      <div className="max">MAX</div>
+                    </div>
+                    <div className="button">Withdraw</div>
+                  </div>
+                </div>
+              </div>
+              <div className="right-border"></div>
             </div>
           </div>
         </div>
@@ -121,6 +259,7 @@ const FaramsStyle = styled.div`
     box-sizing: border-box;
     padding: 48px 134px 66px;
     .content-item {
+      position: relative;
       display: flex;
       .left-blindBox {
       }
@@ -128,6 +267,7 @@ const FaramsStyle = styled.div`
         padding-left: 54px;
         .top {
           display: flex;
+          margin-top: 30px;
           .earned-box {
             position: relative;
             overflow: hidden;
@@ -263,25 +403,211 @@ const FaramsStyle = styled.div`
         }
         .bottom {
           position: relative;
+          overflow: hidden;
+          margin-top: 28px;
           .container {
             height: 246px;
             width: 567px;
             border-radius: 0px;
+            box-sizing: border-box;
             background: rgba(14, 23, 42, 0.01);
             box-shadow: inset 0px 0px 20px rgba(57, 231, 199, 0.5);
             -webkit-clip-path: polygon(
-              50px 0px,
-              calc(100% - 50px) 0,
-              100% 50px,
-              100% calc(100% - 50px),
+              0px 0px,
+              calc(100% - 0px) 0,
+              100% 0px,
+              100% calc(100% - 0px),
               calc(100% - 50px) 100%,
               50px 100%,
               0 calc(100% - 50px),
               0 50px
             );
+            -webkit-clip-path: polygon(
+              0px 0px,
+              calc(100% - 0px) 0,
+              100% 0px,
+              100% calc(100% - 0px),
+              calc(100% - 50px) 100%,
+              37px 100%,
+              0 calc(100% - 37px),
+              0 37px
+            );
+            border-bottom: 3px solid #19d6e2;
+            box-sizing: border-box;
+            padding: 13px 29px 0 38px;
+            .switch-head {
+              display: flex;
+              align-items: center;
+              .approve {
+                width: 94px;
+                height: 43px;
+                text-align: center;
+                line-height: 43px;
+                background: linear-gradient(90deg, #08c480 0%, #33eeab 100%);
+                font-family: Roboto;
+                font-style: normal;
+                font-weight: 500;
+                font-size: 20px;
+                color: #ffffff;
+              }
+              .deposit,
+              .withdraw {
+                padding-left: 33px;
+                font-family: Roboto;
+                font-style: normal;
+                font-weight: 500;
+                font-size: 20px;
+                color: rgba(255, 255, 255, 0.3);
+                cursor: pointer;
+                -moz-user-select: none; /*火狐*/
+                -webkit-user-select: none; /*webkit浏览器*/
+                -ms-user-select: none; /*IE10*/
+                -khtml-user-select: none; /*早期浏览器*/
+                user-select: none;
+              }
+              .active {
+                color: #21e3ef;
+              }
+            }
+            .switch-content {
+              .switch-content-item {
+                .title {
+                  text-align: right;
+                  font-family: Roboto;
+                  font-style: normal;
+                  font-weight: 500;
+                  font-size: 14px;
+                  color: rgba(255, 255, 255, 0.5);
+                  padding-top: 5px;
+                }
+                .uinput {
+                  height: 48px;
+                  width: 499px;
+                  border-radius: 0px;
+                  margin-top: 15px;
+                  background: linear-gradient(
+                    90deg,
+                    rgba(255, 255, 255, 0.2) 0%,
+                    rgba(255, 255, 255, 0.06) 100.6%
+                  );
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  box-sizing: border-box;
+                  padding: 0 18px 0 24px;
+                  > input {
+                    height: 100%;
+                    font-family: Roboto;
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 14px;
+                    color: #ffffff;
+                  }
+                  .max {
+                    font-family: Roboto;
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 14px;
+                    color: #18d6e2;
+                    cursor: pointer;
+                    -moz-user-select: none; /*火狐*/
+                    -webkit-user-select: none; /*webkit浏览器*/
+                    -ms-user-select: none; /*IE10*/
+                    -khtml-user-select: none; /*早期浏览器*/
+                    user-select: none;
+                  }
+                }
+                .button {
+                  cursor: pointer;
+                  -moz-user-select: none; /*火狐*/
+                  -webkit-user-select: none; /*webkit浏览器*/
+                  -ms-user-select: none; /*IE10*/
+                  -khtml-user-select: none; /*早期浏览器*/
+                  user-select: none;
+                  position: relative;
+                  height: 48px;
+                  width: 499px;
+                  background: linear-gradient(
+                    90deg,
+                    rgba(255, 255, 255, 0.5) 0%,
+                    rgba(255, 255, 255, 0.15) 100.6%
+                  );
+                  backdrop-filter: blur(4px);
+                  margin-top: 20px;
+                  padding-left: 24px;
+                  box-sizing: border-box;
+                  font-family: Roboto;
+                  font-style: normal;
+                  font-weight: 500;
+                  font-size: 20px;
+                  line-height: 48px;
+                  color: #ffffff;
+                }
+                .button:before {
+                  content: "";
+                  position: absolute;
+                  top: 50%;
+                  right: 17px;
+                  width: 34px;
+                  height: 2px;
+                  background: #fff;
+                  border-top-right-radius: 3px;
+                }
+                .button:after {
+                  content: "";
+                  position: absolute;
+                  top: 42%;
+                  right: 16px;
+                  width: 12px;
+                  height: 2px;
+                  background: #fff;
+                  transform: rotate(45deg);
+                  border-bottom-right-radius: 3px;
+                  border-top-right-radius: 3px;
+                }
+              }
+            }
           }
         }
+        .bottom:after {
+          content: "";
+          position: absolute;
+          left: -25px;
+          bottom: 19px;
+          width: 87px;
+          height: 3px;
+          background-color: #19d6e2;
+          transform: rotate(45deg);
+        }
+        .bottom:before {
+          content: "";
+          position: absolute;
+          left: 0px;
+          top: -37px;
+          width: 3px;
+          height: 100%;
+          background-image: linear-gradient(to top, #19d6e2, transparent);
+        }
+        .right-border {
+          position: absolute;
+          top: 0;
+          right: 0;
+          width: 3px;
+          height: 100%;
+          background-image: linear-gradient(to top, #19d6e2, transparent);
+        }
       }
+    }
+    .split-line {
+      height: 5px;
+      width: 927px;
+      border-radius: 0px;
+      margin: 39px 0;
+      background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.5) 0%,
+        rgba(255, 255, 255, 0) 100%
+      );
     }
   }
   .content-box:before {
@@ -303,4 +629,6 @@ const FaramsStyle = styled.div`
     background-image: linear-gradient(to bottom, #31bce8, transparent);
   }
 `;
+// 导出组件
+export default NftFarams;
 // NftFarams style end

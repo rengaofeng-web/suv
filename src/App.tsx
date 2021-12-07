@@ -13,7 +13,7 @@ import Details from "./views/Details/Details";
 import Harvest from "./views/Harvest/Harvest";
 import Withdraw from "./views/Withdraw/Withdraw";
 import SuvBox from "./views/SuvBox/SuvBox";
-import { NftFarams } from "./views/NftFarams/NftFarams";
+import  NftFarams  from "./views/NftFarams/NftFarams";
 const App: React.FC = (props) => {
   return (
     <AppStyle className="App">
