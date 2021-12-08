@@ -1,12 +1,17 @@
 import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
+import isMobile from "is-mobile";
 import { Control } from "react-keeper";
-// 图片导入
+// pc图片导入
 import logo from "../../assets/PC-config/home/top_logo_white.svg";
+// mobile图片导入
+import mobile_logo from "../../assets/Phone-config/home/top_logo_white.svg";
 // 组件导入
 import Connect from "../ConnectPopup/Connect"; //connect popup
 import ConnectButton from "../ConnectButton/ConnectButton"; //connect button
 const Header: React.FC<{}> = () => {
+  const isM = isMobile();
+  console.log(isM);
   const nav = useRef(null);
   let [homeState, setState] = useState(false);
   const chengeState = () => {
@@ -36,8 +41,7 @@ const Header: React.FC<{}> = () => {
       const brother = parent.children as HTMLCollection;
       for (let i = 0; i < brother?.length; i++) {
         const select = brother[i].children[0] as HTMLDivElement;
-        if (select && select.classList.contains("select"))
-          select.style.display = "none";
+        if (select && select.classList.contains("select")) select.style.display = "none";
         brother[i].classList.remove("active");
       }
     }
@@ -56,8 +60,14 @@ const Header: React.FC<{}> = () => {
       <div className="header">
         {/* logo */}
         <div className="logo">
-          <img src={logo} alt="" />
+          <img src={isM ? mobile_logo : logo} alt="" />
         </div>
+        {isM?(<div className="menu-button" >
+          <div className="line"></div>
+          <div className="line"></div>
+          <div className="line"></div>
+        </div>):null}
+      
         {/* header-nav */}
         <div className="header-nav">
           <div className="nav" ref={nav}>
@@ -72,9 +82,7 @@ const Header: React.FC<{}> = () => {
                   <div
                     className="select-item"
                     onClick={(e: React.MouseEvent) => {
-                      e.stopPropagation
-                        ? e.stopPropagation()
-                        : (e.cancelable = true);
+                      e.stopPropagation ? e.stopPropagation() : (e.cancelable = true);
                       removeStats();
                       Control.go("/pool");
                     }}
@@ -92,9 +100,7 @@ const Header: React.FC<{}> = () => {
                   <div
                     className="select-item"
                     onClick={(e: React.MouseEvent) => {
-                      e.stopPropagation
-                        ? e.stopPropagation()
-                        : (e.cancelable = true);
+                      e.stopPropagation ? e.stopPropagation() : (e.cancelable = true);
                       removeStats();
                       Control.go("/suvBox");
                     }}
@@ -104,9 +110,7 @@ const Header: React.FC<{}> = () => {
                   <div
                     className="select-item"
                     onClick={(e: React.MouseEvent) => {
-                      e.stopPropagation
-                        ? e.stopPropagation()
-                        : (e.cancelable = true);
+                      e.stopPropagation ? e.stopPropagation() : (e.cancelable = true);
                       removeStats();
                       Control.go("/nftFarams");
                     }}
@@ -116,9 +120,7 @@ const Header: React.FC<{}> = () => {
                   <div
                     className="select-item"
                     onClick={(e: React.MouseEvent) => {
-                      e.stopPropagation
-                        ? e.stopPropagation()
-                        : (e.cancelable = true);
+                      e.stopPropagation ? e.stopPropagation() : (e.cancelable = true);
                       removeStats();
                       Control.go("/owned");
                     }}
@@ -183,6 +185,7 @@ const Header: React.FC<{}> = () => {
 };
 // header style start
 const HeaderStyle = styled.div`
+position: relative;
   .header {
     max-width: 1920px;
     min-width: 1200px;
@@ -250,18 +253,10 @@ const HeaderStyle = styled.div`
             0 calc(100% - 15px),
             0 15px
           );
-          background: linear-gradient(
-                -45deg,
-                #3aebf7 11px,
-                rgba(5, 28, 65, 0.06) 0
-              )
-              bottom right,
-            linear-gradient(45deg, #3aebf7 11px, rgba(5, 28, 65, 0.06) 0) bottom
-              left,
-            linear-gradient(135deg, #3aebf7 11px, rgba(5, 28, 65, 0.06) 0) top
-              left,
-            linear-gradient(-135deg, #3aebf7 11px, rgba(5, 28, 65, 0.06) 0) top
-              right;
+          background: linear-gradient(-45deg, #3aebf7 11px, rgba(5, 28, 65, 0.06) 0) bottom right,
+            linear-gradient(45deg, #3aebf7 11px, rgba(5, 28, 65, 0.06) 0) bottom left,
+            linear-gradient(135deg, #3aebf7 11px, rgba(5, 28, 65, 0.06) 0) top left,
+            linear-gradient(-135deg, #3aebf7 11px, rgba(5, 28, 65, 0.06) 0) top right;
           background-size: 300px 200px;
           background-repeat: no-repeat;
           border: 1px solid #3aebf7;
@@ -357,6 +352,49 @@ const HeaderStyle = styled.div`
       }
     }
   }
+  /* mobile style start */
+  @media screen and (max-width: 750px) {
+    .header {
+      width: 7.5rem;
+      height: 1.26rem;
+      max-width: auto;
+      min-width: auto;
+      background: linear-gradient(180deg, #000000 0%, rgba(0, 0, 0, 0.3) 100%);
+      display: flex;
+      align-items: center;
+      .logo {
+        float: none;
+        width: 0.87rem;
+        height: 0.86rem;
+        /* margin: .1rem 0 0 .4rem; */
+        margin-left: .4rem;
+        padding: 0;
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+      .menu-button{
+        margin-left: 3.3rem;
+        .line{
+          width: .6rem;
+          height: .06rem;
+          border-radius: .1rem;
+          background: #fff;
+          margin-bottom: .12rem;
+        }
+      }
+      .header-nav {
+        /* position: absolute; */
+        position: relative;
+        .nav{
+          position: absolute;
+          display: none;
+        }
+      }
+    }
+  }
+  /* mobile style end */
 `;
 // header style end
 

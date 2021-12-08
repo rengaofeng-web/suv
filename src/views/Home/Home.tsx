@@ -1,10 +1,13 @@
 import React, { useRef } from "react";
 import styled from "styled-components";
+import isMobile from "is-mobile";
 // 组件导入
 import Footer from "../../components/Footer/Footer"; //footer
-// 图片导入
-import wholeBg from "../../assets/PC-config/shouye_bg.jpg";//整体背景
-
+// pc图片导入
+import wholeBg from "../../assets/PC-config/shouye_bg.jpg"; //整体背景
+// mobile图片导入
+import mobile_wholeBg from "../../assets/Phone-config/shouye_bg.jpg"; //整体背景
+const isM = isMobile();
 const Home: React.FC = (props) => {
   let homeBox = useRef(null);
   return (
@@ -14,19 +17,15 @@ const Home: React.FC = (props) => {
       <div className="content-top-bg">
         <div className="content">
           <div className="left-img">
-            <img
-              src={require("../../assets/PC-config/home/tu1.png").default}
-              alt=""
-            />
+            <img src={require("../../assets/PC-config/home/tu1.png").default} alt="" />
           </div>
           <div className="right-text">
             <div className="sanjiao"></div>
             <div className="title">Build the perfect team</div>
             <div className="article">
-              Draft your starters. Challenge to be the best. Outsmart and
-              counter your opponents strategically to place rank in competition.
-              Earn $ILV through play, and become part of our community-based
-              governance.
+              Draft your starters. Challenge to be the best. Outsmart and counter your opponents
+              strategically to place rank in competition. Earn $ILV through play, and become part of
+              our community-based governance.
             </div>
           </div>
         </div>
@@ -38,17 +37,13 @@ const Home: React.FC = (props) => {
             <div className="sanjiao"></div>
             <div className="title">Build the perfect team</div>
             <div className="article">
-              Draft your starters. Challenge to be the best. Outsmart and
-              counter your opponents strategically to place rank in competition.
-              Earn $ILV through play, and become part of our community-based
-              governance.
+              Draft your starters. Challenge to be the best. Outsmart and counter your opponents
+              strategically to place rank in competition. Earn $ILV through play, and become part of
+              our community-based governance.
             </div>
           </div>
           <div className="right-img">
-            <img
-              src={require("../../assets/PC-config/home/tu2.png").default}
-              alt=""
-            />
+            <img src={require("../../assets/PC-config/home/tu2.png").default} alt="" />
           </div>
         </div>
       </div>
@@ -56,19 +51,15 @@ const Home: React.FC = (props) => {
       <div className="content-bottom-bg">
         <div className="content">
           <div className="left-img">
-            <img
-              src={require("../../assets/PC-config/home/tu3.png").default}
-              alt=""
-            />
+            <img src={require("../../assets/PC-config/home/tu3.png").default} alt="" />
           </div>
           <div className="right-text">
             <div className="sanjiao"></div>
             <div className="title">Build the perfect team</div>
             <div className="article">
-              Draft your starters. Challenge to be the best. Outsmart and
-              counter your opponents strategically to place rank in competition.
-              Earn $ILV through play, and become part of our community-based
-              governance.
+              Draft your starters. Challenge to be the best. Outsmart and counter your opponents
+              strategically to place rank in competition. Earn $ILV through play, and become part of
+              our community-based governance.
             </div>
           </div>
         </div>
@@ -78,6 +69,8 @@ const Home: React.FC = (props) => {
   );
 };
 // home style start
+console.log(isM)
+// if()
 const HomeStyle = styled.div`
   position: relative;
   max-width: 1920px;
@@ -129,11 +122,7 @@ const HomeStyle = styled.div`
           width: 467px;
           height: 467px;
           transform: rotate(45deg) translateX(25%);
-          background: linear-gradient(
-            -90deg,
-            rgba(255, 255, 255, 0.7),
-            rgba(255, 255, 255, 0)
-          );
+          background: linear-gradient(-90deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0));
         }
         .title {
           font-family: Impact;
@@ -198,11 +187,7 @@ const HomeStyle = styled.div`
         width: 467px;
         height: 467px;
         transform: rotate(45deg) translateX(25%);
-        background: linear-gradient(
-          -90deg,
-          rgba(255, 255, 255, 0.7),
-          rgba(255, 255, 255, 0)
-        );
+        background: linear-gradient(-90deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0));
       }
       .title {
         font-family: Impact;
@@ -267,11 +252,7 @@ const HomeStyle = styled.div`
         width: 467px;
         height: 467px;
         transform: rotate(45deg) translateX(25%);
-        background: linear-gradient(
-          -90deg,
-          rgba(255, 255, 255, 0.7),
-          rgba(255, 255, 255, 0)
-        );
+        background: linear-gradient(-90deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0));
       }
       .title {
         font-family: Impact;
@@ -296,6 +277,21 @@ const HomeStyle = styled.div`
       }
     }
   }
+
+  // mobile style start
+  @media screen and (max-width: 750px) {
+    width: 7.5rem;
+    height: 43.86rem;
+    margin: auto;
+    overflow: hidden;
+    max-width: auto;
+    min-width: auto;
+    background-image: url(${mobile_wholeBg});
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-size: cover;
+  }
+  // mobile style end
 `;
 // home style end
 

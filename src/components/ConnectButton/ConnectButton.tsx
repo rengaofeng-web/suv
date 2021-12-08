@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import isMobile from "is-mobile";
+
 // 导入图片
 import logo from "../../assets/PC-config/home/my-wallet_logo.svg";
 interface Props {
@@ -7,6 +9,7 @@ interface Props {
 }
 
 const ConnectButton: React.FC<Props> = (props) => {
+  const isM = isMobile();
   let { change } = props;
   let [selectFlag, setSelectFlag] = useState(false);
   let flag = false;
@@ -190,6 +193,15 @@ const ButtonStyle = styled.div`
   .my-wallet:hover {
     cursor: pointer;
   }
+   /* mobile style start */
+   @media screen and (max-width: 750px) {
+     position: absolute;
+    left: .56rem;
+    top: -0.1rem;
+    .connect{
+      
+    }
+   }
 `;
 // button style end
 
