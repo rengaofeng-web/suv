@@ -4,176 +4,97 @@ import styled from "styled-components";
 import wholeBg from "../../assets/PC-config/bg2.jpg"; //整体背景图
 
 const NftFarams: React.FC<{}> = () => {
-  const [switchCurrent, setSwitchCurrent] = useState(true);
-  const [switchActive, setSwitchActive] = useState(true);
+  const [switchCurrent, setSwitchCurrent] = useState([true, true]);//切换选项卡状态
+  const contentData = [
+    {
+      id: 1,
+      blindBoxImg: require("../../assets/PC-config/NFT/feichuan5.png").default,
+    },
+    {
+      id: 2,
+      blindBoxImg: require("../../assets/PC-config/NFT/feichuan4.png").default,
+    },
+  ];
   return (
     <FaramsStyle>
       <div className="content-box">
-        <div className="content-item">
-          <div className="left-blindBox">
-            <img
-              src={require("../../assets/PC-config/NFT/feichuan5.png").default}
-              alt=""
-            />
-          </div>
-          <div className="right-content">
-            <div className="top">
-              <div className="earned-box">
-                <div className="right-boreder"></div>
-                <div className="earned">
-                  <div className="earned-number">
-                    <div>Earned</div>
-                    <div className="number">1,123,155.12</div>
+        {contentData.map((item, index) => (
+          <div className="content-item" key={item.id}>
+            <div className="left-blindBox">
+              <img src={item.blindBoxImg} alt="" />
+            </div>
+            <div className="right-content">
+              <div className="top">
+                <div className="earned-box">
+                  <div className="right-boreder"></div>
+                  <div className="earned">
+                    <div className="earned-number">
+                      <div>Earned</div>
+                      <div className="number">1,123,155.12</div>
+                    </div>
+                    <div className="harvest">Harvest</div>
                   </div>
-                  <div className="harvest">Harvest</div>
+                </div>
+                <div className="staked">
+                  <div>staked</div>
+                  <div>1,123,155.12</div>
                 </div>
               </div>
-              <div className="staked">
-                <div>staked</div>
-                <div>1,123,155.12</div>
+              <div className="bottom">
+                <div className="container">
+                  <div className="switch-head">
+                    <div className="approve">Approve</div>
+                    <div
+                      className={switchCurrent[index] ? "deposit active" : "deposit"}
+                      onClick={() => {
+                        let currentList = [...switchCurrent];
+                        currentList[index] = true;
+                        setSwitchCurrent(currentList);
+                      }}
+                    >
+                      Deposit
+                    </div>
+                    <div
+                      className={!switchCurrent[index] ? "withdraw active" : "withdraw"}
+                      onClick={() => {
+                        let currentList = [...switchCurrent];
+                        currentList[index] = false;
+                        setSwitchCurrent(currentList);
+                      }}
+                    >
+                      Withdraw
+                    </div>
+                  </div>
+                  <div className="switch-content">
+                    <div
+                      className="switch-content-item"
+                      style={{ display: switchCurrent[index] ? "block" : "none" }}
+                    >
+                      <div className="title">Available:124613563156515</div>
+                      <div className="uinput">
+                        <input type="number" defaultValue="123456789132" />
+                        <div className="max">MAX</div>
+                      </div>
+                      <div className="button">Deposit</div>
+                    </div>
+                    <div
+                      className="switch-content-item"
+                      style={{ display: !switchCurrent[index] ? "block" : "none" }}
+                    >
+                      <div className="title">Available:124613563156515</div>
+                      <div className="uinput">
+                        <input type="number" defaultValue="123456789132"  />
+                        <div className="max">MAX</div>
+                      </div>
+                      <div className="button">Withdraw</div>
+                    </div>
+                  </div>
+                </div>
+                <div className="right-border"></div>
               </div>
             </div>
-            <div className="bottom">
-              <div className="container">
-                <div className="switch-head">
-                  <div className="approve">Approve</div>
-                  <div
-                    className={switchCurrent ? "deposit active" : "deposit"}
-                    onClick={() => {
-                      setSwitchCurrent(true);
-                    }}
-                  >
-                    Deposit
-                  </div>
-                  <div
-                    className={!switchCurrent ? "withdraw active" : "withdraw"}
-                    onClick={() => {
-                      setSwitchCurrent(false);
-                    }}
-                  >
-                    Withdraw
-                  </div>
-                </div>
-                <div className="switch-content">
-                  <div
-                    className="switch-content-item"
-                    style={{ display: switchCurrent ? "block" : "none" }}
-                  >
-                    <div className="title">Available:124613563156515</div>
-                    <div className="uinput">
-                      <input
-                        type="number"
-                        value="123456789132"
-                        readOnly={true}
-                      />
-                      <div className="max">MAX</div>
-                    </div>
-                    <div className="button">Deposit</div>
-                  </div>
-                  <div
-                    className="switch-content-item"
-                    style={{ display: !switchCurrent ? "block" : "none" }}
-                  >
-                    <div className="title">Available:124613563156515</div>
-                    <div className="uinput">
-                      <input
-                        type="number"
-                        value="123456789132"
-                        readOnly={true}
-                      />
-                      <div className="max">MAX</div>
-                    </div>
-                    <div className="button">Withdraw</div>
-                  </div>
-                </div>
-              </div>
-              <div className="right-border"></div>
-            </div>
           </div>
-        </div>
-        <div className="split-line"></div>
-        <div className="content-item">
-          <div className="left-blindBox">
-            <img
-              src={require("../../assets/PC-config/NFT/feichuan3.png").default}
-              alt=""
-            />
-          </div>
-          <div className="right-content">
-            <div className="top">
-              <div className="earned-box">
-                <div className="right-boreder"></div>
-                <div className="earned">
-                  <div className="earned-number">
-                    <div>Earned</div>
-                    <div className="number">1,123,155.12</div>
-                  </div>
-                  <div className="harvest">Harvest</div>
-                </div>
-              </div>
-              <div className="staked">
-                <div>staked</div>
-                <div>1,123,155.12</div>
-              </div>
-            </div>
-            <div className="bottom">
-              <div className="container">
-                <div className="switch-head">
-                  <div className="approve">Approve</div>
-                  <div
-                    className={switchActive ? "deposit active" : "deposit"}
-                    onClick={() => {
-                      setSwitchActive(true);
-                    }}
-                  >
-                    Deposit
-                  </div>
-                  <div
-                    className={!switchActive ? "withdraw active" : "withdraw"}
-                    onClick={() => {
-                      setSwitchActive(false);
-                    }}
-                  >
-                    Withdraw
-                  </div>
-                </div>
-                <div className="switch-content">
-                  <div
-                    className="switch-content-item"
-                    style={{ display: switchActive ? "block" : "none" }}
-                  >
-                    <div className="title">Available:124613563156515</div>
-                    <div className="uinput">
-                      <input
-                        type="number"
-                        value="123456789132"
-                        readOnly={true}
-                      />
-                      <div className="max">MAX</div>
-                    </div>
-                    <div className="button">Deposit</div>
-                  </div>
-                  <div
-                    className="switch-content-item"
-                    style={{ display: !switchActive ? "block" : "none" }}
-                  >
-                    <div className="title">Available:124613563156515</div>
-                    <div className="uinput">
-                      <input
-                        type="number"
-                        value="123456789132"
-                        readOnly={true}
-                      />
-                      <div className="max">MAX</div>
-                    </div>
-                    <div className="button">Withdraw</div>
-                  </div>
-                </div>
-              </div>
-              <div className="right-border"></div>
-            </div>
-          </div>
-        </div>
+        ))}
       </div>
     </FaramsStyle>
   );
@@ -191,26 +112,16 @@ const FaramsStyle = styled.div`
   box-sizing: border-box;
   .content-box {
     width: 1200px;
-    height: 1041px;
+    /* height: 1041px; */
     position: absolute;
     left: 50%;
     top: 176px;
     transform: translate(-50%, 0);
-    background: linear-gradient(
-      180deg,
-      rgba(5, 22, 43, 0.8) 0%,
-      rgba(5, 22, 43, 0.24) 106.72%
-    );
+    background: linear-gradient(180deg, rgba(5, 22, 43, 0.8) 0%, rgba(5, 22, 43, 0.24) 106.72%);
     box-shadow: inset 0px 0px 60px #00a3ff;
     backdrop-filter: blur(10px);
-    background: linear-gradient(
-          -45deg,
-          transparent 36px,
-          rgba(4, 10, 58, 0.3) 0
-        )
-        bottom right,
-      linear-gradient(45deg, transparent 36px, rgba(4, 10, 58, 0.3) 0) bottom
-        left,
+    background: linear-gradient(-45deg, transparent 36px, rgba(4, 10, 58, 0.3) 0) bottom right,
+      linear-gradient(45deg, transparent 36px, rgba(4, 10, 58, 0.3) 0) bottom left,
       linear-gradient(135deg, #33bfeb 37px, rgba(4, 10, 58, 0.3) 0) top left,
       linear-gradient(-135deg, #33bfeb 38px, rgba(4, 10, 58, 0.3) 0) top right;
     background-size: 50% 51%;
@@ -257,10 +168,12 @@ const FaramsStyle = styled.div`
       0 50px
     );
     box-sizing: border-box;
-    padding: 48px 134px 66px;
+    padding: 48px 134px 20px;
     .content-item {
       position: relative;
       display: flex;
+      margin-bottom: 83px;
+
       .left-blindBox {
       }
       .right-content {
@@ -550,20 +463,17 @@ const FaramsStyle = styled.div`
                   right: 17px;
                   width: 34px;
                   height: 2px;
-                  background: #fff;
-                  border-top-right-radius: 3px;
+                  background: linear-gradient(-135deg, transparent 2px, #fff 0) top right;
                 }
                 .button:after {
                   content: "";
                   position: absolute;
-                  top: 42%;
+                  top: 45%;
                   right: 16px;
                   width: 12px;
                   height: 2px;
-                  background: #fff;
+                  background: linear-gradient(-45deg, transparent 2px, #fff 0) bottom right;
                   transform: rotate(45deg);
-                  border-bottom-right-radius: 3px;
-                  border-top-right-radius: 3px;
                 }
               }
             }
@@ -598,17 +508,26 @@ const FaramsStyle = styled.div`
         }
       }
     }
-    .split-line {
+    .content-item:after {
+      content: "";
+      position: absolute;
+      bottom: -77px;
       height: 5px;
       width: 927px;
       border-radius: 0px;
       margin: 39px 0;
-      background: linear-gradient(
-        90deg,
-        rgba(255, 255, 255, 0.5) 0%,
-        rgba(255, 255, 255, 0) 100%
-      );
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 100%);
     }
+    .content-item:last-child:after {
+      display: none;
+    }
+    /* .split-line {
+      height: 5px;
+      width: 927px;
+      border-radius: 0px;
+      margin: 39px 0;
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 100%);
+    } */
   }
   .content-box:before {
     content: "";
@@ -629,6 +548,6 @@ const FaramsStyle = styled.div`
     background-image: linear-gradient(to bottom, #31bce8, transparent);
   }
 `;
+// NftFarams style end
 // 导出组件
 export default NftFarams;
-// NftFarams style end

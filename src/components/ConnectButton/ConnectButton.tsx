@@ -30,25 +30,14 @@ const ConnectButton: React.FC<Props> = (props) => {
   return (
     <ButtonStyle>
       {/* 未登录状态 */}
-      <div
-        className="connect"
-        onClick={show_connect}
-        style={{ display: flag ? "none" : "block" }}
-      >
+      <div className="connect" onClick={show_connect} style={{ display: flag ? "none" : "block" }}>
         Connect
       </div>
       {/* 登录状态 */}
-      <div
-        className="my-wallet"
-        style={{ display: flag ? "block" : "none" }}
-        onClick={show_Wallet}
-      >
+      <div className="my-wallet" style={{ display: flag ? "block" : "none" }} onClick={show_Wallet}>
         My Wallet
         {/* select */}
-        <div
-          className="select"
-          style={{ display: selectFlag ? "block" : "none" }}
-        >
+        <div className="select" style={{ display: selectFlag ? "block" : "none" }}>
           <div className="top">
             {/* logo */}
             <img src={logo} alt="" className="myWallet-logo" />
@@ -82,6 +71,11 @@ const ButtonStyle = styled.div`
     font-family: Roboto;
     font-style: normal;
     font-weight: bold;
+    -moz-user-select: none; /*火狐*/
+    -webkit-user-select: none; /*webkit浏览器*/
+    -ms-user-select: none; /*IE10*/
+    -khtml-user-select: none; /*早期浏览器*/
+    user-select: none;
   }
   .connect:hover {
     cursor: pointer;

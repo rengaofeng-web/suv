@@ -4,7 +4,88 @@ import { Control } from "react-keeper";
 
 // 图片导入
 import wholeBg from "../../assets/PC-config/bg2.jpg"; //整体背景图
+interface DataItem{
+  id:number,
+  logo:string,
+  angle_mark?:string,
+  pName:string,
+  tvl:string,
+  apr:string
+}
 const Pool: React.FC<{}> = () => {
+  const listData:Array<DataItem> = [
+    {
+      id:1,
+      logo: require("../../assets/PC-config/pool/SUV.svg").default,
+      pName: "SUV",
+      tvl: "$1,131,475,658.83",
+      apr: "41.61%",
+    },
+    {
+      id:2,
+      logo: require("../../assets/PC-config/pool/SUV.svg").default,
+      angle_mark: require("../../assets/PC-config/pool/BUSD.svg").default,
+      pName: "SUV-BUSD",
+      tvl: "$1,131,475,658.83",
+      apr: "41.61%",
+    },
+    {
+      id:3,
+      logo: require("../../assets/PC-config/pool/BUSD.svg").default,
+      pName: "BUSD",
+      tvl: "$1,131,475,658.83",
+      apr: "41.61%",
+    },
+    {
+      id:4,
+      logo: require("../../assets/PC-config/pool/ETH.svg").default,
+      pName: "EHT",
+      tvl: "$1,131,475,658.83",
+      apr: "41.61%",
+    },
+    {
+      id:5,
+      logo: require("../../assets/PC-config/pool/USDT.svg").default,
+      pName: "USDT",
+      tvl: "$1,131,475,658.83",
+      apr: "41.61%",
+    },
+    {
+      id:6,
+      logo: require("../../assets/PC-config/pool/BNB.svg").default,
+      pName: "BNB",
+      tvl: "$1,131,475,658.83",
+      apr: "41.61%",
+    },
+    {
+      id:7,
+      logo: require("../../assets/PC-config/pool/DAI.svg").default,
+      pName: "DAI",
+      tvl: "$1,131,475,658.83",
+      apr: "41.61%",
+    },
+    {
+      id:8,
+      logo: require("../../assets/PC-config/pool/USDC.svg").default,
+      pName: "USDC",
+      tvl: "$1,131,475,658.83",
+      apr: "41.61%",
+    },
+    {
+      id:9,
+      logo: require("../../assets/PC-config/pool/BTCB.svg").default,
+      pName: "BTCB",
+      tvl: "$1,131,475,658.83",
+      apr: "41.61%",
+    },
+    {
+      id:10,
+      logo: require("../../assets/PC-config/pool/CAKE.svg").default,
+      pName: "CAKE",
+      tvl: "$1,131,475,658.83",
+      apr: "41.61%",
+    },
+  ];
   return (
     <PoolStyle>
       <div className="mask">
@@ -16,237 +97,44 @@ const Pool: React.FC<{}> = () => {
               <div className="apr">APR</div>
             </div>
             <div className="list">
-              <div className="list-item">
-                <div className="pool">
-                  <div className="logo-border">
-                    <div className="logo">
-                      <img
-                        src={
-                          require("../../assets/PC-config/pool/SUV.svg").default
-                        }
-                        alt=""
-                      />
-                    </div>
-                  </div>
-                  <div className="text">SUV</div>
-                </div>
-                <div className="tvl">$1,131,475,658.83</div>
-                <div className="apr">41.61%</div>
-                <div className="button-box">
-                  <div
-                    className="details"
-                    onClick={() => {
-                      Control.go("/details");
-                    }}
-                  >
-                    DETAILS
-                  </div>
-                  <div className="stake">STAKE</div>
-                </div>
-              </div>
-              <div className="list-item">
-                <div className="pool">
-                  <div className="logo-border">
-                    <div className="logo angle-mark">
-                      <img
-                        src={
-                          require("../../assets/PC-config/pool/SUV.svg").default
-                        }
-                        alt=""
-                      />
-                      <div className="mark">
-                        <img
-                          src={
-                            require("../../assets/PC-config/pool/BUSD.svg")
-                              .default
-                          }
-                          alt=""
-                        />
+              {listData.map((item, index) => (
+                <div className="list-item" key={item.id}>
+                  <div className="pool">
+                    <div className="logo-border">
+                      <div className={item.angle_mark ? "logo angle-mark" : "logo"}>
+                        <img src={item.logo} alt="" />
+                        <div className="mark">
+                          <img
+                            src={item.angle_mark}
+                            alt=""
+                          />
+                        </div>
                       </div>
                     </div>
+                    <div className="text">{item.pName}</div>
                   </div>
-                  <div className="text">SUV-BUSD</div>
-                </div>
-                <div className="tvl">$1,131,475,658.83</div>
-                <div className="apr">41.61%</div>
-                <div className="button-box">
-                  <div className="details">DETAILS</div>
-                  <div className="stake">STAKE</div>
-                </div>
-              </div>
-              <div className="list-item">
-                <div className="pool">
-                  <div className="logo-border">
-                    <div className="logo">
-                      <img
-                        src={
-                          require("../../assets/PC-config/pool/BUSD.svg")
-                            .default
-                        }
-                        alt=""
-                      />
+                  <div className="tvl">{item.tvl}</div>
+                  <div className="apr">{item.apr}</div>
+                  <div className="button-box">
+                    <div
+                      className="details"
+                      onClick={() => {
+                        Control.go("/details");
+                      }}
+                    >
+                      DETAILS
+                    </div>
+                    <div
+                      className="stake"
+                      onClick={() => {
+                        Control.go("/stake");
+                      }}
+                    >
+                      STAKE
                     </div>
                   </div>
-                  <div className="text">BUSD</div>
                 </div>
-                <div className="tvl">$1,131,475,658.83</div>
-                <div className="apr">41.61%</div>
-                <div className="button-box">
-                  <div className="details">DETAILS</div>
-                  <div className="stake">STAKE</div>
-                </div>
-              </div>
-              <div className="list-item">
-                <div className="pool">
-                  <div className="logo-border">
-                    <div className="logo">
-                      <img
-                        src={
-                          require("../../assets/PC-config/pool/ETH.svg").default
-                        }
-                        alt=""
-                      />
-                    </div>
-                  </div>
-                  <div className="text">EHT</div>
-                </div>
-                <div className="tvl">$1,131,475,658.83</div>
-                <div className="apr">41.61%</div>
-                <div className="button-box">
-                  <div className="details">DETAILS</div>
-                  <div className="stake">STAKE</div>
-                </div>
-              </div>
-              <div className="list-item">
-                <div className="pool">
-                  <div className="logo-border">
-                    <div className="logo">
-                      <img
-                        src={
-                          require("../../assets/PC-config/pool/USDT.svg")
-                            .default
-                        }
-                        alt=""
-                      />
-                    </div>
-                  </div>
-                  <div className="text">USDT</div>
-                </div>
-                <div className="tvl">$1,131,475,658.83</div>
-                <div className="apr">41.61%</div>
-                <div className="button-box">
-                  <div className="details">DETAILS</div>
-                  <div className="stake">STAKE</div>
-                </div>
-              </div>
-              <div className="list-item">
-                <div className="pool">
-                  <div className="logo-border">
-                    <div className="logo">
-                      <img
-                        src={
-                          require("../../assets/PC-config/pool/BNB.svg").default
-                        }
-                        alt=""
-                      />
-                    </div>
-                  </div>
-                  <div className="text">BNB</div>
-                </div>
-                <div className="tvl">$1,131,475,658.83</div>
-                <div className="apr">41.61%</div>
-                <div className="button-box">
-                  <div className="details">DETAILS</div>
-                  <div className="stake">STAKE</div>
-                </div>
-              </div>
-              <div className="list-item">
-                <div className="pool">
-                  <div className="logo-border">
-                    <div className="logo">
-                      <img
-                        src={
-                          require("../../assets/PC-config/pool/DAI.svg").default
-                        }
-                        alt=""
-                      />
-                    </div>
-                  </div>
-                  <div className="text">DAI</div>
-                </div>
-                <div className="tvl">$1,131,475,658.83</div>
-                <div className="apr">41.61%</div>
-                <div className="button-box">
-                  <div className="details">DETAILS</div>
-                  <div className="stake">STAKE</div>
-                </div>
-              </div>
-              <div className="list-item">
-                <div className="pool">
-                  <div className="logo-border">
-                    <div className="logo">
-                      <img
-                        src={
-                          require("../../assets/PC-config/pool/USDC.svg")
-                            .default
-                        }
-                        alt=""
-                      />
-                    </div>
-                  </div>
-                  <div className="text">USDC</div>
-                </div>
-                <div className="tvl">$1,131,475,658.83</div>
-                <div className="apr">41.61%</div>
-                <div className="button-box">
-                  <div className="details">DETAILS</div>
-                  <div className="stake">STAKE</div>
-                </div>
-              </div>
-              <div className="list-item">
-                <div className="pool">
-                  <div className="logo-border">
-                    <div className="logo">
-                      <img
-                        src={
-                          require("../../assets/PC-config/pool/BTCB.svg")
-                            .default
-                        }
-                        alt=""
-                      />
-                    </div>
-                  </div>
-                  <div className="text">BTCB</div>
-                </div>
-                <div className="tvl">$1,131,475,658.83</div>
-                <div className="apr">41.61%</div>
-                <div className="button-box">
-                  <div className="details">DETAILS</div>
-                  <div className="stake">STAKE</div>
-                </div>
-              </div>
-              <div className="list-item">
-                <div className="pool">
-                  <div className="logo-border">
-                    <div className="logo">
-                      <img
-                        src={
-                          require("../../assets/PC-config/pool/CAKE.svg")
-                            .default
-                        }
-                        alt=""
-                      />
-                    </div>
-                  </div>
-                  <div className="text">CAKE</div>
-                </div>
-                <div className="tvl">$1,131,475,658.83</div>
-                <div className="apr">41.61%</div>
-                <div className="button-box">
-                  <div className="details">DETAILS</div>
-                  <div className="stake">STAKE</div>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
@@ -289,14 +177,8 @@ const PoolStyle = styled.div`
         0 calc(100% - 35px),
         0 35px
       );
-      background: linear-gradient(
-            -45deg,
-            transparent 23px,
-            rgba(4, 10, 58, 0.3) 0
-          )
-          bottom right,
-        linear-gradient(45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom
-          left,
+      background: linear-gradient(-45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom right,
+        linear-gradient(45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom left,
         linear-gradient(135deg, #2cb0de 26px, rgba(4, 10, 58, 0.3) 0) top left,
         linear-gradient(-135deg, #2cb0de 26px, rgba(4, 10, 58, 0.3) 0) top right;
       background-size: 50% 51%;

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { Control } from "react-keeper";
 import styled from "styled-components";
 import Swiper from "swiper";
 import "swiper/css/swiper.css";
@@ -47,43 +48,19 @@ const SuvBoxPopup: React.FC<Props> = (props) => {
               <div className="swiper-container popup-swiper swiper-no-swiping">
                 <div className="swiper-wrapper ">
                   <div className="swiper-slide">
-                    <img
-                      src={
-                        require("../../assets/PC-config/NFT/feichuan5.png")
-                          .default
-                      }
-                      alt=""
-                    />
+                    <img src={require("../../assets/PC-config/NFT/feichuan5.png").default} alt="" />
                     <div className="identifier">#13245</div>
                   </div>
                   <div className="swiper-slide">
-                    <img
-                      src={
-                        require("../../assets/PC-config/NFT/feichuan4.png")
-                          .default
-                      }
-                      alt=""
-                    />
+                    <img src={require("../../assets/PC-config/NFT/feichuan4.png").default} alt="" />
                     <div className="identifier">#13245</div>
                   </div>
                   <div className="swiper-slide">
-                    <img
-                      src={
-                        require("../../assets/PC-config/NFT/feichuan3.png")
-                          .default
-                      }
-                      alt=""
-                    />
+                    <img src={require("../../assets/PC-config/NFT/feichuan3.png").default} alt="" />
                     <div className="identifier">#13245</div>
                   </div>
                   <div className="swiper-slide">
-                    <img
-                      src={
-                        require("../../assets/PC-config/NFT/feichuan3.png")
-                          .default
-                      }
-                      alt=""
-                    />
+                    <img src={require("../../assets/PC-config/NFT/feichuan3.png").default} alt="" />
                     <div className="identifier">#13245</div>
                   </div>
                 </div>
@@ -95,14 +72,26 @@ const SuvBoxPopup: React.FC<Props> = (props) => {
             </div>
           </div>
           <div className="bottom-button">
-            <div className="buy-again">Buy Again</div>
-            <div className="stake">Stake</div>
+            <div className="buy-again" onClick={close}>
+              Buy Again
+            </div>
+            <div
+              className="stake"
+              onClick={() => {
+                close();
+                Control.go("/nftFarams");
+              }}
+            >
+              Stake
+            </div>
           </div>
         </div>
         {/* close botton */}
         <div className="close-box-bg">
           <div className="close-box" onClick={close}>
-            <div className="close-button">+</div>
+            <div className="close-button" onClick={() => {}}>
+              +
+            </div>
           </div>
         </div>
       </div>
@@ -145,14 +134,8 @@ const PopupStyle = styled.div`
         0 calc(100% - 50px),
         0 50px
       );
-      background: linear-gradient(
-            -45deg,
-            transparent 36px,
-            rgba(4, 10, 58, 0.3) 0
-          )
-          bottom right,
-        linear-gradient(45deg, transparent 36px, rgba(4, 10, 58, 0.3) 0) bottom
-          left,
+      background: linear-gradient(-45deg, transparent 36px, rgba(4, 10, 58, 0.3) 0) bottom right,
+        linear-gradient(45deg, transparent 36px, rgba(4, 10, 58, 0.3) 0) bottom left,
         linear-gradient(135deg, #33bfeb 36px, rgba(4, 10, 58, 0.3) 0) top left,
         linear-gradient(-135deg, #33bfeb 36px, rgba(4, 10, 58, 0.3) 0) top right;
       background-size: 50% 51%;
@@ -219,11 +202,7 @@ const PopupStyle = styled.div`
             width: 150%;
             height: 150%;
             /* background-color: #00a3ff; */
-            background: linear-gradient(
-              90deg,
-              #ffdf70 54%,
-              rgba(255, 223, 112, 0) 100%
-            );
+            background: linear-gradient(90deg, #ffdf70 54%, rgba(255, 223, 112, 0) 100%);
             border-radius: 1px;
             transform: rotate(45deg);
           }
@@ -247,11 +226,7 @@ const PopupStyle = styled.div`
             width: 150%;
             height: 150%;
             /* background-color: #00a3ff; */
-            background: linear-gradient(
-              to left,
-              #ffdf70 54%,
-              rgba(255, 223, 112, 0) 100%
-            );
+            background: linear-gradient(to left, #ffdf70 54%, rgba(255, 223, 112, 0) 100%);
             border-radius: 1px;
             transform: rotate(45deg);
           }
@@ -324,11 +299,7 @@ const PopupStyle = styled.div`
       -webkit-transform: rotate(-138deg);
       -ms-transform: rotate(-138deg);
       transform: rotate(-138deg);
-      background: linear-gradient(
-        to bottom,
-        #eb3f3f 66%,
-        rgba(235, 63, 63, 0) 130.7%
-      );
+      background: linear-gradient(to bottom, #eb3f3f 66%, rgba(235, 63, 63, 0) 130.7%);
 
       .close-button {
         position: absolute;

@@ -1,4 +1,4 @@
-import React, { useRef,useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import styled from "styled-components";
 
 const Footer: React.FC<{}> = () => {
@@ -30,28 +30,41 @@ const Footer: React.FC<{}> = () => {
           <div className="left">
             <div className="footer-logo">
               <img
-                src={
-                  require("../../assets/PC-config/home/foot_survivor_logo.svg")
-                    .default
-                }
+                src={require("../../assets/PC-config/home/foot_survivor_logo.svg").default}
                 alt=""
               />
             </div>
             <div className="footer-menu">
               <div className="menu-item">
-                <div className="item">Staking</div>
-                <div className="item">Illuviary</div>
-                <div className="item">FAQ</div>
+                <div className="item">
+                  <a href="/#">Staking</a>
+                </div>
+                <div className="item">
+                  <a href="/#">Illuviary</a>
+                </div>
+                <div className="item">
+                  <a href="/#">FAQ</a>
+                </div>
               </div>
               <div className="menu-item">
-                <div className="item">Governance</div>
-                <div className="item">Contributors</div>
-                <div className="item">Careers</div>
+                <div className="item">
+                  <a href="/#">Governance</a>
+                </div>
+                <div className="item">
+                  <a href="/#">Contributors</a>
+                </div>
+                <div className="item">
+                  <a href="/#">Careers</a>
+                </div>
               </div>
               <div className="menu-item">
-                <div className="item">IlluviDex</div>
+                <div className="item">
+                  <a href="/#">IlluviDex</a>
+                </div>
 
-                <div className="item">Whitepaper</div>
+                <div className="item">
+                  <a href="/#">Whitepaper</a>
+                </div>
               </div>
             </div>
           </div>
@@ -61,10 +74,7 @@ const Footer: React.FC<{}> = () => {
               <div className="center-data">
                 <div className="left-logo">
                   <img
-                    src={
-                      require("../../assets/PC-config/home/foot_price_logo.svg")
-                        .default
-                    }
+                    src={require("../../assets/PC-config/home/foot_price_logo.svg").default}
                     alt=""
                   />
                   <div className="text">SUV</div>
@@ -85,53 +95,41 @@ const Footer: React.FC<{}> = () => {
           <div className="right">
             <div className="trademark-bg">
               <div className="trademark">
-              <a href="*">
-                <img
-                  src={
-                    require("../../assets/PC-config/home/foot_twitter.svg")
-                      .default
-                  }
-                  alt=""
-                />
+                <a href="/#">
+                  <img
+                    src={require("../../assets/PC-config/home/foot_twitter.svg").default}
+                    alt=""
+                  />
                 </a>
               </div>
             </div>
             <div className="trademark-bg">
               <div className="trademark">
-                <a href="*">
-                <img
-                  src={
-                    require("../../assets/PC-config/home/foot_telegram.svg")
-                      .default
-                  }
-                  alt=""
-                />
-                </a> 
-              </div>
-            </div>
-            <div className="trademark-bg">
-              <div className="trademark">
-              <a href="*">
-                <img
-                  src={
-                    require("../../assets/PC-config/home/foot_discord.svg")
-                      .default
-                  }
-                  alt=""
-                />
+                <a href="/#">
+                  <img
+                    src={require("../../assets/PC-config/home/foot_telegram.svg").default}
+                    alt=""
+                  />
                 </a>
               </div>
             </div>
             <div className="trademark-bg">
               <div className="trademark">
-              <a href="*">
-                <img
-                  src={
-                    require("../../assets/PC-config/home/foot_medium.svg")
-                      .default
-                  }
-                  alt=""
-                />
+                <a href="/#">
+                  <img
+                    src={require("../../assets/PC-config/home/foot_discord.svg").default}
+                    alt=""
+                  />
+                </a>
+              </div>
+            </div>
+            <div className="trademark-bg">
+              <div className="trademark">
+                <a href="/#">
+                  <img
+                    src={require("../../assets/PC-config/home/foot_medium.svg").default}
+                    alt=""
+                  />
                 </a>
               </div>
             </div>
@@ -150,11 +148,7 @@ const FooterStyle = styled.div`
     height: 338px;
     position: absolute;
     bottom: 0;
-    background: linear-gradient(
-      180deg,
-      rgba(6, 11, 64, 0.8) 0%,
-      rgba(6, 11, 64, 0) 100%
-    );
+    background: linear-gradient(180deg, rgba(6, 11, 64, 0.8) 0%, rgba(6, 11, 64, 0) 100%);
     box-sizing: border-box;
     padding-right: 360px;
     padding-left: 360px;
@@ -185,12 +179,14 @@ const FooterStyle = styled.div`
           }
           .item {
             width: 130px;
-            font-family: Roboto;
-            font-style: normal;
-            font-weight: bold;
-            font-size: 16px;
-            color: #6066a7;
             padding-bottom: 16px;
+            a {
+              font-family: Roboto;
+              font-style: normal;
+              font-weight: bold;
+              font-size: 16px;
+              color: #6066a7;
+            }
           }
         }
         .center-data {
@@ -257,11 +253,7 @@ const FooterStyle = styled.div`
           position: absolute;
           left: -1px;
           top: 9px;
-          background: linear-gradient(
-            180deg,
-            #32c2d6 0%,
-            rgba(50, 194, 214, 0) 100%
-          );
+          background: linear-gradient(180deg, #32c2d6 0%, rgba(50, 194, 214, 0) 100%);
           /* border-radius: 50px; */
         }
         .center-data::after {
@@ -272,11 +264,7 @@ const FooterStyle = styled.div`
           position: absolute;
           right: -1px;
           top: 10px;
-          background: linear-gradient(
-            180deg,
-            #32c2d6 0%,
-            rgba(50, 194, 214, 0) 100%
-          );
+          background: linear-gradient(180deg, #32c2d6 0%, rgba(50, 194, 214, 0) 100%);
           /* border-radius: 50px; */
         }
         .left-logo {
@@ -340,11 +328,7 @@ const FooterStyle = styled.div`
         width: 58px;
         height: 58px;
         box-sizing: border-box;
-        background: linear-gradient(
-          180deg,
-          #fdfdfd 0%,
-          rgba(255, 255, 255, 0) 100%
-        );
+        background: linear-gradient(180deg, #fdfdfd 0%, rgba(255, 255, 255, 0) 100%);
         padding: 1px;
         border-radius: 50%;
         margin-right: 32px;

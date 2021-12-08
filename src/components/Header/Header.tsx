@@ -67,7 +67,7 @@ const Header: React.FC<{}> = () => {
               <div className="select">
                 <div className="select-con">
                   <div className="select-item">
-                    <a href="*">Buy SUV</a>
+                    <a href="/#">Buy SUV</a>
                   </div>
                   <div
                     className="select-item"
@@ -129,7 +129,7 @@ const Header: React.FC<{}> = () => {
               </div>
             </div>
             <div className="item survivor">
-              <a href="*">Survivor</a>
+              <a href="/#">Survivor</a>
             </div>
             <div className="item" onClick={showSelct}>
               Community
@@ -137,16 +137,16 @@ const Header: React.FC<{}> = () => {
               <div className="select">
                 <div className="select-con">
                   <div className="select-item">
-                    <a href="*">Bolg</a>
+                    <a href="/#">Bolg</a>
                   </div>
                   <div className="select-item">
-                    <a href="*">Discord</a>
+                    <a href="/#">Discord</a>
                   </div>
                   <div className="select-item">
-                    <a href="*">Telegram</a>
+                    <a href="/#">Telegram</a>
                   </div>
                   <div className="select-item">
-                    <a href="*">Twitter</a>
+                    <a href="/#">Twitter</a>
                   </div>
                 </div>
               </div>
@@ -157,16 +157,16 @@ const Header: React.FC<{}> = () => {
               <div className="select">
                 <div className="select-con">
                   <div className="select-item">
-                    <a href="*">FAQ</a>
+                    <a href="/#">FAQ</a>
                   </div>
                   <div className="select-item">
-                    <a href="*">Staking FAQ</a>
+                    <a href="/#">Staking FAQ</a>
                   </div>
                   <div className="select-item">
-                    <a href="*">Litepaper</a>
+                    <a href="/#">Litepaper</a>
                   </div>
                   <div className="select-item">
-                    <a href="*">Whitepaper</a>
+                    <a href="/#">Whitepaper</a>
                   </div>
                 </div>
               </div>

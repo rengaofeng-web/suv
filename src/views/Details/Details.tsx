@@ -51,7 +51,7 @@ const Details: React.FC<{}> = () => {
         <div
           className="stake"
           onClick={() => {
-            Control.go("/harvest");
+            Control.go("/stake");
           }}
         >
           STAKE

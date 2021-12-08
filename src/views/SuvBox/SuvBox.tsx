@@ -7,7 +7,7 @@ import SuvBoxPopup from "../../components/SuvBoxPopup/SuvBoxPopup";
 // 图片引入
 import wholeBg from "../../assets/PC-config/bg1.jpg"; //整体背景图
 import kejikuang from "../../assets/PC-config/NFT/kejikuang.png"; //宝箱背景
-import baoxiang_bg from "../../assets/gif+mov/gif.gif"; //宝箱背景 gif
+import baoxiang_bg from "../../assets/PC-config/NFT/xia.png"; //宝箱背景 光环
 
 const SuvBox: React.FC<{}> = () => {
   let [swiperIndex, setSwiperIndex] = useState(0);
@@ -36,7 +36,8 @@ const SuvBox: React.FC<{}> = () => {
         setBlindBox(blindBoxArr[index]);
         setTimeout(() => {
           swiper.slideTo(index);
-        });
+          // swiper.slidePrev();
+        }, 10);
       };
     }
     if (rightButton.current) {
@@ -49,7 +50,8 @@ const SuvBox: React.FC<{}> = () => {
         setBlindBox(blindBoxArr[index]);
         setTimeout(() => {
           swiper.slideTo(index);
-        });
+          // swiper.slideNext();
+        }, 10);
       };
     }
   });
@@ -74,28 +76,19 @@ const SuvBox: React.FC<{}> = () => {
                   <div className="swiper-wrapper ">
                     <div className="swiper-slide">
                       <img
-                        src={
-                          require("../../assets/PC-config/NFT/baoxiang1.png")
-                            .default
-                        }
+                        src={require("../../assets/PC-config/NFT/baoxiang1.png").default}
                         alt=""
                       />
                     </div>
                     <div className="swiper-slide">
                       <img
-                        src={
-                          require("../../assets/PC-config/NFT/baoxiang2.png")
-                            .default
-                        }
+                        src={require("../../assets/PC-config/NFT/baoxiang2.png").default}
                         alt=""
                       />
                     </div>
                     <div className="swiper-slide">
                       <img
-                        src={
-                          require("../../assets/PC-config/NFT/baoxiang3.png")
-                            .default
-                        }
+                        src={require("../../assets/PC-config/NFT/baoxiang3.png").default}
                         alt=""
                       />
                     </div>
@@ -105,10 +98,7 @@ const SuvBox: React.FC<{}> = () => {
             </div>
             <div className="control">
               <div className="control-bg">
-                <img
-                  src={require("../../assets/PC-config/NFT/anniu.svg").default}
-                  alt=""
-                />
+                <img src={require("../../assets/PC-config/NFT/anniu.svg").default} alt="" />
               </div>
               <div className="previous" ref={leftButton}></div>
               <div className="number">{swiperIndex + 1}/3</div>
@@ -149,9 +139,7 @@ const SuvBox: React.FC<{}> = () => {
         </div>
         <div className="right-bg">
           <div className="right-jackpot">
-            <div className="title">
-              You have a chance to win the following prizes
-            </div>
+            <div className="title">You have a chance to win the following prizes</div>
             <video
               src={require("../../assets/gif+mov/最终效果2.mp4").default}
               autoPlay={true}
@@ -160,12 +148,7 @@ const SuvBox: React.FC<{}> = () => {
               style={{ width: "607px" }}
             ></video>
             <div className="bottom-decorate">
-              <img
-                src={
-                  require("../../assets/PC-config/NFT/zhuangshi.svg").default
-                }
-                alt=""
-              />
+              <img src={require("../../assets/PC-config/NFT/zhuangshi.svg").default} alt="" />
             </div>
           </div>
         </div>
@@ -276,8 +259,7 @@ const SuvBoxStyle = styled.div`
           0 calc(100% - 35px),
           0 35px
         );
-        background: linear-gradient(-45deg, #177ab1 23px, rgba(0, 0, 0, 0.6) 0)
-            bottom right,
+        background: linear-gradient(-45deg, #177ab1 23px, rgba(0, 0, 0, 0.6) 0) bottom right,
           linear-gradient(45deg, #177ab1 23px, rgba(0, 0, 0, 0.6) 0) bottom left,
           linear-gradient(135deg, #177ab1 23px, rgba(0, 0, 0, 0.6) 0) top left,
           linear-gradient(-135deg, #177ab1 23px, rgba(0, 0, 0, 0.6) 0) top right;
@@ -434,11 +416,7 @@ const SuvBoxStyle = styled.div`
           width: 186px;
           height: 46px;
 
-          background: linear-gradient(
-            90deg,
-            #ffe24a 0%,
-            rgba(255, 226, 74, 0) 105.65%
-          );
+          background: linear-gradient(90deg, #ffe24a 0%, rgba(255, 226, 74, 0) 105.65%);
           font-family: Roboto;
           font-style: normal;
           font-weight: bold;
@@ -491,8 +469,7 @@ const SuvBoxStyle = styled.div`
         0 calc(100% - 35px),
         0 35px
       );
-      background: linear-gradient(-45deg, #1777ad 23px, rgba(0, 0, 0, 0.6) 0)
-          bottom right,
+      background: linear-gradient(-45deg, #1777ad 23px, rgba(0, 0, 0, 0.6) 0) bottom right,
         linear-gradient(45deg, #1777ad 23px, #000 0) bottom left,
         linear-gradient(135deg, #1777ad 23px, rgba(0, 0, 0, 1) 0) top left,
         linear-gradient(-135deg, #1777ad 23px, rgba(0, 0, 0, 1) 0) top right;

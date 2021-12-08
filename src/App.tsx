@@ -10,7 +10,7 @@ import Header from "./components/Header/Header";
 import Home from "./views/Home/Home";
 import Pool from "./views/Pool/Pool";
 import Details from "./views/Details/Details";
-import Harvest from "./views/Harvest/Harvest";
+import Stake from "./views/Stake/Stake";
 import Withdraw from "./views/Withdraw/Withdraw";
 import SuvBox from "./views/SuvBox/SuvBox";
 import NftFarams from "./views/NftFarams/NftFarams";
@@ -21,11 +21,11 @@ const App: React.FC<{}> = () => {
     <AppStyle className="App">
       <Header></Header>
       <HashRouter>
-        <div className="router-view">
+        <div className="router-container">
           <Route path="/" component={() => <Home />} />
           <Route path="/pool" component={() => <Pool />} />
           <Route path="/details" component={() => <Details />} />
-          <Route path="/harvest" component={() => <Harvest />} />
+          <Route path="/stake" component={() => <Stake />} />
           <Route path="/withdraw" component={() => <Withdraw />} />
           <Route path="/suvBox" component={() => <SuvBox />} />
           <Route path="/nftFarams" component={() => <NftFarams />} />

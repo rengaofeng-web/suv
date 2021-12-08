@@ -3,7 +3,7 @@ import styled from "styled-components";
 import wholeBg from "../../assets/PC-config/bg1.jpg"; //整体背景图
 // import { Control } from "react-keeper";
 
-const Harvest: React.FC<{}> = () => {
+const Stake: React.FC<{}> = () => {
   let [current, setCurrent] = useState(true);
   const ball = useRef(null);
 
@@ -611,4 +611,4 @@ const HarvestStyle = styled.div`
 `;
 // harvest style end
 
-export default Harvest;
+export default Stake;
