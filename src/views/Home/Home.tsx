@@ -17,10 +17,17 @@ const Home: React.FC = (props) => {
       <div className="content-top-bg">
         <div className="content">
           <div className="left-img">
-            <img src={require("../../assets/PC-config/home/tu1.png").default} alt="" />
+            <img
+              src={
+                !isM
+                  ? require("../../assets/PC-config/home/tu1.png").default
+                  : require("../../assets/Phone-config/home/tu1.png").default
+              }
+              alt=""
+            />
           </div>
           <div className="right-text">
-            <div className="sanjiao"></div>
+            {!isM ? <div className="sanjiao"></div> : null}
             <div className="title">Build the perfect team</div>
             <div className="article">
               Draft your starters. Challenge to be the best. Outsmart and counter your opponents
@@ -34,7 +41,7 @@ const Home: React.FC = (props) => {
       <div className="content-center-bg">
         <div className="content">
           <div className="left-text">
-            <div className="sanjiao"></div>
+            {!isM ? <div className="sanjiao"></div> : null}
             <div className="title">Build the perfect team</div>
             <div className="article">
               Draft your starters. Challenge to be the best. Outsmart and counter your opponents
@@ -43,7 +50,14 @@ const Home: React.FC = (props) => {
             </div>
           </div>
           <div className="right-img">
-            <img src={require("../../assets/PC-config/home/tu2.png").default} alt="" />
+            <img
+              src={
+                !isM
+                  ? require("../../assets/PC-config/home/tu2.png").default
+                  : require("../../assets/Phone-config/home/tu2.png").default
+              }
+              alt=""
+            />
           </div>
         </div>
       </div>
@@ -51,10 +65,17 @@ const Home: React.FC = (props) => {
       <div className="content-bottom-bg">
         <div className="content">
           <div className="left-img">
-            <img src={require("../../assets/PC-config/home/tu3.png").default} alt="" />
+            <img
+              src={
+                !isM
+                  ? require("../../assets/PC-config/home/tu3.png").default
+                  : require("../../assets/Phone-config/home/tu3.png").default
+              }
+              alt=""
+            />
           </div>
           <div className="right-text">
-            <div className="sanjiao"></div>
+            {!isM ? <div className="sanjiao"></div> : null}
             <div className="title">Build the perfect team</div>
             <div className="article">
               Draft your starters. Challenge to be the best. Outsmart and counter your opponents
@@ -69,8 +90,6 @@ const Home: React.FC = (props) => {
   );
 };
 // home style start
-console.log(isM)
-// if()
 const HomeStyle = styled.div`
   position: relative;
   max-width: 1920px;
@@ -290,6 +309,154 @@ const HomeStyle = styled.div`
     background-repeat: no-repeat;
     background-position-x: center;
     background-size: cover;
+    .content-top-bg {
+      width: 100%;
+      height: 8.8rem;
+      background: linear-gradient(
+        89.9deg,
+        rgba(255, 255, 255, 0.15) 0.08%,
+        rgba(255, 255, 255, 0) 99.91%
+      );
+      border-radius: 0px 1px 0px 0px;
+      top: 7.55rem;
+      .content {
+        padding-top: 0;
+        padding-left: 0.4rem;
+        display: block;
+        .left-img {
+          img {
+            width: 7.05rem;
+            /* height: 4.56rem; */
+          }
+        }
+        .right-text {
+          transform: none;
+          width: 6.7rem;
+          /* margin: auto; */
+          .title {
+            padding-top: 0.28rem;
+            width: auto;
+            text-align: left;
+            transform: none;
+            font-size: 0.34rem;
+          }
+          .article {
+            padding-top: 0.06rem;
+            font-family: PingFang SC;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 0.28rem;
+            line-height: 0.39rem;
+            text-align: justify;
+            letter-spacing: -0.03em;
+            color: rgba(255, 255, 255, 0.8);
+            width: 6.7rem;
+            height: auto;
+            transform: none;
+          }
+        }
+      }
+    }
+    .content-center-bg {
+      width: 100%;
+      height: 8.8rem;
+      background: linear-gradient(
+        89.9deg,
+        rgba(255, 255, 255, 0.15) 0.08%,
+        rgba(255, 255, 255, 0) 99.91%
+      );
+      border-radius: 0px 1px 0px 0px;
+      top: 16.85rem;
+      .content {
+        position: relative;
+        padding-top: 0.15rem;
+        padding-left: 0.4rem;
+        width: auto;
+        height: 100%;
+        transform: none;
+        display: block;
+        .left-text {
+          position: absolute;
+          bottom: 0.92rem;
+          .title {
+            transform: none;
+            width: auto;
+            text-align: left;
+            font-size: 0.34rem;
+            padding-top: 0.28rem;
+          }
+          .article {
+            width: 6.7rem;
+            height: auto;
+            font-family: PingFang SC;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 0.28rem;
+            line-height: 0.39rem;
+            text-align: justify;
+            letter-spacing: -0.03em;
+            color: rgba(255, 255, 255, 0.8);
+            padding-top: 0.06rem;
+            transform: none;
+          }
+        }
+        .right-img {
+          position: absolute;
+          top: 0;
+          left: 0;
+          img {
+            width: 7.05rem;
+          }
+        }
+      }
+    }
+    .content-bottom-bg {
+      width: 100%;
+      height: 8.8rem;
+      background: linear-gradient(
+        89.9deg,
+        rgba(255, 255, 255, 0.15) 0.08%,
+        rgba(255, 255, 255, 0) 99.91%
+      );
+      border-radius: 0px 1px 0px 0px;
+      top: 26.15rem;
+      .content {
+        width: 100%;
+        padding-top: 0.15rem;
+        padding-left: 0.4rem;
+        display: block;
+        transform: none;
+        .left-img {
+          transform: none;
+          img {
+            width: 7.05rem;
+          }
+        }
+        .right-text {
+          .title {
+            padding-top: 0.27rem;
+            font-size: 0.34rem;
+            width: auto;
+            text-align: left;
+            transform: none;
+          }
+          .article {
+            font-family: PingFang SC;
+            font-style: normal;
+            font-weight: normal;
+            font-size: .28rem;
+            line-height: .39rem;
+            text-align: justify;
+            letter-spacing: -0.03em;
+            color: rgba(255, 255, 255, 0.8);
+            transform: none;
+            width: 6.7rem;
+            height: auto;
+            padding-top:0.06rem;
+          }
+        }
+      }
+    }
   }
   // mobile style end
 `;

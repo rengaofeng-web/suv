@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import styled from "styled-components";
-
+import isMobile from "is-mobile";
+const isM = isMobile();
 const Footer: React.FC<{}> = () => {
   let charts = useRef(null);
   useEffect(() => {
@@ -8,17 +9,30 @@ const Footer: React.FC<{}> = () => {
       const canvas = charts.current as unknown as HTMLCanvasElement;
       var ctx = canvas.getContext("2d");
       if (ctx) {
-        ctx.strokeStyle = "#21d9ad";
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.moveTo(8, 70);
-        // ctx.bezierCurveTo(50, -8, 124, 88, 204, 0);
-        ctx.bezierCurveTo(51, -2, 128, 86, 161, 0);
-        ctx.shadowColor = "rgba(33,217,173,0.2)";
-        ctx.shadowOffsetX = 0;
-        ctx.shadowOffsetY = 6;
-        ctx.shadowBlur = 2;
-        ctx.stroke();
+        if (!isM) {
+          ctx.strokeStyle = "#21d9ad";
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.moveTo(8, 70);
+          // ctx.bezierCurveTo(50, -8, 124, 88, 204, 0);
+          ctx.bezierCurveTo(51, -2, 128, 86, 161, 0);
+          ctx.shadowColor = "rgba(33,217,173,0.2)";
+          ctx.shadowOffsetX = 0;
+          ctx.shadowOffsetY = 6;
+          ctx.shadowBlur = 2;
+          ctx.stroke();
+        } else {
+          ctx.strokeStyle = "#21d9ad";
+          ctx.lineWidth = 3;
+          ctx.beginPath();
+          ctx.moveTo(-2, 160);
+          ctx.bezierCurveTo(59, -2, 220, 139, 369, -20);
+          ctx.shadowColor = "rgba(33,217,173,0.2)";
+          ctx.shadowOffsetX = 0;
+          ctx.shadowOffsetY = 6;
+          ctx.shadowBlur = 2;
+          ctx.stroke();
+        }
       }
     }
   });
@@ -30,7 +44,11 @@ const Footer: React.FC<{}> = () => {
           <div className="left">
             <div className="footer-logo">
               <img
-                src={require("../../assets/PC-config/home/foot_survivor_logo.svg").default}
+                src={
+                  !isM
+                    ? require("../../assets/PC-config/home/foot_survivor_logo.svg").default
+                    : require("../../assets/Phone-config/home/foot_survivor_logo.svg").default
+                }
                 alt=""
               />
             </div>
@@ -74,7 +92,11 @@ const Footer: React.FC<{}> = () => {
               <div className="center-data">
                 <div className="left-logo">
                   <img
-                    src={require("../../assets/PC-config/home/foot_price_logo.svg").default}
+                    src={
+                      !isM
+                        ? require("../../assets/PC-config/home/foot_price_logo.svg").default
+                        : require("../../assets/Phone-config/home/foot_price_logo.svg").default
+                    }
                     alt=""
                   />
                   <div className="text">SUV</div>
@@ -85,7 +107,12 @@ const Footer: React.FC<{}> = () => {
                     <div className="price">$669.3</div>
                   </div>
                   <div className="chart">
-                    <canvas ref={charts} width="150" height="56"></canvas>
+                    <canvas
+                      ref={charts}
+                      style={{ width: !isM ? "150px" : "3.5rem", height: !isM ? "56" : "1.2rem" }}
+                      // width={!isM ? "150" : "3.5rem"}
+                      // height={!isM ? "56" : "1.2rem"}
+                    ></canvas>
                     <div className="num">2.82%</div>
                   </div>
                 </div>
@@ -97,7 +124,11 @@ const Footer: React.FC<{}> = () => {
               <div className="trademark">
                 <a href="/#">
                   <img
-                    src={require("../../assets/PC-config/home/foot_twitter.svg").default}
+                    src={
+                      !isM
+                        ? require("../../assets/PC-config/home/foot_twitter.svg").default
+                        : require("../../assets/Phone-config/home/foot_twitter.svg").default
+                    }
                     alt=""
                   />
                 </a>
@@ -107,7 +138,11 @@ const Footer: React.FC<{}> = () => {
               <div className="trademark">
                 <a href="/#">
                   <img
-                    src={require("../../assets/PC-config/home/foot_telegram.svg").default}
+                    src={
+                      !isM
+                        ? require("../../assets/PC-config/home/foot_telegram.svg").default
+                        : require("../../assets/Phone-config/home/foot_telegram.svg").default
+                    }
                     alt=""
                   />
                 </a>
@@ -117,7 +152,11 @@ const Footer: React.FC<{}> = () => {
               <div className="trademark">
                 <a href="/#">
                   <img
-                    src={require("../../assets/PC-config/home/foot_discord.svg").default}
+                    src={
+                      !isM
+                        ? require("../../assets/PC-config/home/foot_discord.svg").default
+                        : require("../../assets/Phone-config/home/foot_discord.svg").default
+                    }
                     alt=""
                   />
                 </a>
@@ -127,7 +166,11 @@ const Footer: React.FC<{}> = () => {
               <div className="trademark">
                 <a href="/#">
                   <img
-                    src={require("../../assets/PC-config/home/foot_medium.svg").default}
+                    src={
+                      !isM
+                        ? require("../../assets/PC-config/home/foot_medium.svg").default
+                        : require("../../assets/Phone-config/home/foot_medium.svg").default
+                    }
                     alt=""
                   />
                 </a>
@@ -135,14 +178,13 @@ const Footer: React.FC<{}> = () => {
             </div>
           </div>
         </div>
-        <div className="reserved">Illuvium © 2021, All rights reserved</div>
+        {!isM ? <div className="reserved">Illuvium © 2021, All rights reserved</div> : null}
       </div>
     </FooterStyle>
   );
 };
 // footer style start
 const FooterStyle = styled.div`
-  /* footer */
   .footer-bg {
     width: 100%;
     height: 338px;
@@ -345,6 +387,166 @@ const FooterStyle = styled.div`
       }
     }
   }
+  /* mobile style start */
+  @media screen and (max-width: 750px) {
+    .footer-bg {
+      width: 7.5rem;
+      height: 7.9rem;
+      background: linear-gradient(180deg, rgba(6, 11, 64, 0.8) 0%, rgba(6, 11, 64, 0) 195.35%);
+      padding: 0;
+      .footer {
+        display: block;
+        height: 100%;
+        position: relative;
+        .left {
+          position: absolute;
+          top: 4rem;
+          width: 100%;
+          box-sizing: border-box;
+          padding-left: 0.4rem;
+          padding-right: 0.4rem;
+          .footer-menu {
+            width: 100%;
+            justify-content: space-between;
+            .menu-item {
+              text-align: center;
+              .item {
+                width: auto;
+                padding-bottom: .16rem;
+              }
+              a {
+                font-size: 0.3rem;
+              }
+            }
+          }
+          .footer-logo {
+            position: absolute;
+            top: -3.7rem;
+            left: 0.4rem;
+            z-index: 1;
+            padding: 0;
+            img {
+              width: 2.36rem;
+            }
+          }
+        }
+        .center {
+          position: absolute;
+          top: 1rem;
+          left: 50%;
+          transform: translate(-50%, 0);
+          width: 6.7rem;
+          .center-data-bg {
+            width: 100%;
+            height: 2.21rem;
+            /* background: linear-gradient(
+              180deg,
+              rgba(255, 255, 255, 0.2) 0%,
+              rgba(255, 255, 255, 0) 100%
+            ); */
+            .center-data {
+              background: linear-gradient(
+                to top,
+                rgba(255, 255, 255, 0.2) 0%,
+                rgba(255, 255, 255, 0) 100%
+              );
+              backdrop-filter: blur(5px);
+              border-radius: .1rem;
+              .left-logo {
+                padding-left: 0.4rem;
+                padding-top: 0.35rem;
+                img {
+                  width: 0.99rem;
+                }
+                .text {
+                  font-size: 0.34rem;
+                  padding-top: 0.18rem;
+                }
+              }
+              .price-data {
+                padding-left: 1rem;
+                .top {
+                  .text {
+                    font-size: 0.28rem;
+                    padding-top: 0.24rem;
+                  }
+                  .price {
+                    font-size: 0.34rem;
+                    padding-left: 0.42rem;
+                    padding-top: 0.1rem;
+                  }
+                }
+                .chart {
+                  position: relative;
+                  .num {
+                    font-family: Roboto;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 0.3rem;
+                    line-height: 0.36rem;
+                    color: #21d9ad;
+                    position: absolute;
+                    right: 0;
+                    bottom: 0;
+                  }
+                }
+              }
+            }
+            .center-data:before {
+              background: linear-gradient(to top, #32c2d6 0%, rgba(50, 194, 214, 0) 100%);
+              height: 100%;
+              top: -0.04rem;
+              height: 100%;
+            }
+            .center-data:after {
+              background: linear-gradient(to top, #32c2d6 0%, rgba(50, 194, 214, 0) 100%);
+              top: -0.04rem;
+              height: 100%;
+            }
+            .line {
+              width: 6.72rem;
+              top: 1.99rem;
+              height: 0.23rem;
+              border-bottom: 1px solid #32c2d6;
+              border-top-left-radius: 0;
+              border-top-right-radius: 0;
+              border-bottom-left-radius: 0.1rem;
+              border-bottom-right-radius: 0.1rem;
+              border-top: none;
+            }
+          }
+        }
+        .right {
+          position: absolute;
+          bottom: 0.86rem;
+          left: 50%;
+          transform: translate(-50%, 0);
+          padding: 0;
+          .trademark-bg {
+            margin-right: 0.64rem;
+            width: 0.9rem;
+            height: 0.9rem;
+            .trademark {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              line-height: 0;
+            }
+            a {
+              display: inline-block;
+              img{
+                width: .59rem;
+              }
+            }
+          }
+          .trademark-bg:last-child {
+            margin: 0;
+          }
+        }
+      }
+    }
+  }
+  /* mobile style end */
 `;
 // footer style end
 export default Footer;

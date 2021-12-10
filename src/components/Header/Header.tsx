@@ -11,7 +11,6 @@ import Connect from "../ConnectPopup/Connect"; //connect popup
 import ConnectButton from "../ConnectButton/ConnectButton"; //connect button
 const Header: React.FC<{}> = () => {
   const isM = isMobile();
-  console.log(isM);
   const nav = useRef(null);
   let [homeState, setState] = useState(false);
   const chengeState = () => {
@@ -25,7 +24,7 @@ const Header: React.FC<{}> = () => {
     if (!target.classList.contains("item")) return false;
     const select = target.children[0] as HTMLDivElement;
     const state = select.style.display;
-    removeStats();
+    removeStats(false);
     if (state === "block") {
       select.style.display = "none";
       target.classList.remove("active");
@@ -35,8 +34,12 @@ const Header: React.FC<{}> = () => {
     }
   };
   //   清除下拉菜单的状态
-  const removeStats = () => {
+  const removeStats = (clsMobile: boolean) => {
     if (nav.current) {
+      const target = nav.current as HTMLDivElement;
+      if (clsMobile) {
+        target.style.display = "none";
+      }
       let parent = nav.current as HTMLDivElement;
       const brother = parent.children as HTMLCollection;
       for (let i = 0; i < brother?.length; i++) {
@@ -46,12 +49,24 @@ const Header: React.FC<{}> = () => {
       }
     }
   };
+  // 手机端显示导航
+  const mobile_showNav = (e: React.MouseEvent) => {
+    e = e || window.event;
+    // 阻止冒泡
+    e.stopPropagation ? e.stopPropagation() : (e.cancelable = true);
+    if (nav.current) {
+      const target = nav.current as HTMLDivElement;
+      target.style.display === "none"
+        ? (target.style.display = "block")
+        : (target.style.display = "none");
+    }
+  };
   useEffect(() => {
     document.onclick = () => {
-      removeStats();
+      isM ? removeStats(true) : removeStats(false);
     };
     window.onhashchange = () => {
-      removeStats();
+      isM ? removeStats(true) : removeStats(false);
     };
   });
   return (
@@ -62,15 +77,16 @@ const Header: React.FC<{}> = () => {
         <div className="logo">
           <img src={isM ? mobile_logo : logo} alt="" />
         </div>
-        {isM?(<div className="menu-button" >
-          <div className="line"></div>
-          <div className="line"></div>
-          <div className="line"></div>
-        </div>):null}
-      
+        {isM ? (
+          <div className="menu-button" onClick={mobile_showNav}>
+            <div className="line"></div>
+            <div className="line"></div>
+            <div className="line"></div>
+          </div>
+        ) : null}
         {/* header-nav */}
         <div className="header-nav">
-          <div className="nav" ref={nav}>
+          <div className="nav" ref={nav} style={{ display: isM ? "none" : "flex" }}>
             <div className="item staking" onClick={showSelct}>
               Staking
               {/* select */}
@@ -83,7 +99,7 @@ const Header: React.FC<{}> = () => {
                     className="select-item"
                     onClick={(e: React.MouseEvent) => {
                       e.stopPropagation ? e.stopPropagation() : (e.cancelable = true);
-                      removeStats();
+                      removeStats(true);
                       Control.go("/pool");
                     }}
                   >
@@ -101,7 +117,7 @@ const Header: React.FC<{}> = () => {
                     className="select-item"
                     onClick={(e: React.MouseEvent) => {
                       e.stopPropagation ? e.stopPropagation() : (e.cancelable = true);
-                      removeStats();
+                      removeStats(true);
                       Control.go("/suvBox");
                     }}
                   >
@@ -111,7 +127,7 @@ const Header: React.FC<{}> = () => {
                     className="select-item"
                     onClick={(e: React.MouseEvent) => {
                       e.stopPropagation ? e.stopPropagation() : (e.cancelable = true);
-                      removeStats();
+                      removeStats(true);
                       Control.go("/nftFarams");
                     }}
                   >
@@ -121,7 +137,7 @@ const Header: React.FC<{}> = () => {
                     className="select-item"
                     onClick={(e: React.MouseEvent) => {
                       e.stopPropagation ? e.stopPropagation() : (e.cancelable = true);
-                      removeStats();
+                      removeStats(true);
                       Control.go("/owned");
                     }}
                   >
@@ -133,7 +149,7 @@ const Header: React.FC<{}> = () => {
             <div className="item survivor">
               <a href="/#">Survivor</a>
             </div>
-            <div className="item" onClick={showSelct}>
+            <div className="item community" onClick={showSelct}>
               Community
               {/* select */}
               <div className="select">
@@ -185,7 +201,7 @@ const Header: React.FC<{}> = () => {
 };
 // header style start
 const HeaderStyle = styled.div`
-position: relative;
+  position: relative;
   .header {
     max-width: 1920px;
     min-width: 1200px;
@@ -367,29 +383,111 @@ position: relative;
         width: 0.87rem;
         height: 0.86rem;
         /* margin: .1rem 0 0 .4rem; */
-        margin-left: .4rem;
+        margin-left: 0.4rem;
         padding: 0;
         img {
           width: 100%;
           height: 100%;
         }
       }
-      .menu-button{
-        margin-left: 3.3rem;
-        .line{
-          width: .6rem;
-          height: .06rem;
-          border-radius: .1rem;
+      .menu-button {
+        margin-left: 3.3rem; 
+        .line {
+          width: 0.6rem;
+          height: 0.06rem;
+          border-radius: 0.1rem;
           background: #fff;
-          margin-bottom: .12rem;
+          margin-bottom: 0.12rem;
         }
       }
       .header-nav {
-        /* position: absolute; */
         position: relative;
-        .nav{
-          position: absolute;
-          display: none;
+        .nav {
+          position: fixed;
+          left: 0;
+          top: 12vh;
+          flex-wrap: wrap;
+          align-items: center;
+          width: 100vw;
+          background: rgba(1, 6, 44, 0.85);
+          box-shadow: inset 0px 0px 0.5rem #53c1ff;
+          backdrop-filter: blur(0.2rem);
+          padding: 0.15rem 0;
+          .item {
+            width: 100%;
+            height: auto;
+            text-align: center;
+            padding: 0;
+            margin: 0;
+            font-size: 0.34rem;
+            /* height: .6rem; */
+            line-height: 0.7rem;
+            color: #fff;
+            > a {
+              color: #fff;
+            }
+            .select {
+              position: relative;
+              top: 0;
+              left: 0;
+              width: 100%;
+              box-shadow: inset 0px 0px 0.1rem #39ebf6;
+              clip-path: polygon(
+                0.15rem 0px,
+                calc(100% - 0.15rem) 0,
+                100% 0.15rem,
+                100% calc(100% - 0.15rem),
+                calc(100% - 0.15rem) 100%,
+                0.15rem 100%,
+                0 calc(100% - 0.15rem),
+                0 0.15rem
+              );
+              background: linear-gradient(-45deg, #3aebf7 11px, rgba(5, 28, 65, 0.06) 0) bottom
+                  right,
+                linear-gradient(45deg, #3aebf7 11px, rgba(5, 28, 65, 0.06) 0) bottom left,
+                linear-gradient(135deg, #3aebf7 11px, rgba(5, 28, 65, 0.06) 0) top left,
+                linear-gradient(-135deg, #3aebf7 11px, rgba(5, 28, 65, 0.06) 0) top right;
+              .select-con {
+                box-shadow: inset 0px 0px 0.1rem #39ebf6;
+                padding-top: 0.39rem;
+                padding-bottom: 0.46rem;
+                .select-item {
+                  font-family: Roboto;
+                  font-style: normal;
+                  font-weight: bold;
+                  font-size: 0.32rem;
+                  line-height: 0.37rem;
+                  padding-bottom: 0.29rem;
+                  color: rgba(255, 255, 255, 0.8);
+                }
+                .select-item:last-child {
+                  padding: 0;
+                }
+              }
+            }
+          }
+          .item:after {
+            top: 0.3rem;
+            border-radius: 0.05rem;
+            border-bottom: 0.11rem solid rgba(255, 255, 255, 1);
+            border-left: 0.11rem solid transparent;
+            border-right: 0.11rem solid transparent;
+          }
+          .staking:after {
+            top: 0.35rem;
+            right: 2.8rem;
+          }
+          .nft:after {
+            right: 3.1rem;
+          }
+          .community:after {
+            top: 0.35rem;
+            right: 2.45rem;
+          }
+          .more:after {
+            top: 0.35rem;
+            right: 3rem;
+          }
         }
       }
     }

@@ -1,86 +1,112 @@
 import React from "react";
 import styled from "styled-components";
 import { Control } from "react-keeper";
+import isMobile from "is-mobile";
 
 // 图片导入
-import wholeBg from "../../assets/PC-config/bg2.jpg"; //整体背景图
-interface DataItem{
-  id:number,
-  logo:string,
-  angle_mark?:string,
-  pName:string,
-  tvl:string,
-  apr:string
+import wholeBg from "../../assets/PC-config/bg2.jpg"; //pc整体背景图
+import mobile_wholeBg from "../../assets/Phone-config/bg2.jpg"; //mobile 整体背景图
+interface DataItem {
+  id: number;
+  logo: string;
+  angle_mark?: string;
+  pName: string;
+  tvl: string;
+  apr: string;
 }
 const Pool: React.FC<{}> = () => {
-  const listData:Array<DataItem> = [
+  const isM: boolean = isMobile();
+  // 数据模拟
+  const listData: Array<DataItem> = [
     {
-      id:1,
-      logo: require("../../assets/PC-config/pool/SUV.svg").default,
+      id: 1,
+      logo: !isM
+        ? require("../../assets/PC-config/pool/SUV.svg").default
+        : require("../../assets/Phone-config/pool/SUV.svg").default,
       pName: "SUV",
       tvl: "$1,131,475,658.83",
       apr: "41.61%",
     },
     {
-      id:2,
-      logo: require("../../assets/PC-config/pool/SUV.svg").default,
-      angle_mark: require("../../assets/PC-config/pool/BUSD.svg").default,
+      id: 2,
+      logo: !isM
+        ? require("../../assets/PC-config/pool/SUV.svg").default
+        : require("../../assets/Phone-config/pool/SUV.svg").default,
+      angle_mark: !isM
+        ? require("../../assets/PC-config/pool/BUSD.svg").default
+        : require("../../assets/Phone-config/pool/BTCB.svg").default,
       pName: "SUV-BUSD",
       tvl: "$1,131,475,658.83",
       apr: "41.61%",
     },
     {
-      id:3,
-      logo: require("../../assets/PC-config/pool/BUSD.svg").default,
+      id: 3,
+      logo: !isM
+        ? require("../../assets/PC-config/pool/BUSD.svg").default
+        : require("../../assets/Phone-config/pool/BTCB.svg").default,
       pName: "BUSD",
       tvl: "$1,131,475,658.83",
       apr: "41.61%",
     },
     {
-      id:4,
-      logo: require("../../assets/PC-config/pool/ETH.svg").default,
+      id: 4,
+      logo: !isM
+        ? require("../../assets/PC-config/pool/ETH.svg").default
+        : require("../../assets/Phone-config/pool/ETH.svg").default,
       pName: "EHT",
       tvl: "$1,131,475,658.83",
       apr: "41.61%",
     },
     {
-      id:5,
-      logo: require("../../assets/PC-config/pool/USDT.svg").default,
+      id: 5,
+      logo: !isM
+        ? require("../../assets/PC-config/pool/USDT.svg").default
+        : require("../../assets/Phone-config/pool/USDT.svg").default,
       pName: "USDT",
       tvl: "$1,131,475,658.83",
       apr: "41.61%",
     },
     {
-      id:6,
-      logo: require("../../assets/PC-config/pool/BNB.svg").default,
+      id: 6,
+      logo: !isM
+        ? require("../../assets/PC-config/pool/BNB.svg").default
+        : require("../../assets/Phone-config/pool/BNB.svg").default,
       pName: "BNB",
       tvl: "$1,131,475,658.83",
       apr: "41.61%",
     },
     {
-      id:7,
-      logo: require("../../assets/PC-config/pool/DAI.svg").default,
+      id: 7,
+      logo: !isM
+        ? require("../../assets/PC-config/pool/DAI.svg").default
+        : require("../../assets/Phone-config/pool/DAI.svg").default,
       pName: "DAI",
       tvl: "$1,131,475,658.83",
       apr: "41.61%",
     },
     {
-      id:8,
-      logo: require("../../assets/PC-config/pool/USDC.svg").default,
+      id: 8,
+      logo: !isM
+        ? require("../../assets/PC-config/pool/USDC.svg").default
+        : require("../../assets/Phone-config/pool/USDC.svg").default,
       pName: "USDC",
       tvl: "$1,131,475,658.83",
       apr: "41.61%",
     },
     {
-      id:9,
-      logo: require("../../assets/PC-config/pool/BTCB.svg").default,
+      id: 9,
+      logo: !isM
+        ? require("../../assets/PC-config/pool/BTCB.svg").default
+        : require("../../assets/Phone-config/pool/BTCB.svg").default,
       pName: "BTCB",
       tvl: "$1,131,475,658.83",
       apr: "41.61%",
     },
     {
-      id:10,
-      logo: require("../../assets/PC-config/pool/CAKE.svg").default,
+      id: 10,
+      logo: !isM
+        ? require("../../assets/PC-config/pool/CAKE.svg").default
+        : require("../../assets/Phone-config/pool/CAKE.svg").default,
       pName: "CAKE",
       tvl: "$1,131,475,658.83",
       apr: "41.61%",
@@ -91,24 +117,32 @@ const Pool: React.FC<{}> = () => {
       <div className="mask">
         <div className="content">
           <div className="pool-list">
-            <div className="list-header">
-              <div className="pool">POOL</div>
-              <div className="tvl">TVL</div>
-              <div className="apr">APR</div>
-            </div>
+            {!isM ? (
+              <div className="list-header">
+                <div className="pool">POOL</div>
+                <div className="tvl">TVL</div>
+                <div className="apr">APR</div>
+              </div>
+            ) : null}
             <div className="list">
               {listData.map((item, index) => (
                 <div className="list-item" key={item.id}>
+                  {isM ? (
+                    <div className="left-title">
+                      <div className="pool-tlt">POOL</div>
+                      <div className="tvl-tlt">TVL</div>
+                      <div className="apr-tlt">APR</div>
+                    </div>
+                  ) : null}
                   <div className="pool">
                     <div className="logo-border">
                       <div className={item.angle_mark ? "logo angle-mark" : "logo"}>
                         <img src={item.logo} alt="" />
-                        <div className="mark">
-                          <img
-                            src={item.angle_mark}
-                            alt=""
-                          />
-                        </div>
+                        {item.angle_mark ? (
+                          <div className="mark">
+                            <img src={item.angle_mark} alt="" />
+                          </div>
+                        ) : null}
                       </div>
                     </div>
                     <div className="text">{item.pName}</div>
@@ -352,6 +386,271 @@ const PoolStyle = styled.div`
       background-image: linear-gradient(to bottom, #31bce8, transparent);
     }
   }
+  /* mobile style start */
+  @media screen and (max-width: 750px) {
+    max-width: auto;
+    min-width: auto;
+    height: 15.93rem;
+    width: 7.5rem;
+    background-image: url(${mobile_wholeBg});
+    background-repeat: repeat;
+    background-size: cover;
+    .mask {
+      position: relative;
+      left: 0;
+      top: 0;
+      padding-top: 1.86rem;
+      .content {
+        position: relative;
+        left: 0;
+        top: 0;
+        transform: none;
+        width: 100%;
+        height: auto;
+        box-shadow: none;
+        box-sizing: border-box;
+        padding: 0;
+        -webkit-clip-path: none;
+        background: none;
+        border: none;
+        .pool-list {
+          .list {
+            .list-item {
+              position: relative;
+              height: 4.81rem;
+              width: 6.7rem;
+              border: none;
+
+              clip-path: polygon(
+                0.4rem 0px,
+                calc(100% - 0.4rem) 0,
+                100% 0.4rem,
+                100% calc(100% - 0.4rem),
+                calc(100% - 0.4rem) 100%,
+                0.4rem 100%,
+                0 calc(100% - 0.4rem),
+                0 0.4rem
+              );
+              background: linear-gradient(
+                    -45deg,
+                    rgba(51, 191, 235, 1) 0.28rem,
+                    rgba(4, 10, 58, 0.3) 0
+                  )
+                  bottom right,
+                linear-gradient(45deg, rgba(51, 191, 235, 1) 0.28rem, rgba(4, 10, 58, 0.3) 0) bottom
+                  left,
+                linear-gradient(135deg, rgba(51, 191, 235, 1) 0.28rem, rgba(4, 10, 58, 0.3) 0) top
+                  left,
+                linear-gradient(-135deg, rgba(51, 191, 235, 1) 0.28rem, rgba(4, 10, 58, 0.3) 0) top
+                  right;
+              background-size: cover;
+              background-repeat: no-repeat;
+              /* backdrop-filter: blur(10px); */
+              border: 0.03rem solid rgba(51, 191, 235, 1);
+              box-shadow: inset 0px 0px 60px #00a3ff;
+              margin: auto;
+              display: block;
+              box-sizing: border-box;
+              padding: 39px 65px 0;
+              margin-bottom: 0.4rem;
+              .left-title {
+                > div {
+                  font-family: Roboto;
+                  font-style: normal;
+                  font-weight: bold;
+                  font-size: 0.34rem;
+                  /* identical to box height */
+                  color: rgba(255, 255, 255, 0.8);
+                  padding-bottom: 0.56rem;
+                }
+                .pool-tlt {
+                }
+              }
+              .pool {
+                position: absolute;
+                left: 3.67rem;
+                top: 0.39rem;
+                width: auto;
+                .logo-border {
+                  width: 0.86rem;
+                  height: 0.86rem;
+                  .logo {
+                    width: 0.855rem;
+                    height: 0.855rem;
+                    .mark {
+                      width: 0.39rem;
+                      height: 0.39rem;
+                      left: 0.5rem;
+                      top: -0.2rem;
+                      img {
+                        height: 0.21rem;
+                      }
+                    }
+                  }
+                }
+                .text {
+                  font-size: 0.32rem;
+                  padding-left: 0.2rem;
+                }
+              }
+              .tvl {
+                position: absolute;
+                left: 3.67rem;
+                top: 1.67rem;
+                font-size: 0.3rem;
+              }
+              .apr {
+                position: absolute;
+                top: 2.61rem;
+                left: 3.67rem;
+                font-size: 0.3rem;
+              }
+              .button-box {
+                padding: 0;
+                .details {
+                  width: 2.63rem;
+                  height: 0.8rem;
+                  line-height: 0.8rem;
+                  font-size: 0.34rem;
+                  margin-right: 0.34rem;
+                  box-shadow: inset 0px 0px 0.2rem #5ebafd;
+                }
+                .stake {
+                  width: 2.63rem;
+                  height: 0.8rem;
+                  line-height: 0.8rem;
+                  font-size: 0.34rem;
+                  box-shadow: inset 0px 0px 0.2rem #ff5e5e;
+                }
+              }
+            }
+          }
+        }
+        .list-item:before {
+          content: "";
+          position: absolute;
+          left: -0.15rem;
+          top: 0.18rem;
+          background: rgba(51, 191, 235, 1);
+          width: 0.6rem;
+          height: 0.03rem;
+          transform: rotate(-45deg);
+          z-index: 1;
+        }
+        .list-item:after {
+          content: "";
+          position: absolute;
+          right: -0.11rem;
+          top: 0.15rem;
+          background: rgba(51, 191, 235, 1);
+          width: 0.6rem;
+          height: 0.03rem;
+          transform: rotate(45deg);
+          z-index: 1;
+        }
+        .list-item:first-child {
+          .pool {
+            .logo {
+              img {
+                height: 0.49rem;
+              }
+            }
+          }
+        }
+        .list-item:nth-child(2) {
+          .pool {
+            .logo {
+              > img {
+                height: 0.49rem;
+              }
+              .mark {
+                img {
+                  height: 0.21rem;
+                }
+              }
+            }
+          }
+        }
+        .list-item:nth-child(3) {
+          .pool {
+            .logo {
+              > img {
+                height: 0.47rem;
+              }
+            }
+          }
+        }
+        .list-item:nth-child(4) {
+          .pool {
+            .logo {
+              > img {
+                height: 0.54rem;
+              }
+            }
+          }
+        }
+        .list-item:nth-child(5) {
+          .pool {
+            .logo {
+              > img {
+                height: 0.45rem;
+              }
+            }
+          }
+        }
+        .list-item:nth-child(6) {
+          .pool {
+            .logo {
+              > img {
+                height: 0.5rem;
+              }
+            }
+          }
+        }
+        .list-item:nth-child(7) {
+          .pool {
+            .logo {
+              > img {
+                height: 0.38rem;
+              }
+            }
+          }
+        }
+        .list-item:nth-child(8) {
+          .pool {
+            .logo {
+              > img {
+                height: 0.48rem;
+              }
+            }
+          }
+        }
+        .list-item:nth-child(9) {
+          .pool {
+            .logo {
+              > img {
+                height: 0.57rem;
+              }
+            }
+          }
+        }
+        .list-item:nth-child(10) {
+          .pool {
+            .logo {
+              > img {
+                height: 0.5rem;
+              }
+            }
+          }
+        }
+      }
+      .content:after,
+      .content:before {
+        display: none;
+      }
+    }
+  }
+  /* mobile style end */
 `;
 // Pool style end
 export default Pool;

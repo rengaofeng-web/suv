@@ -300,6 +300,134 @@ const ConnectStyle = styled.div`
       background-image: linear-gradient(to right, #53c1ff, rgba(83, 193, 255, 0));
     }
   }
+  /* mobile style start */
+  @media screen and (max-width: 750px) {
+    width: 100vw;
+    height: 90vh;
+    background: rgba(0, 0, 0, 0.8);
+    position: fixed;
+    left: 0;
+    top: 10vh;
+    .mask {
+      .connect-box {
+        width: 6.69rem;
+        height: 7.86rem;
+        .left-shadow {
+          left: -0.24rem;
+          top: 0; 
+          width: 0.25rem;
+          height: 100%;
+          box-shadow: 0.1rem 0px 0.28rem -0.08rem #00a3ff;
+        }
+        .top-shadow {
+          left: 0px;
+          top: -0.18rem;
+          width: 100%;
+          height: 0.2rem;
+          box-shadow: -1rem 0px 0.28rem 0.05rem #00a3ff;
+        }
+        .bottom-shadow {
+          left: 0px;
+          bottom: -0.17rem;
+          width: 100%;
+          height: 0.2rem;
+          box-shadow: -0.08rem 0px 0.28rem 0.05rem #00a3ff;
+        }
+        .right-shadow {
+          right: -0.24rem;
+          top: 0px;
+          height: 100%;
+          width: 0.2rem;
+          box-shadow: -0.08rem 1.13rem 0.28rem 0.05rem #00a3ff;
+        }
+        .right-top-shadow {
+          right: -0.52rem;
+          top: -0.64rem;
+          height: 2rem;
+          width: 2rem;
+          transform: rotate(45deg);
+        }
+        .right-top-shadow::before {
+          position: absolute;
+          left: 0.41rem;
+          top: 1px;
+          content: "";
+          width: 70%;
+          height: 50%;
+          overflow: hidden;
+          box-shadow: 0.07rem 0.06rem 0.28rem 0.06rem #00a3ff;
+        }
+        .title {
+          font-size: 0.34rem;
+          height: 1.6rem;
+          text-align: center;
+          line-height: 1.6rem;
+        }
+        .title:before {
+          height: 0.03rem;
+        }
+        .title:after {
+          width: 0.03rem;
+          height: 2.5rem;
+        }
+        .connection-mode-list {
+          .connection-mode-item {
+            width: 4.67rem;
+            height: 1.1rem;
+            margin-bottom: 0.39rem;
+            .text {
+              font-size: 0.32rem;
+            }
+            .connect-logo {
+              width: 0.7rem;
+              height: 0.7rem;
+              left: 0.25rem;
+              top: 0.13rem;
+              img {
+                width: 0.55rem;
+              }
+            }
+          }
+        }
+        .connection-mode-list:before {
+          right: 0px;
+          bottom: -0.65rem;
+          height: 2.5rem;
+          width: 0.03rem;
+        }
+        .connection-mode-list:after {
+          right: 0px;
+          bottom: -0.68rem;
+          width: 50%;
+          height: 0.03rem;
+        }
+        .close-box-bg {
+          right: -0.9rem;
+          top: -0.26rem;
+          .close-box {
+            width: 1.9086rem;
+            height: 0.78rem;
+            .close-button {
+              left: 0.75rem;
+              top: 0.35rem;
+              width: 0.3rem;
+              height: 0.35rem;
+              font-family: Roboto;
+              font-style: normal;
+              font-weight: 300;
+              font-size: 0.4rem;
+              line-height: 0.35rem;
+            }
+          }
+        }
+      }
+
+      .connect-box:before {
+        width: 0.03rem;
+      }
+    }
+  }
+  /* mobile style end */
 `;
 // connect popup srtyle end
 export default Connect;

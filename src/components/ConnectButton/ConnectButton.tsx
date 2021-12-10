@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import isMobile from "is-mobile";
-
 // 导入图片
 import logo from "../../assets/PC-config/home/my-wallet_logo.svg";
 interface Props {
@@ -9,7 +7,6 @@ interface Props {
 }
 
 const ConnectButton: React.FC<Props> = (props) => {
-  const isM = isMobile();
   let { change } = props;
   let [selectFlag, setSelectFlag] = useState(false);
   let flag = false;
@@ -37,7 +34,11 @@ const ConnectButton: React.FC<Props> = (props) => {
         Connect
       </div>
       {/* 登录状态 */}
-      <div className="my-wallet" style={{ display: flag ? "block" : "none" }} onClick={show_Wallet}>
+      <div
+        className="my-wallet"
+        style={{ display: flag ? "block" : "none" }}
+        onClick={show_Wallet}
+      >
         My Wallet
         {/* select */}
         <div className="select" style={{ display: selectFlag ? "block" : "none" }}>
@@ -193,15 +194,54 @@ const ButtonStyle = styled.div`
   .my-wallet:hover {
     cursor: pointer;
   }
-   /* mobile style start */
-   @media screen and (max-width: 750px) {
-     position: absolute;
-    left: .56rem;
-    top: -0.1rem;
-    .connect{
-      
+  /* mobile style start */
+  @media screen and (max-width: 750px) {
+    position: absolute;
+    left: 0.46rem;
+    top: -0.25rem;
+    /* 未登录 */
+    .connect {
+      width: 1.53rem;
+      height: 0.75rem;
+      line-height: 0.75rem;
+      font-size: 0.3rem;
     }
-   }
+    /* 已登录 */
+    .my-wallet {
+      width: 1.73rem;
+      height: 0.75rem;
+      font-size: 0.3rem;
+      line-height: 0.75rem;
+      .select {
+        width: 3.78rem;
+        height: 3.66rem;
+        bottom: -3.8rem;
+        box-shadow: inset 0px 0px 10px #39ebf6;
+        padding: .26rem .36rem 0;
+        .top{
+          align-items: center;
+          .myWallet-logo{
+            width: .71rem;
+            height: .69rem;
+          }
+          .money{
+            font-size: .28rem;
+          }
+        }
+        .content{
+          padding-top: .24rem;
+          .content-item{
+            width: 3.06rem;
+            height: .9rem;
+            line-height: .9rem;
+            font-size: .32rem;
+            margin-bottom: .22rem;
+          }
+        }
+      }
+    }
+  }
+  /* mobile style end */
 `;
 // button style end
 
