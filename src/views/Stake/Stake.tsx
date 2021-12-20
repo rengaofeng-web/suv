@@ -1,56 +1,102 @@
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
-import wholeBg from "../../assets/PC-config/bg1.jpg"; //整体背景图
+import wholeBg from "../../assets/PC-config/bg1.jpg"; // pc 整体背景图
+import mobile_wholeBg from "../../assets/Phone-config/bg1.jpg"; // mobile 整体背景图
 // import { Control } from "react-keeper";
+import isMobile from "is-mobile";
 
 const Stake: React.FC<{}> = () => {
+  const isM: boolean = isMobile();
   let [current, setCurrent] = useState(true);
   const ball = useRef(null);
 
   let [dragValue, setdragValue] = useState(0);
   let dis: number = 0;
-  // 小球拖拽代码
-  let dragStart = (e: MouseEvent) => {
-    e = e || window.event;
-    let target = e.target as HTMLDivElement;
-    if (target.className === "ball") {
-      dis = e.pageX - target.offsetLeft;
-      document.onmousemove = dragMove;
-    }
-  };
-  const dragMove = (e: MouseEvent) => {
-    e = e || window.event;
-    if (ball.current) {
-      let target = ball.current as HTMLDivElement;
-      let parent = target.parentNode as HTMLDivElement;
-      let line = parent.children[0] as HTMLDivElement;
-      let moveValue = e.pageX - dis;
-      if (moveValue < 0) {
-        moveValue = 0;
+  // pc端小球拖拽代码
+  if (!isM) {
+    let dragStart = (e: MouseEvent) => {
+      e = e || window.event;
+      let target = e.target as HTMLDivElement;
+      if (target.className === "ball") {
+        dis = e.pageX - target.offsetLeft;
+        document.onmousemove = dragMove;
       }
-      if (moveValue > parent.offsetWidth) {
-        moveValue = parent.offsetWidth;
+    };
+    const dragMove = (e: MouseEvent) => {
+      e = e || window.event;
+      if (ball.current) {
+        let target = ball.current as HTMLDivElement;
+        let parent = target.parentNode as HTMLDivElement;
+        let line = parent.children[0] as HTMLDivElement;
+        let moveValue = e.pageX - dis;
+        if (moveValue < 0) {
+          moveValue = 0;
+        }
+        if (moveValue > parent.offsetWidth) {
+          moveValue = parent.offsetWidth;
+        }
+        let cale = parent.offsetWidth / 52;
+        setdragValue(parseInt(String(moveValue / cale)));
+        target.style.left = moveValue + "px";
+        line.style.width = moveValue + "px";
       }
-      let cale = parent.offsetWidth / 52;
-      setdragValue(parseInt(String(moveValue / cale))); 
-      target.style.left = moveValue + "px";
-      line.style.width = moveValue + "px";
-    }
-  };
-  const dragEnd = () => {
-    document.onmousemove = null;
-  };
-  document.onmousedown = dragStart;
-  document.onmouseup = dragEnd;
+    };
+    const dragEnd = () => {
+      document.onmousemove = null;
+    };
+    document.onmousedown = dragStart;
+    document.onmouseup = dragEnd;
+  }
+  // mobile 小球拖拽代码
+  if (isM) {
+    let dragStart = (e: TouchEvent) => {
+      e = e || window.event;
+      let target = e.target as HTMLDivElement;
+      let pageX = e.touches[0].pageX;
+      if (target.className === "ball") {
+        dis = pageX - target.offsetLeft;
+        document.ontouchmove = dragMove;
+      }
+    };
+    const dragMove = (e: TouchEvent) => {
+      e = e || window.event;
+      let pageX = e.touches[0].pageX;
+      if (ball.current) {
+        let target = ball.current as HTMLDivElement;
+        let parent = target.parentNode as HTMLDivElement;
+        let line = parent.children[0] as HTMLDivElement;
+        let moveValue = pageX - dis;
+        if (moveValue < 0) {
+          moveValue = 0;
+        }
+        if (moveValue > parent.offsetWidth) {
+          moveValue = parent.offsetWidth;
+        }
+        let cale = parent.offsetWidth / 52;
+        setdragValue(parseInt(String(moveValue / cale)));
+        target.style.left = moveValue + "px";
+        line.style.width = moveValue + "px";
+      }
+    };
+    const dragEnd = () => {
+      document.ontouchmove = null;
+    };
+    document.ontouchstart = dragStart;
+    document.ontouchend = dragEnd;
+  }
   return (
-    <HarvestStyle>
+    <StakeStyle>
       <div className="content-box">
         <div className="head">
           <div className="left-logo">
             <div className="logo-border">
               <div className="logo">
                 <img
-                  src={require("../../assets/PC-config/pool/SUV.svg").default}
+                  src={
+                    !isM
+                      ? require("../../assets/PC-config/pool/SUV.svg").default
+                      : require("../../assets/Phone-config/pool/SUV.svg").default
+                  }
                   alt=""
                 />
               </div>
@@ -78,10 +124,7 @@ const Stake: React.FC<{}> = () => {
             </div>
           </div>
           <div className="switch-content">
-            <div
-              className="switch-item"
-              style={{ display: current ? "block" : "none" }}
-            >
+            <div className="switch-item" style={{ display: current ? "block" : "none" }}>
               <div className="amount-box">
                 <div className="amount">Amount</div>
                 <div className="balance">
@@ -103,10 +146,7 @@ const Stake: React.FC<{}> = () => {
                 </div>
               </div>
             </div>
-            <div
-              className="switch-item"
-              style={{ display: !current ? "block" : "none" }}
-            >
+            <div className="switch-item" style={{ display: !current ? "block" : "none" }}>
               <div className="lovk-box">
                 <div className="lovk">
                   Lovk for:<span>{dragValue} WEEK</span>
@@ -148,11 +188,11 @@ const Stake: React.FC<{}> = () => {
           <div className="stake">STAKE</div>
         </div>
       </div>
-    </HarvestStyle>
+    </StakeStyle>
   );
 };
-// harvest style start
-const HarvestStyle = styled.div`
+// stake style start
+const StakeStyle = styled.div`
   position: relative;
   max-width: 1920px;
   min-width: 1200px;
@@ -180,14 +220,8 @@ const HarvestStyle = styled.div`
       0 calc(100% - 35px),
       0 35px
     );
-    background: linear-gradient(
-          -45deg,
-          transparent 23px,
-          rgba(4, 10, 58, 0.3) 0
-        )
-        bottom right,
-      linear-gradient(45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom
-        left,
+    background: linear-gradient(-45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom right,
+      linear-gradient(45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom left,
       linear-gradient(135deg, #2cb0de 26px, rgba(4, 10, 58, 0.3) 0) top left,
       linear-gradient(-135deg, #2cb0de 26px, rgba(4, 10, 58, 0.3) 0) top right;
     background-size: 50% 51%;
@@ -310,11 +344,7 @@ const HarvestStyle = styled.div`
               rgba(162, 183, 255, 0.8)
             )
             20 20;
-          border-image: linear-gradient(
-              to right,
-              rgba(85, 121, 255, 0.8),
-              rgba(162, 183, 255, 0.8)
-            )
+          border-image: linear-gradient(to right, rgba(85, 121, 255, 0.8), rgba(162, 183, 255, 0.8))
             20 20;
           > input {
             width: 90%;
@@ -494,11 +524,7 @@ const HarvestStyle = styled.div`
               rgba(162, 183, 255, 0.8)
             )
             20 20;
-          border-image: linear-gradient(
-              to right,
-              rgba(85, 121, 255, 0.8),
-              rgba(162, 183, 255, 0.8)
-            )
+          border-image: linear-gradient(to right, rgba(85, 121, 255, 0.8), rgba(162, 183, 255, 0.8))
             20 20;
           > input {
             width: 90%;
@@ -608,7 +634,210 @@ const HarvestStyle = styled.div`
     height: 100%;
     background-image: linear-gradient(to bottom, #31bce8, transparent);
   }
+  /* mobile style start */
+  @media screen and (max-width: 750px) {
+    max-width: auto;
+    min-width: auto;
+    background: url(${mobile_wholeBg});
+    background-size: cover;
+    height: 100vh;
+    overflow: scroll;
+    .content-box {
+      width: 6.7rem;
+      height: auto;
+      padding: 0 0.72rem 0.7rem;
+      top: 2.36rem;
+      -webkit-clip-path: polygon(
+        0.38rem 0px,
+        calc(100% - 0.38rem) 0,
+        100% 0.38rem,
+        100% calc(100% - 0.38rem),
+        calc(100% - 0.38rem) 100%,
+        0.38rem 100%,
+        0 calc(100% - 0.38rem),
+        0 0.38rem
+      );
+
+      background: linear-gradient(-45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom right,
+        linear-gradient(45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom left,
+        linear-gradient(135deg, #31bce8 0.28rem, transparent 0) top left,
+        linear-gradient(-135deg, #31bce8 0.28rem, transparent 0);
+      border-top: 0.05rem solid #2cb0de;
+      .head {
+        height: 1.71rem;
+        .left-logo {
+          .logo-border {
+            width: 0.86rem;
+            height: 0.86rem;
+            .logo {
+              width: 0.85rem;
+              height: 0.85rem;
+              img {
+                width: 0.51rem;
+                height: 0.49rem;
+              }
+            }
+          }
+          .text {
+            padding-left: 0.2rem;
+            font-size: 0.34rem;
+          }
+        }
+        .right-con {
+          width: 2.5rem;
+          height: 0.63rem;
+          line-height: 0.63rem;
+          font-size: 0.26rem;
+          border: 0.02rem solid #ddd;
+          border-image: linear-gradient(to right, #6788ff, #d4484b) 20 20;
+        }
+      }
+      .content {
+        .switch-button {
+          > div {
+            width: 2.63rem;
+            height: 0.9rem;
+            font-size: 0.26rem;
+            line-height: 0.9rem;
+          }
+        }
+        .switch-content {
+          .switch-item:first-child {
+            .amount-box {
+              padding: 0.45rem 0 0.14rem;
+              .amount {
+                font-size: 0.22rem;
+              }
+              .balance {
+                font-size: 0.22rem;
+              }
+            }
+            .amount-input {
+              width: 99%;
+              height: 0.84rem;
+              input {
+                width: 89%;
+                font-size: 0.22rem;
+              }
+              .max {
+                font-family: Roboto;
+                font-style: normal;
+                font-weight: bold;
+                font-size: 0.24rem;
+                margin-right: 0.26rem;
+              }
+            }
+            .weight-box {
+              padding: 0.46rem 0 0.2rem;
+              .weight {
+                font-size: 0.2rem;
+              }
+              .est {
+                font-size: 0.2rem;
+              }
+            }
+          }
+          .switch-item:last-child {
+            .lovk-box {
+              padding-top: 0.46rem;
+              > div {
+                font-size: 0.2rem;
+              }
+            }
+            .progress-bar {
+              width: 5.26rem;
+              .progress-border {
+                width: 5.26rem;
+                height: 0.1509rem;
+                .ball {
+                  width: 0.3rem;
+                  height: 0.3rem;
+                }
+              }
+              .scale {
+                padding: 0.14rem 0 0.3rem;
+                > div {
+                  font-size: 0.18rem;
+                }
+              }
+              .scale:after {
+                display: none;
+              }
+            }
+            .amount-box {
+              padding-top: 0;
+              padding-bottom: 0.14rem;
+              > div {
+                font-size: 0.2rem;
+              }
+            }
+            .amount-input {
+              width: 99%;
+              height: 0.84rem;
+              input {
+                width: 89%;
+                font-size: 0.22rem;
+              }
+              .max {
+                font-family: Roboto;
+                font-style: normal;
+                font-weight: bold;
+                font-size: 0.24rem;
+                margin-right: 0.26rem;
+              }
+            }
+            .weight-box {
+              padding: 0.45rem 0 0.14rem;
+              .est {
+                font-size: 0.2rem;
+              }
+            }
+          }
+        }
+        .approve {
+          width: 100%;
+          height: 0.9rem;
+          line-height: 0.9rem;
+          font-size: 0.3rem;
+        }
+        .stake {
+          width: 100%;
+          height: 0.9rem;
+          line-height: 0.9rem;
+          font-size: 0.3rem;
+          margin-top: 0.3rem;
+        }
+      }
+      .content:before {
+        width: 0.04rem;
+      }
+      .content:after {
+        width: 0.04rem;
+      }
+    }
+    .content-box:before {
+      position: absolute;
+      left: -0.65rem;
+      top: 0;
+      content: "";
+      width: 2rem;
+      height: 0.03rem;
+      background: #2cb0de;
+      transform: rotate(-45deg);
+    }
+    .content-box:after {
+      position: absolute;
+      right: -0.66rem;
+      top: 0;
+      content: "";
+      width: 2rem;
+      height: 0.03rem;
+      background: #2cb0de;
+      transform: rotate(45deg);
+    }
+  }
+  /* mobile style end */
 `;
-// harvest style end
+// stake style end
 
 export default Stake;

@@ -1,15 +1,19 @@
 import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
+import isMobile from "is-mobile";
 import Swiper from "swiper";
 import "swiper/css/swiper.css";
 // 组件引入
 import SuvBoxPopup from "../../components/SuvBoxPopup/SuvBoxPopup";
 // 图片引入
-import wholeBg from "../../assets/PC-config/bg1.jpg"; //整体背景图
-import kejikuang from "../../assets/PC-config/NFT/kejikuang.png"; //宝箱背景
-import baoxiang_bg from "../../assets/PC-config/NFT/xia.png"; //宝箱背景 光环
-
+import wholeBg from "../../assets/PC-config/bg1.jpg"; // pc 整体背景图
+import kejikuang from "../../assets/PC-config/NFT/kejikuang.png"; // pc 宝箱背景
+import baoxiang_bg from "../../assets/PC-config/NFT/xia.png"; //pc 宝箱背景 光环
+import mobile_wholeBg from "../../assets/Phone-config/bg1.jpg"; //mobile 整体背景图
+import mobile_kejikuang from "../../assets/Phone-config/NFT/kejikuang.png"; // mobile 宝箱背景
+import mobile_baoxiangBg from "../../assets/Phone-config/NFT/xia.png"; //mobile 宝箱背景 光环
 const SuvBox: React.FC<{}> = () => {
+  const isM: boolean = isMobile();
   let [swiperIndex, setSwiperIndex] = useState(0);
   let [quantity, setquantity] = useState(1);
   const leftButton = useRef(null);
@@ -70,25 +74,37 @@ const SuvBox: React.FC<{}> = () => {
           <div className="bottom-line"></div>
           <div className="left-operation">
             <div className="baoxiang-bg">
-              <img src={baoxiang_bg} alt="" className="baoxiang_bg" />
+              <img src={!isM ? baoxiang_bg : mobile_baoxiangBg} alt="" className="baoxiang_bg" />
               <div className="swiper swiper-no-swiping ">
                 <div className="swiper-container swiper-content">
                   <div className="swiper-wrapper ">
                     <div className="swiper-slide">
                       <img
-                        src={require("../../assets/PC-config/NFT/baoxiang1.png").default}
+                        src={
+                          !isM
+                            ? require("../../assets/PC-config/NFT/baoxiang1.png").default
+                            : require("../../assets/Phone-config/NFT/baoxiang1.png").default
+                        }
                         alt=""
                       />
                     </div>
                     <div className="swiper-slide">
                       <img
-                        src={require("../../assets/PC-config/NFT/baoxiang2.png").default}
+                        src={
+                          !isM
+                            ? require("../../assets/PC-config/NFT/baoxiang2.png").default
+                            : require("../../assets/Phone-config/NFT/baoxiang2.png").default
+                        }
                         alt=""
                       />
                     </div>
                     <div className="swiper-slide">
                       <img
-                        src={require("../../assets/PC-config/NFT/baoxiang3.png").default}
+                        src={
+                          !isM
+                            ? require("../../assets/PC-config/NFT/baoxiang3.png").default
+                            : require("../../assets/Phone-config/NFT/baoxiang3.png").default
+                        }
                         alt=""
                       />
                     </div>
@@ -145,7 +161,6 @@ const SuvBox: React.FC<{}> = () => {
               autoPlay={true}
               loop={true}
               muted
-              style={{ width: "607px" }}
             ></video>
             <div className="bottom-decorate">
               <img src={require("../../assets/PC-config/NFT/zhuangshi.svg").default} alt="" />
@@ -497,6 +512,277 @@ const SuvBoxStyle = styled.div`
       }
     }
   }
+  /* mobile style start */
+  @media screen and (max-width: 750px) {
+    max-width: auto;
+    min-width: auto;
+    height: 100vh;
+    margin: auto;
+    overflow-y: scroll;
+    background-image: url(${mobile_wholeBg});
+    background-repeat: repeat-y;
+    .content-box {
+      width: 6.7rem;
+      height: auto;
+      display: block;
+      top: 0.9rem;
+      .left-operation-main {
+        margin-top: 0.9rem;
+        .top-line {
+          position: absolute;
+          top: -0.16rem;
+          left: 0.54rem;
+          width: 85%;
+          height: 0.05rem;
+          ::before {
+            left: -0.33rem;
+            top: -0.09rem;
+            width: 0.05rem;
+            height: 0.85rem;
+            transform: rotate(46deg);
+          }
+          ::after {
+            left: -0.64rem;
+            top: 0.61rem;
+            width: 0.05rem;
+            height: 0.65rem;
+          }
+        }
+        .bottom-line {
+          bottom: -0.25rem;
+          right: 0.45rem;
+          width: 90%;
+          height: 0.05rem;
+          ::before {
+            right: -0.3rem;
+            bottom: -0.09rem;
+            width: 0.05rem;
+            height: 0.85rem;
+          }
+          ::after {
+            right: -0.6rem;
+            bottom: 0.6rem;
+            width: 0.05rem;
+            height: 0.65rem;
+          }
+        }
+        .left-operation {
+          width: 100%;
+          height: 7.62rem;
+          padding-top: 0.5rem;
+          padding-left: 0.53rem;
+          position: relative;
+          -webkit-clip-path: polygon(
+            0.55rem 0px,
+            calc(100% - 0.55rem) 0,
+            100% 0.55rem,
+            100% calc(100% - 0.55rem),
+            calc(100% - 0.55rem) 100%,
+            0.55rem 100%,
+            0 calc(100% - 0.55rem),
+            0 0.55rem
+          );
+          background: linear-gradient(-45deg, #177ab1 0.35rem, rgba(0, 0, 0, 0.6) 0) bottom right,
+            linear-gradient(45deg, #177ab1 0.35rem, rgba(0, 0, 0, 0.6) 0) bottom left,
+            linear-gradient(135deg, #177ab1 0.35rem, rgba(0, 0, 0, 0.6) 0) top left,
+            linear-gradient(-135deg, #177ab1 0.35rem, rgba(0, 0, 0, 0.6) 0) top right;
+          ::before {
+            content: "";
+            position: absolute;
+            left: -0.52rem;
+            top: 0;
+            width: 2rem;
+            height: 0.03rem;
+            background-color: #1777ad;
+            transform: rotate(-45deg);
+            z-index: 1;
+          }
+          ::after {
+            content: "";
+            position: absolute;
+            right: -0.535rem;
+            top: 0;
+            width: 2rem;
+            height: 0.03rem;
+            background-color: #1777ad;
+            transform: rotate(45deg);
+            z-index: 1;
+          }
+          .baoxiang-bg {
+            width: 3.13rem;
+            height: 4.3rem;
+            background: url(${mobile_kejikuang});
+            background-size: cover;
+            .baoxiang_bg {
+              width: 2.5rem;
+            }
+            .swiper {
+              position: absolute;
+              left: 0.12rem;
+              top: 1rem;
+              /* padding-top: 50px;
+            padding-left: 22px; */
+              width: 2.2rem;
+              .swiper-wrapper {
+                transition: all 0.5s;
+                transition-duration: 300ms !important;
+              }
+              .swiper-slide {
+                padding-left: 0.13rem;
+                box-sizing: border-box;
+                img {
+                  width: 2.14rem;
+                }
+              }
+            }
+          }
+          .control {
+            width: 3rem;
+            padding-left: 0.1rem;
+            .control-bg {
+              img {
+                width: 100%;
+              }
+            }
+            .number {
+              font-size: 0.24rem;
+              padding: 0 0.53rem 0.05rem;
+            }
+            .previous,
+            .next {
+              width: 0.46rem;
+              height: 0.46rem;
+            }
+          }
+        }
+        .right-opertion {
+          left: 3.7rem;
+          top: 1.15rem;
+          width: 2.38rem;
+          .title {
+            font-size: 0.3rem;
+          }
+          .amount {
+            font-size: 0.2rem;
+            padding-top: 0.19rem;
+          }
+          .subtotal {
+            padding-top: 1.4rem;
+            font-size: 0.24rem;
+          }
+          .quantity {
+            padding-top: 0.19rem;
+            font-size: 0.24rem;
+          }
+          .controll {
+            padding-top: 0.58rem;
+            .reduce {
+              width: 0.75rem;
+              height: 0.45rem;
+              line-height: 0.45rem;
+              font-size: 0.3rem;
+            }
+            .add {
+              width: 0.77rem;
+              height: 0.45rem;
+              line-height: 0.45rem;
+              font-size: 0.3rem;
+            }
+            .num {
+              font-size: 0.28rem;
+              line-height: 0.45rem;
+            }
+          }
+          .buy {
+            position: absolute;
+            right: 0;
+            bottom: -1.5rem;
+            width: 5.63rem;
+            height: 0.9rem;
+            line-height: 0.9rem;
+            font-size: 0.34rem;
+          }
+        }
+      }
+      .right-bg {
+        position: relative;
+        width: 6.69rem;
+        height: 5.5495rem;
+        margin: 0;
+        margin-top: 0.56rem;
+        -webkit-clip-path: polygon(
+          0.35rem 0px,
+          calc(100% - 0.35rem) 0,
+          100% 0.35rem,
+          100% calc(100% - 0.35rem),
+          calc(100% - 0.35rem) 100%,
+          0.35rem 100%,
+          0 calc(100% - 0.35rem),
+          0 0.35rem
+        );
+        ::before {
+          content: "";
+          position: absolute;
+          left: -0.62rem;
+          top: 0;
+          width: 2rem;
+          height: 0.03rem;
+          background-color: #1777ad;
+          transform: rotate(-45deg);
+          z-index: 1;
+        }
+        ::after {
+          content: "";
+          position: absolute;
+          right: -0.62rem;
+          top: 0;
+          width: 2rem;
+          height: 0.03rem;
+          background-color: #1777ad;
+          transform: rotate(45deg);
+          z-index: 1;
+        }
+        .right-jackpot {
+          width: 100%;
+          height: 100%;
+          -webkit-clip-path: polygon(
+            0.35rem 0px,
+            calc(100% - 0.35rem) 0,
+            100% 0.35rem,
+            100% calc(100% - 0.35rem),
+            calc(100% - 0.35rem) 100%,
+            0.35rem 100%,
+            0 calc(100% - 0.35rem),
+            0 0.35rem
+          );
+          background: linear-gradient(-45deg, #1777ad 0.23rem, rgba(0, 0, 0, 0.6) 0) bottom right,
+            linear-gradient(45deg, #1777ad 0.23rem, #000 0) bottom left,
+            linear-gradient(135deg, #1777ad 0.23rem, rgba(0, 0, 0, 1) 0) top left,
+            linear-gradient(-135deg, #1777ad 0.23rem, rgba(0, 0, 0, 1) 0) top right;
+          .title {
+            padding-top: 0.35rem;
+            font-size: 0.28rem;
+            width: 3.94rem;
+            height: 0.68rem;
+            margin: auto;
+          }
+          video {
+            width: 5.2rem;
+            margin: 0;
+            margin-left: 0.87rem;
+            margin-top: 0.2rem;
+          }
+          .bottom-decorate {
+            margin: 0.25rem 0.33rem 0;
+            img {
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+  /* mobile style end */
 `;
 // SuvBox style end
 
