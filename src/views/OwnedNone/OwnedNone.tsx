@@ -1,10 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 import { Control } from "react-keeper";
+import isMobile from "is-mobile";
+
 // 图片导入
-import wholeBg from "../../assets/PC-config/bg1.jpg"; //整体背景图
-import noCard from "../../assets/PC-config/NFT/NO-CARD.png"; //右边的大飞船
+import wholeBg from "../../assets/PC-config/bg1.jpg"; // pc 整体背景图
+import noCard from "../../assets/PC-config/NFT/NO-CARD.png"; // pc 右边的大飞船
+import mobile_wholeBg from "../../assets/Phone-config/bg1.jpg"; // mobile 整体背景图
+import mobile_noCard from "../../assets/Phone-config/NFT/NO-CARD.png"; // mobile 右边的大飞船
 const OwnedNone: React.FC<{}> = () => {
+  const isM: boolean = isMobile();
   return (
     <OwnedStyle>
       <div className="container">
@@ -25,11 +30,12 @@ const OwnedNone: React.FC<{}> = () => {
         </div>
       </div>
       <div className="right-noCard">
-        <img src={noCard} alt="" />
+        <img src={!isM ? noCard : mobile_noCard} alt="" />
       </div>
     </OwnedStyle>
   );
 };
+// ownedNone style start
 const OwnedStyle = styled.div`
   position: relative;
   max-width: 1920px;
@@ -189,5 +195,86 @@ const OwnedStyle = styled.div`
     height: 100%;
     background-image: linear-gradient(to bottom, #2c94ce, transparent);
   }
+  /* mobile styele start */
+  @media screen and (max-width: 750px) {
+    max-width: auto;
+    min-width: auto;
+    height: 100vh;
+    overflow-y: scroll;
+    margin: auto;
+    background-image: url(${mobile_wholeBg});
+    .right-noCard {
+      top: 7.5rem;
+      right: 0.4rem;
+      img{
+        width: 4.17rem;
+      }
+    }
+    .container {
+      width: 6.7rem;
+      height: 8.68rem;
+      background: none;
+      backdrop-filter: blur(0px);
+      background: linear-gradient(-45deg, transparent 0.36rem, rgba(4, 10, 58, 0.2) 0) bottom right,
+        linear-gradient(45deg, transparent 0.36rem, rgba(4, 10, 58, 0.2) 0) bottom left,
+        linear-gradient(135deg, #2f9ad7 0.36rem, rgba(4, 10, 58, 0.2) 0) top left,
+        linear-gradient(-135deg, #2f9ad7 0.36rem, rgba(4, 10, 58, 0.2) 0) top right;
+      -webkit-clip-path: polygon(
+        0.5rem 0px,
+        calc(100% - 0.5rem) 0,
+        100% 0.5rem,
+        100% calc(100% - 0.5rem),
+        calc(100% - 0.5rem) 100%,
+        0.5rem 100%,
+        0 calc(100% - 0.5rem),
+        0 0.5rem
+      );
+      box-shadow: inset 0px 0px 0.6rem #00a3ff;
+      border-top: 0.03rem solid #2f9ad7;
+      padding: 0;
+      ::before,
+      ::after {
+        width: 0.03rem;
+      }
+      .title {
+        padding-top: 0.81rem;
+        font-size: 0.42rem;
+      }
+      .left-content {
+        text-align: center;
+        width: auto;
+        padding-top: 0.44rem;
+        .text {
+          width: 5.52rem;
+          margin: auto;
+          font-size: .3rem;
+        }
+        .goButton {
+          width: 5.18rem;
+          height: 0.9rem;
+          padding-left: 1.77rem;
+          margin: auto;
+          text-align: left;
+          font-size: .4rem;
+          line-height: 0.85rem;
+          margin-top: .66rem;
+          ::before {
+            left: 2.77rem;
+            width: 0.55rem;
+            height: 0.03rem;
+          }
+          ::after {
+            left:3.1rem;
+            width: .25rem;
+            height: .03rem;
+            top: 42%;
+          }
+        }
+      }
+    }
+  }
+  /* mobile styele end */
 `;
+// ownedNone style end
+// 导出组件
 export default OwnedNone;

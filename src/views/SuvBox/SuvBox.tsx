@@ -531,19 +531,19 @@ const SuvBoxStyle = styled.div`
         .top-line {
           position: absolute;
           top: -0.16rem;
-          left: 0.54rem;
+          left: 0.53rem;
           width: 85%;
           height: 0.05rem;
           ::before {
             left: -0.33rem;
-            top: -0.09rem;
+            top: -0.12rem;
             width: 0.05rem;
-            height: 0.85rem;
-            transform: rotate(46deg);
+            height: 0.9rem;
+            transform: rotate(47deg);
           }
           ::after {
-            left: -0.64rem;
-            top: 0.61rem;
+            left: -0.65rem;
+            top: 0.6rem;
             width: 0.05rem;
             height: 0.65rem;
           }
@@ -637,8 +637,11 @@ const SuvBoxStyle = styled.div`
             }
           }
           .control {
-            width: 3rem;
+            width: 2rem;
             padding-left: 0.1rem;
+            margin-left: .1rem;
+            display: flex;
+            justify-content: space-between;
             .control-bg {
               img {
                 width: 100%;
@@ -646,7 +649,8 @@ const SuvBoxStyle = styled.div`
             }
             .number {
               font-size: 0.24rem;
-              padding: 0 0.53rem 0.05rem;
+              padding: 0;
+              padding-bottom: 0.05rem;
             }
             .previous,
             .next {

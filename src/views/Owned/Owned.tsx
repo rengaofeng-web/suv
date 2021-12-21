@@ -1,30 +1,34 @@
-import React, { useEffect, useRef } from 'react'
-import styled from 'styled-components'
-import Swiper from 'swiper'
-import 'swiper/css/swiper.css'
+import React, { useEffect, useRef } from "react";
+import styled from "styled-components";
+import Swiper from "swiper";
+import "swiper/css/swiper.css";
+import isMobile from "is-mobile";
+
 // 图片导入
-import wholeBg from '../../assets/PC-config/bg1.jpg' //整体背景图
+import wholeBg from "../../assets/PC-config/bg1.jpg"; // pc 整体背景图
+import mobile_wholeBg from "../../assets/Phone-config/bg1.jpg"; // mobile 整体背景图
 const Owned: React.FC<{}> = () => {
-  const leftButton = useRef(null)
-  const rightButton = useRef(null)
+  const isM: boolean = isMobile();
+  const leftButton = useRef(null);
+  const rightButton = useRef(null);
   useEffect(() => {
-    let mySwiper = new Swiper('.owned-swiper', {
+    let mySwiper = new Swiper(".owned-swiper", {
       loop: false,
-      slidesPerView: 3,
-    })
+      slidesPerView: !isM ? 3 : 2,
+    });
     if (leftButton.current) {
-      let left_button = leftButton.current as HTMLDivElement
+      let left_button = leftButton.current as HTMLDivElement;
       left_button.onclick = () => {
-        mySwiper.slidePrev()
-      }
+        mySwiper.slidePrev();
+      };
     }
     if (rightButton.current) {
-      let right_button = rightButton.current as HTMLDivElement
+      let right_button = rightButton.current as HTMLDivElement;
       right_button.onclick = () => {
-        mySwiper.slideNext()
-      }
+        mySwiper.slideNext();
+      };
     }
-  })
+  });
   return (
     <OwnedSttyle>
       <div className="content">
@@ -34,39 +38,19 @@ const Owned: React.FC<{}> = () => {
           <div className="swiper-container swiper-no-swiping  owned-swiper">
             <div className="swiper-wrapper">
               <div className="swiper-slide">
-                <img
-                  src={
-                    require('../../assets/PC-config/NFT/feichuan5.png').default
-                  }
-                  alt=""
-                />
+                <img src={require("../../assets/PC-config/NFT/feichuan5.png").default} alt="" />
                 <div className="identifier">#13245</div>
               </div>
               <div className="swiper-slide">
-                <img
-                  src={
-                    require('../../assets/PC-config/NFT/feichuan4.png').default
-                  }
-                  alt=""
-                />
+                <img src={require("../../assets/PC-config/NFT/feichuan4.png").default} alt="" />
                 <div className="identifier">#13245</div>
               </div>
               <div className="swiper-slide">
-                <img
-                  src={
-                    require('../../assets/PC-config/NFT/feichuan3.png').default
-                  }
-                  alt=""
-                />
+                <img src={require("../../assets/PC-config/NFT/feichuan3.png").default} alt="" />
                 <div className="identifier">#13245</div>
               </div>
               <div className="swiper-slide">
-                <img
-                  src={
-                    require('../../assets/PC-config/NFT/feichuan3.png').default
-                  }
-                  alt=""
-                />
+                <img src={require("../../assets/PC-config/NFT/feichuan3.png").default} alt="" />
                 <div className="identifier">#13245</div>
               </div>
             </div>
@@ -79,8 +63,8 @@ const Owned: React.FC<{}> = () => {
         </div>
       </div>
     </OwnedSttyle>
-  )
-}
+  );
+};
 // owned style start
 const OwnedSttyle = styled.div`
   position: relative;
@@ -98,21 +82,11 @@ const OwnedSttyle = styled.div`
     width: 1200px;
     height: 650px;
     /* display: flex; */
-    background: linear-gradient(
-      180deg,
-      rgba(5, 22, 43, 0.8) 0%,
-      rgba(5, 22, 43, 0.24) 106.72%
-    );
+    background: linear-gradient(180deg, rgba(5, 22, 43, 0.8) 0%, rgba(5, 22, 43, 0.24) 106.72%);
     box-shadow: inset 0px 0px 60px #00a3ff;
     backdrop-filter: blur(10px);
-    background: linear-gradient(
-          -45deg,
-          transparent 36px,
-          rgba(4, 10, 58, 0.3) 0
-        )
-        bottom right,
-      linear-gradient(45deg, transparent 36px, rgba(4, 10, 58, 0.3) 0) bottom
-        left,
+    background: linear-gradient(-45deg, transparent 36px, rgba(4, 10, 58, 0.3) 0) bottom right,
+      linear-gradient(45deg, transparent 36px, rgba(4, 10, 58, 0.3) 0) bottom left,
       linear-gradient(135deg, #2f9ad7 37px, rgba(4, 10, 58, 0.3) 0) top left,
       linear-gradient(-135deg, #2f9ad7 38px, rgba(4, 10, 58, 0.3) 0) top right;
     background-size: 50% 51%;
@@ -219,18 +193,14 @@ const OwnedSttyle = styled.div`
         cursor: pointer;
       }
       .prev:before {
-        content: '';
+        content: "";
         position: absolute;
         left: -34px;
         top: -34px;
         width: 150%;
         height: 150%;
         /* background-color: #00a3ff; */
-        background: linear-gradient(
-          90deg,
-          #ffdf70 54%,
-          rgba(255, 223, 112, 0) 100%
-        );
+        background: linear-gradient(90deg, #ffdf70 54%, rgba(255, 223, 112, 0) 100%);
         border-radius: 1px;
         transform: rotate(45deg);
       }
@@ -247,18 +217,14 @@ const OwnedSttyle = styled.div`
         cursor: pointer;
       }
       .next:before {
-        content: '';
+        content: "";
         position: absolute;
         right: -35px;
         top: 8px;
         width: 150%;
         height: 150%;
         /* background-color: #00a3ff; */
-        background: linear-gradient(
-          to left,
-          #ffdf70 54%,
-          rgba(255, 223, 112, 0) 100%
-        );
+        background: linear-gradient(to left, #ffdf70 54%, rgba(255, 223, 112, 0) 100%);
         border-radius: 1px;
         transform: rotate(45deg);
       }
@@ -266,24 +232,131 @@ const OwnedSttyle = styled.div`
   }
   /* 左右边框 */
   .content:before {
-    content: '';
+    content: "";
     position: absolute;
     left: 0;
     top: 0;
     width: 5px;
     height: 100%;
-    background-image: linear-gradient(to bottom, #2c94ce, transparent);
+    background-image: linear-gradient(to bottom, #2fb8e5, transparent);
   }
   .content:after {
-    content: '';
+    content: "";
     position: absolute;
     right: 0;
     top: 0;
     width: 5px;
     height: 100%;
-    background-image: linear-gradient(to bottom, #2c94ce, transparent);
+    background-image: linear-gradient(to bottom, #2fb8e5, transparent);
   }
-`
+  /* mobile style start */
+  @media screen and (max-width: 750px) {
+    max-width: auto;
+    min-width: auto;
+    height: 100vh;
+    overflow-y: scroll;
+    margin: auto;
+    background-image: url(${mobile_wholeBg});
+    .content {
+      width: 6.7rem;
+      height: 7.8rem;
+      background: none;
+      backdrop-filter: blur(0px);
+      background: linear-gradient(-45deg, transparent 0.36rem, rgba(4, 10, 58, 0.2) 0) bottom right,
+        linear-gradient(45deg, transparent 0.36rem, rgba(4, 10, 58, 0.2) 0) bottom left,
+        linear-gradient(135deg, #2f9ad7 0.36rem, rgba(4, 10, 58, 0.2) 0) top left,
+        linear-gradient(-135deg, #2f9ad7 0.36rem, rgba(4, 10, 58, 0.2) 0) top right;
+      -webkit-clip-path: polygon(
+        0.5rem 0px,
+        calc(100% - 0.5rem) 0,
+        100% 0.5rem,
+        100% calc(100% - 0.5rem),
+        calc(100% - 0.5rem) 100%,
+        0.5rem 100%,
+        0 calc(100% - 0.5rem),
+        0 0.5rem
+      );
+      box-shadow: inset 0px 0px 0.6rem #00a3ff;
+      border-top: 0.03rem solid #2f9ad7;
+      ::before,
+      ::after {
+        width: 0.03rem;
+      }
+      .title {
+        padding-top: 0.81rem;
+        font-size: 0.42rem;
+        padding-left: 0.2rem;
+        ::before {
+          content: "";
+          position: absolute;
+          left: -0.51rem;
+          top: 0;
+          width: 2rem;
+          height: 0.03rem;
+          background: #2fb8e5;
+          transform: rotate(-45deg);
+        }
+        ::after {
+          content: "";
+          position: absolute;
+          right: -0.51rem;
+          top: 0;
+          width: 2rem;
+          height: 0.03rem;
+          background: #2fb8e5;
+          transform: rotate(45deg);
+        }
+      }
+      .container {
+        padding-left: 0.3rem;
+        width: 90%;
+        margin-top: 0.44rem;
+        .owned-swiper {
+          .swiper-slide {
+            width: 3rem !important;
+            .identifier {
+              right: 0.85rem;
+              bottom: 0.48rem;
+              font-size: 0.2rem;
+            }
+            img {
+              width: 100%;
+            }
+          }
+        }
+      }
+      .number {
+        padding-top: 0.51rem;
+        font-size: 0.32rem;
+      }
+      .controll {
+        .prev {
+          position: absolute;
+          left: 1.32rem;
+          width: 0.53rem;
+          height: 0.53rem;
+          top: 6.4rem;
+          ::before {
+            left: -0.4rem;
+            top: -0.4rem;
+          }
+        }
+        .next {
+          position: absolute;
+          right: 1.32rem;
+          top: 6.4rem;
+          width: 0.53rem;
+          height: 0.53rem;
+          ::before {
+            right: -0.4rem;
+            top: 0.14rem;
+          }
+        }
+      }
+    }
+  }
+  /* mobile style end */
+`;
 // owned style end
 // 导出组件
-export default Owned
+export default Owned;

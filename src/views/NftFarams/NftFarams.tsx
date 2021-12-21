@@ -1,18 +1,25 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-// 图片导入
-import wholeBg from "../../assets/PC-config/bg2.jpg"; //整体背景图
+import isMobile from "is-mobile";
 
+// 图片导入
+import wholeBg from "../../assets/PC-config/bg2.jpg"; // pc 整体背景图
+import mobile_wholeBg from "../../assets/Phone-config/bg2.jpg"; // mobile 整体背景图
 const NftFarams: React.FC<{}> = () => {
-  const [switchCurrent, setSwitchCurrent] = useState([true, true]);//切换选项卡状态
+  const isM: boolean = isMobile();
+  const [switchCurrent, setSwitchCurrent] = useState([true, true]); //切换选项卡状态
   const contentData = [
     {
       id: 1,
-      blindBoxImg: require("../../assets/PC-config/NFT/feichuan5.png").default,
+      blindBoxImg: !isM
+        ? require("../../assets/PC-config/NFT/feichuan5.png").default
+        : require("../../assets/Phone-config/NFT/small_feichuan5.png").default,
     },
     {
       id: 2,
-      blindBoxImg: require("../../assets/PC-config/NFT/feichuan4.png").default,
+      blindBoxImg: !isM
+        ? require("../../assets/PC-config/NFT/feichuan4.png").default
+        : require("../../assets/Phone-config/NFT/small_feichuan4.png").default,
     },
   ];
   return (
@@ -20,6 +27,7 @@ const NftFarams: React.FC<{}> = () => {
       <div className="content-box">
         {contentData.map((item, index) => (
           <div className="content-item" key={item.id}>
+            <div className="right-border"></div>
             <div className="left-blindBox">
               <img src={item.blindBoxImg} alt="" />
             </div>
@@ -83,7 +91,7 @@ const NftFarams: React.FC<{}> = () => {
                     >
                       <div className="title">Available:124613563156515</div>
                       <div className="uinput">
-                        <input type="number" defaultValue="123456789132"  />
+                        <input type="number" defaultValue="123456789132" />
                         <div className="max">MAX</div>
                       </div>
                       <div className="button">Withdraw</div>
@@ -547,6 +555,300 @@ const FaramsStyle = styled.div`
     height: 100%;
     background-image: linear-gradient(to bottom, #31bce8, transparent);
   }
+  /* mobile style start */
+  @media screen and (max-width: 750px) {
+    max-width: auto;
+    min-width: auto;
+    height: 100vh;
+    margin: auto;
+    overflow-y: scroll;
+    background-image: url(${mobile_wholeBg});
+    .content-box {
+      width: 6.7rem;
+      background: none;
+      border-top: none;
+      -webkit-clip-path: none;
+      overflow: hidden;
+      ::before,
+      :after {
+        display: none;
+      }
+      box-shadow: none;
+      padding: 0;
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+      .content-item {
+        width: 100%;
+        height: 7.92rem;
+        -webkit-clip-path: polygon(
+          0.35rem 0px,
+          calc(100% - 0.35rem) 0,
+          100% 0.35rem,
+          100% calc(100% - 0.35rem),
+          calc(100% - 0.35rem) 100%,
+          0.35rem 100%,
+          0 calc(100% - 0.35rem),
+          0 0.35rem
+        );
+        /* background: linear-gradient(-45deg, #177ab1 0.35rem, rgba(0, 0, 0, 0.6) 0) bottom right,
+          linear-gradient(45deg, #177ab1 0.35rem, rgba(0, 0, 0, 0.6) 0) bottom left,
+          linear-gradient(135deg, #177ab1 0.35rem, rgba(0, 0, 0, 0.6) 0) top left,
+          linear-gradient(-135deg, #177ab1 0.35rem, rgba(0, 0, 0, 0.6) 0) top right; */
+        background: linear-gradient(180deg, rgba(1, 6, 44, 0.6) 0%, rgba(4, 10, 58, 0.3) 169.32%);
+        box-shadow: inset 0px 0px 0.6rem #00a3ff;
+        border-top: 0.03rem solid #34c0ec;
+        border-bottom: 0.03rem solid #1883b9;
+        box-sizing: border-box;
+        padding-left: 0.33rem;
+        padding-right: 0.33rem;
+        ::before {
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 0.03rem;
+          height: 100%;
+          background: linear-gradient(to bottom, #34c0ec, #1883b9);
+        }
+        ::after,
+        .right-border {
+          content: "";
+          position: absolute;
+          right: 0;
+          top: 0;
+          width: 0.03rem;
+          height: 100%;
+          bottom: auto;
+          margin: 0;
+          background: linear-gradient(to bottom, #34c0ec, #1883b9);
+        }
+        .left-blindBox {
+          margin-top: 0.53rem;
+          /* width: 1.9rem; */
+          img {
+            width: 1.92rem;
+          }
+          ::before {
+            content: "";
+            position: absolute;
+            left: -0.12rem;
+            top: -0.56rem;
+            width: 0.03rem;
+            height: 2rem;
+            background: #34c0ec;
+            transform: rotate(45deg);
+          }
+          ::after {
+            content: "";
+            position: absolute;
+            left: -0.12rem;
+            bottom: -0.56rem;
+            width: 0.03rem;
+            height: 2rem;
+            background: #1883b9;
+            transform: rotate(-45deg);
+          }
+        }
+        .right-content {
+          padding: 0;
+          .top {
+            display: block;
+            margin-top: 0.65rem;
+            .earned-box {
+              width: 4.21rem;
+              height: 1.32rem;
+              ::before {
+                left: -0.15rem;
+                top: 0.1rem;
+                width: 0.88rem;
+                height: 0.03rem;
+              }
+              ::after {
+                left: 0px;
+                top: 0.4rem;
+                height: 0.62rem;
+                width: 0.03rem;
+              }
+              .right-boreder {
+                width: 0.03rem;
+              }
+              .earned {
+                width: 100%;
+                height: 100%;
+                -webkit-clip-path: polygon(
+                  0.4rem 0px,
+                  calc(100% - 0px) 0,
+                  100% 0px,
+                  100% calc(100% - 0px),
+                  calc(100% - 0px) 100%,
+                  0px 100%,
+                  0 calc(100% - 0.3rem),
+                  0 0.4rem
+                );
+                padding: 0.29rem 0px 0 0.45rem;
+                box-shadow: inset 0px 0px 0.2rem rgb(57 231 199 / 50%);
+                border-top: 0.03rem solid #19d3df;
+                .earned-number {
+                  font-size: 0.26rem;
+                  .number {
+                    font-size: 0.28rem;
+                  }
+                }
+                .harvest {
+                  width: 1.35rem;
+                  height: 1.32rem;
+                  margin-top: -0.3rem;
+                  line-height: 1.32rem;
+                  font-size: 0.3rem;
+                }
+              }
+            }
+            .staked {
+              width: 4.21rem;
+              height: 0.76rem;
+              margin: 0;
+              margin-top: 0.3rem;
+              padding: 0rem 0.45rem 0 0.45rem;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              box-shadow: inset 0px 0px 0.2rem rgb(57 231 199 / 50%);
+              border-top: 0.03rem solid #19d3df;
+              ::before,
+              ::after {
+                width: 0.03rem;
+                top: -0.01rem;
+              }
+              > div:first-child {
+                font-size: 0.26rem;
+              }
+              > div:last-child {
+                padding: 0;
+                font-size: 0.29rem;
+              }
+            }
+          }
+          .bottom {
+            position: absolute;
+            right: 0.23rem;
+            width: 6.16rem;
+            height: 4rem;
+            margin-top: 0.3rem;
+            ::before {
+              left: 0px;
+              top: -0.25rem;
+              width: 0.03rem;
+            }
+            ::after {
+              left: -0.2rem;
+              bottom: 0.1rem;
+              width: 0.87rem;
+              height: 0.03rem;
+              transform: rotate(35deg);
+            }
+            .right-border {
+              width: 0.03rem;
+            }
+            .container {
+              width: 100%;
+              height: 100%;
+              box-shadow: inset 0px 0px 0.2rem rgb(57 231 199 / 50%);
+              -webkit-clip-path: polygon(
+                0px 0px,
+                calc(100% - 0px) 0,
+                100% 0px,
+                100% calc(100% - 0px),
+                calc(100% - 0.4rem) 100%,
+                0.4rem 100%,
+                0 calc(100% - 0.3rem),
+                0 0.27rem
+              );
+              border-bottom: 0.03rem solid #19d6e2;
+              padding: 0.34rem 0.4rem 0;
+
+              .switch-head {
+                justify-content: space-between;
+                .deposit,
+                .withdraw {
+                  font-size: 0.26rem;
+                  padding: 0;
+                }
+
+                .approve {
+                  width: 1.31rem;
+                  height: 0.49rem;
+                  font-size: 0.26rem;
+                  line-height: 0.49rem;
+                }
+              }
+              .switch-content {
+                .switch-content-item {
+                  .title {
+                    font-size: 0.24rem;
+                    padding-top: 0.42rem;
+                  }
+                  .uinput {
+                    height: 0.8rem;
+                    width: 100%;
+                    border-radius: 0px;
+                    margin-top: 0.2rem;
+                    padding: 0 0.18rem 0 0.24rem;
+                    input {
+                      font-size: 0.24rem;
+                    }
+                    .max {
+                      font-size: 0.28rem;
+                    }
+                  }
+                  .button {
+                    height: 0.8rem;
+                    width: 100%;
+                    line-height: 0.8rem;
+                    font-size: 0.24rem;
+                    padding-left: 0.23rem;
+                    margin-top: 0.25rem;
+                    ::before {
+                      right: 0.17rem;
+                      width: 0.34rem;
+                      height: 0.02rem;
+                    }
+                    ::after {
+                      right: 0.16rem;
+                      top: 43%;
+                      width: 0.15rem;
+                      height: 0.02rem;
+                      background: #fff;
+                    }
+                  }
+                }
+              }
+            }
+          }
+          ::before {
+            content: "";
+            position: absolute;
+            right: -0.11rem;
+            top: -0.56rem;
+            width: 0.03rem;
+            height: 2rem;
+            background: #34c0ec;
+            transform: rotate(-45deg);
+          }
+          ::after {
+            content: "";
+            position: absolute;
+            right: -0.12rem;
+            bottom: -0.56rem;
+            width: 0.03rem;
+            height: 2rem;
+            background: #1883b9;
+            transform: rotate(45deg);
+          }
+        }
+      }
+    }
+  }
+  /* mobile style end */
 `;
 // NftFarams style end
 // 导出组件

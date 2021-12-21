@@ -1,13 +1,14 @@
 import React, { useEffect, useRef } from "react";
 import { Control } from "react-keeper";
 import styled from "styled-components";
+import isMobile from "is-mobile";
 import Swiper from "swiper";
 import "swiper/css/swiper.css";
 interface Props {
   change: Function;
 }
-
 const SuvBoxPopup: React.FC<Props> = (props) => {
+  const isM: boolean = isMobile();
   const leftButton = useRef(null);
   const rightButton = useRef(null);
   let { change } = props;
@@ -17,7 +18,7 @@ const SuvBoxPopup: React.FC<Props> = (props) => {
   useEffect(() => {
     let mySwiper = new Swiper(".popup-swiper", {
       loop: false,
-      slidesPerView: 3,
+      slidesPerView: !isM ? 3 : 2,
     });
     if (leftButton.current) {
       let left_button = leftButton.current as HTMLDivElement;
@@ -41,26 +42,57 @@ const SuvBoxPopup: React.FC<Props> = (props) => {
     <PopupStyle style={{ display: show ? "block" : "none" }}>
       <div className="popup-mask">
         <div className="content">
-          <div className="congratulation">Congratulation! (1/4)</div>
+          <div className="congratulation">
+            Congratulation!
+            {!isM ? <span>(1/4)</span> : null}
+          </div>
           <div className="prize-exhibition">
             {/* swiper-no-swiping  阻止拖动*/}
             <div className="prize ">
               <div className="swiper-container popup-swiper swiper-no-swiping">
                 <div className="swiper-wrapper ">
                   <div className="swiper-slide">
-                    <img src={require("../../assets/PC-config/NFT/feichuan5.png").default} alt="" />
+                    <img
+                      src={
+                        !isM
+                          ? require("../../assets/PC-config/NFT/feichuan5.png").default
+                          : require("../../assets/Phone-config/NFT/feichuan5.png").default
+                      }
+                      alt=""
+                    />
                     <div className="identifier">#13245</div>
                   </div>
                   <div className="swiper-slide">
-                    <img src={require("../../assets/PC-config/NFT/feichuan4.png").default} alt="" />
+                    <img
+                      src={
+                        !isM
+                          ? require("../../assets/PC-config/NFT/feichuan4.png").default
+                          : require("../../assets/Phone-config/NFT/feichuan4.png").default
+                      }
+                      alt=""
+                    />
                     <div className="identifier">#13245</div>
                   </div>
                   <div className="swiper-slide">
-                    <img src={require("../../assets/PC-config/NFT/feichuan3.png").default} alt="" />
+                    <img
+                      src={
+                        !isM
+                          ? require("../../assets/PC-config/NFT/feichuan3.png").default
+                          : require("../../assets/Phone-config/NFT/feichuan3.png").default
+                      }
+                      alt=""
+                    />
                     <div className="identifier">#13245</div>
                   </div>
                   <div className="swiper-slide">
-                    <img src={require("../../assets/PC-config/NFT/feichuan3.png").default} alt="" />
+                    <img
+                      src={
+                        !isM
+                          ? require("../../assets/PC-config/NFT/feichuan3.png").default
+                          : require("../../assets/Phone-config/NFT/feichuan3.png").default
+                      }
+                      alt=""
+                    />
                     <div className="identifier">#13245</div>
                   </div>
                 </div>
@@ -68,6 +100,7 @@ const SuvBoxPopup: React.FC<Props> = (props) => {
             </div>
             <div className="controll">
               <div className="prev" ref={leftButton}></div>
+              {isM ? <div className="number">(1/5)</div> : null}
               <div className="next" ref={rightButton}></div>
             </div>
           </div>
@@ -182,6 +215,7 @@ const PopupStyle = styled.div`
             width: 43px;
             height: 43px;
             background: #666;
+            z-index: 10;
           }
           .prev {
             position: relative;
@@ -324,6 +358,163 @@ const PopupStyle = styled.div`
     }
     .close-box:hover {
       cursor: pointer;
+    }
+  }
+  @media screen and (max-width: 750px) {
+    .popup-mask {
+      width: 6.69rem;
+      height: 9.86rem;
+      .content {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        -webkit-clip-path: polygon(
+          0.5rem 0px,
+          calc(100% - 0.8rem) 0,
+          100% 0.8rem,
+          100% calc(100% - 0.5rem),
+          calc(100% - 0.5rem) 100%,
+          0.5rem 100%,
+          0 calc(100% - 0.5rem),
+          0 0.5rem
+        );
+        background: linear-gradient(-45deg, transparent 0.26rem, rgba(4, 10, 58, 0.3) 0) bottom
+            right,
+          linear-gradient(45deg, transparent 0.26rem, rgba(4, 10, 58, 0.3) 0) bottom left,
+          linear-gradient(135deg, #33bfeb 0.26rem, rgba(4, 10, 58, 0.3) 0) top left,
+          linear-gradient(-135deg, #33bfeb 0.26rem, rgba(4, 10, 58, 0.3) 0) top right;
+        border-top: 0.05rem solid #33bfeb;
+        ::before,
+        ::after {
+          width: 0.05rem;
+        }
+        .congratulation {
+          padding-left: 0.8rem;
+          padding-top: 0.6rem;
+          font-size: 0.3rem;
+          ::before {
+            content: "";
+            position: absolute;
+            left: -0.55rem;
+            top: 0;
+            width: 2rem;
+            height: 0.05rem;
+            background-color: #31bbe7;
+            transform: rotate(-45deg);
+          }
+          ::after {
+            content: "";
+            position: absolute;
+            right: -0.59rem;
+            top: 0.33rem;
+            width: 2rem;
+            height: 0.05rem;
+            background-color: #31bbe7;
+            transform: rotate(45deg);
+          }
+        }
+        .prize-exhibition {
+          padding: 0;
+          padding-left: 0.5rem;
+          padding-right: 0.5rem;
+          margin-left: 0.1rem;
+          .prize {
+            width: 100%;
+            padding: 0;
+            .swiper-slide {
+              width: 3rem !important;
+              img {
+                width: 100%;
+              }
+              .identifier {
+                right: 0.85rem;
+                bottom: 0.52rem;
+                font-size: 0.22rem;
+              }
+            }
+          }
+          .controll {
+            position: absolute;
+            left: 1.63rem;
+            bottom: -1rem;
+            display: flex;
+            .number {
+              padding-left: 0.72rem;
+              padding-right: 0.72rem;
+              line-height: 0.53rem;
+              font-family: Roboto;
+              font-style: normal;
+              font-weight: 500;
+              font-size: 0.3rem;
+              letter-spacing: 0.135em;
+              color: #57f4f4;
+            }
+            .prev,
+            .next {
+              position: relative;
+              left: 0;
+              top: 0;
+            }
+            .prev {
+              width: 0.43rem;
+              height: 0.43rem;
+              ::before {
+                left: -0.28rem;
+                top: -0.33rem;
+              }
+            }
+            .next {
+              width: 0.43rem;
+              height: 0.43rem;
+              ::before {
+                right: -0.31rem;
+                top: 0.08rem;
+              }
+            }
+          }
+        }
+        .bottom-button {
+          padding: 0;
+          display: block;
+          margin-top: 1.64rem;
+          > div {
+            width: 5.57rem;
+            height: 0.9rem;
+            line-height: 0.9rem;
+            margin: auto;
+            font-size: 0.3rem;
+          }
+          .buy-again {
+            margin: auto;
+            margin-bottom: 0.3rem;
+          }
+        }
+      }
+      .close-box-bg {
+        width: 0.66rem;
+        height: 0.63rem;
+        right: 0.04rem;
+        .close-box {
+          left: -0.5rem;
+          top: 0.2rem;
+          width: 1rem;
+          height: 1rem;
+          background: linear-gradient(to top, #eb3f3f -30%, rgba(235, 63, 63, 0) 78.7%);
+         border-radius: 0;
+          .close-button {
+            left: 0.25rem;
+            top: auto;
+            bottom: 0.05rem;
+            width: 0.57rem;
+            height: 0.35rem;
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: 300;
+            font-size: 0.4rem;
+            line-height: 0.35rem;
+          }
+        }
+      }
     }
   }
 `;
