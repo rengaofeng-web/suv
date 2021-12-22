@@ -391,7 +391,7 @@ const PopupStyle = styled.div`
         .congratulation {
           padding-left: 0.8rem;
           padding-top: 0.6rem;
-          font-size: 0.3rem;
+          font-size: 0.3rem; 
           ::before {
             content: "";
             position: absolute;

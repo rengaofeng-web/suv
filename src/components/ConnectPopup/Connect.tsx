@@ -312,9 +312,10 @@ const ConnectStyle = styled.div`
       .connect-box {
         width: 6.69rem;
         height: 7.86rem;
+        background: linear-gradient(-135deg, transparent 0.6rem, #041733 0);
         .left-shadow {
           left: -0.24rem;
-          top: 0; 
+          top: 0;
           width: 0.25rem;
           height: 100%;
           box-shadow: 0.1rem 0px 0.28rem -0.08rem #00a3ff;
