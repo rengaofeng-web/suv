@@ -390,8 +390,9 @@ const PoolStyle = styled.div`
   @media screen and (max-width: 750px) {
     max-width: auto;
     min-width: auto;
-    height: 15.93rem;
+    height: 100vh;
     width: 7.5rem;
+    overflow: scroll;
     background-image: url(${mobile_wholeBg});
     background-repeat: repeat;
     background-size: cover;
@@ -447,11 +448,11 @@ const PoolStyle = styled.div`
               background-repeat: no-repeat;
               /* backdrop-filter: blur(10px); */
               border: 0.03rem solid rgba(51, 191, 235, 1);
-              box-shadow: inset 0px 0px 60px #00a3ff;
+              box-shadow: inset 0px 0px 0.6rem #00a3ff;
               margin: auto;
               display: block;
               box-sizing: border-box;
-              padding: 39px 65px 0;
+              padding: 0.39rem 0.65rem 0;
               margin-bottom: 0.4rem;
               .left-title {
                 > div {
@@ -498,6 +499,7 @@ const PoolStyle = styled.div`
                 left: 3.67rem;
                 top: 1.67rem;
                 font-size: 0.3rem;
+                padding-right: 0;
               }
               .apr {
                 position: absolute;

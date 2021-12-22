@@ -9,7 +9,7 @@ interface Props {
 const ConnectButton: React.FC<Props> = (props) => {
   let { change } = props;
   let [selectFlag, setSelectFlag] = useState(false);
-  let flag = false;
+  let flag = false;//登录状态切换，true 已登录 false未登录
   // 点击弹出钱包登录
   const show_connect = () => {
     document.body.style.cssText = "overflow:hidden;height:100%;";

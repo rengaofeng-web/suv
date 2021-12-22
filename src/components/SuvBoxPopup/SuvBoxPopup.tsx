@@ -422,7 +422,8 @@ const PopupStyle = styled.div`
             width: 100%;
             padding: 0;
             .swiper-slide {
-              width: 3rem !important;
+              width: 2.8rem !important;
+              margin-right: 0.1rem;
               img {
                 width: 100%;
               }
@@ -435,13 +436,13 @@ const PopupStyle = styled.div`
           }
           .controll {
             position: absolute;
-            left: 1.63rem;
+            left: 1.5rem;
             bottom: -1rem;
             display: flex;
             .number {
               padding-left: 0.72rem;
               padding-right: 0.72rem;
-              line-height: 0.53rem;
+              line-height: 0.4rem;
               font-family: Roboto;
               font-style: normal;
               font-weight: 500;
@@ -500,7 +501,7 @@ const PopupStyle = styled.div`
           width: 1rem;
           height: 1rem;
           background: linear-gradient(to top, #eb3f3f -30%, rgba(235, 63, 63, 0) 78.7%);
-         border-radius: 0;
+          border-radius: 0;
           .close-button {
             left: 0.25rem;
             top: auto;

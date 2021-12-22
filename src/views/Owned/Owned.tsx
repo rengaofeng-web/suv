@@ -285,7 +285,7 @@ const OwnedSttyle = styled.div`
       .title {
         padding-top: 0.81rem;
         font-size: 0.42rem;
-        padding-left: 0.2rem;
+        padding-left: 0;
         ::before {
           content: "";
           position: absolute;
@@ -308,7 +308,7 @@ const OwnedSttyle = styled.div`
         }
       }
       .container {
-        padding-left: 0.3rem;
+        padding-left: 0.2rem;
         width: 90%;
         margin-top: 0.44rem;
         .owned-swiper {

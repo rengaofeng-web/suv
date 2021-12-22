@@ -543,7 +543,7 @@ const SuvBoxStyle = styled.div`
           }
           ::after {
             left: -0.65rem;
-            top: 0.6rem;
+            top: 0.61rem;
             width: 0.05rem;
             height: 0.65rem;
           }
@@ -555,7 +555,7 @@ const SuvBoxStyle = styled.div`
           height: 0.05rem;
           ::before {
             right: -0.3rem;
-            bottom: -0.09rem;
+            bottom: -0.1rem;
             width: 0.05rem;
             height: 0.85rem;
           }

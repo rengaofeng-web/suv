@@ -206,7 +206,7 @@ const OwnedStyle = styled.div`
     .right-noCard {
       top: 7.5rem;
       right: 0.4rem;
-      img{
+      img {
         width: 4.17rem;
       }
     }
@@ -239,6 +239,26 @@ const OwnedStyle = styled.div`
       .title {
         padding-top: 0.81rem;
         font-size: 0.42rem;
+        ::before {
+          width: 2rem;
+          height: 0.03rem;
+          background: #2f9ad7;
+          transform: rotate(-45deg);
+          content: "";
+          position: absolute;
+          left: -0.52rem;
+          top: 0;
+        }
+        ::after {
+          width: 2rem;
+          height: 0.03rem;
+          background: #2f9ad7;
+          transform: rotate(45deg);
+          content: "";
+          position: absolute;
+          right: -0.52rem;
+          top: 0;
+        }
       }
       .left-content {
         text-align: center;
@@ -247,7 +267,7 @@ const OwnedStyle = styled.div`
         .text {
           width: 5.52rem;
           margin: auto;
-          font-size: .3rem;
+          font-size: 0.3rem;
         }
         .goButton {
           width: 5.18rem;
@@ -255,18 +275,18 @@ const OwnedStyle = styled.div`
           padding-left: 1.77rem;
           margin: auto;
           text-align: left;
-          font-size: .4rem;
+          font-size: 0.4rem;
           line-height: 0.85rem;
-          margin-top: .66rem;
+          margin-top: 0.66rem;
           ::before {
             left: 2.77rem;
             width: 0.55rem;
             height: 0.03rem;
           }
           ::after {
-            left:3.1rem;
-            width: .25rem;
-            height: .03rem;
+            left: 3.1rem;
+            width: 0.25rem;
+            height: 0.03rem;
             top: 42%;
           }
         }
