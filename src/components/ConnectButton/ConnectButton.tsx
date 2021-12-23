@@ -63,7 +63,6 @@ const ButtonStyle = styled.div`
     height: 43px;
     width: 115px;
     border-radius: 0px;
-    /* padding: 10px 20px 10px 20px; */
     text-align: center;
     line-height: 43px;
     font-size: 20px;
@@ -144,7 +143,6 @@ const ButtonStyle = styled.div`
       -khtml-user-select: none; /*早期浏览器*/
       user-select: none;
       .top {
-        /* height: 69px; */
         display: flex;
         justify-content: space-between;
         .myWallet-logo {
@@ -176,7 +174,6 @@ const ButtonStyle = styled.div`
           font-weight: bold;
           font-size: 16px;
           line-height: 40px;
-          /* identical to box height */
           color: #ffffff;
         }
         .content-item:active {

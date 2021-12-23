@@ -4,7 +4,6 @@ import { Control } from "react-keeper";
 import isMobile from "is-mobile";
 
 // 图片导入
-import wholeBg from "../../assets/PC-config/bg2.jpg"; //pc整体背景图
 import mobile_wholeBg from "../../assets/Phone-config/bg2.jpg"; //mobile 整体背景图
 interface DataItem {
   id: number;
@@ -179,18 +178,12 @@ const Pool: React.FC<{}> = () => {
 // Pool style start
 const PoolStyle = styled.div`
   position: relative;
-  max-width: 1920px;
-  min-width: 1200px;
-  height: 1541px;
-  margin: auto;
-  background-image: url(${wholeBg});
-  background-size: cover;
+  width: 100%;
   .mask {
     position: absolute;
     left: 0;
     top: 140px;
     width: 100%;
-    /* z-index: 10; */
     .content {
       position: absolute;
       left: 50%;
@@ -218,8 +211,6 @@ const PoolStyle = styled.div`
       background-size: 50% 51%;
       background-repeat: no-repeat;
       border-top: 5px solid #2cb0de;
-      /* border-bottom: none; */
-      /* overflow: hidden; */
       .pool-list {
         -moz-user-select: none; /*火狐*/
         -webkit-user-select: none; /*webkit浏览器*/
@@ -269,16 +260,8 @@ const PoolStyle = styled.div`
                 width: 66.5px;
                 border-radius: 50px;
                 margin: 1px auto;
-                /* border: 1px solid; */
-                /* 
-                border-image-source: linear-gradient(
-                  180deg,
-                  #6dffe5 0%,
-                  rgba(109, 255, 229, 0.1) 100%
-                ); */
                 background: #02051d;
                 box-shadow: inset 0px 0px 15px #5ebafd;
-                /* backdrop-filter: blur(3px); */
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -446,7 +429,6 @@ const PoolStyle = styled.div`
                   right;
               background-size: cover;
               background-repeat: no-repeat;
-              /* backdrop-filter: blur(10px); */
               border: 0.03rem solid rgba(51, 191, 235, 1);
               box-shadow: inset 0px 0px 0.6rem #00a3ff;
               margin: auto;
@@ -460,7 +442,6 @@ const PoolStyle = styled.div`
                   font-style: normal;
                   font-weight: bold;
                   font-size: 0.34rem;
-                  /* identical to box height */
                   color: rgba(255, 255, 255, 0.8);
                   padding-bottom: 0.56rem;
                 }

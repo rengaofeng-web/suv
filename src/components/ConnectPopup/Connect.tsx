@@ -78,8 +78,6 @@ const ConnectStyle = styled.div`
       top: 50%;
       transform: translate(-50%, -50%);
       overflow: hidden;
-      /* overflow: visible; */
-
       background: linear-gradient(-135deg, transparent 60px, #041733 0);
       .left-shadow {
         position: absolute;
@@ -240,7 +238,6 @@ const ConnectStyle = styled.div`
         background-image: linear-gradient(to left, #53c1ff, rgba(83, 193, 255, 0));
       }
       .close-box-bg {
-        /* background: rgba(0, 0, 0, 1); */
         position: absolute;
         right: -60px;
         top: -26px;
@@ -250,7 +247,6 @@ const ConnectStyle = styled.div`
         -ms-user-select: none; /*IE10*/
         -khtml-user-select: none; /*早期浏览器*/
         user-select: none;
-        /* box-shadow: 0px 0px 30px #00a3ff; */
         .close-box {
           position: relative;
           width: 190.86px;

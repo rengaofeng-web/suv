@@ -211,8 +211,6 @@ const HeaderStyle = styled.div`
     z-index: 1;
     left: 50%;
     transform: translate(-50%, 0);
-    /* padding-right: 360px;
-    padding-left: 360px; */
     .logo {
       width: 64px;
       padding-top: 22px;
@@ -257,7 +255,6 @@ const HeaderStyle = styled.div`
           width: 147px;
           display: none;
           z-index: 10;
-          /* height: 94px; */
           /* 实现四个边角切割 */
           clip-path: polygon(
             15px 0px,
@@ -325,7 +322,6 @@ const HeaderStyle = styled.div`
         content: "";
         width: 0px;
         height: 0px;
-        /* background: rgba(255, 255, 255, 0.8); */
         border-radius: 5px;
         transform: rotate(-180deg);
         border-bottom: 11px solid rgba(255, 255, 255, 0.8);
@@ -335,18 +331,9 @@ const HeaderStyle = styled.div`
       .item:hover {
         cursor: pointer;
       }
-      /* .item:hover .select {
-        display: block;
-      } */
       .active:after {
         transform: rotate(0deg) !important;
       }
-      /* .item:active::after {
-        transform: rotate(0deg);
-      } */
-      /* .item:hover::after {
-        transform: rotate(0deg);
-      } */
 
       .survivor::after {
         display: none;
@@ -382,7 +369,6 @@ const HeaderStyle = styled.div`
         float: none;
         width: 0.87rem;
         height: 0.86rem;
-        /* margin: .1rem 0 0 .4rem; */
         margin-left: 0.4rem;
         padding: 0;
         img {
@@ -420,7 +406,6 @@ const HeaderStyle = styled.div`
             padding: 0;
             margin: 0;
             font-size: 0.34rem;
-            /* height: .6rem; */
             line-height: 0.7rem;
             color: #fff;
             > a {

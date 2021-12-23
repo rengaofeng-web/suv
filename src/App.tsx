@@ -1,9 +1,8 @@
 import React from "react";
 import styled from "styled-components";
+import wholeBg from "./assets/PC-config/bg2.jpg"; //pc整体背景图
+import isMobile from "is-mobile";
 
-// import logo from './logo.svg';
-// import './App.css';
-// import { HashRouter, Route, Switch } from 'react-router-dom';
 import { Route, HashRouter } from "react-keeper";
 // 组件导入
 import Header from "./components/Header/Header";
@@ -16,6 +15,7 @@ import SuvBox from "./views/SuvBox/SuvBox";
 import NftFarams from "./views/NftFarams/NftFarams";
 import Owned from "./views/Owned/Owned";
 import OwnedNone from "./views/OwnedNone/OwnedNone";
+const isM: boolean = isMobile();
 const App: React.FC<{}> = () => {
   return (
     <AppStyle className="App">
@@ -36,46 +36,17 @@ const App: React.FC<{}> = () => {
     </AppStyle>
   );
 };
-const AppStyle = styled.div`
-  .App {
-    /* text-align: center; */
-    position: relative;
-  }
-
-  .App-logo {
-    height: 40vmin;
-    pointer-events: none;
-  }
-
-  @media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-      animation: App-logo-spin infinite 20s linear;
-    }
-  }
-
-  .App-header {
-    background-color: #282c34;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
-  }
-
-  .App-link {
-    color: #61dafb;
-  }
-
-  @keyframes App-logo-spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-`;
+const AppStyle = !isM
+  ? styled.div`
+      position: relative;
+      height: 100vh;
+      overflow: scroll;
+      background: url(${wholeBg});
+      background-repeat: no-repeat;
+      background-size: cover;
+    `
+  : styled.div`
+      position: relative;
+    `;
 
 export default App;

@@ -5,7 +5,6 @@ import "swiper/css/swiper.css";
 import isMobile from "is-mobile";
 
 // 图片导入
-import wholeBg from "../../assets/PC-config/bg1.jpg"; // pc 整体背景图
 import mobile_wholeBg from "../../assets/Phone-config/bg1.jpg"; // mobile 整体背景图
 const Owned: React.FC<{}> = () => {
   const isM: boolean = isMobile();
@@ -72,7 +71,6 @@ const OwnedSttyle = styled.div`
   min-width: 1200px;
   height: 1035px;
   margin: auto;
-  background-image: url(${wholeBg});
   box-sizing: border-box;
   .content {
     position: absolute;
@@ -81,7 +79,6 @@ const OwnedSttyle = styled.div`
     transform: translate(-50%, 0);
     width: 1200px;
     height: 650px;
-    /* display: flex; */
     background: linear-gradient(180deg, rgba(5, 22, 43, 0.8) 0%, rgba(5, 22, 43, 0.24) 106.72%);
     box-shadow: inset 0px 0px 60px #00a3ff;
     backdrop-filter: blur(10px);
@@ -199,7 +196,6 @@ const OwnedSttyle = styled.div`
         top: -34px;
         width: 150%;
         height: 150%;
-        /* background-color: #00a3ff; */
         background: linear-gradient(90deg, #ffdf70 54%, rgba(255, 223, 112, 0) 100%);
         border-radius: 1px;
         transform: rotate(45deg);
@@ -223,7 +219,6 @@ const OwnedSttyle = styled.div`
         top: 8px;
         width: 150%;
         height: 150%;
-        /* background-color: #00a3ff; */
         background: linear-gradient(to left, #ffdf70 54%, rgba(255, 223, 112, 0) 100%);
         border-radius: 1px;
         transform: rotate(45deg);

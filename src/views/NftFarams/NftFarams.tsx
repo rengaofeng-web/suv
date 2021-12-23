@@ -3,7 +3,6 @@ import styled from "styled-components";
 import isMobile from "is-mobile";
 
 // 图片导入
-import wholeBg from "../../assets/PC-config/bg2.jpg"; // pc 整体背景图
 import mobile_wholeBg from "../../assets/Phone-config/bg2.jpg"; // mobile 整体背景图
 const NftFarams: React.FC<{}> = () => {
   const isM: boolean = isMobile();
@@ -114,13 +113,9 @@ const FaramsStyle = styled.div`
   min-width: 1200px;
   height: 1541px;
   margin: auto;
-  background-image: url(${wholeBg});
-  background-repeat: no-repeat;
-  background-size: cover;
   box-sizing: border-box;
   .content-box {
     width: 1200px;
-    /* height: 1041px; */
     position: absolute;
     left: 50%;
     top: 176px;
@@ -227,7 +222,6 @@ const FaramsStyle = styled.div`
                   font-style: normal;
                   font-weight: bold;
                   font-size: 22px;
-                  /* identical to box height */
                   color: #ffffff;
                 }
               }
@@ -265,9 +259,6 @@ const FaramsStyle = styled.div`
             height: 62px;
             width: 3px;
             background-image: linear-gradient(to bottom, #18a7b1, transparent);
-            /* -webkit-transform: rotate(-45deg);
-          -ms-transform: rotate(-45deg);
-          transform: rotate(-48deg); */
           }
           .right-boreder {
             position: absolute;
@@ -529,13 +520,6 @@ const FaramsStyle = styled.div`
     .content-item:last-child:after {
       display: none;
     }
-    /* .split-line {
-      height: 5px;
-      width: 927px;
-      border-radius: 0px;
-      margin: 39px 0;
-      background: linear-gradient(90deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 100%);
-    } */
   }
   .content-box:before {
     content: "";
@@ -590,10 +574,6 @@ const FaramsStyle = styled.div`
           0 calc(100% - 0.35rem),
           0 0.35rem
         );
-        /* background: linear-gradient(-45deg, #177ab1 0.35rem, rgba(0, 0, 0, 0.6) 0) bottom right,
-          linear-gradient(45deg, #177ab1 0.35rem, rgba(0, 0, 0, 0.6) 0) bottom left,
-          linear-gradient(135deg, #177ab1 0.35rem, rgba(0, 0, 0, 0.6) 0) top left,
-          linear-gradient(-135deg, #177ab1 0.35rem, rgba(0, 0, 0, 0.6) 0) top right; */
         background: linear-gradient(180deg, rgba(1, 6, 44, 0.6) 0%, rgba(4, 10, 58, 0.3) 169.32%);
         box-shadow: inset 0px 0px 0.6rem #00a3ff;
         border-top: 0.03rem solid #34c0ec;
@@ -624,7 +604,6 @@ const FaramsStyle = styled.div`
         }
         .left-blindBox {
           margin-top: 0.53rem;
-          /* width: 1.9rem; */
           img {
             width: 1.92rem;
           }

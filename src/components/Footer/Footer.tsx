@@ -14,8 +14,7 @@ const Footer: React.FC<{}> = () => {
           ctx.lineWidth = 2;
           ctx.beginPath();
           ctx.moveTo(8, 70);
-          // ctx.bezierCurveTo(50, -8, 124, 88, 204, 0);
-          ctx.bezierCurveTo(51, -2, 128, 86, 161, 0);
+          ctx.bezierCurveTo(182, -5, 219, 180, 324, 8);
           ctx.shadowColor = "rgba(33,217,173,0.2)";
           ctx.shadowOffsetX = 0;
           ctx.shadowOffsetY = 6;
@@ -195,6 +194,11 @@ const FooterStyle = styled.div`
     padding-right: 360px;
     padding-left: 360px;
     padding-top: 71px;
+    .footer {
+      max-width: 1920px;
+      min-width: 1216px;
+      margin: auto;
+    }
     .reserved {
       width: 100%;
       text-align: center;
@@ -394,7 +398,9 @@ const FooterStyle = styled.div`
       height: 7.9rem;
       background: linear-gradient(180deg, rgba(6, 11, 64, 0.8) 0%, rgba(6, 11, 64, 0) 195.35%);
       padding: 0;
-      .footer {
+      .footer { 
+        max-width: auto;
+        min-width: auto;
         display: block;
         height: 100%;
         position: relative;
@@ -412,7 +418,7 @@ const FooterStyle = styled.div`
               text-align: center;
               .item {
                 width: auto;
-                padding-bottom: .16rem;
+                padding-bottom: 0.16rem;
               }
               a {
                 font-size: 0.3rem;
@@ -439,11 +445,6 @@ const FooterStyle = styled.div`
           .center-data-bg {
             width: 100%;
             height: 2.21rem;
-            /* background: linear-gradient(
-              180deg,
-              rgba(255, 255, 255, 0.2) 0%,
-              rgba(255, 255, 255, 0) 100%
-            ); */
             .center-data {
               background: linear-gradient(
                 to top,
@@ -451,7 +452,7 @@ const FooterStyle = styled.div`
                 rgba(255, 255, 255, 0) 100%
               );
               backdrop-filter: blur(5px);
-              border-radius: .1rem;
+              border-radius: 0.1rem;
               .left-logo {
                 padding-left: 0.4rem;
                 padding-top: 0.35rem;
@@ -534,8 +535,8 @@ const FooterStyle = styled.div`
             }
             a {
               display: inline-block;
-              img{
-                width: .59rem;
+              img {
+                width: 0.59rem;
               }
             }
           }

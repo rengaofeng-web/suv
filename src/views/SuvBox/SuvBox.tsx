@@ -6,7 +6,6 @@ import "swiper/css/swiper.css";
 // 组件引入
 import SuvBoxPopup from "../../components/SuvBoxPopup/SuvBoxPopup";
 // 图片引入
-import wholeBg from "../../assets/PC-config/bg1.jpg"; // pc 整体背景图
 import kejikuang from "../../assets/PC-config/NFT/kejikuang.png"; // pc 宝箱背景
 import baoxiang_bg from "../../assets/PC-config/NFT/xia.png"; //pc 宝箱背景 光环
 import mobile_wholeBg from "../../assets/Phone-config/bg1.jpg"; //mobile 整体背景图
@@ -178,9 +177,6 @@ const SuvBoxStyle = styled.div`
   min-width: 1200px;
   height: 1035px;
   margin: auto;
-  background-image: url(${wholeBg});
-  background-repeat: no-repeat;
-  background-size: cover;
   box-sizing: border-box;
   .content-box {
     position: absolute;
@@ -192,7 +188,6 @@ const SuvBoxStyle = styled.div`
     display: flex;
     .left-operation-main {
       position: relative;
-      /* width: 530px; */
       margin-top: 80px;
       .top-line {
         position: absolute;
@@ -255,7 +250,6 @@ const SuvBoxStyle = styled.div`
         height: 65px;
         background: #32bbe7;
         border-bottom-right-radius: 2px;
-        /* background-image: linear-gradient(to bottom, #2ba3c9, #31bae6); */
       }
       .left-operation {
         width: 523.19px;
@@ -295,8 +289,6 @@ const SuvBoxStyle = styled.div`
             position: absolute;
             left: 12px;
             top: 76px;
-            /* padding-top: 50px;
-            padding-left: 22px; */
             width: 165px;
             .swiper-wrapper {
               transition: all 0.5s;
@@ -311,7 +303,6 @@ const SuvBoxStyle = styled.div`
       }
       .control {
         position: relative;
-        /* background: rgba(0, 0, 0, 0.6); */
         display: flex;
         align-items: center;
         padding-left: 24px;
@@ -620,8 +611,6 @@ const SuvBoxStyle = styled.div`
               position: absolute;
               left: 0.12rem;
               top: 1rem;
-              /* padding-top: 50px;
-            padding-left: 22px; */
               width: 2.2rem;
               .swiper-wrapper {
                 transition: all 0.5s;
@@ -639,7 +628,7 @@ const SuvBoxStyle = styled.div`
           .control {
             width: 2rem;
             padding-left: 0.1rem;
-            margin-left: .1rem;
+            margin-left: 0.1rem;
             display: flex;
             justify-content: space-between;
             .control-bg {

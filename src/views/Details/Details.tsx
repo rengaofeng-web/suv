@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { Control } from "react-keeper";
 import isMobile from "is-mobile";
 // 图片导入
-import wholeBg from "../../assets/PC-config/bg1.jpg"; // pc 整体背景图
 import mobile_wholeBg from "../../assets/Phone-config/bg1.jpg"; // mobile 整体背景图
 const Details: React.FC<{}> = () => {
   const isM: boolean = isMobile();
@@ -83,7 +82,6 @@ const DetailsStyle = styled.div`
   min-width: 1200px;
   height: 1035px;
   margin: auto;
-  background-image: url(${wholeBg});
   box-sizing: border-box;
   .content-box {
     position: absolute;
@@ -100,11 +98,11 @@ const DetailsStyle = styled.div`
       calc(100% - 35px) 0,
       100% 35px,
       100% calc(100% - 35px),
-      calc(100% - 35px) 100%,
+      calc(100% - 35px) 100%, 
       35px 100%,
       0 calc(100% - 35px),
       0 35px
-    );
+    ); 
     background: linear-gradient(-45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom right,
       linear-gradient(45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom left,
       linear-gradient(135deg, #2cb0de 26px, rgba(4, 10, 58, 0.3) 0) top left,
@@ -138,16 +136,8 @@ const DetailsStyle = styled.div`
         width: 66.5px;
         border-radius: 50px;
         margin: 1px auto;
-        /* border: 1px solid; */
-        /* 
-                border-image-source: linear-gradient(
-                  180deg,
-                  #6dffe5 0%,
-                  rgba(109, 255, 229, 0.1) 100%
-                ); */
         background: #02051d;
         box-shadow: inset 0px 0px 15px #5ebafd;
-        /* backdrop-filter: blur(3px); */
         display: flex;
         justify-content: center;
         align-items: center;
@@ -166,7 +156,6 @@ const DetailsStyle = styled.div`
         text-align: center;
         line-height: 39px;
         border: 2px solid #6788ff;
-        /* border-image: linear-gradient(90deg, #6788ff 0%, #d4484b 100%); */
         border: 2px solid #ddd;
         border-image: -webkit-linear-gradient(to right, #6788ff, #d4484b) 20 20;
         border-image: -moz-linear-gradient(to right, #6788ff, #d4484b) 20 20;
@@ -285,7 +274,6 @@ const DetailsStyle = styled.div`
     min-width: auto;
     height: 100vh;
     overflow: scroll;
-    /* height: 1334px; */
     margin: auto;
     background: url(${mobile_wholeBg});
     background-size: cover;

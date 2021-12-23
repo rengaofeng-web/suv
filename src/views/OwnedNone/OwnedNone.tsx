@@ -2,9 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Control } from "react-keeper";
 import isMobile from "is-mobile";
-
 // 图片导入
-import wholeBg from "../../assets/PC-config/bg1.jpg"; // pc 整体背景图
 import noCard from "../../assets/PC-config/NFT/NO-CARD.png"; // pc 右边的大飞船
 import mobile_wholeBg from "../../assets/Phone-config/bg1.jpg"; // mobile 整体背景图
 import mobile_noCard from "../../assets/Phone-config/NFT/NO-CARD.png"; // mobile 右边的大飞船
@@ -42,7 +40,6 @@ const OwnedStyle = styled.div`
   min-width: 1200px;
   height: 1035px;
   margin: auto;
-  background-image: url(${wholeBg});
   box-sizing: border-box;
   .container {
     position: absolute;
@@ -51,10 +48,8 @@ const OwnedStyle = styled.div`
     transform: translate(-50%, 0);
     width: 1200px;
     height: 650px;
-    /* display: flex; */
     background: linear-gradient(180deg, rgba(5, 22, 43, 0.8) 0%, rgba(5, 22, 43, 0.24) 106.72%);
     box-shadow: inset 0px 0px 60px #00a3ff;
-    /* backdrop-filter: blur(10px); */
     background: linear-gradient(-45deg, transparent 36px, transparent 0) bottom right,
       linear-gradient(45deg, transparent 36px, transparent 0) bottom left,
       linear-gradient(135deg, #2f9ad7 37px, transparent 0) top left,
@@ -155,9 +150,7 @@ const OwnedStyle = styled.div`
         left: 256px;
         width: 55px;
         height: 3px;
-        /* background: #fff; */
         background: linear-gradient(-135deg, transparent 2px, #fff 0) top right;
-        /* border-top-right-radius: 3px; */
       }
       .goButton:after {
         content: "";

@@ -140,7 +140,6 @@ const PopupStyle = styled.div`
   left: 0;
   top: 0;
   z-index: 100;
-  /* display: none; */
   .popup-mask {
     position: absolute;
     left: 50%;
@@ -150,7 +149,6 @@ const PopupStyle = styled.div`
     height: 650px;
     transform: translate(-50%, -50%);
     .content {
-      /* overflow: hidden; */
       width: 1200px;
       height: 650px;
       background: rgba(5, 22, 43, 0.95);
@@ -235,7 +233,6 @@ const PopupStyle = styled.div`
             top: -34px;
             width: 150%;
             height: 150%;
-            /* background-color: #00a3ff; */
             background: linear-gradient(90deg, #ffdf70 54%, rgba(255, 223, 112, 0) 100%);
             border-radius: 1px;
             transform: rotate(45deg);
@@ -259,7 +256,6 @@ const PopupStyle = styled.div`
             top: 8px;
             width: 150%;
             height: 150%;
-            /* background-color: #00a3ff; */
             background: linear-gradient(to left, #ffdf70 54%, rgba(255, 223, 112, 0) 100%);
             border-radius: 1px;
             transform: rotate(45deg);
@@ -311,7 +307,6 @@ const PopupStyle = styled.div`
     }
   }
   .close-box-bg {
-    /* background: rgba(0, 0, 0, 1); */
     position: absolute;
     right: 0px;
     top: 0px;
@@ -321,7 +316,6 @@ const PopupStyle = styled.div`
     overflow: hidden;
     width: 45px;
     height: 42px;
-    /* box-shadow: 0px 0px 30px #00a3ff; */
     .close-box {
       position: absolute;
       left: -63px;
@@ -391,7 +385,7 @@ const PopupStyle = styled.div`
         .congratulation {
           padding-left: 0.8rem;
           padding-top: 0.6rem;
-          font-size: 0.3rem; 
+          font-size: 0.3rem;
           ::before {
             content: "";
             position: absolute;
@@ -436,7 +430,7 @@ const PopupStyle = styled.div`
           }
           .controll {
             position: absolute;
-            left: 1.5rem;
+            left: 1.6rem;
             bottom: -1rem;
             display: flex;
             .number {
@@ -505,7 +499,7 @@ const PopupStyle = styled.div`
           .close-button {
             left: 0.25rem;
             top: auto;
-            bottom: 0.05rem;
+            bottom: 0rem;
             width: 0.57rem;
             height: 0.35rem;
             font-family: Roboto;

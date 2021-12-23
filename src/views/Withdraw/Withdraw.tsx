@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import isMobile from "is-mobile";
-
-import wholeBg from "../../assets/PC-config/bg1.jpg"; // pc 整体背景图
 import mobile_wholeBg from "../../assets/Phone-config/bg1.jpg"; //mobile 整体背景图
 const Withdraw: React.FC<{}> = () => {
   const isM: boolean = isMobile();
@@ -112,9 +110,6 @@ const WithdrawStyle = styled.div`
   min-width: 1200px;
   height: 1035px;
   margin: auto;
-  background-image: url(${wholeBg});
-  background-repeat: no-repeat;
-  background-size: cover;
   box-sizing: border-box;
   .head {
     position: relative;
@@ -142,16 +137,8 @@ const WithdrawStyle = styled.div`
       width: 66.5px;
       border-radius: 50px;
       margin: 1px auto;
-      /* border: 1px solid; */
-      /* 
-                border-image-source: linear-gradient(
-                  180deg,
-                  #6dffe5 0%,
-                  rgba(109, 255, 229, 0.1) 100%
-                ); */
       background: #02051d;
       box-shadow: inset 0px 0px 15px #5ebafd;
-      /* backdrop-filter: blur(3px); */
       display: flex;
       justify-content: center;
       align-items: center;
@@ -171,8 +158,6 @@ const WithdrawStyle = styled.div`
     top: 202px;
     transform: translate(-50%, 0);
     width: 593px;
-    /* height: 613px; */
-    /* height: 529px; */
     box-shadow: inset 0px 0px 60px #00a3ff;
     box-sizing: border-box;
     padding: 0 70px 60px;
@@ -275,7 +260,6 @@ const WithdrawStyle = styled.div`
             font-family: Roboto;
             font-style: normal;
             font-size: 16px;
-
             color: rgba(255, 255, 255, 0.7);
             -moz-user-select: none; /*火狐*/
             -webkit-user-select: none; /*webkit浏览器*/
@@ -332,7 +316,6 @@ const WithdrawStyle = styled.div`
               font-style: normal;
               font-weight: normal;
               font-size: 12px;
-              /* identical to box height */
               color: rgba(255, 255, 255, 0.8);
               padding-bottom: 5px;
             }
