@@ -5,6 +5,7 @@ import Swiper from "swiper";
 import "swiper/css/swiper.css";
 // 组件引入
 import SuvBoxPopup from "../../components/SuvBoxPopup/SuvBoxPopup";
+import Footer from "../../components/Footer/Footer"; //footer
 // 图片引入
 import kejikuang from "../../assets/PC-config/NFT/kejikuang.png"; // pc 宝箱背景
 import baoxiang_bg from "../../assets/PC-config/NFT/xia.png"; //pc 宝箱背景 光环
@@ -167,24 +168,24 @@ const SuvBox: React.FC<{}> = () => {
           </div>
         </div>
       </div>
+      <Footer></Footer>
     </SuvBoxStyle>
   );
 };
 // SuvBox style start
 const SuvBoxStyle = styled.div`
   position: relative;
-  max-width: 1920px;
-  min-width: 1200px;
   height: 1035px;
   margin: auto;
   box-sizing: border-box;
+  .footer-bg{
+    position: relative;
+  }
   .content-box {
-    position: absolute;
-    left: 50%;
-    top: 176px;
-    transform: translate(-50%, 0);
+    position: relative;
     width: 1400px;
     height: 558px;
+    margin: 176px auto;
     display: flex;
     .left-operation-main {
       position: relative;
@@ -516,7 +517,7 @@ const SuvBoxStyle = styled.div`
       width: 6.7rem;
       height: auto;
       display: block;
-      top: 0.9rem;
+      margin: 2.36rem auto 2rem;
       .left-operation-main {
         margin-top: 0.9rem;
         .top-line {

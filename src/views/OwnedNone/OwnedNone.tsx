@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { Control } from "react-keeper";
 import isMobile from "is-mobile";
+// 组件导入
+import Footer from "../../components/Footer/Footer"; //footer
 // 图片导入
 import noCard from "../../assets/PC-config/NFT/NO-CARD.png"; // pc 右边的大飞船
 import mobile_wholeBg from "../../assets/Phone-config/bg1.jpg"; // mobile 整体背景图
@@ -30,24 +32,26 @@ const OwnedNone: React.FC<{}> = () => {
       <div className="right-noCard">
         <img src={!isM ? noCard : mobile_noCard} alt="" />
       </div>
+      <Footer></Footer>
     </OwnedStyle>
   );
 };
 // ownedNone style start
 const OwnedStyle = styled.div`
   position: relative;
-  max-width: 1920px;
-  min-width: 1200px;
+  /* max-width: 1920px;
+  min-width: 1200px; */
   height: 1035px;
   margin: auto;
   box-sizing: border-box;
+  .footer-bg {
+    position: relative;
+  }
   .container {
-    position: absolute;
-    left: 50%;
-    top: 176px;
-    transform: translate(-50%, 0);
+    position: relative;
     width: 1200px;
     height: 650px;
+    margin: 176px auto 300px;
     background: linear-gradient(180deg, rgba(5, 22, 43, 0.8) 0%, rgba(5, 22, 43, 0.24) 106.72%);
     box-shadow: inset 0px 0px 60px #00a3ff;
     background: linear-gradient(-45deg, transparent 36px, transparent 0) bottom right,
@@ -98,7 +102,7 @@ const OwnedStyle = styled.div`
       0 50px
     );
     box-sizing: border-box;
-    padding-left: 89px;
+    /* padding-left: 89px; */
     .title {
       width: 100%;
       text-align: center;
@@ -113,6 +117,7 @@ const OwnedStyle = styled.div`
     .left-content {
       width: 550px;
       padding-top: 129px;
+      margin-left: 89px;
       .text {
         font-family: Roboto;
         font-style: normal;
@@ -208,6 +213,7 @@ const OwnedStyle = styled.div`
       height: 8.68rem;
       background: none;
       backdrop-filter: blur(0px);
+      margin: 2.36rem auto 3rem;
       background: linear-gradient(-45deg, transparent 0.36rem, rgba(4, 10, 58, 0.2) 0) bottom right,
         linear-gradient(45deg, transparent 0.36rem, rgba(4, 10, 58, 0.2) 0) bottom left,
         linear-gradient(135deg, #2f9ad7 0.36rem, rgba(4, 10, 58, 0.2) 0) top left,
@@ -257,6 +263,7 @@ const OwnedStyle = styled.div`
         text-align: center;
         width: auto;
         padding-top: 0.44rem;
+        margin-left: 0;
         .text {
           width: 5.52rem;
           margin: auto;

@@ -137,7 +137,6 @@ const HomeStyle = styled.div`
       position: absolute;
       width: 100%;
       height: 474px;
-      /* left: 0px;*/
       top: 100px;
       background: linear-gradient(
         89.9deg,
@@ -154,7 +153,6 @@ const HomeStyle = styled.div`
         padding-left: 379px;
         padding-top: 60px;
         display: flex;
-        /* align-items: center; */
         .left-img {
         }
         .right-text {

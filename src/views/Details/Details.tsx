@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { Control } from "react-keeper";
 import isMobile from "is-mobile";
+// 组件导入
+import Footer from "../../components/Footer/Footer"; //footer
 // 图片导入
 import mobile_wholeBg from "../../assets/Phone-config/bg1.jpg"; // mobile 整体背景图
 const Details: React.FC<{}> = () => {
@@ -72,22 +74,22 @@ const Details: React.FC<{}> = () => {
           <div className="harvest">HARVEST</div>
         </div>
       </div>
+      <Footer></Footer>
     </DetailsStyle>
   );
 };
 // details style start
 const DetailsStyle = styled.div`
   position: relative;
-  max-width: 1920px;
-  min-width: 1200px;
   height: 1035px;
   margin: auto;
   box-sizing: border-box;
+  .footer-bg {
+    position: relative;
+  }
   .content-box {
-    position: absolute;
-    left: 50%;
-    top: 202px;
-    transform: translate(-50%, 0);
+    position: relative;
+    margin: 202px auto;
     width: 593px;
     height: 632px;
     box-shadow: inset 0px 0px 60px #00a3ff;
@@ -98,16 +100,16 @@ const DetailsStyle = styled.div`
       calc(100% - 35px) 0,
       100% 35px,
       100% calc(100% - 35px),
-      calc(100% - 35px) 100%, 
+      calc(100% - 35px) 100%,
       35px 100%,
       0 calc(100% - 35px),
       0 35px
-    ); 
+    );
     background: linear-gradient(-45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom right,
       linear-gradient(45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom left,
       linear-gradient(135deg, #2cb0de 26px, rgba(4, 10, 58, 0.3) 0) top left,
       linear-gradient(-135deg, #2cb0de 26px, rgba(4, 10, 58, 0.3) 0) top right;
-    background-size: 50% 51%;
+    background-size: 50% 50%;
     background-repeat: no-repeat;
     border-top: 5px solid #2cb0de;
     .head {
@@ -281,7 +283,7 @@ const DetailsStyle = styled.div`
       width: 6.7rem;
       height: 9.07rem;
       padding: 0 0.72rem;
-      top: 2.36rem;
+      margin: 2.02rem auto;
       -webkit-clip-path: polygon(
         0.38rem 0px,
         calc(100% - 0.38rem) 0,

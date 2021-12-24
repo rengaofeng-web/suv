@@ -40,10 +40,11 @@ const AppStyle = !isM
   ? styled.div`
       position: relative;
       height: 100vh;
-      overflow: scroll;
+      overflow-y: scroll;
       background: url(${wholeBg});
       background-repeat: no-repeat;
       background-size: cover;
+     
     `
   : styled.div`
       position: relative;

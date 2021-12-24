@@ -74,7 +74,12 @@ const Header: React.FC<{}> = () => {
       {/* header */}
       <div className="header">
         {/* logo */}
-        <div className="logo">
+        <div
+          className="logo"
+          onClick={() => {
+            Control.go("/");
+          }}
+        >
           <img src={isM ? mobile_logo : logo} alt="" />
         </div>
         {isM ? (
@@ -99,7 +104,7 @@ const Header: React.FC<{}> = () => {
                     className="select-item"
                     onClick={(e: React.MouseEvent) => {
                       e.stopPropagation ? e.stopPropagation() : (e.cancelable = true);
-                      removeStats(isM?true:false);
+                      removeStats(isM ? true : false);
                       Control.go("/pool");
                     }}
                   >
@@ -117,7 +122,7 @@ const Header: React.FC<{}> = () => {
                     className="select-item"
                     onClick={(e: React.MouseEvent) => {
                       e.stopPropagation ? e.stopPropagation() : (e.cancelable = true);
-                      removeStats(isM?true:false);
+                      removeStats(isM ? true : false);
                       Control.go("/suvBox");
                     }}
                   >
@@ -127,7 +132,7 @@ const Header: React.FC<{}> = () => {
                     className="select-item"
                     onClick={(e: React.MouseEvent) => {
                       e.stopPropagation ? e.stopPropagation() : (e.cancelable = true);
-                      removeStats(isM?true:false);
+                      removeStats(isM ? true : false);
                       Control.go("/nftFarams");
                     }}
                   >
@@ -137,7 +142,7 @@ const Header: React.FC<{}> = () => {
                     className="select-item"
                     onClick={(e: React.MouseEvent) => {
                       e.stopPropagation ? e.stopPropagation() : (e.cancelable = true);
-                      removeStats(isM?true:false);
+                      removeStats(isM ? true : false);
                       Control.go("/owned");
                     }}
                   >
@@ -215,6 +220,7 @@ const HeaderStyle = styled.div`
       width: 64px;
       padding-top: 22px;
       float: left;
+      cursor: pointer;
       > img {
         width: 100%;
         height: 63px;

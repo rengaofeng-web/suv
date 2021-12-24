@@ -191,8 +191,6 @@ const FooterStyle = styled.div`
     bottom: 0;
     background: linear-gradient(180deg, rgba(6, 11, 64, 0.8) 0%, rgba(6, 11, 64, 0) 100%);
     box-sizing: border-box;
-    padding-right: 360px;
-    padding-left: 360px;
     padding-top: 71px;
     .footer {
       max-width: 1920px;
@@ -212,6 +210,7 @@ const FooterStyle = styled.div`
     }
     .footer {
       display: flex;
+      justify-content: center;
       .left {
         .footer-logo {
           padding-bottom: 22px;
@@ -252,12 +251,6 @@ const FooterStyle = styled.div`
           width: 348px;
           height: 171px;
           box-sizing: border-box;
-          /* padding: 1px; */
-          /* background: linear-gradient(
-            180deg,
-            #32c2d6 0%,
-            rgba(50, 194, 214, 0) 100%
-          ); */
           border-radius: 10px;
           position: relative;
         }
@@ -267,11 +260,8 @@ const FooterStyle = styled.div`
           top: -1px;
           width: 350px;
           height: 23px;
-          /* borderradius: 10px;
-             */
           border-top-left-radius: 10px;
           border-top-right-radius: 10px;
-          /* background-color: #32c2d6; */
           border: 1px solid #32c2d6;
           box-sizing: border-box;
           border-bottom: none;
@@ -300,7 +290,6 @@ const FooterStyle = styled.div`
           left: -1px;
           top: 9px;
           background: linear-gradient(180deg, #32c2d6 0%, rgba(50, 194, 214, 0) 100%);
-          /* border-radius: 50px; */
         }
         .center-data::after {
           display: block;
@@ -311,7 +300,6 @@ const FooterStyle = styled.div`
           right: -1px;
           top: 10px;
           background: linear-gradient(180deg, #32c2d6 0%, rgba(50, 194, 214, 0) 100%);
-          /* border-radius: 50px; */
         }
         .left-logo {
           text-align: center;
@@ -351,8 +339,6 @@ const FooterStyle = styled.div`
             }
           }
           .chart {
-            /* border: 2px solid #21d9ad; */
-            /* box-shadow: 0px 5px 4px rgba(33, 217, 173, 0.3); */
             .num {
               font-family: Roboto;
               font-style: normal;
@@ -409,11 +395,10 @@ const FooterStyle = styled.div`
           top: 4rem;
           width: 100%;
           box-sizing: border-box;
-          padding-left: 0.4rem;
-          padding-right: 0.4rem;
+          padding-right: .5rem;
           .footer-menu {
             width: 100%;
-            justify-content: space-between;
+            justify-content:space-around;
             .menu-item {
               text-align: center;
               .item {
@@ -505,7 +490,7 @@ const FooterStyle = styled.div`
               height: 100%;
             }
             .line {
-              width: 6.72rem;
+              width: 6.74rem;
               top: 1.99rem;
               height: 0.23rem;
               border-bottom: 1px solid #32c2d6;

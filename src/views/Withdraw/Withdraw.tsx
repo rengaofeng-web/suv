@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import isMobile from "is-mobile";
+// 组件导入
+import Footer from "../../components/Footer/Footer"; //footer
 import mobile_wholeBg from "../../assets/Phone-config/bg1.jpg"; //mobile 整体背景图
 const Withdraw: React.FC<{}> = () => {
   const isM: boolean = isMobile();
@@ -100,64 +102,23 @@ const Withdraw: React.FC<{}> = () => {
           <div className="withdraw">WITHDRAW</div>
         </div>
       </div>
+      <Footer></Footer>
     </WithdrawStyle>
   );
 };
 // withdraw style start
 const WithdrawStyle = styled.div`
   position: relative;
-  max-width: 1920px;
-  min-width: 1200px;
   height: 1035px;
   margin: auto;
   box-sizing: border-box;
-  .head {
+  .footer-bg {
     position: relative;
-    height: 120px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    .left-logo {
-      display: flex;
-      align-items: center;
-    }
-    .logo-border {
-      width: 68px;
-      height: 68px;
-      padding: 1px;
-      background-image: linear-gradient(
-        to bottom,
-        rgba(109, 255, 229, 1),
-        rgba(109, 255, 229, 0.1)
-      );
-      border-radius: 50%;
-    }
-    .logo {
-      height: 66.5px;
-      width: 66.5px;
-      border-radius: 50px;
-      margin: 1px auto;
-      background: #02051d;
-      box-shadow: inset 0px 0px 15px #5ebafd;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .text {
-      font-family: Roboto;
-      font-style: normal;
-      font-weight: bold;
-      padding-left: 15px;
-      font-size: 24px;
-      color: #ffffff;
-    }
   }
   .content-box {
-    position: absolute;
-    left: 50%;
-    top: 202px;
-    transform: translate(-50%, 0);
+    position: relative;
     width: 593px;
+    margin: 202px auto;
     box-shadow: inset 0px 0px 60px #00a3ff;
     box-sizing: border-box;
     padding: 0 70px 60px;
@@ -178,6 +139,47 @@ const WithdrawStyle = styled.div`
     background-size: 50% 50%;
     background-repeat: no-repeat;
     border-top: 5px solid #2cb0de;
+    .head {
+      position: relative;
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .left-logo {
+        display: flex;
+        align-items: center;
+      }
+      .logo-border {
+        width: 68px;
+        height: 68px;
+        padding: 1px;
+        background-image: linear-gradient(
+          to bottom,
+          rgba(109, 255, 229, 1),
+          rgba(109, 255, 229, 0.1)
+        );
+        border-radius: 50%;
+      }
+      .logo {
+        height: 66.5px;
+        width: 66.5px;
+        border-radius: 50px;
+        margin: 1px auto;
+        background: #02051d;
+        box-shadow: inset 0px 0px 15px #5ebafd;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .text {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: bold;
+        padding-left: 15px;
+        font-size: 24px;
+        color: #ffffff;
+      }
+    }
     .content {
       .switch-button {
         display: flex;
@@ -531,7 +533,7 @@ const WithdrawStyle = styled.div`
     .content-box {
       width: 6.7rem;
       padding: 0 0.72rem 0.7rem;
-      top: 2.36rem;
+      margin: 2.02rem auto;
       -webkit-clip-path: polygon(
         0.38rem 0px,
         calc(100% - 0.38rem) 0,

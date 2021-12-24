@@ -2,7 +2,8 @@ import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import mobile_wholeBg from "../../assets/Phone-config/bg1.jpg"; // mobile 整体背景图
 import isMobile from "is-mobile";
-
+// 组件导入
+import Footer from "../../components/Footer/Footer"; //footer
 const Stake: React.FC<{}> = () => {
   const isM: boolean = isMobile();
   let [current, setCurrent] = useState(true);
@@ -186,21 +187,20 @@ const Stake: React.FC<{}> = () => {
           <div className="stake">STAKE</div>
         </div>
       </div>
+      <Footer></Footer>
     </StakeStyle>
   );
 };
 // stake style start
 const StakeStyle = styled.div`
   position: relative;
-  max-width: 1920px;
-  min-width: 1200px;
-  height: 1035px;
   margin: auto;
+  .footer-bg {
+    position: relative;
+  }
   .content-box {
-    position: absolute;
-    left: 50%;
-    top: 202px;
-    transform: translate(-50%, 0);
+    position: relative;
+    margin: 202px auto;
     width: 593px;
     box-shadow: inset 0px 0px 60px #00a3ff;
     box-sizing: border-box;
@@ -219,9 +219,10 @@ const StakeStyle = styled.div`
       linear-gradient(45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom left,
       linear-gradient(135deg, #2cb0de 26px, rgba(4, 10, 58, 0.3) 0) top left,
       linear-gradient(-135deg, #2cb0de 26px, rgba(4, 10, 58, 0.3) 0) top right;
-    background-size: 50% 51%;
+    background-size: 50% 50%;
     background-repeat: no-repeat;
     border-top: 5px solid #2cb0de;
+
     .head {
       position: relative;
       height: 120px;
@@ -633,7 +634,7 @@ const StakeStyle = styled.div`
       width: 6.7rem;
       height: auto;
       padding: 0 0.72rem 0.7rem;
-      top: 2.36rem;
+      margin: 2.02rem auto;
       -webkit-clip-path: polygon(
         0.38rem 0px,
         calc(100% - 0.38rem) 0,

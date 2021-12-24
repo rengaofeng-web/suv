@@ -202,6 +202,7 @@ const ButtonStyle = styled.div`
       height: 0.75rem;
       line-height: 0.75rem;
       font-size: 0.3rem;
+      box-shadow: inset 0px 0px .3rem #53c1ff;
     }
     /* 已登录 */
     .my-wallet {

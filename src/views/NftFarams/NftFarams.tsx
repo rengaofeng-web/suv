@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import isMobile from "is-mobile";
-
+// 组件导入
+import Footer from "../../components/Footer/Footer"; //footer
 // 图片导入
 import mobile_wholeBg from "../../assets/Phone-config/bg2.jpg"; // mobile 整体背景图
 const NftFarams: React.FC<{}> = () => {
@@ -103,23 +104,23 @@ const NftFarams: React.FC<{}> = () => {
           </div>
         ))}
       </div>
+      <Footer></Footer>
     </FaramsStyle>
   );
 };
 // NftFarams style start
 const FaramsStyle = styled.div`
   position: relative;
-  max-width: 1920px;
-  min-width: 1200px;
   height: 1541px;
   margin: auto;
   box-sizing: border-box;
+  .footer-bg {
+    position: relative;
+  }
   .content-box {
     width: 1200px;
-    position: absolute;
-    left: 50%;
-    top: 176px;
-    transform: translate(-50%, 0);
+    position: relative;
+    margin: 176px auto;
     background: linear-gradient(180deg, rgba(5, 22, 43, 0.8) 0%, rgba(5, 22, 43, 0.24) 106.72%);
     box-shadow: inset 0px 0px 60px #00a3ff;
     backdrop-filter: blur(10px);
@@ -127,7 +128,7 @@ const FaramsStyle = styled.div`
       linear-gradient(45deg, transparent 36px, rgba(4, 10, 58, 0.3) 0) bottom left,
       linear-gradient(135deg, #33bfeb 37px, rgba(4, 10, 58, 0.3) 0) top left,
       linear-gradient(-135deg, #33bfeb 38px, rgba(4, 10, 58, 0.3) 0) top right;
-    background-size: 50% 51%;
+    background-size: 50% 50%;
     background-repeat: no-repeat;
     border-top: 5px solid #33bfeb;
     -webkit-clip-path: polygon(
@@ -561,6 +562,7 @@ const FaramsStyle = styled.div`
       padding: 0;
       -webkit-backdrop-filter: none;
       backdrop-filter: none;
+      margin: 2rem auto 1rem;
       .content-item {
         width: 100%;
         height: 7.92rem;
