@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { Web3Provider } from "@ethersproject/providers";
+import { useWeb3React } from "@web3-react/core";
+import { injected, walletconnect } from "../../contexts/Metamask/connectors";
 // 导入图片
 import logo from "../../assets/PC-config/home/my-wallet_logo.svg";
 interface Props {
@@ -8,21 +11,34 @@ interface Props {
 
 const ConnectButton: React.FC<Props> = (props) => {
   let { change } = props;
+
+  const context = useWeb3React<Web3Provider>();
+
+  const {
+    connector,
+    library,
+    chainId,
+    account,
+    activate,
+    deactivate,
+    active,
+    error,
+  } = context;
   let [selectFlag, setSelectFlag] = useState(false);
-  let flag = false;//登录状态切换，true 已登录 false未登录
+  let flag = !!account; //登录状态切换，true 已登录 false未登录
   // 点击弹出钱包登录
   const show_connect = () => {
     document.body.style.cssText = "overflow:hidden;height:100%;";
     change();
     sessionStorage.setItem("show", "1");
   };
-  const show_Wallet = (e: React.MouseEvent) => {
+  const show_Wallet = (e: any) => {
     e = e || window.event;
     e.stopPropagation ? e.stopPropagation() : (e.cancelable = true); //阻止冒泡
     selectFlag ? setSelectFlag(false) : setSelectFlag(true);
   };
   useEffect(() => {
-    document.onclick = (e: MouseEvent) => {
+    document.onclick = (e: any) => {
       setSelectFlag(false);
     };
   });
@@ -30,7 +46,11 @@ const ConnectButton: React.FC<Props> = (props) => {
   return (
     <ButtonStyle>
       {/* 未登录状态 */}
-      <div className="connect" onClick={show_connect} style={{ display: flag ? "none" : "block" }}>
+      <div
+        className="connect"
+        onClick={show_connect}
+        style={{ display: flag ? "none" : "block" }}
+      >
         Connect
       </div>
       {/* 登录状态 */}
@@ -41,7 +61,10 @@ const ConnectButton: React.FC<Props> = (props) => {
       >
         My Wallet
         {/* select */}
-        <div className="select" style={{ display: selectFlag ? "block" : "none" }}>
+        <div
+          className="select"
+          style={{ display: selectFlag ? "block" : "none" }}
+        >
           <div className="top">
             {/* logo */}
             <img src={logo} alt="" className="myWallet-logo" />
@@ -49,7 +72,14 @@ const ConnectButton: React.FC<Props> = (props) => {
           </div>
           <div className="content">
             <div className="content-item active">View on Bscscan</div>
-            <div className="content-item">Logout</div>
+            <div
+              className="content-item"
+              onClick={() => {
+                deactivate();
+              }}
+            >
+              Logout
+            </div>
           </div>
         </div>
       </div>
@@ -202,7 +232,7 @@ const ButtonStyle = styled.div`
       height: 0.75rem;
       line-height: 0.75rem;
       font-size: 0.3rem;
-      box-shadow: inset 0px 0px .3rem #53c1ff;
+      box-shadow: inset 0px 0px 0.3rem #53c1ff;
     }
     /* 已登录 */
     .my-wallet {
@@ -215,25 +245,25 @@ const ButtonStyle = styled.div`
         height: 3.66rem;
         bottom: -3.8rem;
         box-shadow: inset 0px 0px 10px #39ebf6;
-        padding: .26rem .36rem 0;
-        .top{
+        padding: 0.26rem 0.36rem 0;
+        .top {
           align-items: center;
-          .myWallet-logo{
-            width: .71rem;
-            height: .69rem;
+          .myWallet-logo {
+            width: 0.71rem;
+            height: 0.69rem;
           }
-          .money{
-            font-size: .28rem;
+          .money {
+            font-size: 0.28rem;
           }
         }
-        .content{
-          padding-top: .24rem;
-          .content-item{
+        .content {
+          padding-top: 0.24rem;
+          .content-item {
             width: 3.06rem;
-            height: .9rem;
-            line-height: .9rem;
-            font-size: .32rem;
-            margin-bottom: .22rem;
+            height: 0.9rem;
+            line-height: 0.9rem;
+            font-size: 0.32rem;
+            margin-bottom: 0.22rem;
           }
         }
       }

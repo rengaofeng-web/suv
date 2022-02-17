@@ -1,10 +1,98 @@
-import React, { useState } from "react";
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  useMemo,
+  useCallback,
+} from "react";
 import styled from "styled-components";
+import mobile_wholeBg from "../../assets/Phone-config/bg1.jpg"; // mobile 整体背景图
 import isMobile from "is-mobile";
 // 组件导入
 import Footer from "../../components/Footer/Footer"; //footer
-import mobile_wholeBg from "../../assets/Phone-config/bg1.jpg"; //mobile 整体背景图
+import useSushi from "src/hooks/useSushi";
+import { Web3Provider } from "@ethersproject/providers";
+import { useWeb3React } from "@web3-react/core";
+import { useParams } from "react-router-dom";
+import { useWallet } from "use-wallet";
+import { provider } from "web3-core";
+import useFarm from "../../hooks/useFarm";
+import { getMasterChefContract, getLocalCoinAddress } from "../../sushi/utils";
+import { getContract } from "../../utils/erc20";
+import coinLogo from "src/assets/imgs/logo/logo1024.svg";
+import heoEthLogo from "src/assets/imgs/heo_eth.png";
+import useTokenBalance from "src/hooks/useTokenBalance";
+import {
+  getFullDisplayBalance,
+  getDisplayBalance,
+} from "src/utils/formatBalance";
+import useETHBalance from "src/hooks/useETHBalance";
+import BigNumber from "bignumber.js";
+import useStakedBalance from "src/hooks/useStakedBalance";
+import useStake from "src/hooks/useStake";
+import useUnstake from "src/hooks/useUnstake";
+import useAllowance from "src/hooks/useAllowance";
+import useEarnings from "src/hooks/useEarnings";
+import useReward from "src/hooks/useReward";
+import useStakedLockTime from "src/hooks/useStakedLockTime";
+import useStakedBoostAmount from "src/hooks/useStakedBoostAmount";
+import useApprove from "src/hooks/useApprove";
+
 const Withdraw: React.FC<{}> = () => {
+  const { farmId } = useParams();
+
+  const [inputValue, setInputValue] = useState<undefined | string>(undefined);
+  //const { apyDefault } = useApyDefault({ pid: farmId })
+
+  const farm = useFarm(farmId);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  const [withdrawValue, setWithdrawValue] = useState("");
+
+  // withdraw
+  const stakedBalance = useStakedBalance(farm.pid);
+
+  const fullStakedBalance = useMemo(() => {
+    return getFullDisplayBalance(
+      stakedBalance,
+      farm.decimals,
+      farm.showDecimals
+    );
+  }, [stakedBalance, farm.decimals]);
+
+  const handleWithdrawSelectMax = useCallback(() => {
+    setWithdrawValue(fullStakedBalance);
+  }, [fullStakedBalance, setWithdrawValue]);
+
+  const { onUnstake } = useUnstake(farmId, farm.decimals);
+
+  //console.log('total value = ' + totalValue.toFixed(8) + ', depositInU = ' + depositInU)
+
+  const lockTime = useStakedLockTime(farm.pid) + 59;
+
+  const lockTimeDays = Math.floor(lockTime / 86400);
+  const lockTimeHours = Math.floor((lockTime / 3600) % 24);
+  const lockTimeMinutes = Math.floor((lockTime / 60) % 60);
+
+  const [pendingWithdraw, setPendingWithdraw] = useState(false);
+
+  const handleWithdraw = useCallback(async () => {
+    if (withdrawValue) setPendingWithdraw(true);
+    await onUnstake(withdrawValue);
+    setWithdrawValue("");
+    setPendingWithdraw(false);
+  }, [withdrawValue, setWithdrawValue, onUnstake]);
+
+  const boostAmount = useStakedBoostAmount(farm.pid);
+  const multiplier = stakedBalance.isGreaterThan(0)
+    ? boostAmount.div(stakedBalance).toFixed(1)
+    : "1";
   const isM: boolean = isMobile();
   let [current, setCurrent] = useState(true);
   return (
@@ -14,17 +102,10 @@ const Withdraw: React.FC<{}> = () => {
           <div className="left-logo">
             <div className="logo-border">
               <div className="logo">
-                <img
-                  src={
-                    !isM
-                      ? require("../../assets/PC-config/pool/SUV.svg").default
-                      : require("../../assets/Phone-config/pool/SUV.svg").default
-                  }
-                  alt=""
-                />
+                <img src={farm.icon} alt="" />
               </div>
             </div>
-            <div className="text">SUV</div>
+            <div className="text">{farm.symbolShowing}</div>
           </div>
         </div>
         <div className="content">
@@ -47,39 +128,56 @@ const Withdraw: React.FC<{}> = () => {
             </div>
           </div>
           <div className="switch-content">
-            <div className="switch-item" style={{ display: current ? "block" : "none" }}>
+            <div
+              className="switch-item"
+              style={{ display: current ? "block" : "none" }}
+            >
               <div className="amount-box">
                 <div className="amount">Amount</div>
                 <div className="balance">
                   Balance:
-                  <span>0</span>
+                  <span>{fullStakedBalance}</span>
                 </div>
               </div>
               <div className="amount-input">
-                <input type="number" />
-                <div className="max">MAX</div>
+                <input
+                  value={withdrawValue}
+                  onChange={(e) => {
+                    setWithdrawValue(e.target.value);
+                  }}
+                />
+                <div className="max" onClick={handleWithdrawSelectMax}>
+                  MAX
+                </div>
               </div>
               <div className="weight-box">
                 <div className="weight">
                   Weight:
-                  <span>1.0</span>
+                  <span>{farm.allocPoint}</span>
                 </div>
                 <div className="est">
-                  Est APR:<span>20.80%</span>
+                  Est APR:<span>{farm.apy}</span>
                 </div>
               </div>
             </div>
-            <div className="switch-item" style={{ display: !current ? "block" : "none" }}>
-              <div className="lock-up">
-                <div className="left-lock">
-                  <div className="title">Have been lock time</div>
-                  <div className="days">18days</div>
+            <div
+              className="switch-item"
+              style={{ display: !current ? "block" : "none" }}
+            >
+              {lockTime > 59 && (
+                <div className="lock-up">
+                  <div className="left-lock">
+                    <div className="title">Have been lock time</div>
+                    <div className="days">{lockTimeDays}days</div>
+                  </div>
+                  <div className="right-lock">
+                    <div className="title">Time remaining</div>
+                    <div className="days">
+                      {lockTimeHours} h {lockTimeMinutes} m
+                    </div>
+                  </div>
                 </div>
-                <div className="right-lock">
-                  <div className="title">Time remaining</div>
-                  <div className="days">18days</div>
-                </div>
-              </div>
+              )}
               <div className="lock">Lock up time：30days</div>
               <div className="amount-box">
                 <div className="amount">Amount</div>
@@ -89,17 +187,29 @@ const Withdraw: React.FC<{}> = () => {
                 </div>
               </div>
               <div className="amount-input">
-                <input type="number" />
-                <div className="max">MAX</div>
+                <input
+                  value={withdrawValue}
+                  onChange={(e) => {
+                    setWithdrawValue(e.target.value);
+                  }}
+                />
+                <div className="max" onClick={handleWithdrawSelectMax}>
+                  MAX
+                </div>{" "}
               </div>
               <div className="weight-box">
                 <div className="est">
-                  Est APR:<span>21.22%</span>
+                  Est APR:<span>{farm.apy}</span>
                 </div>
               </div>
             </div>
           </div>
-          <div className="withdraw">WITHDRAW</div>
+          <div
+            className="withdraw"
+            onClick={pendingWithdraw ? () => {} : handleWithdraw}
+          >
+            {pendingWithdraw ? "Pending WITHDRAW" : "WITHDRAW"}
+          </div>
         </div>
       </div>
       <Footer></Footer>
@@ -132,8 +242,14 @@ const WithdrawStyle = styled.div`
       0 calc(100% - 35px),
       0 35px
     );
-    background: linear-gradient(-45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom right,
-      linear-gradient(45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom left,
+    background: linear-gradient(
+          -45deg,
+          transparent 23px,
+          rgba(4, 10, 58, 0.3) 0
+        )
+        bottom right,
+      linear-gradient(45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom
+        left,
       linear-gradient(135deg, #2cb0de 26px, rgba(4, 10, 58, 0.3) 0) top left,
       linear-gradient(-135deg, #2cb0de 26px, rgba(4, 10, 58, 0.3) 0) top right;
     background-size: 50% 50%;
@@ -248,7 +364,11 @@ const WithdrawStyle = styled.div`
               rgba(162, 183, 255, 0.8)
             )
             20 20;
-          border-image: linear-gradient(to right, rgba(85, 121, 255, 0.8), rgba(162, 183, 255, 0.8))
+          border-image: linear-gradient(
+              to right,
+              rgba(85, 121, 255, 0.8),
+              rgba(162, 183, 255, 0.8)
+            )
             20 20;
           > input {
             width: 90%;
@@ -430,7 +550,11 @@ const WithdrawStyle = styled.div`
               rgba(162, 183, 255, 0.8)
             )
             20 20;
-          border-image: linear-gradient(to right, rgba(85, 121, 255, 0.8), rgba(162, 183, 255, 0.8))
+          border-image: linear-gradient(
+              to right,
+              rgba(85, 121, 255, 0.8),
+              rgba(162, 183, 255, 0.8)
+            )
             20 20;
           > input {
             width: 90%;
@@ -545,8 +669,14 @@ const WithdrawStyle = styled.div`
         0 0.38rem
       );
 
-      background: linear-gradient(-45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom right,
-        linear-gradient(45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom left,
+      background: linear-gradient(
+            -45deg,
+            transparent 23px,
+            rgba(4, 10, 58, 0.3) 0
+          )
+          bottom right,
+        linear-gradient(45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom
+          left,
         linear-gradient(135deg, #31bce8 0.28rem, transparent 0) top left,
         linear-gradient(-135deg, #31bce8 0.28rem, transparent 0);
       border-top: 0.05rem solid #2cb0de;

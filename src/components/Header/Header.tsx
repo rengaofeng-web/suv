@@ -1,7 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
+import { useHistory, withRouter, RouteComponentProps } from "react-router-dom";
+
 import isMobile from "is-mobile";
 import { Control } from "react-keeper";
+
 // pc图片导入
 import logo from "../../assets/PC-config/home/top_logo_white.svg";
 // mobile图片导入
@@ -17,7 +20,7 @@ const Header: React.FC<{}> = () => {
     homeState ? setState(false) : setState(true);
   };
   //  显示下拉菜单
-  const showSelct = (e: React.MouseEvent) => {
+  const showSelct = (e: any) => {
     e = e || window.event;
     e.stopPropagation ? e.stopPropagation() : (e.cancelable = true);
     const target = e.target as HTMLDivElement;
@@ -44,13 +47,14 @@ const Header: React.FC<{}> = () => {
       const brother = parent.children as HTMLCollection;
       for (let i = 0; i < brother?.length; i++) {
         const select = brother[i].children[0] as HTMLDivElement;
-        if (select && select.classList.contains("select")) select.style.display = "none";
+        if (select && select.classList.contains("select"))
+          select.style.display = "none";
         brother[i].classList.remove("active");
       }
     }
   };
   // 手机端显示导航
-  const mobile_showNav = (e: React.MouseEvent) => {
+  const mobile_showNav = (e: any) => {
     e = e || window.event;
     // 阻止冒泡
     e.stopPropagation ? e.stopPropagation() : (e.cancelable = true);
@@ -61,6 +65,8 @@ const Header: React.FC<{}> = () => {
         : (target.style.display = "none");
     }
   };
+  const history = useHistory();
+
   useEffect(() => {
     document.onclick = () => {
       isM ? removeStats(true) : removeStats(false);
@@ -77,7 +83,7 @@ const Header: React.FC<{}> = () => {
         <div
           className="logo"
           onClick={() => {
-            Control.go("/");
+            history.push("/");
           }}
         >
           <img src={isM ? mobile_logo : logo} alt="" />
@@ -91,7 +97,11 @@ const Header: React.FC<{}> = () => {
         ) : null}
         {/* header-nav */}
         <div className="header-nav">
-          <div className="nav" ref={nav} style={{ display: isM ? "none" : "flex" }}>
+          <div
+            className="nav"
+            ref={nav}
+            style={{ display: isM ? "none" : "flex" }}
+          >
             <div className="item staking" onClick={showSelct}>
               Staking
               {/* select */}
@@ -102,10 +112,12 @@ const Header: React.FC<{}> = () => {
                   </div>
                   <div
                     className="select-item"
-                    onClick={(e: React.MouseEvent) => {
-                      e.stopPropagation ? e.stopPropagation() : (e.cancelable = true);
+                    onClick={(e: any) => {
+                      e.stopPropagation
+                        ? e.stopPropagation()
+                        : (e.cancelable = true);
                       removeStats(isM ? true : false);
-                      Control.go("/pool");
+                      history.push("/pool");
                     }}
                   >
                     Pool
@@ -120,30 +132,36 @@ const Header: React.FC<{}> = () => {
                 <div className="select-con">
                   <div
                     className="select-item"
-                    onClick={(e: React.MouseEvent) => {
-                      e.stopPropagation ? e.stopPropagation() : (e.cancelable = true);
+                    onClick={(e: any) => {
+                      e.stopPropagation
+                        ? e.stopPropagation()
+                        : (e.cancelable = true);
                       removeStats(isM ? true : false);
-                      Control.go("/suvBox");
+                      history.push("/suvBox");
                     }}
                   >
                     SUV Box
                   </div>
                   <div
                     className="select-item"
-                    onClick={(e: React.MouseEvent) => {
-                      e.stopPropagation ? e.stopPropagation() : (e.cancelable = true);
+                    onClick={(e: any) => {
+                      e.stopPropagation
+                        ? e.stopPropagation()
+                        : (e.cancelable = true);
                       removeStats(isM ? true : false);
-                      Control.go("/nftFarams");
+                      history.push("/nftFarams");
                     }}
                   >
                     NFT Farms
                   </div>
                   <div
                     className="select-item"
-                    onClick={(e: React.MouseEvent) => {
-                      e.stopPropagation ? e.stopPropagation() : (e.cancelable = true);
+                    onClick={(e: any) => {
+                      e.stopPropagation
+                        ? e.stopPropagation()
+                        : (e.cancelable = true);
                       removeStats(isM ? true : false);
-                      Control.go("/owned");
+                      history.push("/owned");
                     }}
                   >
                     Owned
@@ -272,10 +290,18 @@ const HeaderStyle = styled.div`
             0 calc(100% - 15px),
             0 15px
           );
-          background: linear-gradient(-45deg, #3aebf7 11px, rgba(5, 28, 65, 0.06) 0) bottom right,
-            linear-gradient(45deg, #3aebf7 11px, rgba(5, 28, 65, 0.06) 0) bottom left,
-            linear-gradient(135deg, #3aebf7 11px, rgba(5, 28, 65, 0.06) 0) top left,
-            linear-gradient(-135deg, #3aebf7 11px, rgba(5, 28, 65, 0.06) 0) top right;
+          background: linear-gradient(
+                -45deg,
+                #3aebf7 11px,
+                rgba(5, 28, 65, 0.06) 0
+              )
+              bottom right,
+            linear-gradient(45deg, #3aebf7 11px, rgba(5, 28, 65, 0.06) 0) bottom
+              left,
+            linear-gradient(135deg, #3aebf7 11px, rgba(5, 28, 65, 0.06) 0) top
+              left,
+            linear-gradient(-135deg, #3aebf7 11px, rgba(5, 28, 65, 0.06) 0) top
+              right;
           background-size: 300px 200px;
           background-repeat: no-repeat;
           border: 1px solid #3aebf7;
@@ -433,11 +459,26 @@ const HeaderStyle = styled.div`
                 0 calc(100% - 0.15rem),
                 0 0.15rem
               );
-              background: linear-gradient(-45deg, #3aebf7 0.11rem, rgba(5, 28, 65, 0.06) 0) bottom
-                  right,
-                linear-gradient(45deg, #3aebf7 0.11rem, rgba(5, 28, 65, 0.06) 0) bottom left,
-                linear-gradient(135deg, #3aebf7 0.11rem, rgba(5, 28, 65, 0.06) 0) top left,
-                linear-gradient(-135deg, #3aebf7 0.11rem, rgba(5, 28, 65, 0.06) 0) top right;
+              background: linear-gradient(
+                    -45deg,
+                    #3aebf7 0.11rem,
+                    rgba(5, 28, 65, 0.06) 0
+                  )
+                  bottom right,
+                linear-gradient(45deg, #3aebf7 0.11rem, rgba(5, 28, 65, 0.06) 0)
+                  bottom left,
+                linear-gradient(
+                    135deg,
+                    #3aebf7 0.11rem,
+                    rgba(5, 28, 65, 0.06) 0
+                  )
+                  top left,
+                linear-gradient(
+                    -135deg,
+                    #3aebf7 0.11rem,
+                    rgba(5, 28, 65, 0.06) 0
+                  )
+                  top right;
               .select-con {
                 box-shadow: inset 0px 0px 0.1rem #39ebf6;
                 padding-top: 0.39rem;
@@ -487,4 +528,4 @@ const HeaderStyle = styled.div`
 `;
 // header style end
 
-export default Header;
+export default withRouter(Header);

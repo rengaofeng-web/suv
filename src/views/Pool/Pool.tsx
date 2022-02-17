@@ -1,11 +1,49 @@
-import React from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 import { Control } from "react-keeper";
 import isMobile from "is-mobile";
+import { useHistory, withRouter, RouteComponentProps } from "react-router-dom";
+
 // 组件导入
 import Footer from "../../components/Footer/Footer"; //footer
 // 图片导入
 import mobile_wholeBg from "../../assets/Phone-config/bg2.jpg"; //mobile 整体背景图
+import useFarmRows, { FarmWithStakedValue } from "src/hooks/useFarmRows";
+import useApyDefault from "src/hooks/useApyDefault";
+import useSushi from "src/hooks/useSushi";
+import BigNumber from "bignumber.js";
+import { useWallet } from "use-wallet";
+import ArrowPic from "src/assets/images/logo.svg";
+
+import useFarms from "src/hooks/useFarms";
+import {
+  getEarned,
+  getLocalCoinAddress,
+  getMasterChefContract,
+} from "src/sushi/utils";
+
+import useApprove from "src/hooks/useApprove";
+import useStakedBalance from "src/hooks/useStakedBalance";
+import {
+  getBalanceNumber,
+  getDisplayBalance,
+  getFullDisplayBalance,
+} from "src/utils/formatBalance";
+import Arrow from "src/assets/images/logo.svg";
+import useModal from "src/hooks/useModal";
+import useAllowance from "src/hooks/useAllowance";
+import useEarnings from "src/hooks/useEarnings";
+import useReward from "src/hooks/useReward";
+import useStakedLockTime from "src/hooks/useStakedLockTime";
+import useStake from "src/hooks/useStake";
+import useUnstake from "src/hooks/useUnstake";
+import useTokenBalance from "src/hooks/useTokenBalance";
+import useETHBalance from "src/hooks/useETHBalance";
+import useStakedBoostAmount from "src/hooks/useStakedBoostAmount";
+import { AllIn } from "src/config/enum";
+import TransparentBg from "src/assets/images/logo.svg";
+import Arrow_Red_logo from "src/assets/images/arrow_red.svg";
+import Arrow_White_logo from "src/assets/images/drop_down.svg";
 interface DataItem {
   id: number;
   logo: string;
@@ -112,6 +150,8 @@ const Pool: React.FC<{}> = () => {
       apr: "41.61%",
     },
   ];
+  const { farmRows } = useFarmRows();
+
   return (
     <PoolStyle>
       <div className="content">
@@ -124,55 +164,71 @@ const Pool: React.FC<{}> = () => {
             </div>
           ) : null}
           <div className="list">
-            {listData.map((item, index) => (
-              <div className="list-item" key={item.id}>
-                {isM ? (
-                  <div className="left-title">
-                    <div className="pool-tlt">POOL</div>
-                    <div className="tvl-tlt">TVL</div>
-                    <div className="apr-tlt">APR</div>
-                  </div>
-                ) : null}
-                <div className="pool">
-                  <div className="logo-border">
-                    <div className={item.angle_mark ? "logo angle-mark" : "logo"}>
-                      <img src={item.logo} alt="" />
-                      {item.angle_mark ? (
-                        <div className="mark">
-                          <img src={item.angle_mark} alt="" />
-                        </div>
-                      ) : null}
-                    </div>
-                  </div>
-                  <div className="text">{item.pName}</div>
-                </div>
-                <div className="tvl">{item.tvl}</div>
-                <div className="apr">{item.apr}</div>
-                <div className="button-box">
-                  <div
-                    className="details"
-                    onClick={() => {
-                      Control.go("/details");
-                    }}
-                  >
-                    DETAILS
-                  </div>
-                  <div
-                    className="stake"
-                    onClick={() => {
-                      Control.go("/stake");
-                    }}
-                  >
-                    STAKE
-                  </div>
-                </div>
-              </div>
-            ))}
+            {farmRows
+              // .filter((item) => !item.nftType && item.poolType === 0)
+              .map((farm, j) => (
+                <PoolCard farm={farm} key={`${j}`} isM={isM} />
+              ))}
           </div>
         </div>
       </div>
       <Footer></Footer>
     </PoolStyle>
+  );
+};
+
+interface FarmCardProps {
+  farm: FarmWithStakedValue;
+  isM: boolean;
+}
+const lockDays = [0, 7, 14, 30, 180];
+
+const PoolCard: React.FC<FarmCardProps> = ({ farm, isM }) => {
+  const history = useHistory();
+
+  return (
+    <div className="list-item" key={farm.id}>
+      {isM ? (
+        <div className="left-title">
+          <div className="pool-tlt">POOL</div>
+          <div className="tvl-tlt">TVL</div>
+          <div className="apr-tlt">APR</div>
+        </div>
+      ) : null}
+      <div className="pool">
+        <div className="logo-border">
+          <div className={farm.poolType === 0 ? "logo angle-mark" : "logo"}>
+            <img src={farm.icon} alt="" />
+            {/* {farm.poolType === 0 ? (
+              <div className="mark">
+                <img src={farm.icon} alt="" />
+              </div>
+            ) : null} */}
+          </div>
+        </div>
+        <div className="text">{farm.symbolShowing}</div>
+      </div>
+      <div className="tvl">{farm.stakedValue1}</div>
+      <div className="apr">{farm.apy}</div>
+      <div className="button-box">
+        <div
+          className="details"
+          onClick={() => {
+            history.push("/details/" + farm.pid);
+          }}
+        >
+          DETAILS
+        </div>
+        <div
+          className="stake"
+          onClick={() => {
+            history.push("/stake/" + farm.pid);
+          }}
+        >
+          STAKE
+        </div>
+      </div>
+    </div>
   );
 };
 // Pool style start
@@ -200,8 +256,14 @@ const PoolStyle = styled.div`
       0 calc(100% - 35px),
       0 35px
     );
-    background: linear-gradient(-45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom right,
-      linear-gradient(45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom left,
+    background: linear-gradient(
+          -45deg,
+          transparent 23px,
+          rgba(4, 10, 58, 0.3) 0
+        )
+        bottom right,
+      linear-gradient(45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom
+        left,
       linear-gradient(135deg, #2cb0de 26px, rgba(4, 10, 58, 0.3) 0) top left,
       linear-gradient(-135deg, #2cb0de 26px, rgba(4, 10, 58, 0.3) 0) top right;
     background-size: 50% 51%;
@@ -416,12 +478,24 @@ const PoolStyle = styled.div`
                   rgba(4, 10, 58, 0.3) 0
                 )
                 bottom right,
-              linear-gradient(45deg, rgba(51, 191, 235, 1) 0.28rem, rgba(4, 10, 58, 0.3) 0) bottom
-                left,
-              linear-gradient(135deg, rgba(51, 191, 235, 1) 0.28rem, rgba(4, 10, 58, 0.3) 0) top
-                left,
-              linear-gradient(-135deg, rgba(51, 191, 235, 1) 0.28rem, rgba(4, 10, 58, 0.3) 0) top
-                right;
+              linear-gradient(
+                  45deg,
+                  rgba(51, 191, 235, 1) 0.28rem,
+                  rgba(4, 10, 58, 0.3) 0
+                )
+                bottom left,
+              linear-gradient(
+                  135deg,
+                  rgba(51, 191, 235, 1) 0.28rem,
+                  rgba(4, 10, 58, 0.3) 0
+                )
+                top left,
+              linear-gradient(
+                  -135deg,
+                  rgba(51, 191, 235, 1) 0.28rem,
+                  rgba(4, 10, 58, 0.3) 0
+                )
+                top right;
             background-size: cover;
             background-repeat: no-repeat;
             border: 0.03rem solid rgba(51, 191, 235, 1);
@@ -630,4 +704,4 @@ const PoolStyle = styled.div`
   /* mobile style end */
 `;
 // Pool style end
-export default Pool;
+export default withRouter(Pool);

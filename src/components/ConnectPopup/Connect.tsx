@@ -1,17 +1,107 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
+import { Web3Provider } from "@ethersproject/providers";
+import { useWeb3React } from "@web3-react/core";
+import {
+  chainName,
+  chainRPCs,
+  supportedChainId,
+} from "src/sushi/lib/constants";
+
+import TPIcon from "../../assets/PC-config/home/tokenpocket.svg";
+import BitkeepIcon from "../../assets/PC-config/home/bitkeep.svg";
+import MathWalletIcon from "../../assets/PC-config/home/mathwallet.svg";
+import MetamaskIcon from "../../assets/PC-config/home/metamask.svg";
+import { injected, walletconnect } from "src/contexts/Metamask/connectors";
+
 interface Props {
   change: Function;
 }
 const Connect: React.FC<Props> = (props) => {
+  const context = useWeb3React<Web3Provider>();
+
   let { change } = props;
-  let show = sessionStorage.getItem("show") ? Number(sessionStorage.getItem("show")) : 0;
+  let show = sessionStorage.getItem("show")
+    ? Number(sessionStorage.getItem("show"))
+    : 0;
   // 登录点击 ×
   const closeConnect = () => {
     document.body.style.cssText = "overflow:visible;height:100%;";
     change();
     sessionStorage.setItem("show", "0");
   };
+
+  const {
+    connector,
+    library,
+    chainId,
+    account,
+    activate: connect,
+    deactivate,
+    active,
+    error,
+  } = context;
+
+  const connectNetwork = (type: any) => {
+    var window1: any = window;
+    if (window1?.ethereum?.chainId !== "0X" + supportedChainId.toString(16)) {
+      handleswitchnet(supportedChainId).then(() => {
+        connectWallet(type);
+      });
+    } else {
+      connectWallet(type);
+    }
+  };
+
+  const handleswitchnet = async (inputValue: any) => {
+    var window1: any = window;
+    try {
+      await window1?.ethereum.request({
+        method: "wallet_switchEthereumChain",
+        params: [{ chainId: "0x" + inputValue.toString(16) }],
+      });
+      // setSelectValue1(inputValue)
+    } catch (_switchError) {
+      let switchError: any = _switchError;
+      // if (switchError.code === 4902) {
+      try {
+        await window1?.ethereum.request({
+          method: "wallet_addEthereumChain",
+          params: [
+            JSON.parse(
+              JSON.stringify({
+                rpcUrls: [chainRPCs[supportedChainId]],
+                chainId: "0x" + inputValue.toString(16),
+                chainName: chainName[supportedChainId],
+              })
+            ),
+          ],
+        });
+        // connectNetwork()
+      } catch (addError) {
+        // handle "add" error
+      }
+      // }
+      // handle other "switch" errors
+    }
+  };
+  const connectWallet = (type: number) => {
+    if (type === 1) {
+      connect(injected, (err) => {
+        console.log(err);
+      });
+    } else if (type === 2) {
+      console.log(123413);
+      connect(walletconnect, (err) => {
+        console.log(err);
+      });
+    }
+    closeConnect();
+  };
+
+  useEffect(() => {
+    connectWallet(1);
+  }, []);
   return (
     <ConnectStyle style={{ display: show ? "block" : "none" }}>
       <div className="mask">
@@ -22,28 +112,49 @@ const Connect: React.FC<Props> = (props) => {
           <div className="right-shadow"></div>
           <div className="right-top-shadow"></div>
           <div className="title">Connect your wallet</div>
+
           <div className="connection-mode-list">
-            <div className="connection-mode-item">
+            <div
+              className="connection-mode-item"
+              onClick={() => {
+                connectNetwork(1);
+              }}
+            >
               <div className="connect-logo">
-                <img src={require("../../assets/PC-config/home/metamask.svg").default} alt="" />
+                <img src={MetamaskIcon} alt="" />
               </div>
               <div className="text">Metamask</div>
             </div>
-            <div className="connection-mode-item">
+            <div
+              className="connection-mode-item"
+              onClick={() => {
+                connectNetwork(1);
+              }}
+            >
               <div className="connect-logo">
-                <img src={require("../../assets/PC-config/home/tokenpocket.svg").default} alt="" />
+                <img src={TPIcon} alt="" />
               </div>
               <div className="text">TokenPocket</div>
             </div>
-            <div className="connection-mode-item">
+            <div
+              className="connection-mode-item"
+              onClick={() => {
+                connectNetwork(1);
+              }}
+            >
               <div className="connect-logo ">
-                <img src={require("../../assets/PC-config/home/bitkeep.svg").default} alt="" />
+                <img src={BitkeepIcon} alt="" />
               </div>
               <div className="text">Bitkeep</div>
             </div>
-            <div className="connection-mode-item">
+            <div
+              className="connection-mode-item"
+              onClick={() => {
+                connectNetwork(1);
+              }}
+            >
               <div className="connect-logo">
-                <img src={require("../../assets/PC-config/home/mathwallet.svg").default} alt="" />
+                <img src={MathWalletIcon} alt="" />
               </div>
               <div className="text">MathWallet</div>
             </div>
@@ -67,7 +178,7 @@ const ConnectStyle = styled.div`
   position: fixed;
   left: 0;
   top: 0;
-  z-index: 100;
+  z-index: 20;
   .mask {
     /* 登录框 */
     .connect-box {
@@ -151,7 +262,11 @@ const ConnectStyle = styled.div`
         width: 50%;
         height: 3px;
         z-index: 1;
-        background-image: linear-gradient(to right, #53c1ff, rgba(83, 193, 255, 0));
+        background-image: linear-gradient(
+          to right,
+          #53c1ff,
+          rgba(83, 193, 255, 0)
+        );
       }
       .title:after {
         content: "";
@@ -160,7 +275,11 @@ const ConnectStyle = styled.div`
         top: 0px;
         height: 250px;
         width: 3px;
-        background-image: linear-gradient(to bottom, #53c1ff, rgba(83, 193, 255, 0));
+        background-image: linear-gradient(
+          to bottom,
+          #53c1ff,
+          rgba(83, 193, 255, 0)
+        );
       }
       .connection-mode-list {
         position: relative;
@@ -226,7 +345,11 @@ const ConnectStyle = styled.div`
         bottom: -56px;
         height: 250px;
         width: 3px;
-        background-image: linear-gradient(to top, #53c1ff, rgba(83, 193, 255, 0));
+        background-image: linear-gradient(
+          to top,
+          #53c1ff,
+          rgba(83, 193, 255, 0)
+        );
       }
       .connection-mode-list:after {
         content: "";
@@ -235,7 +358,11 @@ const ConnectStyle = styled.div`
         bottom: -56px;
         width: 50%;
         height: 3px;
-        background-image: linear-gradient(to left, #53c1ff, rgba(83, 193, 255, 0));
+        background-image: linear-gradient(
+          to left,
+          #53c1ff,
+          rgba(83, 193, 255, 0)
+        );
       }
       .close-box-bg {
         position: absolute;
@@ -251,7 +378,11 @@ const ConnectStyle = styled.div`
           position: relative;
           width: 190.86px;
           height: 45.61px;
-          background: linear-gradient(180deg, #eb3f3f -1.01%, rgba(235, 63, 63, 0) 144.7%);
+          background: linear-gradient(
+            180deg,
+            #eb3f3f -1.01%,
+            rgba(235, 63, 63, 0) 144.7%
+          );
           .close-button {
             position: absolute;
             left: 113px;
@@ -266,7 +397,11 @@ const ConnectStyle = styled.div`
             color: #fff;
             transform: rotate(-7deg);
             text-align: center;
-            background: linear-gradient(to bottom, #fff 24.99%, transparent 115.7%);
+            background: linear-gradient(
+              to bottom,
+              #fff 24.99%,
+              transparent 115.7%
+            );
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
           }
@@ -293,7 +428,11 @@ const ConnectStyle = styled.div`
       bottom: 0px;
       width: 50%;
       height: 3px;
-      background-image: linear-gradient(to right, #53c1ff, rgba(83, 193, 255, 0));
+      background-image: linear-gradient(
+        to right,
+        #53c1ff,
+        rgba(83, 193, 255, 0)
+      );
     }
   }
   /* mobile style start */

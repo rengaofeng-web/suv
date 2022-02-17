@@ -1,0 +1,321 @@
+[
+  {
+    "inputs": [],
+    "name": "DecimalsSel",
+    "outputs": [{ "internalType": "bytes4", "name": "", "type": "bytes4" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "PendingSushiSel",
+    "outputs": [{ "internalType": "bytes4", "name": "", "type": "bytes4" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "PoolInfoSel",
+    "outputs": [{ "internalType": "bytes4", "name": "", "type": "bytes4" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "SupportsInterfaceSel",
+    "outputs": [{ "internalType": "bytes4", "name": "", "type": "bytes4" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "UserInfoSel",
+    "outputs": [{ "internalType": "bytes4", "name": "", "type": "bytes4" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "token_", "type": "address" }
+    ],
+    "name": "_decimals",
+    "outputs": [{ "internalType": "uint8", "name": "", "type": "uint8" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_token", "type": "address" }
+    ],
+    "name": "_isErc721",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "masterchef_", "type": "address" },
+      { "internalType": "bytes4", "name": "sel_", "type": "bytes4" },
+      { "internalType": "uint256", "name": "pid_", "type": "uint256" },
+      { "internalType": "address", "name": "account_", "type": "address" }
+    ],
+    "name": "_pendingSushi",
+    "outputs": [
+      { "internalType": "uint256", "name": "amount0", "type": "uint256" },
+      { "internalType": "uint256", "name": "amount1", "type": "uint256" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "masterchef_", "type": "address" },
+      { "internalType": "bytes4", "name": "sel_", "type": "bytes4" },
+      { "internalType": "uint256", "name": "pid_", "type": "uint256" },
+      { "internalType": "uint256", "name": "tpos_", "type": "uint256" },
+      { "internalType": "uint256", "name": "apos_", "type": "uint256" },
+      { "internalType": "uint256", "name": "amountpos_", "type": "uint256" },
+      { "internalType": "uint256", "name": "rpos0_", "type": "uint256" },
+      { "internalType": "uint256", "name": "rpos1_", "type": "uint256" },
+      { "internalType": "uint256", "name": "rpos2_", "type": "uint256" }
+    ],
+    "name": "_poolInfo",
+    "outputs": [
+      {
+        "components": [
+          { "internalType": "uint256", "name": "pid", "type": "uint256" },
+          { "internalType": "bytes", "name": "data", "type": "bytes" },
+          { "internalType": "address", "name": "token", "type": "address" },
+          { "internalType": "bool", "name": "isErc721", "type": "bool" },
+          { "internalType": "uint8", "name": "decimals", "type": "uint8" },
+          {
+            "internalType": "uint256",
+            "name": "allocPoint",
+            "type": "uint256"
+          },
+          { "internalType": "uint256", "name": "amount", "type": "uint256" },
+          { "internalType": "uint256", "name": "reserve0", "type": "uint256" },
+          { "internalType": "uint256", "name": "reserve1", "type": "uint256" },
+          { "internalType": "uint256", "name": "reserve2", "type": "uint256" },
+          { "internalType": "uint256", "name": "allowance", "type": "uint256" },
+          { "internalType": "uint256", "name": "balance", "type": "uint256" },
+          { "internalType": "bytes", "name": "userData", "type": "bytes" },
+          { "internalType": "uint256", "name": "userData0", "type": "uint256" },
+          { "internalType": "uint256", "name": "userData1", "type": "uint256" },
+          { "internalType": "uint256", "name": "userData2", "type": "uint256" },
+          { "internalType": "uint256", "name": "pending0", "type": "uint256" },
+          { "internalType": "uint256", "name": "pending1", "type": "uint256" }
+        ],
+        "internalType": "struct FarmHelper.PoolData",
+        "name": "p",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "masterchef_", "type": "address" },
+      { "internalType": "uint256", "name": "pid_", "type": "uint256" }
+    ],
+    "name": "_poolInfo",
+    "outputs": [
+      {
+        "components": [
+          { "internalType": "uint256", "name": "pid", "type": "uint256" },
+          { "internalType": "bytes", "name": "data", "type": "bytes" },
+          { "internalType": "address", "name": "token", "type": "address" },
+          { "internalType": "bool", "name": "isErc721", "type": "bool" },
+          { "internalType": "uint8", "name": "decimals", "type": "uint8" },
+          {
+            "internalType": "uint256",
+            "name": "allocPoint",
+            "type": "uint256"
+          },
+          { "internalType": "uint256", "name": "amount", "type": "uint256" },
+          { "internalType": "uint256", "name": "reserve0", "type": "uint256" },
+          { "internalType": "uint256", "name": "reserve1", "type": "uint256" },
+          { "internalType": "uint256", "name": "reserve2", "type": "uint256" },
+          { "internalType": "uint256", "name": "allowance", "type": "uint256" },
+          { "internalType": "uint256", "name": "balance", "type": "uint256" },
+          { "internalType": "bytes", "name": "userData", "type": "bytes" },
+          { "internalType": "uint256", "name": "userData0", "type": "uint256" },
+          { "internalType": "uint256", "name": "userData1", "type": "uint256" },
+          { "internalType": "uint256", "name": "userData2", "type": "uint256" },
+          { "internalType": "uint256", "name": "pending0", "type": "uint256" },
+          { "internalType": "uint256", "name": "pending1", "type": "uint256" }
+        ],
+        "internalType": "struct FarmHelper.PoolData",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "masterchef_", "type": "address" },
+      { "internalType": "uint256[]", "name": "pids_", "type": "uint256[]" },
+      { "internalType": "address", "name": "account_", "type": "address" },
+      { "internalType": "bool", "name": "verbose_", "type": "bool" },
+      { "internalType": "bytes4", "name": "poolInfoSel_", "type": "bytes4" },
+      { "internalType": "bytes4", "name": "userInfoSel_", "type": "bytes4" },
+      { "internalType": "bytes4", "name": "pendingSushiSel_", "type": "bytes4" }
+    ],
+    "name": "_userInfo",
+    "outputs": [
+      {
+        "components": [
+          { "internalType": "uint256", "name": "pid", "type": "uint256" },
+          { "internalType": "bytes", "name": "data", "type": "bytes" },
+          { "internalType": "address", "name": "token", "type": "address" },
+          { "internalType": "bool", "name": "isErc721", "type": "bool" },
+          { "internalType": "uint8", "name": "decimals", "type": "uint8" },
+          {
+            "internalType": "uint256",
+            "name": "allocPoint",
+            "type": "uint256"
+          },
+          { "internalType": "uint256", "name": "amount", "type": "uint256" },
+          { "internalType": "uint256", "name": "reserve0", "type": "uint256" },
+          { "internalType": "uint256", "name": "reserve1", "type": "uint256" },
+          { "internalType": "uint256", "name": "reserve2", "type": "uint256" },
+          { "internalType": "uint256", "name": "allowance", "type": "uint256" },
+          { "internalType": "uint256", "name": "balance", "type": "uint256" },
+          { "internalType": "bytes", "name": "userData", "type": "bytes" },
+          { "internalType": "uint256", "name": "userData0", "type": "uint256" },
+          { "internalType": "uint256", "name": "userData1", "type": "uint256" },
+          { "internalType": "uint256", "name": "userData2", "type": "uint256" },
+          { "internalType": "uint256", "name": "pending0", "type": "uint256" },
+          { "internalType": "uint256", "name": "pending1", "type": "uint256" }
+        ],
+        "internalType": "struct FarmHelper.PoolData[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "masterchef_", "type": "address" },
+      { "internalType": "bytes4", "name": "sel_", "type": "bytes4" },
+      { "internalType": "uint256", "name": "pid_", "type": "uint256" },
+      { "internalType": "address", "name": "account_", "type": "address" }
+    ],
+    "name": "_userInfo",
+    "outputs": [
+      { "internalType": "uint256", "name": "amount", "type": "uint256" },
+      { "internalType": "uint256", "name": "amount2", "type": "uint256" },
+      { "internalType": "uint256", "name": "amount3", "type": "uint256" },
+      { "internalType": "bytes", "name": "userdata", "type": "bytes" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "masterchef_", "type": "address" },
+      { "internalType": "uint256[]", "name": "pids_", "type": "uint256[]" }
+    ],
+    "name": "poolInfo",
+    "outputs": [
+      {
+        "components": [
+          { "internalType": "uint256", "name": "pid", "type": "uint256" },
+          { "internalType": "bytes", "name": "data", "type": "bytes" },
+          { "internalType": "address", "name": "token", "type": "address" },
+          { "internalType": "bool", "name": "isErc721", "type": "bool" },
+          { "internalType": "uint8", "name": "decimals", "type": "uint8" },
+          {
+            "internalType": "uint256",
+            "name": "allocPoint",
+            "type": "uint256"
+          },
+          { "internalType": "uint256", "name": "amount", "type": "uint256" },
+          { "internalType": "uint256", "name": "reserve0", "type": "uint256" },
+          { "internalType": "uint256", "name": "reserve1", "type": "uint256" },
+          { "internalType": "uint256", "name": "reserve2", "type": "uint256" },
+          { "internalType": "uint256", "name": "allowance", "type": "uint256" },
+          { "internalType": "uint256", "name": "balance", "type": "uint256" },
+          { "internalType": "bytes", "name": "userData", "type": "bytes" },
+          { "internalType": "uint256", "name": "userData0", "type": "uint256" },
+          { "internalType": "uint256", "name": "userData1", "type": "uint256" },
+          { "internalType": "uint256", "name": "userData2", "type": "uint256" },
+          { "internalType": "uint256", "name": "pending0", "type": "uint256" },
+          { "internalType": "uint256", "name": "pending1", "type": "uint256" }
+        ],
+        "internalType": "struct FarmHelper.PoolData[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes", "name": "_bytes", "type": "bytes" },
+      { "internalType": "uint256", "name": "_start", "type": "uint256" }
+    ],
+    "name": "toAddress",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes", "name": "_bytes", "type": "bytes" },
+      { "internalType": "uint256", "name": "_start", "type": "uint256" }
+    ],
+    "name": "toUint256",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "masterchef_", "type": "address" },
+      { "internalType": "uint256[]", "name": "pids_", "type": "uint256[]" },
+      { "internalType": "address", "name": "account_", "type": "address" },
+      { "internalType": "bool", "name": "verbose_", "type": "bool" }
+    ],
+    "name": "userInfo",
+    "outputs": [
+      {
+        "components": [
+          { "internalType": "uint256", "name": "pid", "type": "uint256" },
+          { "internalType": "bytes", "name": "data", "type": "bytes" },
+          { "internalType": "address", "name": "token", "type": "address" },
+          { "internalType": "bool", "name": "isErc721", "type": "bool" },
+          { "internalType": "uint8", "name": "decimals", "type": "uint8" },
+          {
+            "internalType": "uint256",
+            "name": "allocPoint",
+            "type": "uint256"
+          },
+          { "internalType": "uint256", "name": "amount", "type": "uint256" },
+          { "internalType": "uint256", "name": "reserve0", "type": "uint256" },
+          { "internalType": "uint256", "name": "reserve1", "type": "uint256" },
+          { "internalType": "uint256", "name": "reserve2", "type": "uint256" },
+          { "internalType": "uint256", "name": "allowance", "type": "uint256" },
+          { "internalType": "uint256", "name": "balance", "type": "uint256" },
+          { "internalType": "bytes", "name": "userData", "type": "bytes" },
+          { "internalType": "uint256", "name": "userData0", "type": "uint256" },
+          { "internalType": "uint256", "name": "userData1", "type": "uint256" },
+          { "internalType": "uint256", "name": "userData2", "type": "uint256" },
+          { "internalType": "uint256", "name": "pending0", "type": "uint256" },
+          { "internalType": "uint256", "name": "pending1", "type": "uint256" }
+        ],
+        "internalType": "struct FarmHelper.PoolData[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]

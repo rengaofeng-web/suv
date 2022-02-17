@@ -1,13 +1,50 @@
-import React from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 import { Control } from "react-keeper";
 import isMobile from "is-mobile";
+import {
+  useHistory,
+  withRouter,
+  RouteComponentProps,
+  useParams,
+} from "react-router-dom";
+
 // 组件导入
 import Footer from "../../components/Footer/Footer"; //footer
 // 图片导入
 import mobile_wholeBg from "../../assets/Phone-config/bg1.jpg"; // mobile 整体背景图
+import useFarm from "src/hooks/useFarm";
+import useSushi from "src/hooks/useSushi";
+import { useWeb3React } from "@web3-react/core";
+import { getContract } from "src/utils/erc20";
+import { getMasterChefContract } from "src/sushi/utils";
+import useRedeem from "src/hooks/useRedeem";
+import { Web3Provider } from "@ethersproject/providers";
+import { provider } from "web3-core";
+import BigNumber from "bignumber.js";
+import useEarnings from "src/hooks/useEarnings";
+import useReward from "src/hooks/useReward";
+
 const Details: React.FC<{}> = () => {
+  const { farmId } = useParams();
+
+  const [inputValue, setInputValue] = useState<undefined | string>(undefined);
+  //const { apyDefault } = useApyDefault({ pid: farmId })
+
+  const farm = useFarm(farmId);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  const [rewardPending, setRewardPending] = useState(false);
+  const { onReward } = useReward(farmId);
+  const handleHarvest = useCallback(async () => {
+    setRewardPending(true);
+    await onReward();
+    setRewardPending(false);
+  }, [setRewardPending, onReward]);
   const isM: boolean = isMobile();
+  const histroy = useHistory();
   return (
     <DetailsStyle>
       <div className="content-box">
@@ -15,49 +52,60 @@ const Details: React.FC<{}> = () => {
           <div className="left-logo">
             <div className="logo-border">
               <div className="logo">
-                <img
-                  src={
-                    !isM
-                      ? require("../../assets/PC-config/pool/SUV.svg").default
-                      : require("../../assets/Phone-config/pool/SUV.svg").default
-                  }
-                  alt=""
-                />
+                <img src={farm.icon} alt="" />
               </div>
             </div>
-            <div className="text">SUV</div>
+            <div className="text">{farm.symbolShowing}</div>
           </div>
-          <div className="right-con">OX2512...2A36</div>
+          <div className="right-con">
+            {farm.tokenAddress.slice(0, 6)}...
+            {farm.tokenAddress.slice(-4)}
+          </div>
         </div>
         <div className="content">
           <div className="title">Details</div>
           <div className="data">
             <div className="data-item">
               <div className="data-name">TVL</div>
-              <div className="data-con">$1,749,698,547.89</div>
+              <div className="data-con">
+                {" "}
+                {new BigNumber(farm.stakedValue1)
+                  .div(new BigNumber(10).pow(farm.decimals))
+                  .toFixed(2)}
+              </div>
             </div>
             <div className="data-item">
               <div className="data-name">Weight</div>
-              <div className="data-con">19.61%</div>
+              <div className="data-con">{farm.allocPoint}</div>
             </div>
             <div className="data-item">
               <div className="data-name">Pending rewards</div>
-              <div className="data-con">0.00 SUV</div>
+              <div className="data-con">
+                {" "}
+                {new BigNumber(farm.userPending0)
+                  .div(new BigNumber(10).pow(farm.decimals))
+                  .toFixed(2)}{" "}
+                SUV
+              </div>
             </div>
             <div className="data-item">
               <div className="data-name">Pool APR</div>
-              <div className="data-con">41.61%</div>
+              <div className="data-con">{farm.apy}</div>
             </div>
             <div className="data-item">
               <div className="data-name">My liquidity</div>
-              <div className="data-con">0 SUV</div>
+              <div className="data-con">
+                {new BigNumber(farm.userStaked)
+                  .div(new BigNumber(10).pow(farm.decimals))
+                  .toFixed(2)}
+              </div>
             </div>
           </div>
         </div>
         <div
           className="stake"
           onClick={() => {
-            Control.go("/stake");
+            histroy.push("/stake/" + farm.pid);
           }}
         >
           STAKE
@@ -66,12 +114,17 @@ const Details: React.FC<{}> = () => {
           <div
             className="withdraw"
             onClick={() => {
-              Control.go("/withdraw");
+              histroy.push("/withdraw/" + farm.pid);
             }}
           >
             WITHDRAW
           </div>
-          <div className="harvest">HARVEST</div>
+          <div
+            className="harvest"
+            onClick={rewardPending ? () => {} : handleHarvest}
+          >
+            {rewardPending ? "Pending Harvest" : "HARVEST"}
+          </div>
         </div>
       </div>
       <Footer></Footer>
@@ -105,8 +158,14 @@ const DetailsStyle = styled.div`
       0 calc(100% - 35px),
       0 35px
     );
-    background: linear-gradient(-45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom right,
-      linear-gradient(45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom left,
+    background: linear-gradient(
+          -45deg,
+          transparent 23px,
+          rgba(4, 10, 58, 0.3) 0
+        )
+        bottom right,
+      linear-gradient(45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom
+        left,
       linear-gradient(135deg, #2cb0de 26px, rgba(4, 10, 58, 0.3) 0) top left,
       linear-gradient(-135deg, #2cb0de 26px, rgba(4, 10, 58, 0.3) 0) top right;
     background-size: 50% 50%;
@@ -295,8 +354,14 @@ const DetailsStyle = styled.div`
         0 0.38rem
       );
 
-      background: linear-gradient(-45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom right,
-        linear-gradient(45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom left,
+      background: linear-gradient(
+            -45deg,
+            transparent 23px,
+            rgba(4, 10, 58, 0.3) 0
+          )
+          bottom right,
+        linear-gradient(45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom
+          left,
         linear-gradient(135deg, #31bce8 0.28rem, transparent 0) top left,
         linear-gradient(-135deg, #31bce8 0.28rem, transparent 0);
       border-top: 0.05rem solid #2cb0de;
@@ -396,4 +461,4 @@ const DetailsStyle = styled.div`
   /* mobile style end */
 `;
 // details style end
-export default Details;
+export default withRouter(Details);

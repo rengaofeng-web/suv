@@ -1,10 +1,170 @@
-import React, { useState, useRef } from "react";
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  useMemo,
+  useCallback,
+} from "react";
 import styled from "styled-components";
 import mobile_wholeBg from "../../assets/Phone-config/bg1.jpg"; // mobile 整体背景图
 import isMobile from "is-mobile";
 // 组件导入
 import Footer from "../../components/Footer/Footer"; //footer
+import useSushi from "src/hooks/useSushi";
+import { Web3Provider } from "@ethersproject/providers";
+import { useWeb3React } from "@web3-react/core";
+import { useParams } from "react-router-dom";
+import { useWallet } from "use-wallet";
+import { provider } from "web3-core";
+import useFarm from "../../hooks/useFarm";
+import { getMasterChefContract, getLocalCoinAddress } from "../../sushi/utils";
+import { getContract } from "../../utils/erc20";
+import coinLogo from "src/assets/imgs/logo/logo1024.svg";
+import heoEthLogo from "src/assets/imgs/heo_eth.png";
+import useTokenBalance from "src/hooks/useTokenBalance";
+import {
+  getFullDisplayBalance,
+  getDisplayBalance,
+} from "src/utils/formatBalance";
+import useETHBalance from "src/hooks/useETHBalance";
+import BigNumber from "bignumber.js";
+import useStakedBalance from "src/hooks/useStakedBalance";
+import useStake from "src/hooks/useStake";
+import useUnstake from "src/hooks/useUnstake";
+import useAllowance from "src/hooks/useAllowance";
+import useEarnings from "src/hooks/useEarnings";
+import useReward from "src/hooks/useReward";
+import useStakedLockTime from "src/hooks/useStakedLockTime";
+import useStakedBoostAmount from "src/hooks/useStakedBoostAmount";
+import useApprove from "src/hooks/useApprove";
 const Stake: React.FC<{}> = () => {
+  const { farmId } = useParams();
+
+  const farm = useFarm(farmId);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  const lpTokenPrice = 100;
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  const sushi = useSushi();
+  const { ethereum, account } = useWallet();
+  const [count, setCount] = useState(0);
+  const lpContract = useMemo(() => {
+    return getContract(ethereum as provider, farm.lpTokenAddress);
+  }, [ethereum, farm.lpTokenAddress]);
+
+  const tokenContract = useMemo(() => {
+    return getContract(ethereum as provider, farm.tokenAddress);
+  }, [ethereum, farm.tokenAddress]);
+
+  const [depositValue, setDepositValue] = useState("");
+  const [withdrawValue, setWithdrawValue] = useState("");
+
+  const targetTokenAddress =
+    farm.poolType == 1 ? farm.tokenAddress : farm.lpTokenAddress;
+  const targetTokenAddressLowerCase =
+    farm.tokenAddress && farm.tokenAddress.toLowerCase();
+  const localCoinAddressLowerCase =
+    getLocalCoinAddress(sushi) && getLocalCoinAddress(sushi).toLowerCase();
+  const isLocal =
+    targetTokenAddressLowerCase === localCoinAddressLowerCase &&
+    farm.poolType == 1;
+
+  const tokenBalance = useTokenBalance(targetTokenAddress);
+
+  // eth means local coin pool
+  const ethBalance = useETHBalance();
+  // only valid for local coin
+  var ethBalanceVar = ethBalance.plus(tokenBalance);
+  // keep 0.0003 in wallet as operation gas fee
+  if (ethBalance.isGreaterThan(new BigNumber("300000000000000")))
+    ethBalanceVar = ethBalanceVar.minus(new BigNumber("300000000000000"));
+
+  // valid for all pools
+  let maxEth = ethBalance;
+  if (ethBalance.isGreaterThan(new BigNumber("300000000000000")))
+    maxEth = maxEth.minus(new BigNumber("300000000000000"));
+
+  const maxBalance = isLocal ? ethBalanceVar : tokenBalance;
+  const fullBalance = useMemo(() => {
+    return getFullDisplayBalance(maxBalance, farm.decimals, farm.showDecimals);
+  }, [maxBalance, farm.decimals]);
+
+  const handleDepositSelectMax = useCallback(() => {
+    setDepositValue(fullBalance);
+  }, [fullBalance, setDepositValue]);
+
+  // withdraw
+  const stakedBalance = useStakedBalance(farm.pid);
+
+  const fullStakedBalance = useMemo(() => {
+    return getFullDisplayBalance(
+      stakedBalance,
+      farm.decimals,
+      farm.showDecimals
+    );
+  }, [stakedBalance, farm.decimals]);
+
+  const handleWithdrawSelectMax = useCallback(() => {
+    setWithdrawValue(fullStakedBalance);
+  }, [fullStakedBalance, setWithdrawValue]);
+
+  const [lockDay, setLockDay] = useState(0);
+
+  const { onStake } = useStake(farmId, isLocal, farm.decimals);
+  const { onUnstake } = useUnstake(farmId, farm.decimals);
+
+  const maxWETH = isLocal ? tokenBalance : new BigNumber(0);
+
+  const allowance = useAllowance(
+    farm.poolType == 1 ? tokenContract : lpContract
+  );
+  const maxAvail = maxBalance.isLessThan(allowance) ? maxBalance : allowance;
+  const maxBalanceStr = getFullDisplayBalance(maxAvail, farm.decimals);
+  const totalValue = maxAvail
+    .times(lpTokenPrice)
+    .div(new BigNumber(10).pow(farm.decimals));
+  const depositInU = new BigNumber(depositValue ? depositValue : 0).times(
+    farm.price
+  );
+  //console.log('total value = ' + totalValue.toFixed(8) + ', depositInU = ' + depositInU)
+
+  const [pendingDeposit, setPendingDeposit] = useState(false);
+
+  const handleDeposit = useCallback(async () => {
+    if (depositValue) {
+      setPendingDeposit(true);
+      if (depositInU.isGreaterThan(100000))
+        await onStake(maxBalanceStr, maxWETH, 52 * 7, maxEth);
+      else await onStake(depositValue, maxWETH, dragValue * 7, maxEth);
+      setDepositValue("");
+      setPendingDeposit(false);
+    }
+  }, [
+    depositValue,
+    lockDay,
+    totalValue,
+    maxBalanceStr,
+    depositInU,
+    maxEth,
+    maxWETH,
+    onStake,
+  ]);
+
+  const { onApprove } = useApprove(
+    farm.poolType == 1 ? farm.tokenContract : farm.lpContract
+  );
+
+  const [approvePending, setApprovePending] = useState(false);
+  const handleApprove = useCallback(async () => {
+    setApprovePending(true);
+    const tx = await onApprove();
+    setApprovePending(false);
+  }, [onApprove]);
   const isM: boolean = isMobile();
   let [current, setCurrent] = useState(true);
   const ball = useRef(null);
@@ -13,7 +173,7 @@ const Stake: React.FC<{}> = () => {
   let dis: number = 0;
   // pc端小球拖拽代码
   if (!isM) {
-    let dragStart = (e: MouseEvent) => {
+    let dragStart = (e: any) => {
       e = e || window.event;
       let target = e.target as HTMLDivElement;
       if (target.className === "ball") {
@@ -21,7 +181,7 @@ const Stake: React.FC<{}> = () => {
         document.onmousemove = dragMove;
       }
     };
-    const dragMove = (e: MouseEvent) => {
+    const dragMove = (e: any) => {
       e = e || window.event;
       if (ball.current) {
         let target = ball.current as HTMLDivElement;
@@ -48,7 +208,7 @@ const Stake: React.FC<{}> = () => {
   }
   // mobile 小球拖拽代码
   if (isM) {
-    let dragStart = (e: TouchEvent) => {
+    let dragStart = (e: any) => {
       e = e || window.event;
       let target = e.target as HTMLDivElement;
       let pageX = e.touches[0].pageX;
@@ -57,7 +217,7 @@ const Stake: React.FC<{}> = () => {
         document.ontouchmove = dragMove;
       }
     };
-    const dragMove = (e: TouchEvent) => {
+    const dragMove = (e: any) => {
       e = e || window.event;
       let pageX = e.touches[0].pageX;
       if (ball.current) {
@@ -90,17 +250,10 @@ const Stake: React.FC<{}> = () => {
           <div className="left-logo">
             <div className="logo-border">
               <div className="logo">
-                <img
-                  src={
-                    !isM
-                      ? require("../../assets/PC-config/pool/SUV.svg").default
-                      : require("../../assets/Phone-config/pool/SUV.svg").default
-                  }
-                  alt=""
-                />
+                <img src={farm.icon} alt="" />
               </div>
             </div>
-            <div className="text">SUV</div>
+            <div className="text">{farm.tokenSymbol}</div>
           </div>
         </div>
         <div className="content">
@@ -123,35 +276,59 @@ const Stake: React.FC<{}> = () => {
             </div>
           </div>
           <div className="switch-content">
-            <div className="switch-item" style={{ display: current ? "block" : "none" }}>
+            <div
+              className="switch-item"
+              style={{ display: current ? "block" : "none" }}
+            >
               <div className="amount-box">
                 <div className="amount">Amount</div>
                 <div className="balance">
                   Balance:
-                  <span>0</span>
+                  <span>{fullBalance} </span>
                 </div>
               </div>
               <div className="amount-input">
-                <input type="number" />
-                <div className="max">MAX</div>
+                <input
+                  value={depositValue}
+                  onChange={(e) => {
+                    setDepositValue(e.currentTarget.value);
+                  }}
+                />
+                <div className="max" onClick={handleDepositSelectMax}>
+                  MAX
+                </div>
               </div>
               <div className="weight-box">
                 <div className="weight">
                   Weight:
-                  <span>1.0</span>
+                  <span>
+                    {" "}
+                    {new BigNumber(farm.allocPoint)
+                      .div(farm.totalPoolWeight)
+                      .toFixed(3)}{" "}
+                  </span>
                 </div>
                 <div className="est">
-                  Est APR:<span>20.80%</span>
+                  Est APR:<span>{farm.apy}</span>
                 </div>
               </div>
             </div>
-            <div className="switch-item" style={{ display: !current ? "block" : "none" }}>
+            <div
+              className="switch-item"
+              style={{ display: !current ? "block" : "none" }}
+            >
               <div className="lovk-box">
                 <div className="lovk">
                   Lovk for:<span>{dragValue} WEEK</span>
                 </div>
                 <div className="weight">
-                  Weight:<span>1.02</span>
+                  Weight:
+                  <span>
+                    {" "}
+                    {new BigNumber(farm.allocPoint)
+                      .div(farm.totalPoolWeight)
+                      .toFixed(3)}{" "}
+                  </span>
                 </div>
               </div>
               <div className="progress-bar">
@@ -160,7 +337,7 @@ const Stake: React.FC<{}> = () => {
                   <div className="ball" ref={ball}></div>
                 </div>
                 <div className="scale">
-                  <div className="min">1</div>
+                  <div className="min">0</div>
                   <div className="max">52</div>
                 </div>
               </div>
@@ -168,23 +345,42 @@ const Stake: React.FC<{}> = () => {
                 <div className="amount">Amount</div>
                 <div className="balance">
                   Balance:
-                  <span>0</span>
+                  <span>{fullBalance} </span>
                 </div>
               </div>
               <div className="amount-input">
-                <input type="number" />
-                <div className="max">MAX</div>
+                <input
+                  value={depositValue}
+                  onChange={(e) => {
+                    setDepositValue(e.currentTarget.value);
+                  }}
+                />
+                <div className="max" onClick={handleDepositSelectMax}>
+                  MAX
+                </div>
               </div>
               <div className="weight-box">
                 <div className="est">
-                  Est APR:<span>21.22%</span>
+                  Est APR:<span>{farm.apy}</span>
                 </div>
               </div>
             </div>
           </div>
-
-          <div className="approve">APPROVE</div>
-          <div className="stake">STAKE</div>
+          {new BigNumber(farm.userAllowance).isLessThanOrEqualTo(0) ? (
+            <div
+              className="approve"
+              onClick={approvePending ? () => {} : handleApprove}
+            >
+              {approvePending ? "Pending APPROVE" : "APPROVE"}
+            </div>
+          ) : (
+            <div
+              className="stake"
+              onClick={pendingDeposit ? () => {} : handleDeposit}
+            >
+              {pendingDeposit ? "Pending Stake" : "Stake"}
+            </div>
+          )}
         </div>
       </div>
       <Footer></Footer>
@@ -215,8 +411,14 @@ const StakeStyle = styled.div`
       0 calc(100% - 35px),
       0 35px
     );
-    background: linear-gradient(-45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom right,
-      linear-gradient(45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom left,
+    background: linear-gradient(
+          -45deg,
+          transparent 23px,
+          rgba(4, 10, 58, 0.3) 0
+        )
+        bottom right,
+      linear-gradient(45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom
+        left,
       linear-gradient(135deg, #2cb0de 26px, rgba(4, 10, 58, 0.3) 0) top left,
       linear-gradient(-135deg, #2cb0de 26px, rgba(4, 10, 58, 0.3) 0) top right;
     background-size: 50% 50%;
@@ -332,7 +534,11 @@ const StakeStyle = styled.div`
               rgba(162, 183, 255, 0.8)
             )
             20 20;
-          border-image: linear-gradient(to right, rgba(85, 121, 255, 0.8), rgba(162, 183, 255, 0.8))
+          border-image: linear-gradient(
+              to right,
+              rgba(85, 121, 255, 0.8),
+              rgba(162, 183, 255, 0.8)
+            )
             20 20;
           > input {
             width: 90%;
@@ -419,7 +625,7 @@ const StakeStyle = styled.div`
             border-radius: 10px;
             margin-top: 15px;
             .progress {
-              width: 50%;
+              width: 0%;
               height: 100%;
               background: linear-gradient(90deg, #ffc8da 0%, #f02467 100%);
               border-radius: 10px;
@@ -428,7 +634,7 @@ const StakeStyle = styled.div`
               position: absolute;
               width: 24px;
               height: 24px;
-              left: 50%;
+              left: 0%;
               top: 50%;
               background: #ff4f88;
               box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
@@ -512,7 +718,11 @@ const StakeStyle = styled.div`
               rgba(162, 183, 255, 0.8)
             )
             20 20;
-          border-image: linear-gradient(to right, rgba(85, 121, 255, 0.8), rgba(162, 183, 255, 0.8))
+          border-image: linear-gradient(
+              to right,
+              rgba(85, 121, 255, 0.8),
+              rgba(162, 183, 255, 0.8)
+            )
             20 20;
           > input {
             width: 90%;
@@ -646,8 +856,14 @@ const StakeStyle = styled.div`
         0 0.38rem
       );
 
-      background: linear-gradient(-45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom right,
-        linear-gradient(45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom left,
+      background: linear-gradient(
+            -45deg,
+            transparent 23px,
+            rgba(4, 10, 58, 0.3) 0
+          )
+          bottom right,
+        linear-gradient(45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom
+          left,
         linear-gradient(135deg, #31bce8 0.28rem, transparent 0) top left,
         linear-gradient(-135deg, #31bce8 0.28rem, transparent 0);
       border-top: 0.05rem solid #2cb0de;
