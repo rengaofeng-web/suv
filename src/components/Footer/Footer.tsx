@@ -1,6 +1,22 @@
 import React, { useRef, useEffect } from "react";
 import styled from "styled-components";
 import isMobile from "is-mobile";
+// pc图片导入
+import foot_survivor_logo from "../../assets/PC-config/home/foot_survivor_logo.svg";
+import foot_price_logo from "../../assets/PC-config/home/foot_price_logo.svg";
+import foot_twitter from "../../assets/PC-config/home/foot_twitter.svg";
+import foot_telegram from "../../assets/PC-config/home/foot_telegram.svg";
+import foot_discord from "../../assets/PC-config/home/foot_discord.svg";
+import  foot_medium  from '../../assets/PC-config/home/foot_medium.svg'
+// mobile图片导入
+import foot_survivor_logo_mobile from "../../assets/Phone-config/home/foot_survivor_logo.svg";
+import foot_price_logo_mobile from "../../assets/Phone-config/home/foot_price_logo.svg";
+import foot_twitter_mobile from "../../assets/Phone-config/home/foot_twitter.svg";
+import foot_telegram_mobile from "../../assets/Phone-config/home/foot_telegram.svg";
+import foot_discord_mobile from "../../assets/Phone-config/home/foot_discord.svg";
+import  foot_medium_mobile  from '../../assets/Phone-config/home/foot_medium.svg'
+
+
 const isM = isMobile();
 const Footer: React.FC<{}> = () => {
   let charts = useRef(null);
@@ -42,14 +58,7 @@ const Footer: React.FC<{}> = () => {
         <div className="footer">
           <div className="left">
             <div className="footer-logo">
-              <img
-                src={
-                  !isM
-                    ? require("../../assets/PC-config/home/foot_survivor_logo.svg").default
-                    : require("../../assets/Phone-config/home/foot_survivor_logo.svg").default
-                }
-                alt=""
-              />
+              <img src={!isM ? foot_survivor_logo : foot_survivor_logo_mobile} alt="" />
             </div>
             <div className="footer-menu">
               <div className="menu-item">
@@ -90,14 +99,7 @@ const Footer: React.FC<{}> = () => {
               <div className="line"></div>
               <div className="center-data">
                 <div className="left-logo">
-                  <img
-                    src={
-                      !isM
-                        ? require("../../assets/PC-config/home/foot_price_logo.svg").default
-                        : require("../../assets/Phone-config/home/foot_price_logo.svg").default
-                    }
-                    alt=""
-                  />
+                  <img src={!isM ? foot_price_logo : foot_price_logo_mobile} alt="" />
                   <div className="text">SUV</div>
                 </div>
                 <div className="price-data">
@@ -122,11 +124,25 @@ const Footer: React.FC<{}> = () => {
             <div className="trademark-bg">
               <div className="trademark">
                 <a href="/#">
+                  <img src={!isM ? foot_twitter : foot_twitter_mobile} alt="" />
+                </a>
+              </div>
+            </div>
+            <div className="trademark-bg">
+              <div className="trademark">
+                <a href="/#">
+                  <img src={!isM ? foot_telegram : foot_telegram_mobile} alt="" />
+                </a>
+              </div>
+            </div>
+            <div className="trademark-bg">
+              <div className="trademark">
+                <a href="/#">
                   <img
                     src={
                       !isM
-                        ? require("../../assets/PC-config/home/foot_twitter.svg").default
-                        : require("../../assets/Phone-config/home/foot_twitter.svg").default
+                        ? foot_discord
+                        : foot_discord_mobile
                     }
                     alt=""
                   />
@@ -139,36 +155,8 @@ const Footer: React.FC<{}> = () => {
                   <img
                     src={
                       !isM
-                        ? require("../../assets/PC-config/home/foot_telegram.svg").default
-                        : require("../../assets/Phone-config/home/foot_telegram.svg").default
-                    }
-                    alt=""
-                  />
-                </a>
-              </div>
-            </div>
-            <div className="trademark-bg">
-              <div className="trademark">
-                <a href="/#">
-                  <img
-                    src={
-                      !isM
-                        ? require("../../assets/PC-config/home/foot_discord.svg").default
-                        : require("../../assets/Phone-config/home/foot_discord.svg").default
-                    }
-                    alt=""
-                  />
-                </a>
-              </div>
-            </div>
-            <div className="trademark-bg">
-              <div className="trademark">
-                <a href="/#">
-                  <img
-                    src={
-                      !isM
-                        ? require("../../assets/PC-config/home/foot_medium.svg").default
-                        : require("../../assets/Phone-config/home/foot_medium.svg").default
+                        ?foot_medium
+                        :foot_medium_mobile
                     }
                     alt=""
                   />
@@ -384,7 +372,7 @@ const FooterStyle = styled.div`
       height: 7.9rem;
       background: linear-gradient(180deg, rgba(6, 11, 64, 0.8) 0%, rgba(6, 11, 64, 0) 195.35%);
       padding: 0;
-      .footer { 
+      .footer {
         max-width: auto;
         min-width: auto;
         display: block;
@@ -395,10 +383,10 @@ const FooterStyle = styled.div`
           top: 4rem;
           width: 100%;
           box-sizing: border-box;
-          padding-right: .5rem;
+          padding-right: 0.5rem;
           .footer-menu {
             width: 100%;
-            justify-content:space-around;
+            justify-content: space-around;
             .menu-item {
               text-align: center;
               .item {

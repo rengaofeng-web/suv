@@ -43,7 +43,6 @@ const Layout: React.FC<{}> = () => {
   return (
     <AppStyle className="App">
       <Header></Header>
-
       <div className="router-container">
         <Switch>
           <Route path="/" component={() => <Home />} exact />

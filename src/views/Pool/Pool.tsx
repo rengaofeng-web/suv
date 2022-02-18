@@ -16,11 +16,7 @@ import { useWallet } from "use-wallet";
 import ArrowPic from "src/assets/images/logo.svg";
 
 import useFarms from "src/hooks/useFarms";
-import {
-  getEarned,
-  getLocalCoinAddress,
-  getMasterChefContract,
-} from "src/sushi/utils";
+import { getEarned, getLocalCoinAddress, getMasterChefContract } from "src/sushi/utils";
 
 import useApprove from "src/hooks/useApprove";
 import useStakedBalance from "src/hooks/useStakedBalance";
@@ -151,7 +147,7 @@ const Pool: React.FC<{}> = () => {
     },
   ];
   const { farmRows } = useFarmRows();
-
+  console.log(farmRows);
   return (
     <PoolStyle>
       <div className="content">
@@ -256,17 +252,11 @@ const PoolStyle = styled.div`
       0 calc(100% - 35px),
       0 35px
     );
-    background: linear-gradient(
-          -45deg,
-          transparent 23px,
-          rgba(4, 10, 58, 0.3) 0
-        )
-        bottom right,
-      linear-gradient(45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom
-        left,
+    background: linear-gradient(-45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom right,
+      linear-gradient(45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom left,
       linear-gradient(135deg, #2cb0de 26px, rgba(4, 10, 58, 0.3) 0) top left,
       linear-gradient(-135deg, #2cb0de 26px, rgba(4, 10, 58, 0.3) 0) top right;
-    background-size: 50% 51%;
+    background-size: 50% 50%;
     background-repeat: no-repeat;
     border-top: 5px solid #2cb0de;
     .pool-list {
@@ -285,10 +275,10 @@ const PoolStyle = styled.div`
         font-size: 20px;
         color: #fff;
         .pool {
-          margin-right: 245px;
+          margin-right: 240px;
         }
         .tvl {
-          margin-right: 209px;
+          margin-right: 188px;
         }
       }
       .list {
@@ -298,8 +288,9 @@ const PoolStyle = styled.div`
           color: #fff;
           align-items: center;
           border-top: 2px solid rgba(255, 255, 255, 0.2);
+          justify-content: space-between;
           .pool {
-            width: 263px;
+            width: 215px;
             display: flex;
             align-items: center;
             .logo-border {
@@ -337,17 +328,23 @@ const PoolStyle = styled.div`
             font-style: normal;
             font-weight: bold;
             font-size: 20px;
-            padding-right: 120px;
+            width: 200px;
+            text-align: center;
+            /* padding-right: 120px; */
           }
           .apr {
+            width: 150px;
+            margin-left: 50px;
             font-family: Roboto;
             font-style: normal;
             font-weight: bold;
             font-size: 20px;
+            text-align: center;
           }
           .button-box {
             display: flex;
             padding-left: 80px;
+
             > div {
               font-family: Roboto;
               font-style: normal;
@@ -478,24 +475,12 @@ const PoolStyle = styled.div`
                   rgba(4, 10, 58, 0.3) 0
                 )
                 bottom right,
-              linear-gradient(
-                  45deg,
-                  rgba(51, 191, 235, 1) 0.28rem,
-                  rgba(4, 10, 58, 0.3) 0
-                )
-                bottom left,
-              linear-gradient(
-                  135deg,
-                  rgba(51, 191, 235, 1) 0.28rem,
-                  rgba(4, 10, 58, 0.3) 0
-                )
-                top left,
-              linear-gradient(
-                  -135deg,
-                  rgba(51, 191, 235, 1) 0.28rem,
-                  rgba(4, 10, 58, 0.3) 0
-                )
-                top right;
+              linear-gradient(45deg, rgba(51, 191, 235, 1) 0.28rem, rgba(4, 10, 58, 0.3) 0) bottom
+                left,
+              linear-gradient(135deg, rgba(51, 191, 235, 1) 0.28rem, rgba(4, 10, 58, 0.3) 0) top
+                left,
+              linear-gradient(-135deg, rgba(51, 191, 235, 1) 0.28rem, rgba(4, 10, 58, 0.3) 0) top
+                right;
             background-size: cover;
             background-repeat: no-repeat;
             border: 0.03rem solid rgba(51, 191, 235, 1);
