@@ -6,12 +6,24 @@ import "swiper/css/swiper.css";
 // 组件引入
 import SuvBoxPopup from "../../components/SuvBoxPopup/SuvBoxPopup";
 import Footer from "../../components/Footer/Footer"; //footer
-// 图片引入
+// pc图片引入
 import kejikuang from "../../assets/PC-config/NFT/kejikuang.png"; // pc 宝箱背景
 import baoxiang_bg from "../../assets/PC-config/NFT/xia.png"; //pc 宝箱背景 光环
+import baoxiang1 from '../../assets/PC-config/NFT/baoxiang1.png'// pc 宝箱1
+import baoxiang2 from '../../assets/PC-config/NFT/baoxiang2.png' //pc 宝箱2
+import baoxiang3 from '../../assets/PC-config/NFT/baoxiang3.png'//pc 宝箱3
+import anniu from '../../assets/PC-config/NFT/anniu.svg'
+// import video from '../../assets/gif+mov/video.mp4'
+import zhuangshi from '../../assets/PC-config/NFT/zhuangshi.svg'
+// mobile 图片引入
 import mobile_wholeBg from "../../assets/Phone-config/bg1.jpg"; //mobile 整体背景图
 import mobile_kejikuang from "../../assets/Phone-config/NFT/kejikuang.png"; // mobile 宝箱背景
 import mobile_baoxiangBg from "../../assets/Phone-config/NFT/xia.png"; //mobile 宝箱背景 光环
+import baoxiang1_mobile from '../../assets/Phone-config/NFT/baoxiang1.png'// mobile 宝箱1
+import baoxiang2_mobile from '../../assets/Phone-config/NFT/baoxiang2.png' //mobile 宝箱2
+import baoxiang3_mobile from '../../assets/Phone-config/NFT/baoxiang3.png'//mobile 宝箱3
+
+
 const SuvBox: React.FC<{}> = () => {
   const isM: boolean = isMobile();
   let [swiperIndex, setSwiperIndex] = useState(0);
@@ -82,8 +94,8 @@ const SuvBox: React.FC<{}> = () => {
                       <img
                         src={
                           !isM
-                            ? require("../../assets/PC-config/NFT/baoxiang1.png").default
-                            : require("../../assets/Phone-config/NFT/baoxiang1.png").default
+                            ? baoxiang1
+                            : baoxiang1_mobile
                         }
                         alt=""
                       />
@@ -92,8 +104,9 @@ const SuvBox: React.FC<{}> = () => {
                       <img
                         src={
                           !isM
-                            ? require("../../assets/PC-config/NFT/baoxiang2.png").default
-                            : require("../../assets/Phone-config/NFT/baoxiang2.png").default
+                            ? baoxiang2
+                            :
+                            baoxiang2_mobile
                         }
                         alt=""
                       />
@@ -102,8 +115,8 @@ const SuvBox: React.FC<{}> = () => {
                       <img
                         src={
                           !isM
-                            ? require("../../assets/PC-config/NFT/baoxiang3.png").default
-                            : require("../../assets/Phone-config/NFT/baoxiang3.png").default
+                            ? baoxiang3
+                            : baoxiang3_mobile
                         }
                         alt=""
                       />
@@ -114,7 +127,7 @@ const SuvBox: React.FC<{}> = () => {
             </div>
             <div className="control">
               <div className="control-bg">
-                <img src={require("../../assets/PC-config/NFT/anniu.svg").default} alt="" />
+                <img src={anniu} alt="" />
               </div>
               <div className="previous" ref={leftButton}></div>
               <div className="number">{swiperIndex + 1}/3</div>
@@ -157,13 +170,13 @@ const SuvBox: React.FC<{}> = () => {
           <div className="right-jackpot">
             <div className="title">You have a chance to win the following prizes</div>
             <video
-              src={require("../../assets/gif+mov/最终效果2.mp4").default}
+              src={require('../../assets/gif+mov/video.mp4').default}
               autoPlay={true}
               loop={true}
               muted
             ></video>
             <div className="bottom-decorate">
-              <img src={require("../../assets/PC-config/NFT/zhuangshi.svg").default} alt="" />
+              <img src={zhuangshi} alt="" />
             </div>
           </div>
         </div>
