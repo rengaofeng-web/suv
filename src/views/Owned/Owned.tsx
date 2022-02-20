@@ -5,8 +5,11 @@ import "swiper/css/swiper.css";
 import isMobile from "is-mobile";
 // 组件导入
 import Footer from "../../components/Footer/Footer"; //footer
-// 图片导入
+// pc图片导入
 import mobile_wholeBg from "../../assets/Phone-config/bg1.jpg"; // mobile 整体背景图
+import feichuan5 from '../../assets/PC-config/NFT/feichuan5.png'
+import feichuan4 from '../../assets/PC-config/NFT/feichuan4.png'
+import feichuan3 from '../../assets/PC-config/NFT/feichuan3.png'
 const Owned: React.FC<{}> = () => {
   const isM: boolean = isMobile();
   const leftButton = useRef(null);
@@ -38,19 +41,19 @@ const Owned: React.FC<{}> = () => {
           <div className="swiper-container swiper-no-swiping  owned-swiper">
             <div className="swiper-wrapper">
               <div className="swiper-slide">
-                <img src={require("../../assets/PC-config/NFT/feichuan5.png").default} alt="" />
+                <img src={feichuan5} alt="" />
                 <div className="identifier">#13245</div>
               </div>
               <div className="swiper-slide">
-                <img src={require("../../assets/PC-config/NFT/feichuan4.png").default} alt="" />
+                <img src={feichuan4} alt="" />
                 <div className="identifier">#13245</div>
               </div>
               <div className="swiper-slide">
-                <img src={require("../../assets/PC-config/NFT/feichuan3.png").default} alt="" />
+                <img src={feichuan3} alt="" />
                 <div className="identifier">#13245</div>
               </div>
               <div className="swiper-slide">
-                <img src={require("../../assets/PC-config/NFT/feichuan3.png").default} alt="" />
+                <img src={feichuan3} alt="" />
                 <div className="identifier">#13245</div>
               </div>
             </div>

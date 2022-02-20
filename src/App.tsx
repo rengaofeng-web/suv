@@ -40,6 +40,7 @@ import { useWeb3React } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
 const isM: boolean = isMobile();
 const Layout: React.FC<{}> = () => {
+  
   return (
     <AppStyle className="App">
       <Header></Header>

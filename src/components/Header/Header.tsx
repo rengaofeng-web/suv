@@ -68,12 +68,12 @@ const Header: React.FC<{}> = () => {
   const history = useHistory();
 
   useEffect(() => {
-    document.onclick = () => {
+    window.document.onclick = () => {
       isM ? removeStats(true) : removeStats(false);
     };
     window.onhashchange = () => {
       isM ? removeStats(true) : removeStats(false);
-    };
+    }; 
   });
   return (
     <HeaderStyle>

@@ -3,8 +3,14 @@ import styled from "styled-components";
 import isMobile from "is-mobile";
 // 组件导入
 import Footer from "../../components/Footer/Footer"; //footer
-// 图片导入
+// pc 图片导入
+import feichuan5 from '../../assets/PC-config/NFT/feichuan5.png'
+import feichuan4 from '../../assets/PC-config/NFT/feichuan4.png'
+// mobile 图片导入
 import mobile_wholeBg from "../../assets/Phone-config/bg2.jpg"; // mobile 整体背景图
+import feichuan5_mobile from '../../assets/Phone-config/NFT/small_feichuan5.png'
+import feichuan4_mobile from '../../assets/Phone-config/NFT/small_feichuan4.png'
+
 const NftFarams: React.FC<{}> = () => {
   const isM: boolean = isMobile();
   const [switchCurrent, setSwitchCurrent] = useState([true, true]); //切换选项卡状态
@@ -12,14 +18,14 @@ const NftFarams: React.FC<{}> = () => {
     {
       id: 1,
       blindBoxImg: !isM
-        ? require("../../assets/PC-config/NFT/feichuan5.png").default
-        : require("../../assets/Phone-config/NFT/small_feichuan5.png").default,
+        ? feichuan5
+        : feichuan5_mobile,
     },
     {
       id: 2,
       blindBoxImg: !isM
-        ? require("../../assets/PC-config/NFT/feichuan4.png").default
-        : require("../../assets/Phone-config/NFT/small_feichuan4.png").default,
+        ? feichuan4
+        : feichuan4_mobile,
     },
   ];
   return (

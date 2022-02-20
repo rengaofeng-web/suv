@@ -3,17 +3,18 @@ import styled from "styled-components";
 import isMobile from "is-mobile";
 import Swiper from "swiper";
 import "swiper/css/swiper.css";
+
 // 组件引入
 import SuvBoxPopup from "../../components/SuvBoxPopup/SuvBoxPopup";
 import Footer from "../../components/Footer/Footer"; //footer
 // pc图片引入
-import kejikuang from "../../assets/PC-config/NFT/kejikuang.png"; // pc 宝箱背景
+import kejikuang from "src/assets/PC-config/NFT/kejikuang.png"; // pc 宝箱背景
 import baoxiang_bg from "../../assets/PC-config/NFT/xia.png"; //pc 宝箱背景 光环
 import baoxiang1 from '../../assets/PC-config/NFT/baoxiang1.png'// pc 宝箱1
 import baoxiang2 from '../../assets/PC-config/NFT/baoxiang2.png' //pc 宝箱2
 import baoxiang3 from '../../assets/PC-config/NFT/baoxiang3.png'//pc 宝箱3
 import anniu from '../../assets/PC-config/NFT/anniu.svg'
-// import video from '../../assets/gif+mov/video.mp4'
+import video from '../../assets/gif+mov/video.mp4'
 import zhuangshi from '../../assets/PC-config/NFT/zhuangshi.svg'
 // mobile 图片引入
 import mobile_wholeBg from "../../assets/Phone-config/bg1.jpg"; //mobile 整体背景图
@@ -22,7 +23,6 @@ import mobile_baoxiangBg from "../../assets/Phone-config/NFT/xia.png"; //mobile 
 import baoxiang1_mobile from '../../assets/Phone-config/NFT/baoxiang1.png'// mobile 宝箱1
 import baoxiang2_mobile from '../../assets/Phone-config/NFT/baoxiang2.png' //mobile 宝箱2
 import baoxiang3_mobile from '../../assets/Phone-config/NFT/baoxiang3.png'//mobile 宝箱3
-
 
 const SuvBox: React.FC<{}> = () => {
   const isM: boolean = isMobile();
@@ -170,7 +170,7 @@ const SuvBox: React.FC<{}> = () => {
           <div className="right-jackpot">
             <div className="title">You have a chance to win the following prizes</div>
             <video
-              src={require('../../assets/gif+mov/video.mp4').default}
+              src={video}
               autoPlay={true}
               loop={true}
               muted
@@ -509,7 +509,7 @@ const SuvBoxStyle = styled.div`
       }
       video {
         mix-blend-mode: screen;
-        margin-left: 105px;
+        margin-left: 70px;
         margin-top: 80px;
       }
       .bottom-decorate {

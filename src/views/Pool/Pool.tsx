@@ -147,7 +147,7 @@ const Pool: React.FC<{}> = () => {
     },
   ];
   const { farmRows } = useFarmRows();
-  console.log(farmRows);
+  // console.log(farmRows);
   return (
     <PoolStyle>
       <div className="content">

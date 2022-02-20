@@ -91,7 +91,6 @@ const Connect: React.FC<Props> = (props) => {
         console.log(err);
       });
     } else if (type === 2) {
-      console.log(123413);
       connect(walletconnect, (err) => {
         console.log(err);
       });
