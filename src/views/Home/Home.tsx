@@ -9,8 +9,14 @@ import center_bg from "../../assets/PC-config/shouye2.jpg";
 import center_bg2 from "../../assets/PC-config/shouye3.jpg";
 import center_bg3 from "../../assets/PC-config/shouye4.jpg";
 import bottom_bg from "../../assets/PC-config/shouye5.jpg";
+import tu1 from "../../assets/PC-config/home/tu1.png";
+import tu2 from "../../assets/PC-config/home/tu2.png";
+import tu3 from "../../assets/PC-config/home/tu3.png";
 // mobile图片导入
 import mobile_wholeBg from "../../assets/Phone-config/shouye_bg.jpg"; //整体背景
+import tu1_mobile from "../../assets/Phone-config/home/tu1.png";
+import tu2_mobile from "../../assets/Phone-config/home/tu2.png";
+import tu3_mobile from "../../assets/Phone-config/home/tu3.png";
 const isM = isMobile();
 const Home: React.FC = (props) => {
   let homeBox = useRef(null);
@@ -26,14 +32,7 @@ const Home: React.FC = (props) => {
           <div className="container">
             <div className="content">
               <div className="left-img">
-                <img
-                  src={
-                    !isM
-                      ? require("../../assets/PC-config/home/tu1.png").default
-                      : require("../../assets/Phone-config/home/tu1.png").default
-                  }
-                  alt=""
-                />
+                <img src={!isM ? tu1 : tu1_mobile} alt="" />
               </div>
               <div className="right-text">
                 {!isM ? <div className="sanjiao"></div> : null}
@@ -64,14 +63,7 @@ const Home: React.FC = (props) => {
                 </div>
               </div>
               <div className="right-img">
-                <img
-                  src={
-                    !isM
-                      ? require("../../assets/PC-config/home/tu2.png").default
-                      : require("../../assets/Phone-config/home/tu2.png").default
-                  }
-                  alt=""
-                />
+                <img src={!isM ? tu2 : tu2_mobile} alt="" />
               </div>
             </div>
           </div>
@@ -84,14 +76,7 @@ const Home: React.FC = (props) => {
           <div className="container">
             <div className="content">
               <div className="left-img">
-                <img
-                  src={
-                    !isM
-                      ? require("../../assets/PC-config/home/tu3.png").default
-                      : require("../../assets/Phone-config/home/tu3.png").default
-                  }
-                  alt=""
-                />
+                <img src={!isM ? tu3 : tu3_mobile} alt="" />
               </div>
               <div className="right-text">
                 {!isM ? <div className="sanjiao"></div> : null}
@@ -480,7 +465,7 @@ const HomeStyle = styled.div`
       }
     }
     .content-bg-bottom {
-      >img{
+      > img {
         display: none;
       }
       .content-bottom {
@@ -531,7 +516,7 @@ const HomeStyle = styled.div`
         }
       }
     }
-    .bottom-bg{
+    .bottom-bg {
       display: none;
     }
   }

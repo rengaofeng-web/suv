@@ -533,13 +533,17 @@ const PoolStyle = styled.div`
               position: absolute;
               left: 3.67rem;
               top: 1.67rem;
+              width: auto;
               font-size: 0.3rem;
+              margin: 0;
               padding-right: 0;
             }
             .apr {
               position: absolute;
               top: 2.61rem;
               left: 3.67rem;
+              width: auto;
+              margin: 0;
               font-size: 0.3rem;
             }
             .button-box {
