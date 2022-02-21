@@ -14,16 +14,7 @@ const ConnectButton: React.FC<Props> = (props) => {
 
   const context = useWeb3React<Web3Provider>();
 
-  const {
-    connector,
-    library,
-    chainId,
-    account,
-    activate,
-    deactivate,
-    active,
-    error,
-  } = context;
+  const { connector, library, chainId, account, activate, deactivate, active, error } = context;
   let [selectFlag, setSelectFlag] = useState(false);
   let flag = !!account; //登录状态切换，true 已登录 false未登录
   // 点击弹出钱包登录
@@ -46,25 +37,14 @@ const ConnectButton: React.FC<Props> = (props) => {
   return (
     <ButtonStyle>
       {/* 未登录状态 */}
-      <div
-        className="connect"
-        onClick={show_connect}
-        style={{ display: flag ? "none" : "block" }}
-      >
+      <div className="connect" onClick={show_connect} style={{ display: flag ? "none" : "block" }}>
         Connect
       </div>
       {/* 登录状态 */}
-      <div
-        className="my-wallet"
-        style={{ display: flag ? "block" : "none" }}
-        onClick={show_Wallet}
-      >
+      <div className="my-wallet" style={{ display: flag ? "block" : "none" }} onClick={show_Wallet}>
         My Wallet
         {/* select */}
-        <div
-          className="select"
-          style={{ display: selectFlag ? "block" : "none" }}
-        >
+        <div className="select" style={{ display: selectFlag ? "block" : "none" }}>
           <div className="top">
             {/* logo */}
             <img src={logo} alt="" className="myWallet-logo" />
@@ -233,6 +213,7 @@ const ButtonStyle = styled.div`
       line-height: 0.75rem;
       font-size: 0.3rem;
       box-shadow: inset 0px 0px 0.3rem #53c1ff;
+      margin-top: 0.1rem;
     }
     /* 已登录 */
     .my-wallet {
@@ -240,6 +221,8 @@ const ButtonStyle = styled.div`
       height: 0.75rem;
       font-size: 0.3rem;
       line-height: 0.75rem;
+      box-shadow: inset 0px 0px 0.3rem #53c1ff;
+      margin-top: 0.1rem;
       .select {
         width: 3.78rem;
         height: 3.66rem;
