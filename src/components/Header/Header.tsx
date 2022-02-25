@@ -47,8 +47,7 @@ const Header: React.FC<{}> = () => {
       const brother = parent.children as HTMLCollection;
       for (let i = 0; i < brother?.length; i++) {
         const select = brother[i].children[0] as HTMLDivElement;
-        if (select && select.classList.contains("select"))
-          select.style.display = "none";
+        if (select && select.classList.contains("select")) select.style.display = "none";
         brother[i].classList.remove("active");
       }
     }
@@ -68,15 +67,17 @@ const Header: React.FC<{}> = () => {
   const history = useHistory();
 
   useEffect(() => {
-    window.document.onclick = () => {
+    document.body.onclick = () => {
       isM ? removeStats(true) : removeStats(false);
     };
     window.onhashchange = () => {
       isM ? removeStats(true) : removeStats(false);
-    }; 
-  });
+    };
+  }, []);
   return (
     <HeaderStyle>
+      {/* 顶部遮罩  */}
+      {isM ? null : <div className="topMask"></div>}
       {/* header */}
       <div className="header">
         {/* logo */}
@@ -97,11 +98,7 @@ const Header: React.FC<{}> = () => {
         ) : null}
         {/* header-nav */}
         <div className="header-nav">
-          <div
-            className="nav"
-            ref={nav}
-            style={{ display: isM ? "none" : "flex" }}
-          >
+          <div className="nav" ref={nav} style={{ display: isM ? "none" : "flex" }}>
             <div className="item staking" onClick={showSelct}>
               Staking
               {/* select */}
@@ -113,9 +110,7 @@ const Header: React.FC<{}> = () => {
                   <div
                     className="select-item"
                     onClick={(e: any) => {
-                      e.stopPropagation
-                        ? e.stopPropagation()
-                        : (e.cancelable = true);
+                      e.stopPropagation ? e.stopPropagation() : (e.cancelable = true);
                       removeStats(isM ? true : false);
                       history.push("/pool");
                     }}
@@ -133,9 +128,7 @@ const Header: React.FC<{}> = () => {
                   <div
                     className="select-item"
                     onClick={(e: any) => {
-                      e.stopPropagation
-                        ? e.stopPropagation()
-                        : (e.cancelable = true);
+                      e.stopPropagation ? e.stopPropagation() : (e.cancelable = true);
                       removeStats(isM ? true : false);
                       history.push("/suvBox");
                     }}
@@ -145,9 +138,7 @@ const Header: React.FC<{}> = () => {
                   <div
                     className="select-item"
                     onClick={(e: any) => {
-                      e.stopPropagation
-                        ? e.stopPropagation()
-                        : (e.cancelable = true);
+                      e.stopPropagation ? e.stopPropagation() : (e.cancelable = true);
                       removeStats(isM ? true : false);
                       history.push("/nftFarams");
                     }}
@@ -157,9 +148,7 @@ const Header: React.FC<{}> = () => {
                   <div
                     className="select-item"
                     onClick={(e: any) => {
-                      e.stopPropagation
-                        ? e.stopPropagation()
-                        : (e.cancelable = true);
+                      e.stopPropagation ? e.stopPropagation() : (e.cancelable = true);
                       removeStats(isM ? true : false);
                       history.push("/owned");
                     }}
@@ -225,6 +214,13 @@ const Header: React.FC<{}> = () => {
 // header style start
 const HeaderStyle = styled.div`
   position: relative;
+  .topMask {
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 168px;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, rgba(4, 10, 66, 0) 64.25%);
+  }
   .header {
     max-width: 1920px;
     min-width: 1200px;
@@ -290,18 +286,10 @@ const HeaderStyle = styled.div`
             0 calc(100% - 15px),
             0 15px
           );
-          background: linear-gradient(
-                -45deg,
-                #3aebf7 11px,
-                rgba(5, 28, 65, 0.06) 0
-              )
-              bottom right,
-            linear-gradient(45deg, #3aebf7 11px, rgba(5, 28, 65, 0.06) 0) bottom
-              left,
-            linear-gradient(135deg, #3aebf7 11px, rgba(5, 28, 65, 0.06) 0) top
-              left,
-            linear-gradient(-135deg, #3aebf7 11px, rgba(5, 28, 65, 0.06) 0) top
-              right;
+          background: linear-gradient(-45deg, #3aebf7 11px, rgba(5, 28, 65, 0.06) 0) bottom right,
+            linear-gradient(45deg, #3aebf7 11px, rgba(5, 28, 65, 0.06) 0) bottom left,
+            linear-gradient(135deg, #3aebf7 11px, rgba(5, 28, 65, 0.06) 0) top left,
+            linear-gradient(-135deg, #3aebf7 11px, rgba(5, 28, 65, 0.06) 0) top right;
           background-size: 300px 200px;
           background-repeat: no-repeat;
           border: 1px solid #3aebf7;
@@ -372,17 +360,17 @@ const HeaderStyle = styled.div`
       }
       .item:nth-child(2) {
         .select {
-          left: 16px;
+          left: -45px;
         }
       }
       .item:nth-child(4) {
         .select {
-          left: -4px;
+          left: -9px;
         }
       }
       .more {
         .select {
-          left: -4px;
+          left: -38px;
         }
       }
     }
@@ -459,26 +447,11 @@ const HeaderStyle = styled.div`
                 0 calc(100% - 0.15rem),
                 0 0.15rem
               );
-              background: linear-gradient(
-                    -45deg,
-                    #3aebf7 0.11rem,
-                    rgba(5, 28, 65, 0.06) 0
-                  )
-                  bottom right,
-                linear-gradient(45deg, #3aebf7 0.11rem, rgba(5, 28, 65, 0.06) 0)
-                  bottom left,
-                linear-gradient(
-                    135deg,
-                    #3aebf7 0.11rem,
-                    rgba(5, 28, 65, 0.06) 0
-                  )
-                  top left,
-                linear-gradient(
-                    -135deg,
-                    #3aebf7 0.11rem,
-                    rgba(5, 28, 65, 0.06) 0
-                  )
-                  top right;
+              background: linear-gradient(-45deg, #3aebf7 0.11rem, rgba(5, 28, 65, 0.06) 0) bottom
+                  right,
+                linear-gradient(45deg, #3aebf7 0.11rem, rgba(5, 28, 65, 0.06) 0) bottom left,
+                linear-gradient(135deg, #3aebf7 0.11rem, rgba(5, 28, 65, 0.06) 0) top left,
+                linear-gradient(-135deg, #3aebf7 0.11rem, rgba(5, 28, 65, 0.06) 0) top right;
               .select-con {
                 box-shadow: inset 0px 0px 0.1rem #39ebf6;
                 padding-top: 0.39rem;

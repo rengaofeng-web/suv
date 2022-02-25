@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js/bignumber'
 
 
 import SUVLogo from 'src/assets/PC-config/pool/SUV.svg'
-import SUV_BUSDLogo from 'src/assets/PC-config/pool/SUV-BUSD1.svg'
+import SUV_BUSDLogo from 'src/assets/PC-config/pool/SUV-BUSD.svg'
 import BUSDLogo from 'src/assets/PC-config/pool/BUSD.svg'
 import ETHLogo from 'src/assets/PC-config/pool/ETH.svg'
 import USDTLogo from 'src/assets/PC-config/pool/USDT.svg'

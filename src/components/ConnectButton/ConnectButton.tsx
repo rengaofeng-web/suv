@@ -17,6 +17,7 @@ const ConnectButton: React.FC<Props> = (props) => {
   const { connector, library, chainId, account, activate, deactivate, active, error } = context;
   let [selectFlag, setSelectFlag] = useState(false);
   let flag = !!account; //登录状态切换，true 已登录 false未登录
+
   // 点击弹出钱包登录
   const show_connect = () => {
     document.body.style.cssText = "overflow:hidden;height:100%;";

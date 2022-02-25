@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useRef,
-  useEffect,
-  useMemo,
-  useCallback,
-} from "react";
+import React, { useState, useRef, useEffect, useMemo, useCallback } from "react";
 import styled from "styled-components";
 import mobile_wholeBg from "../../assets/Phone-config/bg1.jpg"; // mobile 整体背景图
 import isMobile from "is-mobile";
@@ -22,10 +16,7 @@ import { getContract } from "../../utils/erc20";
 import coinLogo from "src/assets/imgs/logo/logo1024.svg";
 import heoEthLogo from "src/assets/imgs/heo_eth.png";
 import useTokenBalance from "src/hooks/useTokenBalance";
-import {
-  getFullDisplayBalance,
-  getDisplayBalance,
-} from "src/utils/formatBalance";
+import { getFullDisplayBalance, getDisplayBalance } from "src/utils/formatBalance";
 import useETHBalance from "src/hooks/useETHBalance";
 import BigNumber from "bignumber.js";
 import useStakedBalance from "src/hooks/useStakedBalance";
@@ -56,7 +47,6 @@ const Stake: React.FC<{}> = () => {
   const lpContract = useMemo(() => {
     return getContract(ethereum as provider, farm.lpTokenAddress);
   }, [ethereum, farm.lpTokenAddress]);
-
   const tokenContract = useMemo(() => {
     return getContract(ethereum as provider, farm.tokenAddress);
   }, [ethereum, farm.tokenAddress]);
@@ -64,15 +54,11 @@ const Stake: React.FC<{}> = () => {
   const [depositValue, setDepositValue] = useState("");
   const [withdrawValue, setWithdrawValue] = useState("");
 
-  const targetTokenAddress =
-    farm.poolType == 1 ? farm.tokenAddress : farm.lpTokenAddress;
-  const targetTokenAddressLowerCase =
-    farm.tokenAddress && farm.tokenAddress.toLowerCase();
+  const targetTokenAddress = farm.poolType == 1 ? farm.tokenAddress : farm.lpTokenAddress;
+  const targetTokenAddressLowerCase = farm.tokenAddress && farm.tokenAddress.toLowerCase();
   const localCoinAddressLowerCase =
     getLocalCoinAddress(sushi) && getLocalCoinAddress(sushi).toLowerCase();
-  const isLocal =
-    targetTokenAddressLowerCase === localCoinAddressLowerCase &&
-    farm.poolType == 1;
+  const isLocal = targetTokenAddressLowerCase === localCoinAddressLowerCase && farm.poolType == 1;
 
   const tokenBalance = useTokenBalance(targetTokenAddress);
 
@@ -93,7 +79,6 @@ const Stake: React.FC<{}> = () => {
   const fullBalance = useMemo(() => {
     return getFullDisplayBalance(maxBalance, farm.decimals, farm.showDecimals);
   }, [maxBalance, farm.decimals]);
-
   const handleDepositSelectMax = useCallback(() => {
     setDepositValue(fullBalance);
   }, [fullBalance, setDepositValue]);
@@ -102,11 +87,7 @@ const Stake: React.FC<{}> = () => {
   const stakedBalance = useStakedBalance(farm.pid);
 
   const fullStakedBalance = useMemo(() => {
-    return getFullDisplayBalance(
-      stakedBalance,
-      farm.decimals,
-      farm.showDecimals
-    );
+    return getFullDisplayBalance(stakedBalance, farm.decimals, farm.showDecimals);
   }, [stakedBalance, farm.decimals]);
 
   const handleWithdrawSelectMax = useCallback(() => {
@@ -120,17 +101,11 @@ const Stake: React.FC<{}> = () => {
 
   const maxWETH = isLocal ? tokenBalance : new BigNumber(0);
 
-  const allowance = useAllowance(
-    farm.poolType == 1 ? tokenContract : lpContract
-  );
+  const allowance = useAllowance(farm.poolType == 1 ? tokenContract : lpContract);
   const maxAvail = maxBalance.isLessThan(allowance) ? maxBalance : allowance;
   const maxBalanceStr = getFullDisplayBalance(maxAvail, farm.decimals);
-  const totalValue = maxAvail
-    .times(lpTokenPrice)
-    .div(new BigNumber(10).pow(farm.decimals));
-  const depositInU = new BigNumber(depositValue ? depositValue : 0).times(
-    farm.price
-  );
+  const totalValue = maxAvail.times(lpTokenPrice).div(new BigNumber(10).pow(farm.decimals));
+  const depositInU = new BigNumber(depositValue ? depositValue : 0).times(farm.price);
   //console.log('total value = ' + totalValue.toFixed(8) + ', depositInU = ' + depositInU)
 
   const [pendingDeposit, setPendingDeposit] = useState(false);
@@ -138,26 +113,14 @@ const Stake: React.FC<{}> = () => {
   const handleDeposit = useCallback(async () => {
     if (depositValue) {
       setPendingDeposit(true);
-      if (depositInU.isGreaterThan(100000))
-        await onStake(maxBalanceStr, maxWETH, 52 * 7, maxEth);
+      if (depositInU.isGreaterThan(100000)) await onStake(maxBalanceStr, maxWETH, 52 * 7, maxEth);
       else await onStake(depositValue, maxWETH, dragValue * 7, maxEth);
       setDepositValue("");
       setPendingDeposit(false);
     }
-  }, [
-    depositValue,
-    lockDay,
-    totalValue,
-    maxBalanceStr,
-    depositInU,
-    maxEth,
-    maxWETH,
-    onStake,
-  ]);
+  }, [depositValue, lockDay, totalValue, maxBalanceStr, depositInU, maxEth, maxWETH, onStake]);
 
-  const { onApprove } = useApprove(
-    farm.poolType == 1 ? farm.tokenContract : farm.lpContract
-  );
+  const { onApprove } = useApprove(farm.poolType == 1 ? farm.tokenContract : farm.lpContract);
 
   const [approvePending, setApprovePending] = useState(false);
   const handleApprove = useCallback(async () => {
@@ -276,10 +239,7 @@ const Stake: React.FC<{}> = () => {
             </div>
           </div>
           <div className="switch-content">
-            <div
-              className="switch-item"
-              style={{ display: current ? "block" : "none" }}
-            >
+            <div className="switch-item" style={{ display: current ? "block" : "none" }}>
               <div className="amount-box">
                 <div className="amount">Amount</div>
                 <div className="balance">
@@ -303,9 +263,7 @@ const Stake: React.FC<{}> = () => {
                   Weight:
                   <span>
                     {" "}
-                    {new BigNumber(farm.allocPoint)
-                      .div(farm.totalPoolWeight)
-                      .toFixed(3)}{" "}
+                    {new BigNumber(farm.allocPoint).div(farm.totalPoolWeight).toFixed(3)}{" "}
                   </span>
                 </div>
                 <div className="est">
@@ -313,10 +271,7 @@ const Stake: React.FC<{}> = () => {
                 </div>
               </div>
             </div>
-            <div
-              className="switch-item"
-              style={{ display: !current ? "block" : "none" }}
-            >
+            <div className="switch-item" style={{ display: !current ? "block" : "none" }}>
               <div className="lovk-box">
                 <div className="lovk">
                   Lovk for:<span>{dragValue} WEEK</span>
@@ -325,9 +280,7 @@ const Stake: React.FC<{}> = () => {
                   Weight:
                   <span>
                     {" "}
-                    {new BigNumber(farm.allocPoint)
-                      .div(farm.totalPoolWeight)
-                      .toFixed(3)}{" "}
+                    {new BigNumber(farm.allocPoint).div(farm.totalPoolWeight).toFixed(3)}{" "}
                   </span>
                 </div>
               </div>
@@ -367,17 +320,11 @@ const Stake: React.FC<{}> = () => {
             </div>
           </div>
           {new BigNumber(farm.userAllowance).isLessThanOrEqualTo(0) ? (
-            <div
-              className="approve"
-              onClick={approvePending ? () => {} : handleApprove}
-            >
+            <div className="approve" onClick={approvePending ? () => {} : handleApprove}>
               {approvePending ? "Pending APPROVE" : "APPROVE"}
             </div>
           ) : (
-            <div
-              className="stake"
-              onClick={pendingDeposit ? () => {} : handleDeposit}
-            >
+            <div className="stake" onClick={pendingDeposit ? () => {} : handleDeposit}>
               {pendingDeposit ? "Pending Stake" : "Stake"}
             </div>
           )}
@@ -391,9 +338,8 @@ const Stake: React.FC<{}> = () => {
 const StakeStyle = styled.div`
   position: relative;
   margin: auto;
-  .footer-bg {
-    position: relative;
-  }
+  height: 1200px;
+
   .content-box {
     position: relative;
     margin: 202px auto;
@@ -411,14 +357,8 @@ const StakeStyle = styled.div`
       0 calc(100% - 35px),
       0 35px
     );
-    background: linear-gradient(
-          -45deg,
-          transparent 23px,
-          rgba(4, 10, 58, 0.3) 0
-        )
-        bottom right,
-      linear-gradient(45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom
-        left,
+    background: linear-gradient(-45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom right,
+      linear-gradient(45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom left,
       linear-gradient(135deg, #2cb0de 26px, rgba(4, 10, 58, 0.3) 0) top left,
       linear-gradient(-135deg, #2cb0de 26px, rgba(4, 10, 58, 0.3) 0) top right;
     background-size: 50% 50%;
@@ -534,11 +474,7 @@ const StakeStyle = styled.div`
               rgba(162, 183, 255, 0.8)
             )
             20 20;
-          border-image: linear-gradient(
-              to right,
-              rgba(85, 121, 255, 0.8),
-              rgba(162, 183, 255, 0.8)
-            )
+          border-image: linear-gradient(to right, rgba(85, 121, 255, 0.8), rgba(162, 183, 255, 0.8))
             20 20;
           > input {
             width: 90%;
@@ -718,11 +654,7 @@ const StakeStyle = styled.div`
               rgba(162, 183, 255, 0.8)
             )
             20 20;
-          border-image: linear-gradient(
-              to right,
-              rgba(85, 121, 255, 0.8),
-              rgba(162, 183, 255, 0.8)
-            )
+          border-image: linear-gradient(to right, rgba(85, 121, 255, 0.8), rgba(162, 183, 255, 0.8))
             20 20;
           > input {
             width: 90%;
@@ -840,6 +772,9 @@ const StakeStyle = styled.div`
     background-size: cover;
     height: 100vh;
     overflow: scroll;
+    .footer-box {
+      position: relative;
+    }
     .content-box {
       width: 6.7rem;
       height: auto;
@@ -856,14 +791,8 @@ const StakeStyle = styled.div`
         0 0.38rem
       );
 
-      background: linear-gradient(
-            -45deg,
-            transparent 23px,
-            rgba(4, 10, 58, 0.3) 0
-          )
-          bottom right,
-        linear-gradient(45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom
-          left,
+      background: linear-gradient(-45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom right,
+        linear-gradient(45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom left,
         linear-gradient(135deg, #31bce8 0.28rem, transparent 0) top left,
         linear-gradient(-135deg, #31bce8 0.28rem, transparent 0);
       border-top: 0.05rem solid #2cb0de;

@@ -9,20 +9,20 @@ import SuvBoxPopup from "../../components/SuvBoxPopup/SuvBoxPopup";
 import Footer from "../../components/Footer/Footer"; //footer
 // pc图片引入
 import kejikuang from "src/assets/PC-config/NFT/kejikuang.png"; // pc 宝箱背景
-import baoxiang_bg from "../../assets/PC-config/NFT/xia.png"; //pc 宝箱背景 光环
-import baoxiang1 from '../../assets/PC-config/NFT/baoxiang1.png'// pc 宝箱1
-import baoxiang2 from '../../assets/PC-config/NFT/baoxiang2.png' //pc 宝箱2
-import baoxiang3 from '../../assets/PC-config/NFT/baoxiang3.png'//pc 宝箱3
-import anniu from '../../assets/PC-config/NFT/anniu.svg'
-import video from '../../assets/gif+mov/video.mp4'
-import zhuangshi from '../../assets/PC-config/NFT/zhuangshi.svg'
+import baoxiang_bg from "../../assets/PC-config/NFT/xuanzhaun_mp4.mp4"; //pc 宝箱背景 光环
+import baoxiang1 from "../../assets/PC-config/NFT/baoxiang1.png"; // pc 宝箱1
+import baoxiang2 from "../../assets/PC-config/NFT/baoxiang2.png"; //pc 宝箱2
+import baoxiang3 from "../../assets/PC-config/NFT/baoxiang3.png"; //pc 宝箱3
+import anniu from "../../assets/PC-config/NFT/anniu.svg";
+import video from "../../assets/gif+mov/video.mp4";
+import zhuangshi from "../../assets/PC-config/NFT/zhuangshi.svg";
 // mobile 图片引入
 import mobile_wholeBg from "../../assets/Phone-config/bg1.jpg"; //mobile 整体背景图
 import mobile_kejikuang from "../../assets/Phone-config/NFT/kejikuang.png"; // mobile 宝箱背景
-import mobile_baoxiangBg from "../../assets/Phone-config/NFT/xia.png"; //mobile 宝箱背景 光环
-import baoxiang1_mobile from '../../assets/Phone-config/NFT/baoxiang1.png'// mobile 宝箱1
-import baoxiang2_mobile from '../../assets/Phone-config/NFT/baoxiang2.png' //mobile 宝箱2
-import baoxiang3_mobile from '../../assets/Phone-config/NFT/baoxiang3.png'//mobile 宝箱3
+import mobile_baoxiangBg from "../../assets/PC-config/NFT/xuanzhaun_mp4.mp4"; //mobile 宝箱背景 光环
+import baoxiang1_mobile from "../../assets/Phone-config/NFT/baoxiang1.png"; // mobile 宝箱1
+import baoxiang2_mobile from "../../assets/Phone-config/NFT/baoxiang2.png"; //mobile 宝箱2
+import baoxiang3_mobile from "../../assets/Phone-config/NFT/baoxiang3.png"; //mobile 宝箱3
 
 const SuvBox: React.FC<{}> = () => {
   const isM: boolean = isMobile();
@@ -86,40 +86,25 @@ const SuvBox: React.FC<{}> = () => {
           <div className="bottom-line"></div>
           <div className="left-operation">
             <div className="baoxiang-bg">
-              <img src={!isM ? baoxiang_bg : mobile_baoxiangBg} alt="" className="baoxiang_bg" />
+              {/* <img src={!isM ? baoxiang_bg : mobile_baoxiangBg} alt="" className="baoxiang_bg" /> */}
+              <video
+                src={baoxiang_bg}
+                className="baoxiang_bg"
+                autoPlay={true}
+                loop={true}
+                muted
+              ></video>
               <div className="swiper swiper-no-swiping ">
                 <div className="swiper-container swiper-content">
                   <div className="swiper-wrapper ">
                     <div className="swiper-slide">
-                      <img
-                        src={
-                          !isM
-                            ? baoxiang1
-                            : baoxiang1_mobile
-                        }
-                        alt=""
-                      />
+                      <img src={!isM ? baoxiang1 : baoxiang1_mobile} alt="" />
                     </div>
                     <div className="swiper-slide">
-                      <img
-                        src={
-                          !isM
-                            ? baoxiang2
-                            :
-                            baoxiang2_mobile
-                        }
-                        alt=""
-                      />
+                      <img src={!isM ? baoxiang2 : baoxiang2_mobile} alt="" />
                     </div>
                     <div className="swiper-slide">
-                      <img
-                        src={
-                          !isM
-                            ? baoxiang3
-                            : baoxiang3_mobile
-                        }
-                        alt=""
-                      />
+                      <img src={!isM ? baoxiang3 : baoxiang3_mobile} alt="" />
                     </div>
                   </div>
                 </div>
@@ -169,18 +154,14 @@ const SuvBox: React.FC<{}> = () => {
         <div className="right-bg">
           <div className="right-jackpot">
             <div className="title">You have a chance to win the following prizes</div>
-            <video
-              src={video}
-              autoPlay={true}
-              loop={true}
-              muted
-            ></video>
+            <video src={video} autoPlay={true} loop={true} muted></video>
             <div className="bottom-decorate">
               <img src={zhuangshi} alt="" />
             </div>
           </div>
         </div>
       </div>
+
       <Footer></Footer>
     </SuvBoxStyle>
   );
@@ -188,12 +169,10 @@ const SuvBox: React.FC<{}> = () => {
 // SuvBox style start
 const SuvBoxStyle = styled.div`
   position: relative;
-  height: 1035px;
+  height: 1200px;
   margin: auto;
   box-sizing: border-box;
-  .footer-bg{
-    position: relative;
-  }
+
   .content-box {
     position: relative;
     width: 1400px;
@@ -298,6 +277,7 @@ const SuvBoxStyle = styled.div`
             position: absolute;
             z-index: -1;
             top: 24px;
+            left: 20px;
           }
           .swiper {
             position: absolute;
@@ -510,10 +490,10 @@ const SuvBoxStyle = styled.div`
       video {
         mix-blend-mode: screen;
         margin-left: 70px;
-        margin-top: 80px;
+        margin-top: 50px;
       }
       .bottom-decorate {
-        margin: 24px 40px 0;
+        margin: 0px 40px 0;
       }
     }
   }
@@ -526,6 +506,9 @@ const SuvBoxStyle = styled.div`
     overflow-y: scroll;
     background-image: url(${mobile_wholeBg});
     background-repeat: repeat-y;
+    .footer-box {
+      position: relative;
+    }
     .content-box {
       width: 6.7rem;
       height: auto;
@@ -559,8 +542,8 @@ const SuvBoxStyle = styled.div`
           width: 90%;
           height: 0.05rem;
           ::before {
-            right: -0.3rem;
-            bottom: -0.1rem;
+            right: -0.31rem;
+            bottom: -0.12rem;
             width: 0.05rem;
             height: 0.85rem;
           }
@@ -577,6 +560,7 @@ const SuvBoxStyle = styled.div`
           padding-top: 0.5rem;
           padding-left: 0.53rem;
           position: relative;
+          box-shadow: inset 0px 0px 0.3rem #00a3ff;
           -webkit-clip-path: polygon(
             0.55rem 0px,
             calc(100% - 0.55rem) 0,
@@ -588,16 +572,16 @@ const SuvBoxStyle = styled.div`
             0 0.55rem
           );
           background: linear-gradient(-45deg, #177ab1 0.35rem, rgba(0, 0, 0, 0.6) 0) bottom right,
-            linear-gradient(45deg, #177ab1 0.35rem, rgba(0, 0, 0, 0.6) 0) bottom left,
+            linear-gradient(45deg, #177ab1 0.37rem, rgba(0, 0, 0, 0.6) 0) bottom left,
             linear-gradient(135deg, #177ab1 0.35rem, rgba(0, 0, 0, 0.6) 0) top left,
             linear-gradient(-135deg, #177ab1 0.35rem, rgba(0, 0, 0, 0.6) 0) top right;
           ::before {
             content: "";
             position: absolute;
-            left: -0.52rem;
+            left: -0.58rem;
             top: 0;
             width: 2rem;
-            height: 0.03rem;
+            height: 0.06rem;
             background-color: #1777ad;
             transform: rotate(-45deg);
             z-index: 1;
@@ -605,10 +589,10 @@ const SuvBoxStyle = styled.div`
           ::after {
             content: "";
             position: absolute;
-            right: -0.535rem;
+            right: -0.575rem;
             top: 0;
             width: 2rem;
-            height: 0.03rem;
+            height: 0.06rem;
             background-color: #1777ad;
             transform: rotate(45deg);
             z-index: 1;
@@ -620,6 +604,8 @@ const SuvBoxStyle = styled.div`
             background-size: cover;
             .baoxiang_bg {
               width: 2.5rem;
+              left: 0;
+              top: 0;
             }
             .swiper {
               position: absolute;
@@ -640,8 +626,8 @@ const SuvBoxStyle = styled.div`
             }
           }
           .control {
-            width: 2rem;
-            padding-left: 0.1rem;
+            width: 2.5rem;
+            padding-left: 0;
             margin-left: 0.1rem;
             display: flex;
             justify-content: space-between;
@@ -665,7 +651,7 @@ const SuvBoxStyle = styled.div`
         .right-opertion {
           left: 3.7rem;
           top: 1.15rem;
-          width: 2.38rem;
+          width: 2.5rem;
           .title {
             font-size: 0.3rem;
           }
@@ -674,7 +660,7 @@ const SuvBoxStyle = styled.div`
             padding-top: 0.19rem;
           }
           .subtotal {
-            padding-top: 1.4rem;
+            padding-top: 1.3rem;
             font-size: 0.24rem;
           }
           .quantity {
@@ -703,7 +689,7 @@ const SuvBoxStyle = styled.div`
           .buy {
             position: absolute;
             right: 0;
-            bottom: -1.5rem;
+            bottom: -1.8rem;
             width: 5.63rem;
             height: 0.9rem;
             line-height: 0.9rem;
@@ -752,6 +738,9 @@ const SuvBoxStyle = styled.div`
         .right-jackpot {
           width: 100%;
           height: 100%;
+          border: 0.05rem solid #1777ad;
+          box-shadow: inset 0px 0px 0.6rem #00a3ff;
+          position: relative;
           -webkit-clip-path: polygon(
             0.35rem 0px,
             calc(100% - 0.35rem) 0,
@@ -762,10 +751,32 @@ const SuvBoxStyle = styled.div`
             0 calc(100% - 0.35rem),
             0 0.35rem
           );
-          background: linear-gradient(-45deg, #1777ad 0.23rem, rgba(0, 0, 0, 0.6) 0) bottom right,
+          background: linear-gradient(-45deg, #1777ad 0rem, rgba(0, 0, 0, 1) 0) bottom right,
             linear-gradient(45deg, #1777ad 0.23rem, #000 0) bottom left,
             linear-gradient(135deg, #1777ad 0.23rem, rgba(0, 0, 0, 1) 0) top left,
             linear-gradient(-135deg, #1777ad 0.23rem, rgba(0, 0, 0, 1) 0) top right;
+          ::before {
+            content: "";
+            position: absolute;
+            left: -0.71rem;
+            bottom: 0;
+            width: 2rem;
+            height: 0.05rem;
+            background-color: #1777ad;
+            transform: rotate(-136deg);
+            z-index: 1;
+          }
+          ::after {
+            content: "";
+            position: absolute;
+            right: -0.71rem;
+            bottom: 0;
+            width: 2rem;
+            height: 0.05rem;
+            background-color: #1777ad;
+            transform: rotate(136deg);
+            z-index: 1;
+          }
           .title {
             padding-top: 0.35rem;
             font-size: 0.28rem;
@@ -776,11 +787,11 @@ const SuvBoxStyle = styled.div`
           video {
             width: 5.2rem;
             margin: 0;
-            margin-left: 0.87rem;
-            margin-top: 0.2rem;
+            margin-left: 0.65rem;
+            margin-top: 0.5rem;
           }
           .bottom-decorate {
-            margin: 0.25rem 0.33rem 0;
+            margin: 0 0.33rem;
             img {
               width: 100%;
             }

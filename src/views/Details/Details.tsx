@@ -2,12 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 import { Control } from "react-keeper";
 import isMobile from "is-mobile";
-import {
-  useHistory,
-  withRouter,
-  RouteComponentProps,
-  useParams,
-} from "react-router-dom";
+import { useHistory, withRouter, RouteComponentProps, useParams } from "react-router-dom";
 
 // 组件导入
 import Footer from "../../components/Footer/Footer"; //footer
@@ -27,11 +22,11 @@ import useReward from "src/hooks/useReward";
 
 const Details: React.FC<{}> = () => {
   const { farmId } = useParams();
-
   const [inputValue, setInputValue] = useState<undefined | string>(undefined);
   //const { apyDefault } = useApyDefault({ pid: farmId })
 
   const farm = useFarm(farmId);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -119,10 +114,7 @@ const Details: React.FC<{}> = () => {
           >
             WITHDRAW
           </div>
-          <div
-            className="harvest"
-            onClick={rewardPending ? () => {} : handleHarvest}
-          >
+          <div className="harvest" onClick={rewardPending ? () => {} : handleHarvest}>
             {rewardPending ? "Pending Harvest" : "HARVEST"}
           </div>
         </div>
@@ -137,9 +129,7 @@ const DetailsStyle = styled.div`
   height: 1035px;
   margin: auto;
   box-sizing: border-box;
-  .footer-bg {
-    position: relative;
-  }
+
   .content-box {
     position: relative;
     margin: 202px auto;
@@ -158,14 +148,8 @@ const DetailsStyle = styled.div`
       0 calc(100% - 35px),
       0 35px
     );
-    background: linear-gradient(
-          -45deg,
-          transparent 23px,
-          rgba(4, 10, 58, 0.3) 0
-        )
-        bottom right,
-      linear-gradient(45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom
-        left,
+    background: linear-gradient(-45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom right,
+      linear-gradient(45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom left,
       linear-gradient(135deg, #2cb0de 26px, rgba(4, 10, 58, 0.3) 0) top left,
       linear-gradient(-135deg, #2cb0de 26px, rgba(4, 10, 58, 0.3) 0) top right;
     background-size: 50% 50%;
@@ -338,6 +322,9 @@ const DetailsStyle = styled.div`
     margin: auto;
     background: url(${mobile_wholeBg});
     background-size: cover;
+    .footer-box {
+      position: relative;
+    }
     .content-box {
       width: 6.7rem;
       height: 9.07rem;
@@ -354,14 +341,8 @@ const DetailsStyle = styled.div`
         0 0.38rem
       );
 
-      background: linear-gradient(
-            -45deg,
-            transparent 23px,
-            rgba(4, 10, 58, 0.3) 0
-          )
-          bottom right,
-        linear-gradient(45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom
-          left,
+      background: linear-gradient(-45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom right,
+        linear-gradient(45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom left,
         linear-gradient(135deg, #31bce8 0.28rem, transparent 0) top left,
         linear-gradient(-135deg, #31bce8 0.28rem, transparent 0);
       border-top: 0.05rem solid #2cb0de;

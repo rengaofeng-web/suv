@@ -4,28 +4,42 @@ import isMobile from "is-mobile";
 // 组件导入
 import Footer from "../../components/Footer/Footer"; //footer
 // pc 图片导入
-import feichuan5 from '../../assets/PC-config/NFT/feichuan5.png'
-import feichuan4 from '../../assets/PC-config/NFT/feichuan4.png'
+import feichuan5 from "../../assets/PC-config/NFT/feichuan5.png";
+import feichuan4 from "../../assets/PC-config/NFT/feichuan4.png";
+import feichuan3 from "../../assets/PC-config/NFT/feichuan3.png";
+import feichuan2 from "../../assets/PC-config/NFT/feichuan2.png";
+import feichuan1 from "../../assets/PC-config/NFT/feichuan1.png";
 // mobile 图片导入
 import mobile_wholeBg from "../../assets/Phone-config/bg2.jpg"; // mobile 整体背景图
-import feichuan5_mobile from '../../assets/Phone-config/NFT/small_feichuan5.png'
-import feichuan4_mobile from '../../assets/Phone-config/NFT/small_feichuan4.png'
+import feichuan5_mobile from "../../assets/Phone-config/NFT/small_feichuan5.png";
+import feichuan4_mobile from "../../assets/Phone-config/NFT/small_feichuan4.png";
+import feichuan3_mobile from "../../assets/Phone-config/NFT/small_feichuan3.png";
+import feichuan2_mobile from "../../assets/Phone-config/NFT/small_feichuan2.png";
+import feichuan1_mobile from "../../assets/Phone-config/NFT/small_feichuan1.png";
 
 const NftFarams: React.FC<{}> = () => {
   const isM: boolean = isMobile();
-  const [switchCurrent, setSwitchCurrent] = useState([true, true]); //切换选项卡状态
+  const [switchCurrent, setSwitchCurrent] = useState([true, true, true, true, true]); //切换选项卡状态
   const contentData = [
     {
       id: 1,
-      blindBoxImg: !isM
-        ? feichuan5
-        : feichuan5_mobile,
+      blindBoxImg: !isM ? feichuan5 : feichuan5_mobile,
     },
     {
       id: 2,
-      blindBoxImg: !isM
-        ? feichuan4
-        : feichuan4_mobile,
+      blindBoxImg: !isM ? feichuan4 : feichuan4_mobile,
+    },
+    {
+      id: 3,
+      blindBoxImg: !isM ? feichuan3 : feichuan3_mobile,
+    },
+    {
+      id: 4,
+      blindBoxImg: !isM ? feichuan2 : feichuan2_mobile,
+    },
+    {
+      id: 5,
+      blindBoxImg: !isM ? feichuan1 : feichuan1_mobile,
     },
   ];
   return (
@@ -117,12 +131,10 @@ const NftFarams: React.FC<{}> = () => {
 // NftFarams style start
 const FaramsStyle = styled.div`
   position: relative;
-  height: 1541px;
+  height: 3100px;
   margin: auto;
   box-sizing: border-box;
-  .footer-bg {
-    position: relative;
-  }
+
   .content-box {
     width: 1200px;
     position: relative;
@@ -554,6 +566,9 @@ const FaramsStyle = styled.div`
     margin: auto;
     overflow-y: scroll;
     background-image: url(${mobile_wholeBg});
+    .footer-box {
+      position: relative;
+    }
     .content-box {
       width: 6.7rem;
       background: none;

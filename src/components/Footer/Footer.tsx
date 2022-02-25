@@ -2,58 +2,62 @@ import React, { useRef, useEffect } from "react";
 import styled from "styled-components";
 import isMobile from "is-mobile";
 // pc图片导入
-import foot_survivor_logo from "../../assets/PC-config/home/foot_survivor_logo.svg";
-import foot_price_logo from "../../assets/PC-config/home/foot_price_logo.svg";
-import foot_twitter from "../../assets/PC-config/home/foot_twitter.svg";
-import foot_telegram from "../../assets/PC-config/home/foot_telegram.svg";
-import foot_discord from "../../assets/PC-config/home/foot_discord.svg";
-import  foot_medium  from '../../assets/PC-config/home/foot_medium.svg'
+import foot_survivor_logo from "../../assets/socialMedia_logo/foot_logp.svg";
+import foot_price_logo from "../../assets/socialMedia_logo/foot_price_logo.svg";
+import foot_twitter from "../../assets/socialMedia_logo/twitter.svg";
+import foot_telegram from "../../assets/socialMedia_logo/telegram.svg";
+import foot_discord from "../../assets/socialMedia_logo/discord.svg";
+import foot_medium from "../../assets/socialMedia_logo/medium.svg";
+// 曲线图
+import trend_line_green from "../../assets/socialMedia_logo/green.svg"; //绿色
+import trend_line_red from "../../assets/socialMedia_logo/red.svg"; //红色
 // mobile图片导入
-import foot_survivor_logo_mobile from "../../assets/Phone-config/home/foot_survivor_logo.svg";
-import foot_price_logo_mobile from "../../assets/Phone-config/home/foot_price_logo.svg";
-import foot_twitter_mobile from "../../assets/Phone-config/home/foot_twitter.svg";
-import foot_telegram_mobile from "../../assets/Phone-config/home/foot_telegram.svg";
-import foot_discord_mobile from "../../assets/Phone-config/home/foot_discord.svg";
-import  foot_medium_mobile  from '../../assets/Phone-config/home/foot_medium.svg'
-
+import foot_survivor_logo_mobile from "../../assets/socialMedia_logo/foot_logp.svg";
+import foot_price_logo_mobile from "../../assets/socialMedia_logo/foot_price_logo.svg";
+import foot_twitter_mobile from "../../assets/socialMedia_logo/twitter.svg";
+import foot_telegram_mobile from "../../assets/socialMedia_logo/telegram.svg";
+import foot_discord_mobile from "../../assets/socialMedia_logo/discord.svg";
+import foot_medium_mobile from "../../assets/socialMedia_logo/medium.svg";
 
 const isM = isMobile();
 const Footer: React.FC<{}> = () => {
   let charts = useRef(null);
-  useEffect(() => {
-    if (charts.current) {
-      const canvas = charts.current as unknown as HTMLCanvasElement;
-      var ctx = canvas.getContext("2d");
-      if (ctx) {
-        if (!isM) {
-          ctx.strokeStyle = "#21d9ad";
-          ctx.lineWidth = 2;
-          ctx.beginPath();
-          ctx.moveTo(8, 70);
-          ctx.bezierCurveTo(182, -5, 219, 180, 324, 8);
-          ctx.shadowColor = "rgba(33,217,173,0.2)";
-          ctx.shadowOffsetX = 0;
-          ctx.shadowOffsetY = 6;
-          ctx.shadowBlur = 2;
-          ctx.stroke();
-        } else {
-          ctx.strokeStyle = "#21d9ad";
-          ctx.lineWidth = 3;
-          ctx.beginPath();
-          ctx.moveTo(-2, 160);
-          ctx.bezierCurveTo(59, -2, 220, 139, 369, -20);
-          ctx.shadowColor = "rgba(33,217,173,0.2)";
-          ctx.shadowOffsetX = 0;
-          ctx.shadowOffsetY = 6;
-          ctx.shadowBlur = 2;
-          ctx.stroke();
-        }
-      }
-    }
-  });
+  // useEffect(() => {
+  //   if (charts.current) {
+  //     const canvas = charts.current as unknown as HTMLCanvasElement;
+  //     var ctx = canvas.getContext("2d");
+  //     if (ctx) {
+  //       if (!isM) {
+  //         ctx.strokeStyle = "#21d9ad";
+  //         ctx.lineWidth = 2;
+  //         ctx.beginPath();
+  //         ctx.moveTo(8, 70);
+  //         ctx.bezierCurveTo(182, -5, 219, 180, 324, 8);
+  //         ctx.shadowColor = "rgba(33,217,173,0.2)";
+  //         ctx.shadowOffsetX = 0;
+  //         ctx.shadowOffsetY = 6;
+  //         ctx.shadowBlur = 2;
+  //         ctx.stroke();
+  //       } else {
+  //         ctx.strokeStyle = "#21d9ad";
+  //         ctx.lineWidth = 3;
+  //         ctx.beginPath();
+  //         ctx.moveTo(-2, 160);
+  //         ctx.bezierCurveTo(59, -2, 220, 139, 369, -20);
+  //         ctx.shadowColor = "rgba(33,217,173,0.2)";
+  //         ctx.shadowOffsetX = 0;
+  //         ctx.shadowOffsetY = 6;
+  //         ctx.shadowBlur = 2;
+  //         ctx.stroke();
+  //       }
+  //     }
+  //   }
+  // });
   return (
-    <FooterStyle>
+    <FooterStyle className="footer-box">
       {/* footer */}
+      {/* 渐变条 */}
+      <div className="top_line"></div>
       <div className="footer-bg">
         <div className="footer">
           <div className="left">
@@ -108,13 +112,14 @@ const Footer: React.FC<{}> = () => {
                     <div className="price">$669.3</div>
                   </div>
                   <div className="chart">
-                    <canvas
-                      ref={charts}
-                      style={{ width: !isM ? "150px" : "3.5rem", height: !isM ? "56" : "1.2rem" }}
-                      // width={!isM ? "150" : "3.5rem"}
-                      // height={!isM ? "56" : "1.2rem"}
-                    ></canvas>
-                    <div className="num">2.82%</div>
+                    <div className="trend">
+                      <img
+                        src={trend_line_green}
+                        alt=""
+                        style={{ width: "100%", marginTop: "5px" }}
+                      />
+                    </div>
+                    <div className="num rise">+2.82%</div>
                   </div>
                 </div>
               </div>
@@ -138,28 +143,14 @@ const Footer: React.FC<{}> = () => {
             <div className="trademark-bg">
               <div className="trademark">
                 <a href="/#">
-                  <img
-                    src={
-                      !isM
-                        ? foot_discord
-                        : foot_discord_mobile
-                    }
-                    alt=""
-                  />
+                  <img src={!isM ? foot_discord : foot_discord_mobile} alt="" />
                 </a>
               </div>
             </div>
             <div className="trademark-bg">
               <div className="trademark">
                 <a href="/#">
-                  <img
-                    src={
-                      !isM
-                        ?foot_medium
-                        :foot_medium_mobile
-                    }
-                    alt=""
-                  />
+                  <img src={!isM ? foot_medium : foot_medium_mobile} alt="" />
                 </a>
               </div>
             </div>
@@ -172,14 +163,22 @@ const Footer: React.FC<{}> = () => {
 };
 // footer style start
 const FooterStyle = styled.div`
-  .footer-bg {
-    width: 100%;
-    height: 338px;
+  width: 100%;
+  height: 306px;
+  position: absolute;
+  bottom: 0;
+  background: linear-gradient(180deg, rgba(6, 11, 64, 0.8) 0%, rgba(6, 11, 64, 0) 100%);
+  box-sizing: border-box;
+  padding-top: 63px;
+  /* 渐变条 */
+  .top_line {
     position: absolute;
-    bottom: 0;
-    background: linear-gradient(180deg, rgba(6, 11, 64, 0.8) 0%, rgba(6, 11, 64, 0) 100%);
-    box-sizing: border-box;
-    padding-top: 71px;
+    top: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, #d91919 0%, #d9198c 31.25%, #9019d9 56.25%, #197dd9 100%);
+  }
+  .footer-bg {
     .footer {
       max-width: 1920px;
       min-width: 1216px;
@@ -194,7 +193,6 @@ const FooterStyle = styled.div`
       font-size: 16px;
       line-height: 19px;
       color: #6066a7;
-      padding-top: 40px;
     }
     .footer {
       display: flex;
@@ -204,7 +202,7 @@ const FooterStyle = styled.div`
           padding-bottom: 22px;
         }
         .footer-menu {
-          width: 400px;
+          width: 465px;
           display: flex;
           flex-wrap: wrap;
           .menu-item:first-child {
@@ -244,15 +242,16 @@ const FooterStyle = styled.div`
         }
         .line {
           position: absolute;
-          left: -1px;
+          left: -2px;
           top: -1px;
-          width: 350px;
+          width: 352px;
           height: 23px;
           border-top-left-radius: 10px;
           border-top-right-radius: 10px;
-          border: 1px solid #32c2d6;
+          border: 2px solid #32c2d6;
           box-sizing: border-box;
           border-bottom: none;
+          z-index: 1;
         }
 
         .center-data {
@@ -264,7 +263,7 @@ const FooterStyle = styled.div`
             rgba(255, 255, 255, 0.2) 0%,
             rgba(255, 255, 255, 0) 100%
           );
-          backdrop-filter: blur(5px);
+          backdrop-filter: blur(2px);
           border-radius: 10px;
           display: flex;
           position: relative;
@@ -273,9 +272,9 @@ const FooterStyle = styled.div`
           display: block;
           content: "";
           height: 162px;
-          width: 1px;
+          width: 2px;
           position: absolute;
-          left: -1px;
+          left: -2px;
           top: 9px;
           background: linear-gradient(180deg, #32c2d6 0%, rgba(50, 194, 214, 0) 100%);
         }
@@ -283,15 +282,15 @@ const FooterStyle = styled.div`
           display: block;
           content: "";
           height: 162px;
-          width: 1px;
+          width: 2px;
           position: absolute;
-          right: -1px;
+          right: -2px;
           top: 10px;
           background: linear-gradient(180deg, #32c2d6 0%, rgba(50, 194, 214, 0) 100%);
         }
         .left-logo {
           text-align: center;
-          padding-top: 34px;
+          padding-top: 36px;
           padding-left: 27px;
           .text {
             font-family: Roboto;
@@ -327,14 +326,22 @@ const FooterStyle = styled.div`
             }
           }
           .chart {
+            position: relative;
             .num {
+              position: absolute;
+              right: 0;
+              bottom: 8px;
               font-family: Roboto;
               font-style: normal;
               font-weight: normal;
               font-size: 14px;
               line-height: 16px;
+            }
+            .rise {
               color: #21d9ad;
-              text-align: right;
+            }
+            .fall {
+              color: #f46262;
             }
           }
         }
@@ -346,19 +353,16 @@ const FooterStyle = styled.div`
       padding-top: 56px;
       .trademark-bg {
         width: 58px;
-        height: 58px;
-        box-sizing: border-box;
-        background: linear-gradient(180deg, #fdfdfd 0%, rgba(255, 255, 255, 0) 100%);
-        padding: 1px;
+
         border-radius: 50%;
         margin-right: 32px;
       }
       .trademark {
         width: 100%;
         height: 100%;
-        background: linear-gradient(180deg, #4c5165 0%, #1a2036 100%);
-        box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.2);
-        backdrop-filter: blur(30px);
+        /* background: linear-gradient(180deg, #4c5165 0%, #1a2036 100%);
+        box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.2); */
+        /* backdrop-filter: blur(30px); */
         text-align: center;
         line-height: 81px;
         border-radius: 50%;
@@ -367,11 +371,14 @@ const FooterStyle = styled.div`
   }
   /* mobile style start */
   @media screen and (max-width: 750px) {
+    width: 7.5rem;
+    height: 7.9rem;
+    background: linear-gradient(180deg, rgba(6, 11, 64, 0.8) 0%, rgba(6, 11, 64, 0) 195.35%);
+    padding: 0;
+    .top_line {
+      height: 0.02rem;
+    }
     .footer-bg {
-      width: 7.5rem;
-      height: 7.9rem;
-      background: linear-gradient(180deg, rgba(6, 11, 64, 0.8) 0%, rgba(6, 11, 64, 0) 195.35%);
-      padding: 0;
       .footer {
         max-width: auto;
         min-width: auto;
@@ -400,7 +407,7 @@ const FooterStyle = styled.div`
           }
           .footer-logo {
             position: absolute;
-            top: -3.7rem;
+            top: -3.5rem;
             left: 0.4rem;
             z-index: 1;
             padding: 0;
@@ -411,7 +418,7 @@ const FooterStyle = styled.div`
         }
         .center {
           position: absolute;
-          top: 1rem;
+          top: 1.2rem;
           left: 50%;
           transform: translate(-50%, 0);
           width: 6.7rem;
@@ -452,6 +459,14 @@ const FooterStyle = styled.div`
                 }
                 .chart {
                   position: relative;
+                  > .trend {
+                    position: absolute;
+                    top: -0.5rem;
+                    img {
+                      margin-top: 0 !important;
+                      width: 3.5rem !important;
+                    }
+                  }
                   .num {
                     font-family: Roboto;
                     font-style: normal;
@@ -460,8 +475,8 @@ const FooterStyle = styled.div`
                     line-height: 0.36rem;
                     color: #21d9ad;
                     position: absolute;
-                    right: 0;
-                    bottom: 0;
+                    right: -1.2rem;
+                    bottom: -1.2rem;
                   }
                 }
               }
@@ -469,18 +484,20 @@ const FooterStyle = styled.div`
             .center-data:before {
               background: linear-gradient(to top, #32c2d6 0%, rgba(50, 194, 214, 0) 100%);
               height: 100%;
-              top: -0.04rem;
-              height: 100%;
+              top: -0.2rem;
+              /* left: 0; */
             }
             .center-data:after {
               background: linear-gradient(to top, #32c2d6 0%, rgba(50, 194, 214, 0) 100%);
-              top: -0.04rem;
+              top: -0.2rem;
               height: 100%;
+              /* left: 0; */
             }
             .line {
-              width: 6.74rem;
-              top: 1.99rem;
+              width: 6.78rem;
+              top: 2.01rem;
               height: 0.23rem;
+              left: -0.04rem;
               border-bottom: 1px solid #32c2d6;
               border-top-left-radius: 0;
               border-top-right-radius: 0;
@@ -492,7 +509,7 @@ const FooterStyle = styled.div`
         }
         .right {
           position: absolute;
-          bottom: 0.86rem;
+          bottom: -7.14rem;
           left: 50%;
           transform: translate(-50%, 0);
           padding: 0;
@@ -509,7 +526,7 @@ const FooterStyle = styled.div`
             a {
               display: inline-block;
               img {
-                width: 0.59rem;
+                width: 0.9rem;
               }
             }
           }

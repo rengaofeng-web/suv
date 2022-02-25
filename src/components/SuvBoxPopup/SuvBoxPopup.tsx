@@ -4,6 +4,15 @@ import styled from "styled-components";
 import isMobile from "is-mobile";
 import Swiper from "swiper";
 import "swiper/css/swiper.css";
+// pc图片导入
+import feichuan5 from "../../assets/PC-config/NFT/feichuan5.png";
+import feichuan4 from "../../assets/PC-config/NFT/feichuan4.png";
+import feichuan3 from "../../assets/PC-config/NFT/feichuan3.png";
+// mobile图片导入
+import feichaun5_mobile from "../../assets/Phone-config/NFT/feichuan5.png";
+import feichuan4_mobile from "../../assets/Phone-config/NFT/feichuan4.png";
+import feichuan3_mobile from "../../assets/Phone-config/NFT/feichuan3.png";
+
 interface Props {
   change: Function;
 }
@@ -52,47 +61,19 @@ const SuvBoxPopup: React.FC<Props> = (props) => {
               <div className="swiper-container popup-swiper swiper-no-swiping">
                 <div className="swiper-wrapper ">
                   <div className="swiper-slide">
-                    <img
-                      src={
-                        !isM
-                          ? require("../../assets/PC-config/NFT/feichuan5.png").default
-                          : require("../../assets/Phone-config/NFT/feichuan5.png").default
-                      }
-                      alt=""
-                    />
+                    <img src={!isM ? feichuan5 : feichaun5_mobile} alt="" />
                     <div className="identifier">#13245</div>
                   </div>
                   <div className="swiper-slide">
-                    <img
-                      src={
-                        !isM
-                          ? require("../../assets/PC-config/NFT/feichuan4.png").default
-                          : require("../../assets/Phone-config/NFT/feichuan4.png").default
-                      }
-                      alt=""
-                    />
+                    <img src={!isM ? feichuan4 : feichuan4_mobile} alt="" />
                     <div className="identifier">#13245</div>
                   </div>
                   <div className="swiper-slide">
-                    <img
-                      src={
-                        !isM
-                          ? require("../../assets/PC-config/NFT/feichuan3.png").default
-                          : require("../../assets/Phone-config/NFT/feichuan3.png").default
-                      }
-                      alt=""
-                    />
+                    <img src={!isM ? feichuan3 : feichuan3_mobile} alt="" />
                     <div className="identifier">#13245</div>
                   </div>
                   <div className="swiper-slide">
-                    <img
-                      src={
-                        !isM
-                          ? require("../../assets/PC-config/NFT/feichuan3.png").default
-                          : require("../../assets/Phone-config/NFT/feichuan3.png").default
-                      }
-                      alt=""
-                    />
+                    <img src={!isM ? feichuan3 : feichuan3_mobile} alt="" />
                     <div className="identifier">#13245</div>
                   </div>
                 </div>

@@ -10,11 +10,9 @@ import BigNumber from "bignumber.js";
 const Farms: React.FC = ({ children }) => {
   const [unharvested, setUnharvested] = useState(0);
   const sushi = useSushi();
-
   const farms = getFarms(sushi);
   let pidArr = farms.map((item: Farm) => item.pid);
-  const { balances: stakedValue, totalW: totalPoolWeight } =
-    useFarmInfo(pidArr);
+  const { balances: stakedValue, totalW: totalPoolWeight } = useFarmInfo(pidArr);
   const [farmInfos, setFarmInfos] = useState([]);
   const block = useBlock();
   const getFarmInfos = async () => {
@@ -27,7 +25,6 @@ const Farms: React.FC = ({ children }) => {
   useEffect(() => {
     getFarmInfos();
   }, [block]);
-
   const sushiPrice = new BigNumber(1000000000000000000000);
   const SUSHI_PER_BLOCK = 13.66;
   const BLOCKS_PER_YEAR = 28800 * 365;
@@ -35,7 +32,6 @@ const Farms: React.FC = ({ children }) => {
     // const selectedItem: any = farmInfos.filter(
     //   (item: any, index) => item.pid === farm.pid
     // )[0];
-
     const apyNum =
       stakedValue[index] && stakedValue[index].totalAmount > 0
         ? sushiPrice
@@ -48,12 +44,10 @@ const Farms: React.FC = ({ children }) => {
             .div(new BigNumber(10).pow(farm.decimals))
             .times(farmInfos[index])
         : new BigNumber(1000);
-
+    1;
     const realFarmApr =
       apyNum && apyNum.isLessThan(1000)
-        ? `${new BigNumber(apyNum.times(100).toFixed(0))
-            .toNumber()
-            .toLocaleString("en-US")}%`
+        ? `${new BigNumber(apyNum.times(100).toFixed(0)).toNumber().toLocaleString("en-US")}%`
         : "100,000%";
     return {
       ...farm,
@@ -67,6 +61,7 @@ const Farms: React.FC = ({ children }) => {
       price: farmInfos[index],
     };
   });
+  // console.log(newFarms);
 
   // console.log(farmInfos);
   return (

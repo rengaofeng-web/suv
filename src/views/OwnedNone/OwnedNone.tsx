@@ -41,12 +41,10 @@ const OwnedStyle = styled.div`
   position: relative;
   /* max-width: 1920px;
   min-width: 1200px; */
-  height: 1035px;
+  height: 1350px;
   margin: auto;
   box-sizing: border-box;
-  .footer-bg {
-    position: relative;
-  }
+
   .container {
     position: relative;
     width: 1200px;
@@ -201,6 +199,9 @@ const OwnedStyle = styled.div`
     overflow-y: scroll;
     margin: auto;
     background-image: url(${mobile_wholeBg});
+    .footer-box {
+      position: relative;
+    }
     .right-noCard {
       top: 7.5rem;
       right: 0.4rem;
@@ -287,7 +288,7 @@ const OwnedStyle = styled.div`
             left: 3.1rem;
             width: 0.25rem;
             height: 0.03rem;
-            top: 42%;
+            top: 44%;
           }
         }
       }

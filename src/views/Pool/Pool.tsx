@@ -147,7 +147,6 @@ const Pool: React.FC<{}> = () => {
     },
   ];
   const { farmRows } = useFarmRows();
-  // console.log(farmRows);
   return (
     <PoolStyle>
       <div className="content">
@@ -174,7 +173,7 @@ const Pool: React.FC<{}> = () => {
 };
 
 interface FarmCardProps {
-  farm: FarmWithStakedValue;
+  farm: FarmWithStakedValue;   
   isM: boolean;
 }
 const lockDays = [0, 7, 14, 30, 180];
@@ -231,9 +230,8 @@ const PoolCard: React.FC<FarmCardProps> = ({ farm, isM }) => {
 const PoolStyle = styled.div`
   position: relative;
   width: 100%;
-  .footer-bg {
-    position: relative;
-  }
+  height: 1800px;
+
   .content {
     position: relative;
     margin: 140px auto;
@@ -437,6 +435,10 @@ const PoolStyle = styled.div`
     position: relative;
     left: 0;
     top: 0;
+    .footer-box {
+      position: relative;
+      margin-top: 2rem;
+    }
     .content {
       position: relative;
       left: 0;

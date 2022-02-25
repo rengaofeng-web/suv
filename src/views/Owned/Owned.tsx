@@ -7,9 +7,9 @@ import isMobile from "is-mobile";
 import Footer from "../../components/Footer/Footer"; //footer
 // pc图片导入
 import mobile_wholeBg from "../../assets/Phone-config/bg1.jpg"; // mobile 整体背景图
-import feichuan5 from '../../assets/PC-config/NFT/feichuan5.png'
-import feichuan4 from '../../assets/PC-config/NFT/feichuan4.png'
-import feichuan3 from '../../assets/PC-config/NFT/feichuan3.png'
+import feichuan5 from "../../assets/PC-config/NFT/feichuan5.png";
+import feichuan4 from "../../assets/PC-config/NFT/feichuan4.png";
+import feichuan3 from "../../assets/PC-config/NFT/feichuan3.png";
 const Owned: React.FC<{}> = () => {
   const isM: boolean = isMobile();
   const leftButton = useRef(null);
@@ -72,12 +72,10 @@ const Owned: React.FC<{}> = () => {
 // owned style start
 const OwnedSttyle = styled.div`
   position: relative;
-  height: 1035px;
+  height: 1140px;
   margin: auto;
   box-sizing: border-box;
-  .footer-bg {
-    position: relative;
-  }
+
   .content {
     position: relative;
     width: 1200px;
@@ -256,6 +254,9 @@ const OwnedSttyle = styled.div`
     overflow-y: scroll;
     margin: auto;
     background-image: url(${mobile_wholeBg});
+    .footer-box {
+      position: relative;
+    }
     .content {
       width: 6.7rem;
       height: 7.8rem;
@@ -265,7 +266,7 @@ const OwnedSttyle = styled.div`
       background: linear-gradient(-45deg, transparent 0.36rem, rgba(4, 10, 58, 0.2) 0) bottom right,
         linear-gradient(45deg, transparent 0.36rem, rgba(4, 10, 58, 0.2) 0) bottom left,
         linear-gradient(135deg, #2f9ad7 0.36rem, rgba(4, 10, 58, 0.2) 0) top left,
-        linear-gradient(-135deg, #2f9ad7 0.36rem, rgba(4, 10, 58, 0.2) 0) top right; 
+        linear-gradient(-135deg, #2f9ad7 0.36rem, rgba(4, 10, 58, 0.2) 0) top right;
       -webkit-clip-path: polygon(
         0.5rem 0px,
         calc(100% - 0.5rem) 0,

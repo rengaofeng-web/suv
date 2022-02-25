@@ -2,16 +2,12 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Web3Provider } from "@ethersproject/providers";
 import { useWeb3React } from "@web3-react/core";
-import {
-  chainName,
-  chainRPCs,
-  supportedChainId,
-} from "src/sushi/lib/constants";
+import { chainName, chainRPCs, supportedChainId } from "src/sushi/lib/constants";
 
-import TPIcon from "../../assets/PC-config/home/tokenpocket.svg";
-import BitkeepIcon from "../../assets/PC-config/home/bitkeep.svg";
-import MathWalletIcon from "../../assets/PC-config/home/mathwallet.svg";
-import MetamaskIcon from "../../assets/PC-config/home/metamask.svg";
+import TPIcon from "../../assets/wallet_logo/TokenPocket.svg";
+import BitkeepIcon from "../../assets/wallet_logo/bitkeep.svg";
+import MathWalletIcon from "../../assets/wallet_logo/mathWallet.svg";
+import MetamaskIcon from "../../assets/wallet_logo/metamask.svg";
 import { injected, walletconnect } from "src/contexts/Metamask/connectors";
 
 interface Props {
@@ -21,9 +17,7 @@ const Connect: React.FC<Props> = (props) => {
   const context = useWeb3React<Web3Provider>();
 
   let { change } = props;
-  let show = sessionStorage.getItem("show")
-    ? Number(sessionStorage.getItem("show"))
-    : 0;
+  let show = sessionStorage.getItem("show") ? Number(sessionStorage.getItem("show")) : 0;
   // 登录点击 ×
   const closeConnect = () => {
     document.body.style.cssText = "overflow:visible;height:100%;";
@@ -261,11 +255,7 @@ const ConnectStyle = styled.div`
         width: 50%;
         height: 3px;
         z-index: 1;
-        background-image: linear-gradient(
-          to right,
-          #53c1ff,
-          rgba(83, 193, 255, 0)
-        );
+        background-image: linear-gradient(to right, #53c1ff, rgba(83, 193, 255, 0));
       }
       .title:after {
         content: "";
@@ -274,11 +264,7 @@ const ConnectStyle = styled.div`
         top: 0px;
         height: 250px;
         width: 3px;
-        background-image: linear-gradient(
-          to bottom,
-          #53c1ff,
-          rgba(83, 193, 255, 0)
-        );
+        background-image: linear-gradient(to bottom, #53c1ff, rgba(83, 193, 255, 0));
       }
       .connection-mode-list {
         position: relative;
@@ -325,10 +311,10 @@ const ConnectStyle = styled.div`
             color: #ffffff;
           }
         }
-        .connection-mode-item:nth-child(3) {
+        .connection-mode-item:nth-child(2) {
           .connect-logo {
             img {
-              margin-top: 8px;
+              margin-top: 4px;
             }
           }
         }
@@ -344,11 +330,7 @@ const ConnectStyle = styled.div`
         bottom: -56px;
         height: 250px;
         width: 3px;
-        background-image: linear-gradient(
-          to top,
-          #53c1ff,
-          rgba(83, 193, 255, 0)
-        );
+        background-image: linear-gradient(to top, #53c1ff, rgba(83, 193, 255, 0));
       }
       .connection-mode-list:after {
         content: "";
@@ -357,11 +339,7 @@ const ConnectStyle = styled.div`
         bottom: -56px;
         width: 50%;
         height: 3px;
-        background-image: linear-gradient(
-          to left,
-          #53c1ff,
-          rgba(83, 193, 255, 0)
-        );
+        background-image: linear-gradient(to left, #53c1ff, rgba(83, 193, 255, 0));
       }
       .close-box-bg {
         position: absolute;
@@ -377,11 +355,7 @@ const ConnectStyle = styled.div`
           position: relative;
           width: 190.86px;
           height: 45.61px;
-          background: linear-gradient(
-            180deg,
-            #eb3f3f -1.01%,
-            rgba(235, 63, 63, 0) 144.7%
-          );
+          background: linear-gradient(180deg, #eb3f3f -1.01%, rgba(235, 63, 63, 0) 144.7%);
           .close-button {
             position: absolute;
             left: 113px;
@@ -396,11 +370,7 @@ const ConnectStyle = styled.div`
             color: #fff;
             transform: rotate(-7deg);
             text-align: center;
-            background: linear-gradient(
-              to bottom,
-              #fff 24.99%,
-              transparent 115.7%
-            );
+            background: linear-gradient(to bottom, #fff 24.99%, transparent 115.7%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
           }
@@ -427,11 +397,7 @@ const ConnectStyle = styled.div`
       bottom: 0px;
       width: 50%;
       height: 3px;
-      background-image: linear-gradient(
-        to right,
-        #53c1ff,
-        rgba(83, 193, 255, 0)
-      );
+      background-image: linear-gradient(to right, #53c1ff, rgba(83, 193, 255, 0));
     }
   }
   /* mobile style start */

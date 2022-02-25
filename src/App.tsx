@@ -1,10 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  HashRouter,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, HashRouter } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
 import wholeBg from "./assets/PC-config/bg2.jpg"; //pc整体背景图
 import isMobile from "is-mobile";
@@ -20,6 +15,7 @@ import NftFarams from "./views/NftFarams/NftFarams";
 import Owned from "./views/Owned/Owned";
 import OwnedNone from "./views/OwnedNone/OwnedNone";
 
+
 import { useWallet, UseWalletProvider } from "use-wallet";
 import { makeStore } from "src/redux/store";
 import { StoreContext } from "redux-react-hook";
@@ -30,17 +26,13 @@ import TransactionProvider from "./contexts/Transactions";
 import SushiProvider from "./contexts/SushiProvider";
 import theme from "./theme";
 import { chainRPCs, supportedChainId } from "./sushi/lib/constants";
-import {
-  BscConnector,
-  UserRejectedRequestError,
-} from "@binance-chain/bsc-connector";
+import { BscConnector, UserRejectedRequestError } from "@binance-chain/bsc-connector";
 import { getApyData } from "./hooks/useApyDefault";
 import MetamaskProvider from "./contexts/Metamask";
 import { useWeb3React } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
 const isM: boolean = isMobile();
 const Layout: React.FC<{}> = () => {
-  
   return (
     <AppStyle className="App">
       <Header></Header>
