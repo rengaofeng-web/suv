@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import styled from "styled-components";
 import isMobile from "is-mobile";
 import Swiper from "swiper";
@@ -23,6 +23,13 @@ import mobile_baoxiangBg from "../../assets/PC-config/NFT/xuanzhaun_mp4.mp4"; //
 import baoxiang1_mobile from "../../assets/Phone-config/NFT/baoxiang1.png"; // mobile 宝箱1
 import baoxiang2_mobile from "../../assets/Phone-config/NFT/baoxiang2.png"; //mobile 宝箱2
 import baoxiang3_mobile from "../../assets/Phone-config/NFT/baoxiang3.png"; //mobile 宝箱3
+import { contractAddresses, supportedChainId } from "src/sushi/lib/constants";
+import useTokenBalance from "src/hooks/useTokenBalance";
+import useAllowance from "src/hooks/useAllowance";
+import useSushi from "src/hooks/useSushi";
+import { getSushiContract } from "src/sushi/utils";
+import useNftMint from "src/hooks/useNftMint";
+import useModal from "src/hooks/useModal";
 
 const SuvBox: React.FC<{}> = () => {
   const isM: boolean = isMobile();
@@ -36,6 +43,25 @@ const SuvBox: React.FC<{}> = () => {
   const chengeState = () => {
     NftState ? setState(false) : setState(true);
   };
+
+  const [nftNumber, setNftNumber] = useState(1);
+  const [openResult, setOpenResult] = useState([]);
+  const blindBoxPrice = 2000;
+
+  const { onNftMint } = useNftMint();
+  const sushi = useSushi();
+  const [buying, setBuying] = useState(false);
+  const allowance = useAllowance(getSushiContract(sushi));
+  const sushiBalance = useTokenBalance(
+    contractAddresses.sushi[supportedChainId]
+  );
+
+  useEffect(() => {
+    if (openResult.length > 0) {
+      chengeState();
+      sessionStorage.setItem("showNftPopup", "1");
+    }
+  }, [openResult]);
   useEffect(() => {
     // 切换宝箱
     let swiper = new Swiper(".swiper-content", {
@@ -71,14 +97,25 @@ const SuvBox: React.FC<{}> = () => {
       };
     }
   });
-  const buyNow = () => {
-    chengeState();
-    sessionStorage.setItem("showNftPopup", "1");
+  const buyNow = async () => {
+    setBuying(true);
+    let result = await onNftMint(quantity);
+    setBuying(false);
+    if (result) {
+      setOpenResult(Object.values(result));
+    }
   };
   return (
     <SuvBoxStyle>
       {/* 弹出框 */}
-      <SuvBoxPopup change={chengeState}></SuvBoxPopup>
+      <SuvBoxPopup
+        change={chengeState}
+        nftNumber={quantity}
+        events={openResult}
+        reset={() => {
+          setOpenResult([]);
+        }}
+      ></SuvBoxPopup>
       <div className="content-box">
         <div className="left-operation-main">
           {/* 模拟外边框 */}
@@ -111,19 +148,19 @@ const SuvBox: React.FC<{}> = () => {
               </div>
             </div>
             <div className="control">
-              <div className="control-bg">
+              {/* <div className="control-bg">
                 <img src={anniu} alt="" />
-              </div>
-              <div className="previous" ref={leftButton}></div>
-              <div className="number">{swiperIndex + 1}/3</div>
-              <div className="next" ref={rightButton}></div>
+              </div> */}
+              {/* <div className="previous" ref={leftButton}></div> */}
+              {/* <div className="number">{swiperIndex + 1}/3</div> */}
+              {/* <div className="next" ref={rightButton}></div> */}
             </div>
           </div>
           <div className="right-opertion">
             <div className="title">SUV BOX</div>
             <div className="amount">Remaining Amount:-</div>
             <div className="subtotal">
-              Subtotal:<span>{blindBox} BNB</span>
+              Subtotal:<span>{quantity * 2000} SUV</span>
             </div>
             <div className="quantity">Quantity</div>
             <div className="controll">
@@ -140,20 +177,24 @@ const SuvBox: React.FC<{}> = () => {
               <div
                 className="add"
                 onClick={() => {
-                  setquantity(++quantity);
+                  if (quantity < 10) {
+                    setquantity(++quantity);
+                  }
                 }}
               >
                 +
               </div>
             </div>
-            <div className="buy" onClick={buyNow}>
-              BUY NOW
+            <div className="buy" onClick={buying ? () => null : buyNow}>
+              {buying ? "Buying" : "BUY NOW"}
             </div>
           </div>
         </div>
         <div className="right-bg">
           <div className="right-jackpot">
-            <div className="title">You have a chance to win the following prizes</div>
+            <div className="title">
+              You have a chance to win the following prizes
+            </div>
             <video src={video} autoPlay={true} loop={true} muted></video>
             <div className="bottom-decorate">
               <img src={zhuangshi} alt="" />
@@ -261,7 +302,8 @@ const SuvBoxStyle = styled.div`
           0 calc(100% - 35px),
           0 35px
         );
-        background: linear-gradient(-45deg, #177ab1 23px, rgba(0, 0, 0, 0.6) 0) bottom right,
+        background: linear-gradient(-45deg, #177ab1 23px, rgba(0, 0, 0, 0.6) 0)
+            bottom right,
           linear-gradient(45deg, #177ab1 23px, rgba(0, 0, 0, 0.6) 0) bottom left,
           linear-gradient(135deg, #177ab1 23px, rgba(0, 0, 0, 0.6) 0) top left,
           linear-gradient(-135deg, #177ab1 23px, rgba(0, 0, 0, 0.6) 0) top right;
@@ -416,7 +458,11 @@ const SuvBoxStyle = styled.div`
           width: 186px;
           height: 46px;
 
-          background: linear-gradient(90deg, #ffe24a 0%, rgba(255, 226, 74, 0) 105.65%);
+          background: linear-gradient(
+            90deg,
+            #ffe24a 0%,
+            rgba(255, 226, 74, 0) 105.65%
+          );
           font-family: Roboto;
           font-style: normal;
           font-weight: bold;
@@ -469,7 +515,8 @@ const SuvBoxStyle = styled.div`
         0 calc(100% - 35px),
         0 35px
       );
-      background: linear-gradient(-45deg, #1777ad 23px, rgba(0, 0, 0, 0.6) 0) bottom right,
+      background: linear-gradient(-45deg, #1777ad 23px, rgba(0, 0, 0, 0.6) 0)
+          bottom right,
         linear-gradient(45deg, #1777ad 23px, #000 0) bottom left,
         linear-gradient(135deg, #1777ad 23px, rgba(0, 0, 0, 1) 0) top left,
         linear-gradient(-135deg, #1777ad 23px, rgba(0, 0, 0, 1) 0) top right;
@@ -571,10 +618,18 @@ const SuvBoxStyle = styled.div`
             0 calc(100% - 0.55rem),
             0 0.55rem
           );
-          background: linear-gradient(-45deg, #177ab1 0.35rem, rgba(0, 0, 0, 0.6) 0) bottom right,
-            linear-gradient(45deg, #177ab1 0.37rem, rgba(0, 0, 0, 0.6) 0) bottom left,
-            linear-gradient(135deg, #177ab1 0.35rem, rgba(0, 0, 0, 0.6) 0) top left,
-            linear-gradient(-135deg, #177ab1 0.35rem, rgba(0, 0, 0, 0.6) 0) top right;
+          background: linear-gradient(
+                -45deg,
+                #177ab1 0.35rem,
+                rgba(0, 0, 0, 0.6) 0
+              )
+              bottom right,
+            linear-gradient(45deg, #177ab1 0.37rem, rgba(0, 0, 0, 0.6) 0) bottom
+              left,
+            linear-gradient(135deg, #177ab1 0.35rem, rgba(0, 0, 0, 0.6) 0) top
+              left,
+            linear-gradient(-135deg, #177ab1 0.35rem, rgba(0, 0, 0, 0.6) 0) top
+              right;
           ::before {
             content: "";
             position: absolute;
@@ -751,10 +806,13 @@ const SuvBoxStyle = styled.div`
             0 calc(100% - 0.35rem),
             0 0.35rem
           );
-          background: linear-gradient(-45deg, #1777ad 0rem, rgba(0, 0, 0, 1) 0) bottom right,
+          background: linear-gradient(-45deg, #1777ad 0rem, rgba(0, 0, 0, 1) 0)
+              bottom right,
             linear-gradient(45deg, #1777ad 0.23rem, #000 0) bottom left,
-            linear-gradient(135deg, #1777ad 0.23rem, rgba(0, 0, 0, 1) 0) top left,
-            linear-gradient(-135deg, #1777ad 0.23rem, rgba(0, 0, 0, 1) 0) top right;
+            linear-gradient(135deg, #1777ad 0.23rem, rgba(0, 0, 0, 1) 0) top
+              left,
+            linear-gradient(-135deg, #1777ad 0.23rem, rgba(0, 0, 0, 1) 0) top
+              right;
           ::before {
             content: "";
             position: absolute;

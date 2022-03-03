@@ -2,7 +2,12 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 import { Control } from "react-keeper";
 import isMobile from "is-mobile";
-import { useHistory, withRouter, RouteComponentProps, useParams } from "react-router-dom";
+import {
+  useHistory,
+  withRouter,
+  RouteComponentProps,
+  useParams,
+} from "react-router-dom";
 
 // 组件导入
 import Footer from "../../components/Footer/Footer"; //footer
@@ -64,21 +69,21 @@ const Details: React.FC<{}> = () => {
               <div className="data-name">TVL</div>
               <div className="data-con">
                 {" "}
-                {new BigNumber(farm.stakedValue1)
+                {new BigNumber(farm?.stakedValue1 || 0)
                   .div(new BigNumber(10).pow(farm.decimals))
                   .toFixed(2)}
               </div>
             </div>
             <div className="data-item">
               <div className="data-name">Weight</div>
-              <div className="data-con">{farm.allocPoint}</div>
+              <div className="data-con">{farm.allocPoint || 0}</div>
             </div>
             <div className="data-item">
               <div className="data-name">Pending rewards</div>
               <div className="data-con">
                 {" "}
-                {new BigNumber(farm.userPending0)
-                  .div(new BigNumber(10).pow(farm.decimals))
+                {new BigNumber(farm?.userPending0 || 0)
+                  .div(new BigNumber(10).pow(18))
                   .toFixed(2)}{" "}
                 SUV
               </div>
@@ -90,7 +95,7 @@ const Details: React.FC<{}> = () => {
             <div className="data-item">
               <div className="data-name">My liquidity</div>
               <div className="data-con">
-                {new BigNumber(farm.userStaked)
+                {new BigNumber(farm.userStaked || 0)
                   .div(new BigNumber(10).pow(farm.decimals))
                   .toFixed(2)}
               </div>
@@ -114,7 +119,10 @@ const Details: React.FC<{}> = () => {
           >
             WITHDRAW
           </div>
-          <div className="harvest" onClick={rewardPending ? () => {} : handleHarvest}>
+          <div
+            className="harvest"
+            onClick={rewardPending ? () => {} : handleHarvest}
+          >
             {rewardPending ? "Pending Harvest" : "HARVEST"}
           </div>
         </div>
@@ -148,8 +156,14 @@ const DetailsStyle = styled.div`
       0 calc(100% - 35px),
       0 35px
     );
-    background: linear-gradient(-45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom right,
-      linear-gradient(45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom left,
+    background: linear-gradient(
+          -45deg,
+          transparent 23px,
+          rgba(4, 10, 58, 0.3) 0
+        )
+        bottom right,
+      linear-gradient(45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom
+        left,
       linear-gradient(135deg, #2cb0de 26px, rgba(4, 10, 58, 0.3) 0) top left,
       linear-gradient(-135deg, #2cb0de 26px, rgba(4, 10, 58, 0.3) 0) top right;
     background-size: 50% 50%;
@@ -341,8 +355,14 @@ const DetailsStyle = styled.div`
         0 0.38rem
       );
 
-      background: linear-gradient(-45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom right,
-        linear-gradient(45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom left,
+      background: linear-gradient(
+            -45deg,
+            transparent 23px,
+            rgba(4, 10, 58, 0.3) 0
+          )
+          bottom right,
+        linear-gradient(45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom
+          left,
         linear-gradient(135deg, #31bce8 0.28rem, transparent 0) top left,
         linear-gradient(-135deg, #31bce8 0.28rem, transparent 0);
       border-top: 0.05rem solid #2cb0de;

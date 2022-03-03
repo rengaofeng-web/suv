@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import styled from "styled-components";
 import isMobile from "is-mobile";
 // 组件导入
@@ -16,118 +16,244 @@ import feichuan4_mobile from "../../assets/Phone-config/NFT/small_feichuan4.png"
 import feichuan3_mobile from "../../assets/Phone-config/NFT/small_feichuan3.png";
 import feichuan2_mobile from "../../assets/Phone-config/NFT/small_feichuan2.png";
 import feichuan1_mobile from "../../assets/Phone-config/NFT/small_feichuan1.png";
+import useFarmRows, { FarmWithStakedValue } from "src/hooks/useFarmRows";
+import useApyDefault from "src/hooks/useApyDefault";
+import BigNumber from "bignumber.js";
+import useSushi from "src/hooks/useSushi";
+import useReward from "src/hooks/useReward";
+import {
+  getDisplayBalance,
+  getFullDisplayBalance,
+} from "src/utils/formatBalance";
+import useApprove from "src/hooks/useApprove";
+import useStake from "src/hooks/useStake";
+import useUnstake from "src/hooks/useUnstake";
 
 const NftFarams: React.FC<{}> = () => {
   const isM: boolean = isMobile();
-  const [switchCurrent, setSwitchCurrent] = useState([true, true, true, true, true]); //切换选项卡状态
-  const contentData = [
-    {
-      id: 1,
-      blindBoxImg: !isM ? feichuan5 : feichuan5_mobile,
-    },
-    {
-      id: 2,
-      blindBoxImg: !isM ? feichuan4 : feichuan4_mobile,
-    },
-    {
-      id: 3,
-      blindBoxImg: !isM ? feichuan3 : feichuan3_mobile,
-    },
-    {
-      id: 4,
-      blindBoxImg: !isM ? feichuan2 : feichuan2_mobile,
-    },
-    {
-      id: 5,
-      blindBoxImg: !isM ? feichuan1 : feichuan1_mobile,
-    },
-  ];
+  const [switchCurrent, setSwitchCurrent] = useState([
+    true,
+    true,
+    true,
+    true,
+    true,
+  ]); //切换选项卡状态
+  const { farmRows } = useFarmRows();
+  const nftFarmRows = farmRows.filter(
+    (item) => item.nftType && item.poolType === 3
+  );
+
   return (
     <FaramsStyle>
       <div className="content-box">
-        {contentData.map((item, index) => (
-          <div className="content-item" key={item.id}>
-            <div className="right-border"></div>
-            <div className="left-blindBox">
-              <img src={item.blindBoxImg} alt="" />
-            </div>
-            <div className="right-content">
-              <div className="top">
-                <div className="earned-box">
-                  <div className="right-boreder"></div>
-                  <div className="earned">
-                    <div className="earned-number">
-                      <div>Earned</div>
-                      <div className="number">1,123,155.12</div>
-                    </div>
-                    <div className="harvest">Harvest</div>
-                  </div>
-                </div>
-                <div className="staked">
-                  <div>staked</div>
-                  <div>1,123,155.12</div>
-                </div>
-              </div>
-              <div className="bottom">
-                <div className="container">
-                  <div className="switch-head">
-                    <div className="approve">Approve</div>
-                    <div
-                      className={switchCurrent[index] ? "deposit active" : "deposit"}
-                      onClick={() => {
-                        let currentList = [...switchCurrent];
-                        currentList[index] = true;
-                        setSwitchCurrent(currentList);
-                      }}
-                    >
-                      Deposit
-                    </div>
-                    <div
-                      className={!switchCurrent[index] ? "withdraw active" : "withdraw"}
-                      onClick={() => {
-                        let currentList = [...switchCurrent];
-                        currentList[index] = false;
-                        setSwitchCurrent(currentList);
-                      }}
-                    >
-                      Withdraw
-                    </div>
-                  </div>
-                  <div className="switch-content">
-                    <div
-                      className="switch-content-item"
-                      style={{ display: switchCurrent[index] ? "block" : "none" }}
-                    >
-                      <div className="title">Available:124613563156515</div>
-                      <div className="uinput">
-                        <input type="number" defaultValue="123456789132" />
-                        <div className="max">MAX</div>
-                      </div>
-                      <div className="button">Deposit</div>
-                    </div>
-                    <div
-                      className="switch-content-item"
-                      style={{ display: !switchCurrent[index] ? "block" : "none" }}
-                    >
-                      <div className="title">Available:124613563156515</div>
-                      <div className="uinput">
-                        <input type="number" defaultValue="123456789132" />
-                        <div className="max">MAX</div>
-                      </div>
-                      <div className="button">Withdraw</div>
-                    </div>
-                  </div>
-                </div>
-                <div className="right-border"></div>
-              </div>
-            </div>
-          </div>
-        ))}
+        {nftFarmRows.map((item, index) => {
+          return <FarmCard farm={item} key={index} />;
+        })}
       </div>
       <Footer></Footer>
     </FaramsStyle>
   );
 };
+
+interface FarmCardProps {
+  farm: FarmWithStakedValue;
+}
+
+const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
+  const [switchCurrent, setSwitchCurrent] = useState(true);
+  const { apyDefault } = useApyDefault({ pid: farm.pid });
+  const sushi = useSushi();
+
+  const allowance = new BigNumber(farm.userAllowance || 0);
+  const pendingRewards = new BigNumber(farm.userPending0 || 0);
+  const stakedBalance = new BigNumber(farm.userStaked || 0);
+  const tokenBalance = new BigNumber(farm.tokenBalance || 0);
+
+  const [depositVal, setDepositVal] = useState("");
+  const [withdrawVal, setWithdrawVal] = useState("");
+  const { onStake } = useStake(farm.pid, false, farm.decimals, true);
+  const { onUnstake } = useUnstake(farm.pid, farm.decimals, true);
+  const [stakePendingTx, setStakePendingTx] = useState(false);
+  const [unStakePendingTx, setUnstakePendingTx] = useState(false);
+
+  const fullBalance = useMemo(() => {
+    return getFullDisplayBalance(tokenBalance, 0);
+  }, [tokenBalance]);
+
+  const fullStakeBalance = useMemo(() => {
+    return getFullDisplayBalance(stakedBalance, 0);
+  }, [stakedBalance]);
+
+  const handleDeposit = useCallback(async () => {
+    if (depositVal) {
+      try {
+        setStakePendingTx(true);
+        await onStake(depositVal, new BigNumber(0), 0, new BigNumber(0));
+        setStakePendingTx(false);
+        setDepositVal("");
+      } catch (e) {
+        setStakePendingTx(false);
+        setDepositVal("");
+      }
+    }
+  }, [depositVal, onStake]);
+
+  const handleWithdraw = useCallback(async () => {
+    if (withdrawVal) {
+      try {
+        setUnstakePendingTx(true);
+        await onUnstake(withdrawVal);
+        setUnstakePendingTx(false);
+        setWithdrawVal("");
+      } catch (e) {
+        setUnstakePendingTx(false);
+        setWithdrawVal("");
+      }
+    }
+  }, [withdrawVal, onStake, onUnstake]);
+
+  const [rewardPending, setRewardPending] = useState(false);
+  const { onReward } = useReward(farm.pid, true);
+
+  const [pendingApprove, setPendingApprove] = useState(false);
+
+  const { onApprove } = useApprove(farm.tokenContract, true);
+
+  const handleApprove = useCallback(async () => {
+    setPendingApprove(true);
+    const tx = await onApprove();
+    if (!tx) setPendingApprove(false);
+  }, [onApprove]);
+
+  return (
+    <div className="content-item">
+      <div className="right-border"></div>
+      <div className="left-blindBox">
+        <img src={farm.icon} alt="" />
+      </div>
+      <div className="right-content">
+        <div className="top">
+          <div className="earned-box">
+            <div className="right-boreder"></div>
+            <div className="earned">
+              <div className="earned-number">
+                <div>Earned</div>
+                <div className="number">
+                  {getDisplayBalance(pendingRewards, 18, 2)}
+                </div>
+              </div>
+              <div className="harvest">Harvest</div>
+            </div>
+          </div>
+          <div className="staked">
+            <div>staked</div>
+            <div>{stakedBalance.toString()}</div>
+          </div>
+        </div>
+        <div className="bottom">
+          <div className="container">
+            <div className="switch-head">
+              {allowance.isLessThanOrEqualTo(0) ? (
+                <div
+                  className="approve"
+                  onClick={pendingApprove ? () => null : handleApprove}
+                >
+                  {pendingApprove ? "Pending" : "Approve"}
+                </div>
+              ) : null}
+
+              <div
+                className={switchCurrent ? "deposit active" : "deposit"}
+                onClick={() => {
+                  setSwitchCurrent(true);
+                }}
+              >
+                Deposit
+              </div>
+              <div
+                className={!switchCurrent ? "withdraw active" : "withdraw"}
+                onClick={() => {
+                  setSwitchCurrent(false);
+                }}
+              >
+                Withdraw
+              </div>
+            </div>
+            <div className="switch-content">
+              <div
+                className="switch-content-item"
+                style={{
+                  display: switchCurrent ? "block" : "none",
+                }}
+              >
+                <div className="title">Available:{tokenBalance.toString()}</div>
+                <div className="uinput">
+                  <input
+                    type="number"
+                    value={depositVal}
+                    onChange={(e) => {
+                      setDepositVal(e.currentTarget.value);
+                    }}
+                  />
+                  <div
+                    className="max"
+                    onClick={() => {
+                      setDepositVal(fullBalance);
+                    }}
+                  >
+                    MAX
+                  </div>
+                </div>
+                <div
+                  className="button"
+                  onClick={stakePendingTx ? () => null : handleDeposit}
+                >
+                  {stakePendingTx ? "Pending Deposit" : "Deposit"}
+                </div>
+              </div>
+              <div
+                className="switch-content-item"
+                style={{
+                  display: !switchCurrent ? "block" : "none",
+                }}
+              >
+                <div className="title">
+                  Available:{stakedBalance.toString()}
+                </div>
+                <div className="uinput">
+                  <input
+                    type="number"
+                    value={withdrawVal}
+                    onChange={(e) => {
+                      setWithdrawVal(e.currentTarget.value);
+                    }}
+                  />
+                  <div
+                    className="max"
+                    onClick={() => {
+                      setWithdrawVal(fullStakeBalance);
+                    }}
+                  >
+                    MAX
+                  </div>
+                </div>
+                <div
+                  className="button"
+                  onClick={unStakePendingTx ? () => null : handleWithdraw}
+                >
+                  {" "}
+                  {unStakePendingTx ? "Pending Withdraw" : "Withdraw"}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="right-border"></div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 // NftFarams style start
 const FaramsStyle = styled.div`
   position: relative;
@@ -139,11 +265,21 @@ const FaramsStyle = styled.div`
     width: 1200px;
     position: relative;
     margin: 176px auto;
-    background: linear-gradient(180deg, rgba(5, 22, 43, 0.8) 0%, rgba(5, 22, 43, 0.24) 106.72%);
+    background: linear-gradient(
+      180deg,
+      rgba(5, 22, 43, 0.8) 0%,
+      rgba(5, 22, 43, 0.24) 106.72%
+    );
     box-shadow: inset 0px 0px 60px #00a3ff;
     backdrop-filter: blur(10px);
-    background: linear-gradient(-45deg, transparent 36px, rgba(4, 10, 58, 0.3) 0) bottom right,
-      linear-gradient(45deg, transparent 36px, rgba(4, 10, 58, 0.3) 0) bottom left,
+    background: linear-gradient(
+          -45deg,
+          transparent 36px,
+          rgba(4, 10, 58, 0.3) 0
+        )
+        bottom right,
+      linear-gradient(45deg, transparent 36px, rgba(4, 10, 58, 0.3) 0) bottom
+        left,
       linear-gradient(135deg, #33bfeb 37px, rgba(4, 10, 58, 0.3) 0) top left,
       linear-gradient(-135deg, #33bfeb 38px, rgba(4, 10, 58, 0.3) 0) top right;
     background-size: 50% 50%;
@@ -370,6 +506,7 @@ const FaramsStyle = styled.div`
               display: flex;
               align-items: center;
               .approve {
+                cursor: pointer;
                 width: 94px;
                 height: 43px;
                 text-align: center;
@@ -481,7 +618,8 @@ const FaramsStyle = styled.div`
                   right: 17px;
                   width: 34px;
                   height: 2px;
-                  background: linear-gradient(-135deg, transparent 2px, #fff 0) top right;
+                  background: linear-gradient(-135deg, transparent 2px, #fff 0)
+                    top right;
                 }
                 .button:after {
                   content: "";
@@ -490,7 +628,8 @@ const FaramsStyle = styled.div`
                   right: 16px;
                   width: 12px;
                   height: 2px;
-                  background: linear-gradient(-45deg, transparent 2px, #fff 0) bottom right;
+                  background: linear-gradient(-45deg, transparent 2px, #fff 0)
+                    bottom right;
                   transform: rotate(45deg);
                 }
               }
@@ -534,7 +673,11 @@ const FaramsStyle = styled.div`
       width: 927px;
       border-radius: 0px;
       margin: 39px 0;
-      background: linear-gradient(90deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 100%);
+      background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.5) 0%,
+        rgba(255, 255, 255, 0) 100%
+      );
     }
     .content-item:last-child:after {
       display: none;
@@ -597,7 +740,11 @@ const FaramsStyle = styled.div`
           0 calc(100% - 0.35rem),
           0 0.35rem
         );
-        background: linear-gradient(180deg, rgba(1, 6, 44, 0.6) 0%, rgba(4, 10, 58, 0.3) 169.32%);
+        background: linear-gradient(
+          180deg,
+          rgba(1, 6, 44, 0.6) 0%,
+          rgba(4, 10, 58, 0.3) 169.32%
+        );
         box-shadow: inset 0px 0px 0.6rem #00a3ff;
         border-top: 0.03rem solid #34c0ec;
         border-bottom: 0.03rem solid #1883b9;

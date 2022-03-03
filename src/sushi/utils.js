@@ -637,7 +637,6 @@ export const nftBalance = async (nftContract, account) => {
     const balance = await nftContract.methods
       .balanceOf(account)
       .call()
-    // console.log(nftContract, account, balance)
     return new BigNumber(balance)
   } catch (e) {
     console.log(e)

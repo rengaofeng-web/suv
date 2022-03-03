@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Control } from "react-keeper";
 import styled from "styled-components";
 import isMobile from "is-mobile";
@@ -12,15 +12,21 @@ import feichuan3 from "../../assets/PC-config/NFT/feichuan3.png";
 import feichaun5_mobile from "../../assets/Phone-config/NFT/feichuan5.png";
 import feichuan4_mobile from "../../assets/Phone-config/NFT/feichuan4.png";
 import feichuan3_mobile from "../../assets/Phone-config/NFT/feichuan3.png";
+import { useWallet } from "use-wallet";
+import { supportedChainId, supportedPools } from "src/sushi/lib/constants";
+import BigNumber from "bignumber.js";
 
 interface Props {
   change: Function;
+  nftNumber?: Number;
+  events?: any[];
+  reset?: any;
 }
-const SuvBoxPopup: React.FC<Props> = (props) => {
+const SuvBoxPopup: React.FC<Props> = ({ nftNumber, events, reset, change }) => {
+  const { account } = useWallet();
   const isM: boolean = isMobile();
   const leftButton = useRef(null);
   const rightButton = useRef(null);
-  let { change } = props;
   let show = sessionStorage.getItem("showNftPopup")
     ? Number(sessionStorage.getItem("showNftPopup"))
     : 0;
@@ -47,41 +53,69 @@ const SuvBoxPopup: React.FC<Props> = (props) => {
     change();
     sessionStorage.setItem("showNftPopup", "0");
   };
+
+  let nftPools = events
+    .slice(1, events.length)
+    .filter((item) => item?.raw?.topics?.length === 4);
+  const [cards, setCards] = useState([]);
+  const [loadingCards, setLoadingCards] = useState(false);
+  const [showItems, setShowItems] = useState([]);
+  const fetchNftAmountPools = useCallback(async () => {
+    if (events.length < 1) {
+      return;
+    }
+
+    setLoadingCards(true);
+
+    let cards1: any[] = [];
+    for (let a = 0; a < nftPools.length; a++) {
+      for (let b = 0; b < supportedPools.length; b++) {
+        if (
+          nftPools[a].address ===
+          supportedPools[b].tokenAddresses[supportedChainId]
+        ) {
+          cards1.push({
+            ...supportedPools[b],
+            index: new BigNumber(nftPools[a].raw.topics[3]).toString(10),
+          });
+        }
+      }
+    }
+
+    setCards(cards1);
+    setLoadingCards(false);
+  }, [account, nftPools[0]?.address]);
+
+  useEffect(() => {
+    fetchNftAmountPools();
+  }, [nftPools[0]?.address, account]);
   return (
     <PopupStyle style={{ display: show ? "block" : "none" }}>
       <div className="popup-mask">
         <div className="content">
           <div className="congratulation">
             Congratulation!
-            {!isM ? <span>(1/4)</span> : null}
+            {/* {!isM ? <span>(1/{cards.length})</span> : null} */}
           </div>
           <div className="prize-exhibition">
             {/* swiper-no-swiping  阻止拖动*/}
             <div className="prize ">
               <div className="swiper-container popup-swiper swiper-no-swiping">
                 <div className="swiper-wrapper ">
-                  <div className="swiper-slide">
-                    <img src={!isM ? feichuan5 : feichaun5_mobile} alt="" />
-                    <div className="identifier">#13245</div>
-                  </div>
-                  <div className="swiper-slide">
-                    <img src={!isM ? feichuan4 : feichuan4_mobile} alt="" />
-                    <div className="identifier">#13245</div>
-                  </div>
-                  <div className="swiper-slide">
-                    <img src={!isM ? feichuan3 : feichuan3_mobile} alt="" />
-                    <div className="identifier">#13245</div>
-                  </div>
-                  <div className="swiper-slide">
-                    <img src={!isM ? feichuan3 : feichuan3_mobile} alt="" />
-                    <div className="identifier">#13245</div>
-                  </div>
+                  {cards.map((item, index) => {
+                    return (
+                      <div className="swiper-slide">
+                        <img src={item.icon} alt="" />
+                        <div className="identifier">{item.symbolShowing}</div>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>
             <div className="controll">
               <div className="prev" ref={leftButton}></div>
-              {isM ? <div className="number">(1/5)</div> : null}
+              {/* {isM ? <div className="number">(1/{cards.length})</div> : null} */}
               <div className="next" ref={rightButton}></div>
             </div>
           </div>
@@ -146,8 +180,14 @@ const PopupStyle = styled.div`
         0 calc(100% - 50px),
         0 50px
       );
-      background: linear-gradient(-45deg, transparent 36px, rgba(4, 10, 58, 0.3) 0) bottom right,
-        linear-gradient(45deg, transparent 36px, rgba(4, 10, 58, 0.3) 0) bottom left,
+      background: linear-gradient(
+            -45deg,
+            transparent 36px,
+            rgba(4, 10, 58, 0.3) 0
+          )
+          bottom right,
+        linear-gradient(45deg, transparent 36px, rgba(4, 10, 58, 0.3) 0) bottom
+          left,
         linear-gradient(135deg, #33bfeb 36px, rgba(4, 10, 58, 0.3) 0) top left,
         linear-gradient(-135deg, #33bfeb 36px, rgba(4, 10, 58, 0.3) 0) top right;
       background-size: 50% 51%;
@@ -214,7 +254,11 @@ const PopupStyle = styled.div`
             top: -34px;
             width: 150%;
             height: 150%;
-            background: linear-gradient(90deg, #ffdf70 54%, rgba(255, 223, 112, 0) 100%);
+            background: linear-gradient(
+              90deg,
+              #ffdf70 54%,
+              rgba(255, 223, 112, 0) 100%
+            );
             border-radius: 1px;
             transform: rotate(45deg);
           }
@@ -237,7 +281,11 @@ const PopupStyle = styled.div`
             top: 8px;
             width: 150%;
             height: 150%;
-            background: linear-gradient(to left, #ffdf70 54%, rgba(255, 223, 112, 0) 100%);
+            background: linear-gradient(
+              to left,
+              #ffdf70 54%,
+              rgba(255, 223, 112, 0) 100%
+            );
             border-radius: 1px;
             transform: rotate(45deg);
           }
@@ -308,7 +356,11 @@ const PopupStyle = styled.div`
       -webkit-transform: rotate(-138deg);
       -ms-transform: rotate(-138deg);
       transform: rotate(-138deg);
-      background: linear-gradient(to bottom, #eb3f3f 66%, rgba(235, 63, 63, 0) 130.7%);
+      background: linear-gradient(
+        to bottom,
+        #eb3f3f 66%,
+        rgba(235, 63, 63, 0) 130.7%
+      );
 
       .close-button {
         position: absolute;
@@ -353,11 +405,18 @@ const PopupStyle = styled.div`
           0 calc(100% - 0.5rem),
           0 0.5rem
         );
-        background: linear-gradient(-45deg, transparent 0.26rem, rgba(4, 10, 58, 0.3) 0) bottom
-            right,
-          linear-gradient(45deg, transparent 0.26rem, rgba(4, 10, 58, 0.3) 0) bottom left,
-          linear-gradient(135deg, #33bfeb 0.26rem, rgba(4, 10, 58, 0.3) 0) top left,
-          linear-gradient(-135deg, #33bfeb 0.26rem, rgba(4, 10, 58, 0.3) 0) top right;
+        background: linear-gradient(
+              -45deg,
+              transparent 0.26rem,
+              rgba(4, 10, 58, 0.3) 0
+            )
+            bottom right,
+          linear-gradient(45deg, transparent 0.26rem, rgba(4, 10, 58, 0.3) 0)
+            bottom left,
+          linear-gradient(135deg, #33bfeb 0.26rem, rgba(4, 10, 58, 0.3) 0) top
+            left,
+          linear-gradient(-135deg, #33bfeb 0.26rem, rgba(4, 10, 58, 0.3) 0) top
+            right;
         border-top: 0.05rem solid #33bfeb;
         ::before,
         ::after {
@@ -475,7 +534,11 @@ const PopupStyle = styled.div`
           top: 0.2rem;
           width: 1rem;
           height: 1rem;
-          background: linear-gradient(to top, #eb3f3f -30%, rgba(235, 63, 63, 0) 78.7%);
+          background: linear-gradient(
+            to top,
+            #eb3f3f -30%,
+            rgba(235, 63, 63, 0) 78.7%
+          );
           border-radius: 0;
           .close-button {
             left: 0.25rem;

@@ -1,4 +1,10 @@
-import React, { useState, useRef, useEffect, useMemo, useCallback } from "react";
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  useMemo,
+  useCallback,
+} from "react";
 import styled from "styled-components";
 import mobile_wholeBg from "../../assets/Phone-config/bg1.jpg"; // mobile 整体背景图
 import isMobile from "is-mobile";
@@ -16,7 +22,10 @@ import { getContract } from "../../utils/erc20";
 import coinLogo from "src/assets/imgs/logo/logo1024.svg";
 import heoEthLogo from "src/assets/imgs/heo_eth.png";
 import useTokenBalance from "src/hooks/useTokenBalance";
-import { getFullDisplayBalance, getDisplayBalance } from "src/utils/formatBalance";
+import {
+  getFullDisplayBalance,
+  getDisplayBalance,
+} from "src/utils/formatBalance";
 import useETHBalance from "src/hooks/useETHBalance";
 import BigNumber from "bignumber.js";
 import useStakedBalance from "src/hooks/useStakedBalance";
@@ -50,7 +59,11 @@ const Withdraw: React.FC<{}> = () => {
   const stakedBalance = useStakedBalance(farm.pid);
 
   const fullStakedBalance = useMemo(() => {
-    return getFullDisplayBalance(stakedBalance, farm.decimals, farm.showDecimals);
+    return getFullDisplayBalance(
+      stakedBalance,
+      farm.decimals,
+      farm.showDecimals
+    );
   }, [stakedBalance, farm.decimals]);
 
   const handleWithdrawSelectMax = useCallback(() => {
@@ -115,7 +128,10 @@ const Withdraw: React.FC<{}> = () => {
             </div>
           </div>
           <div className="switch-content">
-            <div className="switch-item" style={{ display: current ? "block" : "none" }}>
+            <div
+              className="switch-item"
+              style={{ display: current ? "block" : "none" }}
+            >
               <div className="amount-box">
                 <div className="amount">Amount</div>
                 <div className="balance">
@@ -137,14 +153,22 @@ const Withdraw: React.FC<{}> = () => {
               <div className="weight-box">
                 <div className="weight">
                   Weight:
-                  <span>{farm.allocPoint}</span>
+                  <span>
+                    {" "}
+                    {new BigNumber(farm.allocPoint)
+                      .div(farm.totalPoolWeight)
+                      .toFixed(3)}{" "}
+                  </span>
                 </div>
                 <div className="est">
                   Est APR:<span>{farm.apy}</span>
                 </div>
               </div>
             </div>
-            <div className="switch-item" style={{ display: !current ? "block" : "none" }}>
+            <div
+              className="switch-item"
+              style={{ display: !current ? "block" : "none" }}
+            >
               {lockTime > 59 && (
                 <div className="lock-up">
                   <div className="left-lock">
@@ -159,7 +183,7 @@ const Withdraw: React.FC<{}> = () => {
                   </div>
                 </div>
               )}
-              <div className="lock">Lock up time：30days</div>
+              {/* <div className="lock">Lock up time：30days</div> */}
               <div className="amount-box">
                 <div className="amount">Amount</div>
                 <div className="balance">
@@ -185,7 +209,10 @@ const Withdraw: React.FC<{}> = () => {
               </div>
             </div>
           </div>
-          <div className="withdraw" onClick={pendingWithdraw ? () => {} : handleWithdraw}>
+          <div
+            className="withdraw"
+            onClick={pendingWithdraw ? () => {} : handleWithdraw}
+          >
             {pendingWithdraw ? "Pending WITHDRAW" : "WITHDRAW"}
           </div>
         </div>
@@ -218,8 +245,14 @@ const WithdrawStyle = styled.div`
       0 calc(100% - 35px),
       0 35px
     );
-    background: linear-gradient(-45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom right,
-      linear-gradient(45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom left,
+    background: linear-gradient(
+          -45deg,
+          transparent 23px,
+          rgba(4, 10, 58, 0.3) 0
+        )
+        bottom right,
+      linear-gradient(45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom
+        left,
       linear-gradient(135deg, #2cb0de 26px, rgba(4, 10, 58, 0.3) 0) top left,
       linear-gradient(-135deg, #2cb0de 26px, rgba(4, 10, 58, 0.3) 0) top right;
     background-size: 50% 50%;
@@ -334,7 +367,11 @@ const WithdrawStyle = styled.div`
               rgba(162, 183, 255, 0.8)
             )
             20 20;
-          border-image: linear-gradient(to right, rgba(85, 121, 255, 0.8), rgba(162, 183, 255, 0.8))
+          border-image: linear-gradient(
+              to right,
+              rgba(85, 121, 255, 0.8),
+              rgba(162, 183, 255, 0.8)
+            )
             20 20;
           > input {
             width: 90%;
@@ -516,7 +553,11 @@ const WithdrawStyle = styled.div`
               rgba(162, 183, 255, 0.8)
             )
             20 20;
-          border-image: linear-gradient(to right, rgba(85, 121, 255, 0.8), rgba(162, 183, 255, 0.8))
+          border-image: linear-gradient(
+              to right,
+              rgba(85, 121, 255, 0.8),
+              rgba(162, 183, 255, 0.8)
+            )
             20 20;
           > input {
             width: 90%;
@@ -634,8 +675,14 @@ const WithdrawStyle = styled.div`
         0 0.38rem
       );
 
-      background: linear-gradient(-45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom right,
-        linear-gradient(45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom left,
+      background: linear-gradient(
+            -45deg,
+            transparent 23px,
+            rgba(4, 10, 58, 0.3) 0
+          )
+          bottom right,
+        linear-gradient(45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom
+          left,
         linear-gradient(135deg, #31bce8 0.28rem, transparent 0) top left,
         linear-gradient(-135deg, #31bce8 0.28rem, transparent 0);
       border-top: 0.05rem solid #2cb0de;

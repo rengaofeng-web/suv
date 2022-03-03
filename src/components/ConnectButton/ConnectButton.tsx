@@ -5,6 +5,9 @@ import { useWeb3React } from "@web3-react/core";
 import { injected, walletconnect } from "../../contexts/Metamask/connectors";
 // 导入图片
 import logo from "../../assets/PC-config/home/my-wallet_logo.svg";
+import useTokenBalance from "src/hooks/useTokenBalance";
+import { contractAddresses, supportedChainId } from "src/sushi/lib/constants";
+import { getDisplayBalance } from "src/utils/formatBalance";
 interface Props {
   change: Function;
 }
@@ -14,7 +17,16 @@ const ConnectButton: React.FC<Props> = (props) => {
 
   const context = useWeb3React<Web3Provider>();
 
-  const { connector, library, chainId, account, activate, deactivate, active, error } = context;
+  const {
+    connector,
+    library,
+    chainId,
+    account,
+    activate,
+    deactivate,
+    active,
+    error,
+  } = context;
   let [selectFlag, setSelectFlag] = useState(false);
   let flag = !!account; //登录状态切换，true 已登录 false未登录
 
@@ -35,24 +47,47 @@ const ConnectButton: React.FC<Props> = (props) => {
     };
   });
 
+  const sushiBalance = useTokenBalance(
+    contractAddresses.sushi[supportedChainId]
+  );
+
   return (
     <ButtonStyle>
       {/* 未登录状态 */}
-      <div className="connect" onClick={show_connect} style={{ display: flag ? "none" : "block" }}>
+      <div
+        className="connect"
+        onClick={show_connect}
+        style={{ display: flag ? "none" : "block" }}
+      >
         Connect
       </div>
       {/* 登录状态 */}
-      <div className="my-wallet" style={{ display: flag ? "block" : "none" }} onClick={show_Wallet}>
+      <div
+        className="my-wallet"
+        style={{ display: flag ? "block" : "none" }}
+        onClick={show_Wallet}
+      >
         My Wallet
         {/* select */}
-        <div className="select" style={{ display: selectFlag ? "block" : "none" }}>
+        <div
+          className="select"
+          style={{ display: selectFlag ? "block" : "none" }}
+        >
           <div className="top">
             {/* logo */}
             <img src={logo} alt="" className="myWallet-logo" />
-            <div className="money">123,123.1235</div>
+            <div className="money">
+              {getDisplayBalance(sushiBalance, 18, 2)}
+            </div>
           </div>
           <div className="content">
-            <div className="content-item active">View on Bscscan</div>
+            <a
+              target={"_blank"}
+              className="content-item active"
+              href={"http://www.snowtrace.io/address/" + account}
+            >
+              View on Bscscan
+            </a>
             <div
               className="content-item"
               onClick={() => {
@@ -172,6 +207,7 @@ const ButtonStyle = styled.div`
       .content {
         padding-top: 23px;
         .content-item {
+          display: block;
           width: 100%;
           height: 40px;
           margin-bottom: 12px;

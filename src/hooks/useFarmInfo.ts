@@ -56,7 +56,6 @@ const useFarmInfo = (pids: number[]) => {
       account || "0x61a6e964fe93DA08745F46A95Fe13BAc2a0f2289"
     );
 
-    // setFarmInfo(farmInfo1)
     return farmInfo1;
   }, [account, pids, sushi, masterChefAddress]);
 

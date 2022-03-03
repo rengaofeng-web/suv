@@ -16,7 +16,11 @@ import { useWallet } from "use-wallet";
 import ArrowPic from "src/assets/images/logo.svg";
 
 import useFarms from "src/hooks/useFarms";
-import { getEarned, getLocalCoinAddress, getMasterChefContract } from "src/sushi/utils";
+import {
+  getEarned,
+  getLocalCoinAddress,
+  getMasterChefContract,
+} from "src/sushi/utils";
 
 import useApprove from "src/hooks/useApprove";
 import useStakedBalance from "src/hooks/useStakedBalance";
@@ -51,101 +55,6 @@ interface DataItem {
 const Pool: React.FC<{}> = () => {
   const isM: boolean = isMobile();
   // 数据模拟
-  const listData: Array<DataItem> = [
-    {
-      id: 1,
-      logo: !isM
-        ? require("../../assets/PC-config/pool/SUV.svg").default
-        : require("../../assets/Phone-config/pool/SUV.svg").default,
-      pName: "SUV",
-      tvl: "$1,131,475,658.83",
-      apr: "41.61%",
-    },
-    {
-      id: 2,
-      logo: !isM
-        ? require("../../assets/PC-config/pool/SUV.svg").default
-        : require("../../assets/Phone-config/pool/SUV.svg").default,
-      angle_mark: !isM
-        ? require("../../assets/PC-config/pool/BUSD.svg").default
-        : require("../../assets/Phone-config/pool/BTCB.svg").default,
-      pName: "SUV-BUSD",
-      tvl: "$1,131,475,658.83",
-      apr: "41.61%",
-    },
-    {
-      id: 3,
-      logo: !isM
-        ? require("../../assets/PC-config/pool/BUSD.svg").default
-        : require("../../assets/Phone-config/pool/BTCB.svg").default,
-      pName: "BUSD",
-      tvl: "$1,131,475,658.83",
-      apr: "41.61%",
-    },
-    {
-      id: 4,
-      logo: !isM
-        ? require("../../assets/PC-config/pool/ETH.svg").default
-        : require("../../assets/Phone-config/pool/ETH.svg").default,
-      pName: "EHT",
-      tvl: "$1,131,475,658.83",
-      apr: "41.61%",
-    },
-    {
-      id: 5,
-      logo: !isM
-        ? require("../../assets/PC-config/pool/USDT.svg").default
-        : require("../../assets/Phone-config/pool/USDT.svg").default,
-      pName: "USDT",
-      tvl: "$1,131,475,658.83",
-      apr: "41.61%",
-    },
-    {
-      id: 6,
-      logo: !isM
-        ? require("../../assets/PC-config/pool/BNB.svg").default
-        : require("../../assets/Phone-config/pool/BNB.svg").default,
-      pName: "BNB",
-      tvl: "$1,131,475,658.83",
-      apr: "41.61%",
-    },
-    {
-      id: 7,
-      logo: !isM
-        ? require("../../assets/PC-config/pool/DAI.svg").default
-        : require("../../assets/Phone-config/pool/DAI.svg").default,
-      pName: "DAI",
-      tvl: "$1,131,475,658.83",
-      apr: "41.61%",
-    },
-    {
-      id: 8,
-      logo: !isM
-        ? require("../../assets/PC-config/pool/USDC.svg").default
-        : require("../../assets/Phone-config/pool/USDC.svg").default,
-      pName: "USDC",
-      tvl: "$1,131,475,658.83",
-      apr: "41.61%",
-    },
-    {
-      id: 9,
-      logo: !isM
-        ? require("../../assets/PC-config/pool/BTCB.svg").default
-        : require("../../assets/Phone-config/pool/BTCB.svg").default,
-      pName: "BTCB",
-      tvl: "$1,131,475,658.83",
-      apr: "41.61%",
-    },
-    {
-      id: 10,
-      logo: !isM
-        ? require("../../assets/PC-config/pool/CAKE.svg").default
-        : require("../../assets/Phone-config/pool/CAKE.svg").default,
-      pName: "CAKE",
-      tvl: "$1,131,475,658.83",
-      apr: "41.61%",
-    },
-  ];
   const { farmRows } = useFarmRows();
   return (
     <PoolStyle>
@@ -160,7 +69,7 @@ const Pool: React.FC<{}> = () => {
           ) : null}
           <div className="list">
             {farmRows
-              // .filter((item) => !item.nftType && item.poolType === 0)
+              .filter((item) => !item.nftType)
               .map((farm, j) => (
                 <PoolCard farm={farm} key={`${j}`} isM={isM} />
               ))}
@@ -173,7 +82,7 @@ const Pool: React.FC<{}> = () => {
 };
 
 interface FarmCardProps {
-  farm: FarmWithStakedValue;   
+  farm: FarmWithStakedValue;
   isM: boolean;
 }
 const lockDays = [0, 7, 14, 30, 180];
@@ -250,8 +159,14 @@ const PoolStyle = styled.div`
       0 calc(100% - 35px),
       0 35px
     );
-    background: linear-gradient(-45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom right,
-      linear-gradient(45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom left,
+    background: linear-gradient(
+          -45deg,
+          transparent 23px,
+          rgba(4, 10, 58, 0.3) 0
+        )
+        bottom right,
+      linear-gradient(45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom
+        left,
       linear-gradient(135deg, #2cb0de 26px, rgba(4, 10, 58, 0.3) 0) top left,
       linear-gradient(-135deg, #2cb0de 26px, rgba(4, 10, 58, 0.3) 0) top right;
     background-size: 50% 50%;
@@ -477,12 +392,24 @@ const PoolStyle = styled.div`
                   rgba(4, 10, 58, 0.3) 0
                 )
                 bottom right,
-              linear-gradient(45deg, rgba(51, 191, 235, 1) 0.28rem, rgba(4, 10, 58, 0.3) 0) bottom
-                left,
-              linear-gradient(135deg, rgba(51, 191, 235, 1) 0.28rem, rgba(4, 10, 58, 0.3) 0) top
-                left,
-              linear-gradient(-135deg, rgba(51, 191, 235, 1) 0.28rem, rgba(4, 10, 58, 0.3) 0) top
-                right;
+              linear-gradient(
+                  45deg,
+                  rgba(51, 191, 235, 1) 0.28rem,
+                  rgba(4, 10, 58, 0.3) 0
+                )
+                bottom left,
+              linear-gradient(
+                  135deg,
+                  rgba(51, 191, 235, 1) 0.28rem,
+                  rgba(4, 10, 58, 0.3) 0
+                )
+                top left,
+              linear-gradient(
+                  -135deg,
+                  rgba(51, 191, 235, 1) 0.28rem,
+                  rgba(4, 10, 58, 0.3) 0
+                )
+                top right;
             background-size: cover;
             background-repeat: no-repeat;
             border: 0.03rem solid rgba(51, 191, 235, 1);

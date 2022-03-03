@@ -12,7 +12,8 @@ const Farms: React.FC = ({ children }) => {
   const sushi = useSushi();
   const farms = getFarms(sushi);
   let pidArr = farms.map((item: Farm) => item.pid);
-  const { balances: stakedValue, totalW: totalPoolWeight } = useFarmInfo(pidArr);
+  const { balances: stakedValue, totalW: totalPoolWeight } =
+    useFarmInfo(pidArr);
   const [farmInfos, setFarmInfos] = useState([]);
   const block = useBlock();
   const getFarmInfos = async () => {
@@ -47,7 +48,9 @@ const Farms: React.FC = ({ children }) => {
     1;
     const realFarmApr =
       apyNum && apyNum.isLessThan(1000)
-        ? `${new BigNumber(apyNum.times(100).toFixed(0)).toNumber().toLocaleString("en-US")}%`
+        ? `${new BigNumber(apyNum.times(100).toFixed(0))
+            .toNumber()
+            .toLocaleString("en-US")}%`
         : "100,000%";
     return {
       ...farm,

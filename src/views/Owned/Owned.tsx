@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Swiper from "swiper";
 import "swiper/css/swiper.css";
@@ -10,10 +10,25 @@ import mobile_wholeBg from "../../assets/Phone-config/bg1.jpg"; // mobile 整体
 import feichuan5 from "../../assets/PC-config/NFT/feichuan5.png";
 import feichuan4 from "../../assets/PC-config/NFT/feichuan4.png";
 import feichuan3 from "../../assets/PC-config/NFT/feichuan3.png";
+import { useWallet } from "use-wallet";
+import useFarmRows from "src/hooks/useFarmRows";
+import { nftBalance } from "src/sushi/utils";
+import useStakedBalance from "src/hooks/useStakedBalance";
+import { Web3Provider } from "@ethersproject/providers";
+import { useWeb3React } from "@web3-react/core";
 const Owned: React.FC<{}> = () => {
   const isM: boolean = isMobile();
   const leftButton = useRef(null);
   const rightButton = useRef(null);
+  const { account } = useWallet();
+  const { farmRows } = useFarmRows();
+  const nftPools = farmRows.filter(
+    (item) => item.nftType && item.poolType === 3
+  );
+
+  const [cards, setCards] = useState([]);
+  const [loadingCards, setLoadingCards] = useState(false);
+
   useEffect(() => {
     let mySwiper = new Swiper(".owned-swiper", {
       loop: false,
@@ -40,26 +55,15 @@ const Owned: React.FC<{}> = () => {
           {/* swiper-no-swiping 阻止拖动 */}
           <div className="swiper-container swiper-no-swiping  owned-swiper">
             <div className="swiper-wrapper">
-              <div className="swiper-slide">
-                <img src={feichuan5} alt="" />
-                <div className="identifier">#13245</div>
-              </div>
-              <div className="swiper-slide">
-                <img src={feichuan4} alt="" />
-                <div className="identifier">#13245</div>
-              </div>
-              <div className="swiper-slide">
-                <img src={feichuan3} alt="" />
-                <div className="identifier">#13245</div>
-              </div>
-              <div className="swiper-slide">
-                <img src={feichuan3} alt="" />
-                <div className="identifier">#13245</div>
-              </div>
+              {nftPools.map((item: any, index: number) => {
+                return (
+                  <CardCon key={index} farm={item} nftAmount={cards[index]} />
+                );
+              })}
             </div>
           </div>
         </div>
-        <div className="number">(1/4)</div>
+        {/* <div className="number">(1/4)</div> */}
         <div className="controll">
           <div className="prev" ref={leftButton}></div>
           <div className="next" ref={rightButton}></div>
@@ -67,6 +71,36 @@ const Owned: React.FC<{}> = () => {
       </div>
       <Footer></Footer>
     </OwnedSttyle>
+  );
+};
+
+const CardCon = (props: any) => {
+  const context = useWeb3React<any>();
+  const {
+    connector,
+    library,
+    chainId: chainId2,
+    account,
+    activate: connect,
+    deactivate,
+    active,
+    error,
+  } = context;
+  const stakedBalance = useStakedBalance(props.farm.pid);
+  const [nftAmount, setNftAmount] = useState("0");
+  const fetchNFTAmount = async () => {
+    const result = await nftBalance(props.farm.tokenContract, account);
+    setNftAmount(result.toString());
+  };
+  useEffect(() => {
+    fetchNFTAmount();
+  }, [props.farm]);
+  return (
+    <div className="swiper-slide">
+      <img src={props.farm.icon} alt="" />
+      <div className="identifier">{props.farm.symbolShowing}</div>
+      <div className="identifier2">{nftAmount?.toString()}</div>
+    </div>
   );
 };
 // owned style start
@@ -81,11 +115,21 @@ const OwnedSttyle = styled.div`
     width: 1200px;
     height: 650px;
     margin: 176px auto;
-    background: linear-gradient(180deg, rgba(5, 22, 43, 0.8) 0%, rgba(5, 22, 43, 0.24) 106.72%);
+    background: linear-gradient(
+      180deg,
+      rgba(5, 22, 43, 0.8) 0%,
+      rgba(5, 22, 43, 0.24) 106.72%
+    );
     box-shadow: inset 0px 0px 60px #00a3ff;
     backdrop-filter: blur(10px);
-    background: linear-gradient(-45deg, transparent 36px, rgba(4, 10, 58, 0.3) 0) bottom right,
-      linear-gradient(45deg, transparent 36px, rgba(4, 10, 58, 0.3) 0) bottom left,
+    background: linear-gradient(
+          -45deg,
+          transparent 36px,
+          rgba(4, 10, 58, 0.3) 0
+        )
+        bottom right,
+      linear-gradient(45deg, transparent 36px, rgba(4, 10, 58, 0.3) 0) bottom
+        left,
       linear-gradient(135deg, #2f9ad7 37px, rgba(4, 10, 58, 0.3) 0) top left,
       linear-gradient(-135deg, #2f9ad7 38px, rgba(4, 10, 58, 0.3) 0) top right;
     background-size: 50% 50%;
@@ -154,7 +198,19 @@ const OwnedSttyle = styled.div`
         .identifier {
           position: absolute;
           right: 116px;
-          bottom: 43px;
+          bottom: 63px;
+          font-family: Roboto;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 16px;
+          color: #ffffff;
+          text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+        .identifier2 {
+          position: absolute;
+          left: 56px;
+          bottom: 63px;
           font-family: Roboto;
           font-style: normal;
           font-weight: 500;
@@ -198,7 +254,11 @@ const OwnedSttyle = styled.div`
         top: -34px;
         width: 150%;
         height: 150%;
-        background: linear-gradient(90deg, #ffdf70 54%, rgba(255, 223, 112, 0) 100%);
+        background: linear-gradient(
+          90deg,
+          #ffdf70 54%,
+          rgba(255, 223, 112, 0) 100%
+        );
         border-radius: 1px;
         transform: rotate(45deg);
       }
@@ -221,7 +281,11 @@ const OwnedSttyle = styled.div`
         top: 8px;
         width: 150%;
         height: 150%;
-        background: linear-gradient(to left, #ffdf70 54%, rgba(255, 223, 112, 0) 100%);
+        background: linear-gradient(
+          to left,
+          #ffdf70 54%,
+          rgba(255, 223, 112, 0) 100%
+        );
         border-radius: 1px;
         transform: rotate(45deg);
       }
@@ -263,10 +327,18 @@ const OwnedSttyle = styled.div`
       background: none;
       backdrop-filter: blur(0px);
       margin: 2.36rem auto 2rem;
-      background: linear-gradient(-45deg, transparent 0.36rem, rgba(4, 10, 58, 0.2) 0) bottom right,
-        linear-gradient(45deg, transparent 0.36rem, rgba(4, 10, 58, 0.2) 0) bottom left,
-        linear-gradient(135deg, #2f9ad7 0.36rem, rgba(4, 10, 58, 0.2) 0) top left,
-        linear-gradient(-135deg, #2f9ad7 0.36rem, rgba(4, 10, 58, 0.2) 0) top right;
+      background: linear-gradient(
+            -45deg,
+            transparent 0.36rem,
+            rgba(4, 10, 58, 0.2) 0
+          )
+          bottom right,
+        linear-gradient(45deg, transparent 0.36rem, rgba(4, 10, 58, 0.2) 0)
+          bottom left,
+        linear-gradient(135deg, #2f9ad7 0.36rem, rgba(4, 10, 58, 0.2) 0) top
+          left,
+        linear-gradient(-135deg, #2f9ad7 0.36rem, rgba(4, 10, 58, 0.2) 0) top
+          right;
       -webkit-clip-path: polygon(
         0.5rem 0px,
         calc(100% - 0.5rem) 0,
