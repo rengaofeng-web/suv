@@ -22,9 +22,8 @@ const Owned: React.FC<{}> = () => {
   const rightButton = useRef(null);
   const { account } = useWallet();
   const { farmRows } = useFarmRows();
-  const nftPools = farmRows.filter(
-    (item) => item.nftType && item.poolType === 3
-  );
+
+  const nftPools = farmRows.filter((item) => item.nftType && item.poolType === 3);
 
   const [cards, setCards] = useState([]);
   const [loadingCards, setLoadingCards] = useState(false);
@@ -56,9 +55,7 @@ const Owned: React.FC<{}> = () => {
           <div className="swiper-container swiper-no-swiping  owned-swiper">
             <div className="swiper-wrapper">
               {nftPools.map((item: any, index: number) => {
-                return (
-                  <CardCon key={index} farm={item} nftAmount={cards[index]} />
-                );
+                return <CardCon key={index} farm={item} nftAmount={cards[index]} />;
               })}
             </div>
           </div>
@@ -98,8 +95,10 @@ const CardCon = (props: any) => {
   return (
     <div className="swiper-slide">
       <img src={props.farm.icon} alt="" />
-      <div className="identifier">{props.farm.symbolShowing}</div>
-      <div className="identifier2">{nftAmount?.toString()}</div>
+      <div className="identifier">
+        {props.farm.symbolShowing}
+        <div className="identifier2">{nftAmount?.toString()}</div>
+      </div>
     </div>
   );
 };
@@ -115,21 +114,11 @@ const OwnedSttyle = styled.div`
     width: 1200px;
     height: 650px;
     margin: 176px auto;
-    background: linear-gradient(
-      180deg,
-      rgba(5, 22, 43, 0.8) 0%,
-      rgba(5, 22, 43, 0.24) 106.72%
-    );
+    background: linear-gradient(180deg, rgba(5, 22, 43, 0.8) 0%, rgba(5, 22, 43, 0.24) 106.72%);
     box-shadow: inset 0px 0px 60px #00a3ff;
     backdrop-filter: blur(10px);
-    background: linear-gradient(
-          -45deg,
-          transparent 36px,
-          rgba(4, 10, 58, 0.3) 0
-        )
-        bottom right,
-      linear-gradient(45deg, transparent 36px, rgba(4, 10, 58, 0.3) 0) bottom
-        left,
+    background: linear-gradient(-45deg, transparent 36px, rgba(4, 10, 58, 0.3) 0) bottom right,
+      linear-gradient(45deg, transparent 36px, rgba(4, 10, 58, 0.3) 0) bottom left,
       linear-gradient(135deg, #2f9ad7 37px, rgba(4, 10, 58, 0.3) 0) top left,
       linear-gradient(-135deg, #2f9ad7 38px, rgba(4, 10, 58, 0.3) 0) top right;
     background-size: 50% 50%;
@@ -209,8 +198,8 @@ const OwnedSttyle = styled.div`
         }
         .identifier2 {
           position: absolute;
-          left: 56px;
-          bottom: 63px;
+          left: -20px;
+          bottom: 0px;
           font-family: Roboto;
           font-style: normal;
           font-weight: 500;
@@ -254,11 +243,7 @@ const OwnedSttyle = styled.div`
         top: -34px;
         width: 150%;
         height: 150%;
-        background: linear-gradient(
-          90deg,
-          #ffdf70 54%,
-          rgba(255, 223, 112, 0) 100%
-        );
+        background: linear-gradient(90deg, #ffdf70 54%, rgba(255, 223, 112, 0) 100%);
         border-radius: 1px;
         transform: rotate(45deg);
       }
@@ -281,11 +266,7 @@ const OwnedSttyle = styled.div`
         top: 8px;
         width: 150%;
         height: 150%;
-        background: linear-gradient(
-          to left,
-          #ffdf70 54%,
-          rgba(255, 223, 112, 0) 100%
-        );
+        background: linear-gradient(to left, #ffdf70 54%, rgba(255, 223, 112, 0) 100%);
         border-radius: 1px;
         transform: rotate(45deg);
       }
@@ -327,18 +308,10 @@ const OwnedSttyle = styled.div`
       background: none;
       backdrop-filter: blur(0px);
       margin: 2.36rem auto 2rem;
-      background: linear-gradient(
-            -45deg,
-            transparent 0.36rem,
-            rgba(4, 10, 58, 0.2) 0
-          )
-          bottom right,
-        linear-gradient(45deg, transparent 0.36rem, rgba(4, 10, 58, 0.2) 0)
-          bottom left,
-        linear-gradient(135deg, #2f9ad7 0.36rem, rgba(4, 10, 58, 0.2) 0) top
-          left,
-        linear-gradient(-135deg, #2f9ad7 0.36rem, rgba(4, 10, 58, 0.2) 0) top
-          right;
+      background: linear-gradient(-45deg, transparent 0.36rem, rgba(4, 10, 58, 0.2) 0) bottom right,
+        linear-gradient(45deg, transparent 0.36rem, rgba(4, 10, 58, 0.2) 0) bottom left,
+        linear-gradient(135deg, #2f9ad7 0.36rem, rgba(4, 10, 58, 0.2) 0) top left,
+        linear-gradient(-135deg, #2f9ad7 0.36rem, rgba(4, 10, 58, 0.2) 0) top right;
       -webkit-clip-path: polygon(
         0.5rem 0px,
         calc(100% - 0.5rem) 0,
@@ -365,7 +338,7 @@ const OwnedSttyle = styled.div`
           left: -0.51rem;
           top: 0;
           width: 2rem;
-          height: 0.03rem;
+          height: 0.02rem;
           background: #2fb8e5;
           transform: rotate(-45deg);
         }
@@ -375,7 +348,7 @@ const OwnedSttyle = styled.div`
           right: -0.51rem;
           top: 0;
           width: 2rem;
-          height: 0.03rem;
+          height: 0.02rem;
           background: #2fb8e5;
           transform: rotate(45deg);
         }
@@ -391,6 +364,18 @@ const OwnedSttyle = styled.div`
               right: 0.85rem;
               bottom: 0.48rem;
               font-size: 0.2rem;
+            }
+            .identifier2 {
+              position: absolute;
+              left: -0.3rem;
+              bottom: 0.16rem;
+              font-family: Roboto;
+              font-style: normal;
+              font-weight: 500;
+              font-size: 0.2rem;
+              line-height: 0;
+              color: #ffffff;
+              text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
             }
             img {
               width: 100%;

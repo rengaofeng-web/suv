@@ -4,6 +4,7 @@ import styled from "styled-components";
 import isMobile from "is-mobile";
 import Swiper from "swiper";
 import "swiper/css/swiper.css";
+import { useHistory } from "react-router-dom";
 // pc图片导入
 import feichuan5 from "../../assets/PC-config/NFT/feichuan5.png";
 import feichuan4 from "../../assets/PC-config/NFT/feichuan4.png";
@@ -24,9 +25,12 @@ interface Props {
 }
 const SuvBoxPopup: React.FC<Props> = ({ nftNumber, events, reset, change }) => {
   const { account } = useWallet();
+  const history = useHistory();
   const isM: boolean = isMobile();
   const leftButton = useRef(null);
   const rightButton = useRef(null);
+  const layout = useRef(null);
+  const prize = useRef(null);
   let show = sessionStorage.getItem("showNftPopup")
     ? Number(sessionStorage.getItem("showNftPopup"))
     : 0;
@@ -54,9 +58,7 @@ const SuvBoxPopup: React.FC<Props> = ({ nftNumber, events, reset, change }) => {
     sessionStorage.setItem("showNftPopup", "0");
   };
 
-  let nftPools = events
-    .slice(1, events.length)
-    .filter((item) => item?.raw?.topics?.length === 4);
+  let nftPools = events.slice(1, events.length).filter((item) => item?.raw?.topics?.length === 4);
   const [cards, setCards] = useState([]);
   const [loadingCards, setLoadingCards] = useState(false);
   const [showItems, setShowItems] = useState([]);
@@ -64,16 +66,11 @@ const SuvBoxPopup: React.FC<Props> = ({ nftNumber, events, reset, change }) => {
     if (events.length < 1) {
       return;
     }
-
     setLoadingCards(true);
-
     let cards1: any[] = [];
     for (let a = 0; a < nftPools.length; a++) {
       for (let b = 0; b < supportedPools.length; b++) {
-        if (
-          nftPools[a].address ===
-          supportedPools[b].tokenAddresses[supportedChainId]
-        ) {
+        if (nftPools[a].address === supportedPools[b].tokenAddresses[supportedChainId]) {
           cards1.push({
             ...supportedPools[b],
             index: new BigNumber(nftPools[a].raw.topics[3]).toString(10),
@@ -89,6 +86,18 @@ const SuvBoxPopup: React.FC<Props> = ({ nftNumber, events, reset, change }) => {
   useEffect(() => {
     fetchNftAmountPools();
   }, [nftPools[0]?.address, account]);
+  // useEffect(() => {
+  //   let Layout = layout.current as HTMLDivElement;
+  //   let Prize = prize.current as HTMLDivElement;
+  //   // if (isM) {
+  //   //   if (nftPools.length === 1) {
+  //   //     Prize.style.width = "auto";
+  //   //     Layout.style.display = "flex";
+  //   //     Layout.style.justifyContent = "center";
+  //   //     Layout.style.paddingRight = "0";
+  //   //   }
+  //   // }
+  // });
   return (
     <PopupStyle style={{ display: show ? "block" : "none" }}>
       <div className="popup-mask">
@@ -97,9 +106,9 @@ const SuvBoxPopup: React.FC<Props> = ({ nftNumber, events, reset, change }) => {
             Congratulation!
             {/* {!isM ? <span>(1/{cards.length})</span> : null} */}
           </div>
-          <div className="prize-exhibition">
+          <div className="prize-exhibition" ref={layout}>
             {/* swiper-no-swiping  阻止拖动*/}
-            <div className="prize ">
+            <div className="prize" ref={prize}>
               <div className="swiper-container popup-swiper swiper-no-swiping">
                 <div className="swiper-wrapper ">
                   {cards.map((item, index) => {
@@ -127,7 +136,8 @@ const SuvBoxPopup: React.FC<Props> = ({ nftNumber, events, reset, change }) => {
               className="stake"
               onClick={() => {
                 close();
-                Control.go("/nftFarams");
+                // Control.go("/nftFarams");
+                history.push("/history");
               }}
             >
               Stake
@@ -180,14 +190,8 @@ const PopupStyle = styled.div`
         0 calc(100% - 50px),
         0 50px
       );
-      background: linear-gradient(
-            -45deg,
-            transparent 36px,
-            rgba(4, 10, 58, 0.3) 0
-          )
-          bottom right,
-        linear-gradient(45deg, transparent 36px, rgba(4, 10, 58, 0.3) 0) bottom
-          left,
+      background: linear-gradient(-45deg, transparent 36px, rgba(4, 10, 58, 0.3) 0) bottom right,
+        linear-gradient(45deg, transparent 36px, rgba(4, 10, 58, 0.3) 0) bottom left,
         linear-gradient(135deg, #33bfeb 36px, rgba(4, 10, 58, 0.3) 0) top left,
         linear-gradient(-135deg, #33bfeb 36px, rgba(4, 10, 58, 0.3) 0) top right;
       background-size: 50% 51%;
@@ -254,11 +258,7 @@ const PopupStyle = styled.div`
             top: -34px;
             width: 150%;
             height: 150%;
-            background: linear-gradient(
-              90deg,
-              #ffdf70 54%,
-              rgba(255, 223, 112, 0) 100%
-            );
+            background: linear-gradient(90deg, #ffdf70 54%, rgba(255, 223, 112, 0) 100%);
             border-radius: 1px;
             transform: rotate(45deg);
           }
@@ -281,11 +281,7 @@ const PopupStyle = styled.div`
             top: 8px;
             width: 150%;
             height: 150%;
-            background: linear-gradient(
-              to left,
-              #ffdf70 54%,
-              rgba(255, 223, 112, 0) 100%
-            );
+            background: linear-gradient(to left, #ffdf70 54%, rgba(255, 223, 112, 0) 100%);
             border-radius: 1px;
             transform: rotate(45deg);
           }
@@ -356,11 +352,7 @@ const PopupStyle = styled.div`
       -webkit-transform: rotate(-138deg);
       -ms-transform: rotate(-138deg);
       transform: rotate(-138deg);
-      background: linear-gradient(
-        to bottom,
-        #eb3f3f 66%,
-        rgba(235, 63, 63, 0) 130.7%
-      );
+      background: linear-gradient(to bottom, #eb3f3f 66%, rgba(235, 63, 63, 0) 130.7%);
 
       .close-button {
         position: absolute;
@@ -405,18 +397,11 @@ const PopupStyle = styled.div`
           0 calc(100% - 0.5rem),
           0 0.5rem
         );
-        background: linear-gradient(
-              -45deg,
-              transparent 0.26rem,
-              rgba(4, 10, 58, 0.3) 0
-            )
-            bottom right,
-          linear-gradient(45deg, transparent 0.26rem, rgba(4, 10, 58, 0.3) 0)
-            bottom left,
-          linear-gradient(135deg, #33bfeb 0.26rem, rgba(4, 10, 58, 0.3) 0) top
-            left,
-          linear-gradient(-135deg, #33bfeb 0.26rem, rgba(4, 10, 58, 0.3) 0) top
-            right;
+        background: linear-gradient(-45deg, transparent 0.26rem, rgba(4, 10, 58, 0.3) 0) bottom
+            right,
+          linear-gradient(45deg, transparent 0.26rem, rgba(4, 10, 58, 0.3) 0) bottom left,
+          linear-gradient(135deg, #33bfeb 0.26rem, rgba(4, 10, 58, 0.3) 0) top left,
+          linear-gradient(-135deg, #33bfeb 0.26rem, rgba(4, 10, 58, 0.3) 0) top right;
         border-top: 0.05rem solid #33bfeb;
         ::before,
         ::after {
@@ -471,7 +456,7 @@ const PopupStyle = styled.div`
           .controll {
             position: absolute;
             left: 1.6rem;
-            bottom: -1rem;
+            bottom: -0.5rem;
             display: flex;
             .number {
               padding-left: 0.72rem;
@@ -484,10 +469,14 @@ const PopupStyle = styled.div`
               letter-spacing: 0.135em;
               color: #57f4f4;
             }
-            .prev,
+            .prev {
+              position: absolute;
+              left: -0.33rem;
+              top: 0;
+            }
             .next {
-              position: relative;
-              left: 0;
+              position: absolute;
+              left: 3.2rem;
               top: 0;
             }
             .prev {
@@ -534,11 +523,7 @@ const PopupStyle = styled.div`
           top: 0.2rem;
           width: 1rem;
           height: 1rem;
-          background: linear-gradient(
-            to top,
-            #eb3f3f -30%,
-            rgba(235, 63, 63, 0) 78.7%
-          );
+          background: linear-gradient(to top, #eb3f3f -30%, rgba(235, 63, 63, 0) 78.7%);
           border-radius: 0;
           .close-button {
             left: 0.25rem;

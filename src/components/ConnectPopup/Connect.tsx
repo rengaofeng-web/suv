@@ -16,7 +16,7 @@ interface Props {
 const Connect: React.FC<Props> = (props) => {
   const context = useWeb3React<Web3Provider>();
 
-  let { change } = props;
+  let { change } = props;    
   let show = sessionStorage.getItem("show") ? Number(sessionStorage.getItem("show")) : 0;
   // 登录点击 ×
   const closeConnect = () => {

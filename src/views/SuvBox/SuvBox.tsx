@@ -715,7 +715,7 @@ const SuvBoxStyle = styled.div`
             padding-top: 0.19rem;
           }
           .subtotal {
-            padding-top: 1.3rem;
+            padding-top: 1rem;
             font-size: 0.24rem;
           }
           .quantity {

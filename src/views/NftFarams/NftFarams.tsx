@@ -746,8 +746,8 @@ const FaramsStyle = styled.div`
           rgba(4, 10, 58, 0.3) 169.32%
         );
         box-shadow: inset 0px 0px 0.6rem #00a3ff;
-        border-top: 0.03rem solid #34c0ec;
-        border-bottom: 0.03rem solid #1883b9;
+        border-top: 2px solid #34c0ec;
+        border-bottom: 2px solid #1883b9;
         box-sizing: border-box;
         padding-left: 0.33rem;
         padding-right: 0.33rem;
@@ -836,7 +836,7 @@ const FaramsStyle = styled.div`
                 );
                 padding: 0.29rem 0px 0 0.45rem;
                 box-shadow: inset 0px 0px 0.2rem rgb(57 231 199 / 50%);
-                border-top: 0.03rem solid #19d3df;
+                border-top: 2px solid #19d3df;
                 .earned-number {
                   font-size: 0.26rem;
                   .number {
@@ -892,7 +892,7 @@ const FaramsStyle = styled.div`
               left: -0.2rem;
               bottom: 0.1rem;
               width: 0.87rem;
-              height: 0.03rem;
+              height: .02rem;
               transform: rotate(35deg);
             }
             .right-border {
@@ -912,7 +912,7 @@ const FaramsStyle = styled.div`
                 0 calc(100% - 0.3rem),
                 0 0.27rem
               );
-              border-bottom: 0.03rem solid #19d6e2;
+              border-bottom: 1.5px solid #19d6e2;
               padding: 0.34rem 0.4rem 0;
 
               .switch-head {
