@@ -7,7 +7,7 @@ import Footer from "../../components/Footer/Footer"; //footer
 import useSushi from "src/hooks/useSushi";
 import { Web3Provider } from "@ethersproject/providers";
 import { useWeb3React } from "@web3-react/core";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { useWallet } from "use-wallet";
 import { provider } from "web3-core";
 import useFarm from "../../hooks/useFarm";
@@ -30,7 +30,7 @@ import useStakedBoostAmount from "src/hooks/useStakedBoostAmount";
 import useApprove from "src/hooks/useApprove";
 const Stake: React.FC<{}> = () => {
   const { farmId } = useParams();
-
+  const history = useHistory();
   const farm = useFarm(farmId);
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -211,7 +211,12 @@ const Stake: React.FC<{}> = () => {
       <div className="content-box">
         <div className="head">
           <div className="left-logo">
-            <div className="logo-border">
+            <div
+              className="logo-border"
+              onClick={() => {
+                history.goBack();
+              }}
+            >
               <div className="logo">
                 <img src={farm.icon} alt="" />
               </div>
@@ -243,7 +248,7 @@ const Stake: React.FC<{}> = () => {
               <div className="amount-box">
                 <div className="amount">Amount</div>
                 <div className="balance">
-                  Balance:
+                  Available:
                   <span>{fullBalance} </span>
                 </div>
               </div>
@@ -260,7 +265,7 @@ const Stake: React.FC<{}> = () => {
               </div>
               <div className="weight-box">
                 <div className="weight">
-                  Weight:
+                  Boost:
                   <span>
                     {" "}
                     {new BigNumber(farm.allocPoint).div(farm.totalPoolWeight).toFixed(3)}{" "}
@@ -277,7 +282,7 @@ const Stake: React.FC<{}> = () => {
                   Lovk for:<span>{dragValue} WEEK</span>
                 </div>
                 <div className="weight">
-                  Weight:
+                  Boost:
                   <span>
                     {" "}
                     {new BigNumber(farm.allocPoint).div(farm.totalPoolWeight).toFixed(3)}{" "}
@@ -297,7 +302,7 @@ const Stake: React.FC<{}> = () => {
               <div className="amount-box">
                 <div className="amount">Amount</div>
                 <div className="balance">
-                  Balance:
+                  Available:
                   <span>{fullBalance} </span>
                 </div>
               </div>
@@ -385,6 +390,7 @@ const StakeStyle = styled.div`
           rgba(109, 255, 229, 0.1)
         );
         border-radius: 50%;
+        cursor: pointer;
       }
       .logo {
         height: 66.5px;

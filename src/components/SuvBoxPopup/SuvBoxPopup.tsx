@@ -52,7 +52,7 @@ const SuvBoxPopup: React.FC<Props> = ({ nftNumber, events, reset, change }) => {
       };
     }
   });
-  // 关闭窗口
+  // 关闭窗口  
   const close = () => {
     change();
     sessionStorage.setItem("showNftPopup", "0");

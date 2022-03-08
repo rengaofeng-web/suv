@@ -36,11 +36,11 @@ const Home: React.FC = (props) => {
               </div>
               <div className="right-text">
                 {!isM ? <div className="sanjiao"></div> : null}
-                <div className="title">Build the perfect team</div>
+                <div className="title">What is survivor?</div>
                 <div className="article">
-                  Draft your starters. Challenge to be the best. Outsmart and counter your opponents
-                  strategically to place rank in competition. Earn $ILV through play, and become
-                  part of our community-based governance.
+                  Survivor is an open world survival game running on Avalanche. Players will
+                  cooperate or fight against each other for resources needed to survive. You can
+                  choose between being a peacemaker or a space slaughter. It’s your call.
                 </div>
               </div>
             </div>
@@ -55,11 +55,12 @@ const Home: React.FC = (props) => {
             <div className="content">
               <div className="left-text">
                 {!isM ? <div className="sanjiao"></div> : null}
-                <div className="title">Build the perfect team</div>
+                <div className="title">What can you do in Survivor’s world</div>
                 <div className="article">
-                  Draft your starters. Challenge to be the best. Outsmart and counter your opponents
-                  strategically to place rank in competition. Earn $ILV through play, and become
-                  part of our community-based governance.
+                  The game centers around three pillars: survival,exploration and trading. Players
+                  are free to explore the entirety of a algorithmically generated universe. You can
+                  advance in the game by mining, fighting, buying and selling resources with other
+                  players and NPCs.
                 </div>
               </div>
               <div className="right-img">
@@ -80,11 +81,12 @@ const Home: React.FC = (props) => {
               </div>
               <div className="right-text">
                 {!isM ? <div className="sanjiao"></div> : null}
-                <div className="title">Build the perfect team</div>
+                <div className="title">Spaceship</div>
                 <div className="article">
-                  Draft your starters. Challenge to be the best. Outsmart and counter your opponents
-                  strategically to place rank in competition. Earn $ILV through play, and become
-                  part of our community-based governance.
+                  The spaceship, which functions as the core of the game, is a vehicle used to rove
+                  in the galaxy of Survivor, battle enemy forces, extracting mineral, and for many
+                  other purposes. Weapons, shield boosters, warfare devices are all equitable and
+                  presented in the form of NFTs.
                 </div>
               </div>
             </div>
@@ -121,7 +123,6 @@ const HomeStyle = styled.div`
     .content-top {
       position: absolute;
       width: 100%;
-      height: 474px;
       top: 100px;
       background: linear-gradient(
         89.9deg,
@@ -135,7 +136,10 @@ const HomeStyle = styled.div`
         margin: auto;
       }
       .content {
-        padding-left: 379px;
+        /* padding-left: 379px; */
+        width: 1200px;
+        margin: auto;
+        overflow-x: hidden;
         padding-top: 60px;
         display: flex;
         .left-img {
@@ -143,12 +147,12 @@ const HomeStyle = styled.div`
         .right-text {
           position: relative;
           transform: translate(-50px, 0);
-          width: 500px;
+          /* width: 500px; */
           .sanjiao {
             width: 252px;
             height: 255px;
             position: absolute;
-            left: -25px;
+            left: -6px;
             transform: matrix(1, 0, 0, -1, 0, 0);
             overflow: hidden;
             transform: rotate(30deg) translate(41px, -104px) skew(-35deg);
@@ -209,20 +213,21 @@ const HomeStyle = styled.div`
         margin: auto;
       }
       .content {
-        padding-left: 379px;
         padding-top: 60px;
+        width: 1200px;
+        margin: auto;
         display: flex;
-        /* align-items: center; */
         .right-img {
+          position: absolute;
+          right: -100px;
         }
         position: relative;
         transform: translate(-50px, 0);
-        width: 500px;
         .sanjiao {
           width: 252px;
           height: 255px;
           position: absolute;
-          left: 357px;
+          left: 48px;
           transform: matrix(1, 0, 0, -1, 0, 0);
           /* transform: translate(0,-90px); */
           overflow: hidden;
@@ -242,7 +247,7 @@ const HomeStyle = styled.div`
           font-weight: normal;
           font-size: 30px;
           color: #ffffff;
-          width: 423px;
+          width: 520px;
           text-align: center;
           padding-top: 204px;
           transform: translate(-30px, 0);
@@ -254,8 +259,6 @@ const HomeStyle = styled.div`
           color: #ffffff;
           line-height: 22px;
           padding-top: 35px;
-          transform: translate(-30px, 0);
-          /* letter-spacing: 0.5px; */
         }
       }
     }
@@ -283,19 +286,23 @@ const HomeStyle = styled.div`
         margin: auto;
       }
       .content {
-        padding-left: 379px;
+        width: 1200px;
+        margin: auto;
+        overflow-x: hidden;
         padding-top: 60px;
         display: flex;
         .left-img {
         }
         position: relative;
         transform: translate(-50px, 0);
-        width: 500px;
+        .right-text{
+          position: relative;
+        }
         .sanjiao {
-          width: 252px;
+          width: 232px;
           height: 255px;
           position: absolute;
-          right: -582px;
+          left: -46px;
           transform: matrix(1, 0, 0, -1, 0, 0);
           overflow: hidden;
           transform: rotate(30deg) translate(41px, -104px) skew(-35deg);
@@ -314,7 +321,7 @@ const HomeStyle = styled.div`
           font-weight: normal;
           font-size: 30px;
           color: #ffffff;
-          width: 432px;
+          width: 309px;
           text-align: center;
           padding-top: 204px;
           transform: translate(-30px, 0);
@@ -326,7 +333,7 @@ const HomeStyle = styled.div`
           color: #ffffff;
           line-height: 22px;
           padding-top: 35px;
-          transform: translate(-30px, 0);
+          transform: translate(-84px, 0);
           /* letter-spacing: 0.5px; */
         }
       }
@@ -359,6 +366,7 @@ const HomeStyle = styled.div`
       > img {
         display: none;
       }
+
       .content-top {
         width: 100%;
         height: 8.8rem;
@@ -369,10 +377,15 @@ const HomeStyle = styled.div`
         );
         border-radius: 0px 1px 0px 0px;
         top: 7.55rem;
+        .container {
+          max-width: auto;
+          min-width: auto;
+        }
         .content {
           padding-top: 0;
           padding-left: 0.4rem;
           display: block;
+          width: 100%;
           .left-img {
             img {
               width: 7.05rem;
@@ -420,6 +433,10 @@ const HomeStyle = styled.div`
         );
         border-radius: 0px 1px 0px 0px;
         top: 16.85rem;
+        .container {
+          max-width: auto;
+          min-width: auto;
+        }
         .content {
           position: relative;
           padding-top: 0.15rem;
@@ -428,9 +445,11 @@ const HomeStyle = styled.div`
           height: 100%;
           transform: none;
           display: block;
+          overflow-x: visible;
+
           .left-text {
             position: absolute;
-            bottom: -8rem;
+            bottom: -8.3rem;
             .title {
               transform: none;
               width: auto;
@@ -478,6 +497,10 @@ const HomeStyle = styled.div`
         );
         border-radius: 0px 1px 0px 0px;
         top: 26.15rem;
+        .container {
+          max-width: auto;
+          min-width: auto;
+        }
         .content {
           width: 100%;
           padding-top: 0.15rem;

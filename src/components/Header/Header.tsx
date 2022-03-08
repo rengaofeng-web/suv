@@ -160,15 +160,20 @@ const Header: React.FC<{}> = () => {
             </div>
             <div className="item survivor">
               <a href="/#">Survivor</a>
+              {/* select */}
+              <div className="survivor-select">
+                <div className="select-item">
+                  Coming
+                  <br />
+                  soon
+                </div>
+              </div>
             </div>
             <div className="item community" onClick={showSelct}>
               Community
               {/* select */}
               <div className="select">
                 <div className="select-con">
-                  <div className="select-item">
-                    <a href="/#">Bolg</a>
-                  </div>
                   <div className="select-item">
                     <a href="/#">Discord</a>
                   </div>
@@ -190,13 +195,13 @@ const Header: React.FC<{}> = () => {
                     <a href="/#">FAQ</a>
                   </div>
                   <div className="select-item">
-                    <a href="/#">Staking FAQ</a>
+                    <a href="/#">Docs</a>
                   </div>
                   <div className="select-item">
-                    <a href="/#">Litepaper</a>
+                    <a href="/#">Readmap</a>
                   </div>
                   <div className="select-item">
-                    <a href="/#">Whitepaper</a>
+                    <a href="/#">Audit</a>
                   </div>
                 </div>
               </div>
@@ -222,8 +227,9 @@ const HeaderStyle = styled.div`
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, rgba(4, 10, 66, 0) 64.25%);
   }
   .header {
-    max-width: 1920px;
-    min-width: 1200px;
+    /* max-width: 1920px;
+    min-width: 1200px; */
+    width: 60vw;
     height: 168px;
     box-sizing: border-box;
     position: absolute;
@@ -257,7 +263,7 @@ const HeaderStyle = styled.div`
         font-weight: bold;
         font-size: 18px;
         line-height: 21px;
-        height: 80px;
+        height: 40px;
         line-height: 43px;
         position: relative;
         -moz-user-select: none; /*火狐*/
@@ -337,7 +343,7 @@ const HeaderStyle = styled.div`
         position: absolute;
         transition: all 0.5s;
         right: -27px;
-        top: 25%;
+        top: 50%;
         display: block;
         content: "";
         width: 0px;
@@ -354,7 +360,26 @@ const HeaderStyle = styled.div`
       .active:after {
         transform: rotate(0deg) !important;
       }
-
+      .survivor {
+        margin-left: 7px;
+        margin-right: 37px;
+        .survivor-select {
+          display: none;
+          color: #eff316;
+          text-align: center;
+          line-height: 18px;
+          font-weight: normal;
+          font-size: 14px;
+        }
+      }
+      .survivor:hover {
+        a {
+          color: #fff;
+        }
+      }
+      .survivor:hover .survivor-select {
+        display: block;
+      }
       .survivor::after {
         display: none;
       }

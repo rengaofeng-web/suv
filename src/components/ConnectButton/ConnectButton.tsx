@@ -17,16 +17,7 @@ const ConnectButton: React.FC<Props> = (props) => {
 
   const context = useWeb3React<Web3Provider>();
 
-  const {
-    connector,
-    library,
-    chainId,
-    account,
-    activate,
-    deactivate,
-    active,
-    error,
-  } = context;
+  const { connector, library, chainId, account, activate, deactivate, active, error } = context;
   let [selectFlag, setSelectFlag] = useState(false);
   let flag = !!account; //登录状态切换，true 已登录 false未登录
 
@@ -47,38 +38,23 @@ const ConnectButton: React.FC<Props> = (props) => {
     };
   });
 
-  const sushiBalance = useTokenBalance(
-    contractAddresses.sushi[supportedChainId]
-  );
+  const sushiBalance = useTokenBalance(contractAddresses.sushi[supportedChainId]);
 
   return (
     <ButtonStyle>
       {/* 未登录状态 */}
-      <div
-        className="connect"
-        onClick={show_connect}
-        style={{ display: flag ? "none" : "block" }}
-      >
+      <div className="connect" onClick={show_connect} style={{ display: flag ? "none" : "block" }}>
         Connect
       </div>
       {/* 登录状态 */}
-      <div
-        className="my-wallet"
-        style={{ display: flag ? "block" : "none" }}
-        onClick={show_Wallet}
-      >
+      <div className="my-wallet" style={{ display: flag ? "block" : "none" }} onClick={show_Wallet}>
         My Wallet
         {/* select */}
-        <div
-          className="select"
-          style={{ display: selectFlag ? "block" : "none" }}
-        >
+        <div className="select" style={{ display: selectFlag ? "block" : "none" }}>
           <div className="top">
             {/* logo */}
             <img src={logo} alt="" className="myWallet-logo" />
-            <div className="money">
-              {getDisplayBalance(sushiBalance, 18, 2)}
-            </div>
+            <div className="money">{getDisplayBalance(sushiBalance, 18, 2)}</div>
           </div>
           <div className="content">
             <a
@@ -86,7 +62,7 @@ const ConnectButton: React.FC<Props> = (props) => {
               className="content-item active"
               href={"http://www.snowtrace.io/address/" + account}
             >
-              View on Bscscan
+              View on Avaxscan
             </a>
             <div
               className="content-item"
@@ -139,7 +115,7 @@ const ButtonStyle = styled.div`
     background: rgba(88, 10, 26, 0.1);
     border: 1px solid #53c1ff;
     box-sizing: border-box;
-    box-shadow: inset 0px 0px 30px #53c1ff;
+    box-shadow: inset 0px 0px 15px #53c1ff;
     border: 1px solid rgba(83, 193, 255, 1);
     font-family: Roboto;
     font-style: normal;
@@ -162,7 +138,7 @@ const ButtonStyle = styled.div`
       width: 227px;
       height: 186px;
       background: #041733;
-      box-shadow: inset 0px 0px 25px #39ebf6;
+      box-shadow: inset 0px 0px 15px #39ebf6;
       backdrop-filter: blur(10px);
       box-sizing: border-box;
       padding: 23px 26px 0;
@@ -223,7 +199,7 @@ const ButtonStyle = styled.div`
           line-height: 40px;
           color: #ffffff;
         }
-        .content-item:active {
+        .content-item:hover {
           color: #6dffe5;
         }
         .content-item:hover {

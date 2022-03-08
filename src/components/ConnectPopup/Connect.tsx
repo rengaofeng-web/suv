@@ -4,9 +4,8 @@ import { Web3Provider } from "@ethersproject/providers";
 import { useWeb3React } from "@web3-react/core";
 import { chainName, chainRPCs, supportedChainId } from "src/sushi/lib/constants";
 
-import TPIcon from "../../assets/wallet_logo/TokenPocket.svg";
-import BitkeepIcon from "../../assets/wallet_logo/bitkeep.svg";
-import MathWalletIcon from "../../assets/wallet_logo/mathWallet.svg";
+import Coin98Icon from "../../assets/wallet_logo/Coin98.svg";
+import CoinbaseIcon from "../../assets/wallet_logo/Coinbase.svg";
 import MetamaskIcon from "../../assets/wallet_logo/metamask.svg";
 import { injected, walletconnect } from "src/contexts/Metamask/connectors";
 
@@ -16,7 +15,7 @@ interface Props {
 const Connect: React.FC<Props> = (props) => {
   const context = useWeb3React<Web3Provider>();
 
-  let { change } = props;    
+  let { change } = props;
   let show = sessionStorage.getItem("show") ? Number(sessionStorage.getItem("show")) : 0;
   // 登录点击 ×
   const closeConnect = () => {
@@ -125,7 +124,7 @@ const Connect: React.FC<Props> = (props) => {
               }}
             >
               <div className="connect-logo">
-                <img src={TPIcon} alt="" />
+                <img src={CoinbaseIcon} alt="" />
               </div>
               <div className="text">TokenPocket</div>
             </div>
@@ -136,20 +135,9 @@ const Connect: React.FC<Props> = (props) => {
               }}
             >
               <div className="connect-logo ">
-                <img src={BitkeepIcon} alt="" />
+                <img src={Coin98Icon} alt="" />
               </div>
               <div className="text">Bitkeep</div>
-            </div>
-            <div
-              className="connection-mode-item"
-              onClick={() => {
-                connectNetwork(1);
-              }}
-            >
-              <div className="connect-logo">
-                <img src={MathWalletIcon} alt="" />
-              </div>
-              <div className="text">MathWallet</div>
             </div>
           </div>
           {/* close botton */}
@@ -177,7 +165,7 @@ const ConnectStyle = styled.div`
     .connect-box {
       position: absolute;
       width: 437px;
-      height: 513px;
+      height: 419px;
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);

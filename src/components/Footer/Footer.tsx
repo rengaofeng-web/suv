@@ -7,7 +7,7 @@ import foot_price_logo from "../../assets/socialMedia_logo/foot_price_logo.svg";
 import foot_twitter from "../../assets/socialMedia_logo/twitter.svg";
 import foot_telegram from "../../assets/socialMedia_logo/telegram.svg";
 import foot_discord from "../../assets/socialMedia_logo/discord.svg";
-import foot_medium from "../../assets/socialMedia_logo/medium.svg";
+import foot_GitBook from "../../assets/socialMedia_logo/GitBook.svg";
 // 曲线图
 import trend_line_green from "../../assets/socialMedia_logo/green.svg"; //绿色
 import trend_line_red from "../../assets/socialMedia_logo/red.svg"; //红色
@@ -17,7 +17,7 @@ import foot_price_logo_mobile from "../../assets/socialMedia_logo/foot_price_log
 import foot_twitter_mobile from "../../assets/socialMedia_logo/twitter.svg";
 import foot_telegram_mobile from "../../assets/socialMedia_logo/telegram.svg";
 import foot_discord_mobile from "../../assets/socialMedia_logo/discord.svg";
-import foot_medium_mobile from "../../assets/socialMedia_logo/medium.svg";
+import foot_GitBook_mobile from "../../assets/socialMedia_logo//GitBook.svg";
 
 const isM = isMobile();
 const Footer: React.FC<{}> = () => {
@@ -70,30 +70,15 @@ const Footer: React.FC<{}> = () => {
                   <a href="/#">Staking</a>
                 </div>
                 <div className="item">
-                  <a href="/#">Illuviary</a>
-                </div>
-                <div className="item">
                   <a href="/#">FAQ</a>
                 </div>
               </div>
               <div className="menu-item">
                 <div className="item">
-                  <a href="/#">Governance</a>
+                  <a href="/#">Docs</a>
                 </div>
                 <div className="item">
-                  <a href="/#">Contributors</a>
-                </div>
-                <div className="item">
-                  <a href="/#">Careers</a>
-                </div>
-              </div>
-              <div className="menu-item">
-                <div className="item">
-                  <a href="/#">IlluviDex</a>
-                </div>
-
-                <div className="item">
-                  <a href="/#">Whitepaper</a>
+                  <a href="/#">Audit</a>
                 </div>
               </div>
             </div>
@@ -150,7 +135,7 @@ const Footer: React.FC<{}> = () => {
             <div className="trademark-bg">
               <div className="trademark">
                 <a href="/#">
-                  <img src={!isM ? foot_medium : foot_medium_mobile} alt="" />
+                  <img src={!isM ? foot_GitBook : foot_GitBook_mobile} alt="" />
                 </a>
               </div>
             </div>
@@ -180,8 +165,7 @@ const FooterStyle = styled.div`
   }
   .footer-bg {
     .footer {
-      max-width: 1920px;
-      min-width: 1216px;
+      width: 1200px;
       margin: auto;
     }
     .reserved {
@@ -196,15 +180,17 @@ const FooterStyle = styled.div`
     }
     .footer {
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       .left {
+        width: 400px;
         .footer-logo {
           padding-bottom: 22px;
         }
         .footer-menu {
-          width: 465px;
+          /* width: 465px; */
           display: flex;
           flex-wrap: wrap;
+          padding-left: 45px;
           .menu-item:first-child {
             width: 100px;
           }
@@ -233,6 +219,9 @@ const FooterStyle = styled.div`
         }
       }
       .center {
+        width: 400px;
+        display: flex;
+        justify-content: center;
         .center-data-bg {
           width: 348px;
           height: 171px;
@@ -348,14 +337,16 @@ const FooterStyle = styled.div`
       }
     }
     .right {
+      width: 400px;
       display: flex;
-      padding-left: 102px;
+      justify-content: space-around;
+      /* padding-left: 102px; */
       padding-top: 56px;
       .trademark-bg {
         width: 58px;
 
         border-radius: 50%;
-        margin-right: 32px;
+        /* margin-right: 32px; */
       }
       .trademark {
         width: 100%;
@@ -372,7 +363,7 @@ const FooterStyle = styled.div`
   /* mobile style start */
   @media screen and (max-width: 750px) {
     width: 7.5rem;
-    height: 7.9rem;
+    height: 6.9rem;
     background: linear-gradient(180deg, rgba(6, 11, 64, 0.8) 0%, rgba(6, 11, 64, 0) 195.35%);
     padding: 0;
     .top_line {
@@ -383,6 +374,7 @@ const FooterStyle = styled.div`
         max-width: auto;
         min-width: auto;
         display: block;
+        width: 100%;
         height: 100%;
         position: relative;
         .left {
@@ -394,6 +386,7 @@ const FooterStyle = styled.div`
           .footer-menu {
             width: 100%;
             justify-content: space-around;
+            padding: 0;
             .menu-item {
               text-align: center;
               .item {
@@ -509,9 +502,10 @@ const FooterStyle = styled.div`
         }
         .right {
           position: absolute;
-          bottom: -7.14rem;
+          bottom: -6.5rem;
           left: 50%;
           transform: translate(-50%, 0);
+          width: auto;
           padding: 0;
           .trademark-bg {
             margin-right: 0.64rem;

@@ -1,13 +1,8 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
-import { Control } from "react-keeper";
+// import { Control } from "react-keeper";
 import isMobile from "is-mobile";
-import {
-  useHistory,
-  withRouter,
-  RouteComponentProps,
-  useParams,
-} from "react-router-dom";
+import { useHistory, withRouter, RouteComponentProps, useParams } from "react-router-dom";
 
 // 组件导入
 import Footer from "../../components/Footer/Footer"; //footer
@@ -26,6 +21,8 @@ import useEarnings from "src/hooks/useEarnings";
 import useReward from "src/hooks/useReward";
 
 const Details: React.FC<{}> = () => {
+  const isM: boolean = isMobile();
+  const histroy = useHistory();
   const { farmId } = useParams();
   const [inputValue, setInputValue] = useState<undefined | string>(undefined);
   //const { apyDefault } = useApyDefault({ pid: farmId })
@@ -43,14 +40,18 @@ const Details: React.FC<{}> = () => {
     await onReward();
     setRewardPending(false);
   }, [setRewardPending, onReward]);
-  const isM: boolean = isMobile();
-  const histroy = useHistory();
+
   return (
     <DetailsStyle>
       <div className="content-box">
         <div className="head">
           <div className="left-logo">
-            <div className="logo-border">
+            <div
+              className="logo-border"
+              onClick={() => {
+                histroy.goBack()
+              }}
+            >
               <div className="logo">
                 <img src={farm.icon} alt="" />
               </div>
@@ -71,7 +72,7 @@ const Details: React.FC<{}> = () => {
                 {" "}
                 {new BigNumber(farm?.stakedValue1 || 0)
                   .div(new BigNumber(10).pow(farm.decimals))
-                  .toFixed(2)}
+                  .toFixed(2)}$
               </div>
             </div>
             <div className="data-item">
@@ -119,10 +120,7 @@ const Details: React.FC<{}> = () => {
           >
             WITHDRAW
           </div>
-          <div
-            className="harvest"
-            onClick={rewardPending ? () => {} : handleHarvest}
-          >
+          <div className="harvest" onClick={rewardPending ? () => {} : handleHarvest}>
             {rewardPending ? "Pending Harvest" : "HARVEST"}
           </div>
         </div>
@@ -156,14 +154,8 @@ const DetailsStyle = styled.div`
       0 calc(100% - 35px),
       0 35px
     );
-    background: linear-gradient(
-          -45deg,
-          transparent 23px,
-          rgba(4, 10, 58, 0.3) 0
-        )
-        bottom right,
-      linear-gradient(45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom
-        left,
+    background: linear-gradient(-45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom right,
+      linear-gradient(45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom left,
       linear-gradient(135deg, #2cb0de 26px, rgba(4, 10, 58, 0.3) 0) top left,
       linear-gradient(-135deg, #2cb0de 26px, rgba(4, 10, 58, 0.3) 0) top right;
     background-size: 50% 50%;
@@ -189,6 +181,7 @@ const DetailsStyle = styled.div`
           rgba(109, 255, 229, 0.1)
         );
         border-radius: 50%;
+        cursor: pointer;
       }
       .logo {
         height: 66.5px;
@@ -355,14 +348,8 @@ const DetailsStyle = styled.div`
         0 0.38rem
       );
 
-      background: linear-gradient(
-            -45deg,
-            transparent 23px,
-            rgba(4, 10, 58, 0.3) 0
-          )
-          bottom right,
-        linear-gradient(45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom
-          left,
+      background: linear-gradient(-45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom right,
+        linear-gradient(45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom left,
         linear-gradient(135deg, #31bce8 0.28rem, transparent 0) top left,
         linear-gradient(-135deg, #31bce8 0.28rem, transparent 0);
       border-top: 0.05rem solid #2cb0de;

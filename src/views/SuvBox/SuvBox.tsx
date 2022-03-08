@@ -52,9 +52,7 @@ const SuvBox: React.FC<{}> = () => {
   const sushi = useSushi();
   const [buying, setBuying] = useState(false);
   const allowance = useAllowance(getSushiContract(sushi));
-  const sushiBalance = useTokenBalance(
-    contractAddresses.sushi[supportedChainId]
-  );
+  const sushiBalance = useTokenBalance(contractAddresses.sushi[supportedChainId]);
 
   useEffect(() => {
     if (openResult.length > 0) {
@@ -192,9 +190,7 @@ const SuvBox: React.FC<{}> = () => {
         </div>
         <div className="right-bg">
           <div className="right-jackpot">
-            <div className="title">
-              You have a chance to win the following prizes
-            </div>
+            <div className="title">You have a chance to win the following prizes</div>
             <video src={video} autoPlay={true} loop={true} muted></video>
             <div className="bottom-decorate">
               <img src={zhuangshi} alt="" />
@@ -302,8 +298,7 @@ const SuvBoxStyle = styled.div`
           0 calc(100% - 35px),
           0 35px
         );
-        background: linear-gradient(-45deg, #177ab1 23px, rgba(0, 0, 0, 0.6) 0)
-            bottom right,
+        background: linear-gradient(-45deg, #177ab1 23px, rgba(0, 0, 0, 0.6) 0) bottom right,
           linear-gradient(45deg, #177ab1 23px, rgba(0, 0, 0, 0.6) 0) bottom left,
           linear-gradient(135deg, #177ab1 23px, rgba(0, 0, 0, 0.6) 0) top left,
           linear-gradient(-135deg, #177ab1 23px, rgba(0, 0, 0, 0.6) 0) top right;
@@ -458,11 +453,7 @@ const SuvBoxStyle = styled.div`
           width: 186px;
           height: 46px;
 
-          background: linear-gradient(
-            90deg,
-            #ffe24a 0%,
-            rgba(255, 226, 74, 0) 105.65%
-          );
+          background: linear-gradient(90deg, #ffe24a 0%, rgba(255, 226, 74, 0) 105.65%);
           font-family: Roboto;
           font-style: normal;
           font-weight: bold;
@@ -515,8 +506,7 @@ const SuvBoxStyle = styled.div`
         0 calc(100% - 35px),
         0 35px
       );
-      background: linear-gradient(-45deg, #1777ad 23px, rgba(0, 0, 0, 0.6) 0)
-          bottom right,
+      background: linear-gradient(-45deg, #1777ad 23px, rgba(0, 0, 0, 0.6) 0) bottom right,
         linear-gradient(45deg, #1777ad 23px, #000 0) bottom left,
         linear-gradient(135deg, #1777ad 23px, rgba(0, 0, 0, 1) 0) top left,
         linear-gradient(-135deg, #1777ad 23px, rgba(0, 0, 0, 1) 0) top right;
@@ -618,18 +608,10 @@ const SuvBoxStyle = styled.div`
             0 calc(100% - 0.55rem),
             0 0.55rem
           );
-          background: linear-gradient(
-                -45deg,
-                #177ab1 0.35rem,
-                rgba(0, 0, 0, 0.6) 0
-              )
-              bottom right,
-            linear-gradient(45deg, #177ab1 0.37rem, rgba(0, 0, 0, 0.6) 0) bottom
-              left,
-            linear-gradient(135deg, #177ab1 0.35rem, rgba(0, 0, 0, 0.6) 0) top
-              left,
-            linear-gradient(-135deg, #177ab1 0.35rem, rgba(0, 0, 0, 0.6) 0) top
-              right;
+          background: linear-gradient(-45deg, #177ab1 0.35rem, rgba(0, 0, 0, 0.6) 0) bottom right,
+            linear-gradient(45deg, #177ab1 0.37rem, rgba(0, 0, 0, 0.6) 0) bottom left,
+            linear-gradient(135deg, #177ab1 0.35rem, rgba(0, 0, 0, 0.6) 0) top left,
+            linear-gradient(-135deg, #177ab1 0.35rem, rgba(0, 0, 0, 0.6) 0) top right;
           ::before {
             content: "";
             position: absolute;
@@ -806,13 +788,10 @@ const SuvBoxStyle = styled.div`
             0 calc(100% - 0.35rem),
             0 0.35rem
           );
-          background: linear-gradient(-45deg, #1777ad 0rem, rgba(0, 0, 0, 1) 0)
-              bottom right,
+          background: linear-gradient(-45deg, #1777ad 0rem, rgba(0, 0, 0, 1) 0) bottom right,
             linear-gradient(45deg, #1777ad 0.23rem, #000 0) bottom left,
-            linear-gradient(135deg, #1777ad 0.23rem, rgba(0, 0, 0, 1) 0) top
-              left,
-            linear-gradient(-135deg, #1777ad 0.23rem, rgba(0, 0, 0, 1) 0) top
-              right;
+            linear-gradient(135deg, #1777ad 0.23rem, rgba(0, 0, 0, 1) 0) top left,
+            linear-gradient(-135deg, #1777ad 0.23rem, rgba(0, 0, 0, 1) 0) top right;
           ::before {
             content: "";
             position: absolute;
