@@ -112,7 +112,7 @@ const PoolCard: React.FC<FarmCardProps> = ({ farm, isM }) => {
         </div>
         <div className="text">{farm.symbolShowing}</div>
       </div>
-      <div className="tvl">{farm.stakedValue1}$</div>
+      <div className="tvl">${farm.stakedValue1}</div>
       <div className="apr">{farm.apy}</div>
       <div className="button-box">
         <div

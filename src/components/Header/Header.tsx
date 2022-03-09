@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, ReactElement, ReactEventHandler } from "react";
 import styled from "styled-components";
 import { useHistory, withRouter, RouteComponentProps } from "react-router-dom";
 
@@ -109,7 +109,7 @@ const Header: React.FC<{}> = () => {
                   </div>
                   <div
                     className="select-item"
-                    onClick={(e: any) => {
+                    onClick={(e: React.MouseEvent<HTMLDivElement>) => {
                       e.stopPropagation ? e.stopPropagation() : (e.cancelable = true);
                       removeStats(isM ? true : false);
                       history.push("/pool");
@@ -127,7 +127,7 @@ const Header: React.FC<{}> = () => {
                 <div className="select-con">
                   <div
                     className="select-item"
-                    onClick={(e: any) => {
+                    onClick={(e: React.MouseEvent<HTMLDivElement>) => {
                       e.stopPropagation ? e.stopPropagation() : (e.cancelable = true);
                       removeStats(isM ? true : false);
                       history.push("/suvBox");
@@ -137,7 +137,7 @@ const Header: React.FC<{}> = () => {
                   </div>
                   <div
                     className="select-item"
-                    onClick={(e: any) => {
+                    onClick={(e: React.MouseEvent<HTMLDivElement>) => {
                       e.stopPropagation ? e.stopPropagation() : (e.cancelable = true);
                       removeStats(isM ? true : false);
                       history.push("/nftFarams");
@@ -147,7 +147,7 @@ const Header: React.FC<{}> = () => {
                   </div>
                   <div
                     className="select-item"
-                    onClick={(e: any) => {
+                    onClick={(e: React.MouseEvent<HTMLDivElement>) => {
                       e.stopPropagation ? e.stopPropagation() : (e.cancelable = true);
                       removeStats(isM ? true : false);
                       history.push("/owned");
@@ -158,16 +158,23 @@ const Header: React.FC<{}> = () => {
                 </div>
               </div>
             </div>
-            <div className="item survivor">
-              <a href="/#">Survivor</a>
+            <div
+              className="item survivor"
+              onClick={(e: React.MouseEvent<HTMLDivElement>) => {
+                e.stopPropagation ? e.stopPropagation() : (e.cancelable = true);
+              }}
+            >
+              Survivor {isM ? <span>(Coming soon)</span> : null}
               {/* select */}
-              <div className="survivor-select">
-                <div className="select-item">
-                  Coming
-                  <br />
-                  soon
+              {isM ? null : (
+                <div className="survivor-select">
+                  <div className="select-item">
+                    Coming
+                    <br />
+                    soon
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
             <div className="item community" onClick={showSelct}>
               Community
@@ -373,9 +380,7 @@ const HeaderStyle = styled.div`
         }
       }
       .survivor:hover {
-        a {
-          color: #fff;
-        }
+        color: #fff;
       }
       .survivor:hover .survivor-select {
         display: block;
@@ -502,6 +507,12 @@ const HeaderStyle = styled.div`
             border-bottom: 0.11rem solid rgba(255, 255, 255, 1);
             border-left: 0.11rem solid transparent;
             border-right: 0.11rem solid transparent;
+          }
+          .survivor {
+            color: rgba(255, 255, 255, 0.8);
+            span {
+              font-size: 0.28rem;
+            }
           }
           .staking:after {
             top: 0.35rem;

@@ -141,7 +141,7 @@ const Footer: React.FC<{}> = () => {
             </div>
           </div>
         </div>
-        {!isM ? <div className="reserved">Illuvium © 2021, All rights reserved</div> : null}
+        {!isM ? <div className="reserved">Survivor© 2022, All rights reserved</div> : null}
       </div>
     </FooterStyle>
   );

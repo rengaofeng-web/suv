@@ -31,28 +31,11 @@ const SuvBoxPopup: React.FC<Props> = ({ nftNumber, events, reset, change }) => {
   const rightButton = useRef(null);
   const layout = useRef(null);
   const prize = useRef(null);
+  const controll = useRef(null);
   let show = sessionStorage.getItem("showNftPopup")
     ? Number(sessionStorage.getItem("showNftPopup"))
     : 0;
-  useEffect(() => {
-    let mySwiper = new Swiper(".popup-swiper", {
-      loop: false,
-      slidesPerView: !isM ? 3 : 2,
-    });
-    if (leftButton.current) {
-      let left_button = leftButton.current as HTMLDivElement;
-      left_button.onclick = () => {
-        mySwiper.slidePrev();
-      };
-    }
-    if (rightButton.current) {
-      let right_button = rightButton.current as HTMLDivElement;
-      right_button.onclick = () => {
-        mySwiper.slideNext();
-      };
-    }
-  });
-  // 关闭窗口  
+  // 关闭窗口
   const close = () => {
     change();
     sessionStorage.setItem("showNftPopup", "0");
@@ -86,18 +69,47 @@ const SuvBoxPopup: React.FC<Props> = ({ nftNumber, events, reset, change }) => {
   useEffect(() => {
     fetchNftAmountPools();
   }, [nftPools[0]?.address, account]);
-  // useEffect(() => {
-  //   let Layout = layout.current as HTMLDivElement;
-  //   let Prize = prize.current as HTMLDivElement;
-  //   // if (isM) {
-  //   //   if (nftPools.length === 1) {
-  //   //     Prize.style.width = "auto";
-  //   //     Layout.style.display = "flex";
-  //   //     Layout.style.justifyContent = "center";
-  //   //     Layout.style.paddingRight = "0";
-  //   //   }
-  //   // }
-  // });
+  useEffect(() => {
+    let mySwiper = new Swiper(".popup-swiper", {
+      loop: false,
+      slidesPerView: !isM ? 3 : 2,
+    });
+    if (leftButton.current) {
+      let left_button = leftButton.current as HTMLDivElement;
+      left_button.onclick = () => {
+        mySwiper.slidePrev();
+      };
+    }
+    if (rightButton.current) {
+      let right_button = rightButton.current as HTMLDivElement;
+      right_button.onclick = () => {
+        mySwiper.slideNext();
+      };
+    }
+    let Layout = layout.current as HTMLDivElement;
+    let Prize = prize.current as HTMLDivElement;
+    let Controll = controll.current as HTMLDivElement;
+    if (isM) {
+      if (cards.length < 3) {
+        Prize.style.width = "auto";
+        Layout.style.display = "flex";
+        Layout.style.justifyContent = "center";
+        Layout.style.paddingRight = "0";
+        Layout.style.paddingLeft = "0.5rem";
+        Layout.style.marginTop = "0.5rem";
+        Controll.style.display = "none";
+      }
+    } else {
+      if (cards.length < 4) {
+        Prize.style.width = "auto";
+        Layout.style.display = "flex";
+        Layout.style.justifyContent = "center";
+        Layout.style.paddingRight = "0";
+        Layout.style.paddingLeft = "70px";
+        Controll.style.display = "none";
+      }
+    }
+  });
   return (
     <PopupStyle style={{ display: show ? "block" : "none" }}>
       <div className="popup-mask">
@@ -122,7 +134,7 @@ const SuvBoxPopup: React.FC<Props> = ({ nftNumber, events, reset, change }) => {
                 </div>
               </div>
             </div>
-            <div className="controll">
+            <div className="controll" ref={controll}>
               <div className="prev" ref={leftButton}></div>
               {/* {isM ? <div className="number">(1/{cards.length})</div> : null} */}
               <div className="next" ref={rightButton}></div>
