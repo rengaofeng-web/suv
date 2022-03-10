@@ -34,19 +34,19 @@ import useModal from "src/hooks/useModal";
 const SuvBox: React.FC<{}> = () => {
   const isM: boolean = isMobile();
   let [swiperIndex, setSwiperIndex] = useState(0);
+  sessionStorage.setItem("suvIndex", swiperIndex.toString());
   let [quantity, setquantity] = useState(1);
   const leftButton = useRef(null);
   const rightButton = useRef(null);
   let [NftState, setState] = useState(false);
-  let [blindBox, setBlindBox] = useState(1);
-  const blindBoxArr = [1, 10, 100];
+
   const chengeState = () => {
     NftState ? setState(false) : setState(true);
   };
 
   const [nftNumber, setNftNumber] = useState(1);
   const [openResult, setOpenResult] = useState([]);
-  const blindBoxPrice = 2000;
+  const blindBoxPrice = [2000, 20000, 200000];
 
   const { onNftMint } = useNftMint();
   const sushi = useSushi();
@@ -65,6 +65,12 @@ const SuvBox: React.FC<{}> = () => {
     let swiper = new Swiper(".swiper-content", {
       loop: false,
     });
+
+    let suvIndex = sessionStorage.getItem("suvIndex")
+      ? parseInt(sessionStorage.getItem("suvIndex"))
+      : 0;
+    // console.log(suvIndex);
+    swiper.slideTo(suvIndex);
     if (leftButton.current) {
       let target = leftButton.current as HTMLDivElement;
       target.onclick = () => {
@@ -72,12 +78,12 @@ const SuvBox: React.FC<{}> = () => {
         index--;
         if (swiperIndex <= 0) return false;
         setSwiperIndex(index);
+        sessionStorage.setItem("suvIndex", index.toString());
         // console.log(index)
-        setBlindBox(blindBoxArr[index]);
         setTimeout(() => {
           swiper.slideTo(index);
           // swiper.slidePrev();
-        }, 10);
+        }, 20);
       };
     }
     if (rightButton.current) {
@@ -87,11 +93,11 @@ const SuvBox: React.FC<{}> = () => {
         index++;
         if (index > 2) return false;
         setSwiperIndex(index);
-        setBlindBox(blindBoxArr[index]);
+        sessionStorage.setItem("suvIndex", index.toString());
         setTimeout(() => {
           swiper.slideTo(index);
           // swiper.slideNext();
-        }, 10);
+        }, 20);
       };
     }
   });
@@ -146,19 +152,19 @@ const SuvBox: React.FC<{}> = () => {
               </div>
             </div>
             <div className="control">
-              {/* <div className="control-bg">
+              <div className="control-bg">
                 <img src={anniu} alt="" />
-              </div> */}
-              {/* <div className="previous" ref={leftButton}></div> */}
-              {/* <div className="number">{swiperIndex + 1}/3</div> */}
-              {/* <div className="next" ref={rightButton}></div> */}
+              </div>
+              <div className="previous" ref={leftButton}></div>
+              <div className="number">{swiperIndex + 1}/3</div>
+              <div className="next" ref={rightButton}></div>
             </div>
           </div>
           <div className="right-opertion">
             <div className="title">SUV BOX</div>
             <div className="amount">Remaining Amount:-</div>
             <div className="subtotal">
-              Subtotal:<span>{quantity * 2000} SUV</span>
+              Subtotal:<span>{quantity * blindBoxPrice[swiperIndex]} SUV</span>
             </div>
             <div className="quantity">Quantity</div>
             <div className="controll">

@@ -26,7 +26,6 @@ const useFarmInfo = (pids: number[]) => {
   const {
     connector,
     library,
-
     chainId: chainId2,
     account,
     activate: connect,

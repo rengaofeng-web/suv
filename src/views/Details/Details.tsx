@@ -21,6 +21,8 @@ import useEarnings from "src/hooks/useEarnings";
 import useReward from "src/hooks/useReward";
 
 const Details: React.FC<{}> = () => {
+  const context = useWeb3React<Web3Provider>();
+  const { connector, library, chainId, account, activate, deactivate, active, error } = context;
   const isM: boolean = isMobile();
   const histroy = useHistory();
   const { farmId } = useParams();
@@ -49,7 +51,7 @@ const Details: React.FC<{}> = () => {
             <div
               className="logo-border"
               onClick={() => {
-                histroy.goBack()
+                histroy.goBack();
               }}
             >
               <div className="logo">
@@ -59,8 +61,10 @@ const Details: React.FC<{}> = () => {
             <div className="text">{farm.symbolShowing}</div>
           </div>
           <div className="right-con">
-            {farm.tokenAddress.slice(0, 6)}...
-            {farm.tokenAddress.slice(-4)}
+            <a target={"_blank"} href={"http://www.snowtrace.io/address/" + account}>
+              {farm.tokenAddress.slice(0, 6)}...
+              {farm.tokenAddress.slice(-4)}
+            </a>
           </div>
         </div>
         <div className="content">
@@ -70,9 +74,10 @@ const Details: React.FC<{}> = () => {
               <div className="data-name">TVL</div>
               <div className="data-con">
                 {" "}
+                $
                 {new BigNumber(farm?.stakedValue1 || 0)
                   .div(new BigNumber(10).pow(farm.decimals))
-                  .toFixed(2)}$
+                  .toFixed(2)}
               </div>
             </div>
             <div className="data-item">
@@ -213,11 +218,14 @@ const DetailsStyle = styled.div`
         border-image: -moz-linear-gradient(to right, #6788ff, #d4484b) 20 20;
         border-image: -o-linear-gradient(to right, #6788ff, #d4484b) 20 20;
         border-image: linear-gradient(to right, #6788ff, #d4484b) 20 20;
-        font-family: Roboto;
-        font-style: normal;
-        font-weight: bold;
-        font-size: 16px;
-        color: #ffffff;
+
+        a {
+          font-size: 16px;
+          color: #ffffff;
+          font-family: Roboto;
+          font-style: normal;
+          font-weight: bold;
+        }
       }
     }
     .head:after {
@@ -377,9 +385,11 @@ const DetailsStyle = styled.div`
           width: 2.5rem;
           height: 0.63rem;
           line-height: 0.63rem;
-          font-size: 0.26rem;
           border: 0.02rem solid #ddd;
           border-image: linear-gradient(to right, #6788ff, #d4484b) 10 10;
+          a {
+            font-size: 0.26rem;
+          }
         }
       }
       .content {

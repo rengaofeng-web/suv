@@ -5,5 +5,4 @@ const useFarms = () => {
   const { farms } = useContext(FarmsContext)
   return [farms]
 }
-
 export default useFarms

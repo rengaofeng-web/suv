@@ -1,25 +1,21 @@
 import BigNumber from 'bignumber.js/bignumber'
 
-
-
 import Nft1Logo from 'src/assets/PC-config/NFT/feichuan1.png'
 import Nft2Logo from 'src/assets/PC-config/NFT/feichuan2.png'
 import Nft3Logo from 'src/assets/PC-config/NFT/feichuan3.png'
 import Nft4Logo from 'src/assets/PC-config/NFT/feichuan4.png'
 import Nft5Logo from 'src/assets/PC-config/NFT/feichuan5.png'
 
-
-
-
 import SUVLogo from 'src/assets/PC-config/pool/SUV.svg'
-import SUVBUSDLogo from 'src/assets/PC-config/pool/SUV-BUSD1.svg'
+import JOELogo from 'src/assets/PC-config/pool/JOE.svg'
+import DAILogo from 'src/assets/PC-config/pool/DAI.svg'
 import USDCLogo from 'src/assets/PC-config/pool/USDC.svg'
-import WAVAXLogo from 'src/assets/PC-config/pool/BNB.svg'
+import WAVAXLogo from 'src/assets/PC-config/pool/WAVAX.svg'
 import USDTLogo from 'src/assets/PC-config/pool/USDT.svg'
-import BTCBLogo from 'src/assets/PC-config/pool/BTCB.svg'
-import ETHLogo from 'src/assets/PC-config/pool/ETH.svg'
-
-
+import WBTCLogo from 'src/assets/PC-config/pool/WBTC.svg'
+import WETHLogo from 'src/assets/PC-config/pool/WETH.svg'
+import SUVAVAXLogo from 'src/assets/PC-config/pool/SUV-AVAX.svg'
+import SUVUSDCLogo from 'src/assets/PC-config/pool/SUV-USDC.svg'
 
 export const SUBTRACT_GAS_LIMIT = 100000
 
@@ -61,28 +57,26 @@ export const addressMap = {
   SUSHIYCRV: '0x2C7a51A357d5739C5C74Bf3C96816849d2c9F726',
 }
 
-export const supportedChainId = 43113; // bsc test net
+export const supportedChainId = 43113 // bsc test net
 // export const supportedChainId = 250; // bsc main net
 export const chainExplorerUrls = {
   '56': 'https://bscscan.com/',
   '97': 'https://testnet.bscscan.com/',
   '43113': 'https://testnet.snowtrace.com/',
   '43114': 'https://snowtrace.com/',
-
 }
 
 export const chainRPCs = {
   '56': 'https://bsc-dataseed1.binance.org',
-  '97': 'https://data-seed-prebsc-1-s2.binance.org:8545/',
+  '97': 'https://data-seed-prebsc-2-s2.binance.org:8545',
   '43113': 'https://api.avax-test.network/ext/bc/C/rpc',
   '43114': 'https://api.avax.network/ext/bc/C/rpc',
 }
 
 export const chainName = {
   '43113': 'AVAX Testnet',
-  '43114': 'AVAX Mainnet'
+  '43114': 'AVAX Mainnet',
 }
-
 
 export const contractAddresses = {
   sushi: {
@@ -90,6 +84,7 @@ export const contractAddresses = {
     3: '0xf0Bad8BDCd8508bA3a253636f7031dE0a4CAaefd',
     43114: '0x610d1887a7D9fA93719bCe0bb43F59be09fc2223',
     43113: '0xd30E6004949eb5bD395BB0bb167cEd0Eb3975319',
+    97: '0x5790c7c1211D62b6087b6585c527791944521270',
   },
   sushiPair: {
     1: '', // sushi-baseCoin
@@ -100,17 +95,18 @@ export const contractAddresses = {
   nft: {
     43113: '0xD1a16EFF0EFFF97C814A3703f94580840310132E',
     43114: '0xa8D6b53770AC5CbaAD392d5377D4aec03C51aa54',
+    97: '0x5790c7c1211D62b6087b6585c527791944521270',
   },
   masterChef: {
     1: '0xc2edad668740f1aa35e4d8f227fb8e17dca888cd',
     3: '0x3552fc1e1FfC28F410387B20aa0DC2775352142A',
     43114: '0x25F7eC164719FBE9Eece3F2DE42b5E770434b36C',
     43113: '0x4Ea828c72fb4A8862165E96455f7035840f78Cf6',
+    97: '0x714B8229a1A60D264E5CdF1ACeC3A3f39020A2f2',
   },
   helper: {
     43113: '0xCf66774661015dAbCFF5c3D0aA6515f4Cd8F5cD1',
     43114: '0xEb6612B06170B458C3A0bea4eb8A8a1fa8b07aD4',
-
   },
   baseCoin: {
     1: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
@@ -149,16 +145,13 @@ export const contractAddresses = {
   },
   bridge3Pair: {
     97: '',
-  }
+  },
 }
 
-
-
 export const supportedPools = [
-
   //token
   {
-    pid: 0,
+    pid: 1,
     lpAddresses: {
       43114: '0xA8A91D4234f0354e7dCeD215A977a26f67472AF3', // rvs-busd
       43113: '0xdDA5122129dC6C410db0f82a72C5032d390d683D', // rvs-busd pair
@@ -183,7 +176,7 @@ export const supportedPools = [
   },
 
   {
-    pid: 2,
+    pid: 1,
     lpAddresses: {
       43114: '0xA8A91D4234f0354e7dCeD215A977a26f67472AF3', // rvs-busd
       43113: '0xdDA5122129dC6C410db0f82a72C5032d390d683D', // rvs-busd pair
@@ -200,14 +193,14 @@ export const supportedPools = [
     poolType: 0,
     decimals: 18,
     showDecimals: 6,
-    symbolShowing: 'SUV-USDC',
-    tokenSymbol: 'SUV-USDC',
-    icon: SUVBUSDLogo,
+    symbolShowing: 'JOE',
+    tokenSymbol: 'JOE',
+    icon: JOELogo,
     ratio: 5,
     fee: '0%',
   },
   {
-    pid: 3,
+    pid: 2,
     lpAddresses: {
       56: '0xA8A91D4234f0354e7dCeD215A977a26f67472AF3', // rvs-busd
       43113: '0xdDA5122129dC6C410db0f82a72C5032d390d683D', // rvs-busd pair
@@ -224,15 +217,15 @@ export const supportedPools = [
     poolType: 1,
     decimals: 6,
     showDecimals: 6,
-    symbolShowing: 'USDC',
-    tokenSymbol: 'USDC',
-    icon: USDCLogo,
+    symbolShowing: 'DAI',
+    tokenSymbol: 'DAI',
+    icon: DAILogo,
     ratio: 5,
     fee: '0%',
   },
 
   {
-    pid: 4,
+    pid: 3,
     lpAddresses: {
       56: '0xA8A91D4234f0354e7dCeD215A977a26f67472AF3', // rvs-busd
       43113: '0xdDA5122129dC6C410db0f82a72C5032d390d683D', // rvs-busd pair
@@ -249,15 +242,15 @@ export const supportedPools = [
     poolType: 1,
     decimals: 18,
     showDecimals: 6,
-    symbolShowing: 'WAVAX',
-    tokenSymbol: 'WAVAX',
-    icon: WAVAXLogo,
+    symbolShowing: 'USDC',
+    tokenSymbol: 'USDC',
+    icon: USDCLogo,
     ratio: 5,
     fee: '0%',
   },
 
   {
-    pid: 5,
+    pid: 4,
     lpAddresses: {
       56: '0xA8A91D4234f0354e7dCeD215A977a26f67472AF3', // rvs-busd
       43113: '0xdDA5122129dC6C410db0f82a72C5032d390d683D', // rvs-busd pair
@@ -274,15 +267,15 @@ export const supportedPools = [
     poolType: 1,
     decimals: 6,
     showDecimals: 6,
-    symbolShowing: 'USDT',
-    tokenSymbol: 'USDT',
-    icon: USDTLogo,
+    symbolShowing: 'WAVAX',
+    tokenSymbol: 'WAVAX',
+    icon: WAVAXLogo,
     ratio: 5,
     fee: '0%',
   },
 
   {
-    pid: 6,
+    pid: 5,
     lpAddresses: {
       56: '0xA8A91D4234f0354e7dCeD215A977a26f67472AF3', // rvs-busd
       97: '0xdDA5122129dC6C410db0f82a72C5032d390d683D', // rvs-busd pair
@@ -299,17 +292,15 @@ export const supportedPools = [
     poolType: 1,
     decimals: 18,
     showDecimals: 6,
-    symbolShowing: 'BTC',
-    tokenSymbol: 'BTC',
-    icon: BTCBLogo,
-    ratio: 4,
+    symbolShowing: 'USDT',
+    tokenSymbol: 'USDT',
+    icon: USDTLogo,
+    ratio: 5,
     fee: '0%',
   },
 
-
-
   {
-    pid: 7,
+    pid: 6,
     lpAddresses: {
       56: '0xA8A91D4234f0354e7dCeD215A977a26f67472AF3', // rvs-busd
       97: '0xdDA5122129dC6C410db0f82a72C5032d390d683D', // rvs-busd pair
@@ -326,15 +317,84 @@ export const supportedPools = [
     poolType: 1,
     decimals: 18,
     showDecimals: 6,
-    symbolShowing: 'ETH',
-    tokenSymbol: 'ETH',
-    icon: ETHLogo,
-    ratio: 4,
+    symbolShowing: 'WBTC',
+    tokenSymbol: 'WBTC',
+    icon: WBTCLogo,
+    ratio: 5,
     fee: '0%',
-
   },
-
-
+  {
+    pid: 13,
+    lpAddresses: {
+      56: '0xA8A91D4234f0354e7dCeD215A977a26f67472AF3', // rvs-busd
+      97: '0xdDA5122129dC6C410db0f82a72C5032d390d683D', // rvs-busd pair
+    },
+    tokenAddresses: {
+      43114: '0x610d1887a7D9fA93719bCe0bb43F59be09fc2223', // rvs
+      43113: '0x25d9ebc0186da816ef90d75742ff8e447dc6c9f2', // rvs
+    },
+    baseTokenAddresses: {
+      56: '0xe9e7cea3dedca5984780bafc599bd69add087d56', // busd
+      97: '0x816070dd4eD4b5a16E71ad72CF215b31f16Ba6c2', // busd
+    },
+    bridge: 0,
+    poolType: 1,
+    decimals: 18,
+    showDecimals: 6,
+    symbolShowing: 'WETH',
+    tokenSymbol: 'WETH',
+    icon: WETHLogo,
+    ratio: 5,
+    fee: '0%',
+  },
+  {
+    pid: 14,
+    lpAddresses: {
+      56: '0xA8A91D4234f0354e7dCeD215A977a26f67472AF3', // rvs-busd
+      97: '0xdDA5122129dC6C410db0f82a72C5032d390d683D', // rvs-busd pair
+    },
+    tokenAddresses: {
+      43114: '0x610d1887a7D9fA93719bCe0bb43F59be09fc2223', // rvs
+      43113: '0x25d9ebc0186da816ef90d75742ff8e447dc6c9f2', // rvs
+    },
+    baseTokenAddresses: {
+      56: '0xe9e7cea3dedca5984780bafc599bd69add087d56', // busd
+      97: '0x816070dd4eD4b5a16E71ad72CF215b31f16Ba6c2', // busd
+    },
+    bridge: 0,
+    poolType: 1,
+    decimals: 18,
+    showDecimals: 6,
+    symbolShowing: 'SUV-AVAX',
+    tokenSymbol: 'SUV-AVAX',
+    icon: SUVAVAXLogo,
+    ratio: 5,
+    fee: '0%',
+  },
+  {
+    pid: 15,
+    lpAddresses: {
+      56: '0xA8A91D4234f0354e7dCeD215A977a26f67472AF3', // rvs-busd
+      97: '0xdDA5122129dC6C410db0f82a72C5032d390d683D', // rvs-busd pair
+    },
+    tokenAddresses: {
+      43114: '0x610d1887a7D9fA93719bCe0bb43F59be09fc2223', // rvs
+      43113: '0x25d9ebc0186da816ef90d75742ff8e447dc6c9f2', // rvs
+    },
+    baseTokenAddresses: {
+      56: '0xe9e7cea3dedca5984780bafc599bd69add087d56', // busd
+      97: '0x816070dd4eD4b5a16E71ad72CF215b31f16Ba6c2', // busd
+    },
+    bridge: 0,
+    poolType: 1,
+    decimals: 18,
+    showDecimals: 6,
+    symbolShowing: 'SUV-USDC',
+    tokenSymbol: 'SUV-USDC',
+    icon: SUVUSDCLogo,
+    ratio: 5,
+    fee: '0%',
+  },
   {
     pid: 8,
     lpAddresses: {
@@ -344,7 +404,9 @@ export const supportedPools = [
     tokenAddresses: {
       43114: '0xfbb35bfa5b16135269560cED309245a0822b205A', // rvs
       43113: '0x1C3742A732cA374b2EAF7E3346Dc1Aa4F567a696', // rvs
+      97: '0x0bB91424c6eb1Ece3c1382d3c46a9bf5a6C66296',
     },
+
     baseTokenAddresses: {
       56: '0xe9e7cea3dedca5984780bafc599bd69add087d56', // busd
       97: '0x816070dd4eD4b5a16E71ad72CF215b31f16Ba6c2', // busd
@@ -357,9 +419,8 @@ export const supportedPools = [
     tokenSymbol: 'Tequila',
     icon: Nft1Logo,
     fee: '0%',
-    nftType: true
+    nftType: true,
   },
-
 
   {
     pid: 9,
@@ -370,6 +431,7 @@ export const supportedPools = [
     tokenAddresses: {
       43114: '0x723dfBFf89617b9497B47d678A351bb02C2AC91B', // rvs
       43113: '0x060D31998a3a31734C73B76d8bf36d983183c5fe', // rvs
+      97: '0x9FDA3E9FC89eC51B0F8aD24294945Da1745Ae402',
     },
     baseTokenAddresses: {
       56: '0x610d1887a7D9fA93719bCe0bb43F59be09fc2223', // rvs
@@ -383,7 +445,7 @@ export const supportedPools = [
     tokenSymbol: 'Fletcher',
     icon: Nft2Logo,
     fee: '0%',
-    nftType: true
+    nftType: true,
   },
   {
     pid: 10,
@@ -394,6 +456,7 @@ export const supportedPools = [
     tokenAddresses: {
       43113: '0x42f7773b8886C9A13dC508819350200B0C5E9E1c', // CAKE
       43114: '0xE4227D0c87752bba1c81192AEb3Cb19c0575f53a', // CAKE
+      97: '0x5997dDD1bE364e644f9B939c9edB39F9dd97Ad18',
     },
     baseTokenAddresses: {
       56: '0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82', // CAKE
@@ -407,8 +470,7 @@ export const supportedPools = [
     tokenSymbol: 'Orion',
     icon: Nft3Logo,
     fee: '0%',
-    nftType: true
-
+    nftType: true,
   },
   {
     pid: 11,
@@ -419,10 +481,12 @@ export const supportedPools = [
     tokenAddresses: {
       43114: '0x83D7a230b54efD7691fe8d7C04633aFe520Dc026', // busd
       43113: '0xBF92B01B3Af79cdBe1a732a5453db8AB65D81CC0', // BUSD
+      97: '0x99007b44490e55055A235841EF9e531dc5a82fBd',
     },
     baseTokenAddresses: {
       56: '0xe9e7cea3dedca5984780bafc599bd69add087d56', // busd
       97: '0x816070dd4eD4b5a16E71ad72CF215b31f16Ba6c2', // BUSD
+      97: '0xa406c93c26571f46fD229eC79A00c59de30856B7',
     },
     bridge: 0,
     poolType: 3,
@@ -432,8 +496,7 @@ export const supportedPools = [
     tokenSymbol: 'Zeus',
     icon: Nft4Logo,
     fee: '0%',
-    nftType: true
-
+    nftType: true,
   },
   {
     pid: 12,
@@ -457,10 +520,6 @@ export const supportedPools = [
     tokenSymbol: 'Reese',
     icon: Nft5Logo,
     fee: '0%',
-    nftType: true
-
+    nftType: true,
   },
-
-
 ]
-
