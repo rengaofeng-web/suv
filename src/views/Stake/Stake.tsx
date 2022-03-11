@@ -33,6 +33,7 @@ const Stake: React.FC<{}> = () => {
   const history = useHistory();
   const farm = useFarm(farmId);
   useEffect(() => {
+    console.log(farm);
     window.scrollTo(0, 0);
   }, []);
   const lpTokenPrice = 100;
@@ -77,7 +78,7 @@ const Stake: React.FC<{}> = () => {
 
   const maxBalance = isLocal ? ethBalanceVar : tokenBalance;
   const fullBalance = useMemo(() => {
-    return getFullDisplayBalance(maxBalance, farm.decimals, farm.showDecimals);
+    return getDisplayBalance(maxBalance, farm.decimals, farm.showDecimals);
   }, [maxBalance, farm.decimals]);
   const handleDepositSelectMax = useCallback(() => {
     setDepositValue(fullBalance);
@@ -95,7 +96,7 @@ const Stake: React.FC<{}> = () => {
   }, [fullStakedBalance, setWithdrawValue]);
 
   const [lockDay, setLockDay] = useState(0);
-  const [boost, setBoost] = useState(0);
+  const [boost, setBoost] = useState(1);
 
   const { onStake } = useStake(farmId, isLocal, farm.decimals);
   const { onUnstake } = useUnstake(farmId, farm.decimals);
@@ -161,7 +162,7 @@ const Stake: React.FC<{}> = () => {
         let cale = parent.offsetWidth / 52;
         let num = parseInt(String(moveValue / cale));
         setdragValue(num);
-        setBoost(new BigNumber(num).times(0.02).toNumber());
+        setBoost(new BigNumber(1).plus(new BigNumber(num).times(0.02)).toNumber());
         target.style.left = moveValue + "px";
         line.style.width = moveValue + "px";
       }
@@ -200,7 +201,8 @@ const Stake: React.FC<{}> = () => {
         let cale = parent.offsetWidth / 52;
         let num = parseInt(String(moveValue / cale));
         setdragValue(num);
-        setBoost(new BigNumber(num).times(0.02).toNumber());
+        setBoost(new BigNumber(1).plus(new BigNumber(num).times(0.02)).toNumber());
+
         target.style.left = moveValue + "px";
         line.style.width = moveValue + "px";
       }

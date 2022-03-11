@@ -7,7 +7,7 @@ import { chainName, chainRPCs, supportedChainId } from "src/sushi/lib/constants"
 import Coin98Icon from "../../assets/wallet_logo/Coin98.svg";
 import CoinbaseIcon from "../../assets/wallet_logo/Coinbase.svg";
 import MetamaskIcon from "../../assets/wallet_logo/metamask.svg";
-import { injected, walletconnect } from "src/contexts/Metamask/connectors";
+import { injected, walletconnect, WalletLinkConnect } from "src/contexts/Metamask/connectors";
 
 interface Props {
   change: Function;
@@ -87,6 +87,10 @@ const Connect: React.FC<Props> = (props) => {
       connect(walletconnect, (err) => {
         console.log(err);
       });
+    } else if (type === 3) {
+      connect(WalletLinkConnect, (err) => {
+        console.log(err);
+      });
     }
     closeConnect();
   };
@@ -133,7 +137,9 @@ const Connect: React.FC<Props> = (props) => {
               </div>
               <div className="text">Coinbase Wallet</div>
             </div>
-            <div className="connection-mode-item">
+            <div className="connection-mode-item" onClick={()=>{
+                connectNetwork(3)
+            }}>
               <div className="connect-logo ">
                 <img src={Coin98Icon} alt="" />
               </div>

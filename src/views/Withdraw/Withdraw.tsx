@@ -79,7 +79,7 @@ const Withdraw: React.FC<{}> = () => {
 
   const boostAmount = useStakedBoostAmount(farm.pid);
   const multiplier = stakedBalance.isGreaterThan(0)
-    ? boostAmount.div(stakedBalance).toFixed(1)
+    ? boostAmount.div(stakedBalance).toFixed(2)
     : "1";
   const isM: boolean = isMobile();
   let [current, setCurrent] = useState(true);
@@ -145,7 +145,8 @@ const Withdraw: React.FC<{}> = () => {
                   Boost:
                   <span>
                     {" "}
-                    {new BigNumber(farm.allocPoint).div(farm.totalPoolWeight).toFixed(3)}{" "}
+                    {/* {new BigNumber(farm.allocPoint).div(farm.totalPoolWeight).toFixed(3)}{" "} */}
+                    {multiplier}
                   </span>
                 </div>
                 <div className="est">
