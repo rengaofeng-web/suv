@@ -123,21 +123,21 @@ const Connect: React.FC<Props> = (props) => {
                 connectNetwork(1);
               }}
             >
-              <div className="connect-logo">
+              <div
+                className="connect-logo"
+                onClick={() => {
+                  connectNetwork(3);
+                }}
+              >
                 <img src={CoinbaseIcon} alt="" />
               </div>
-              <div className="text">TokenPocket</div>
+              <div className="text">Coinbase Wallet</div>
             </div>
-            <div
-              className="connection-mode-item"
-              onClick={() => {
-                connectNetwork(1);
-              }}
-            >
+            <div className="connection-mode-item">
               <div className="connect-logo ">
                 <img src={Coin98Icon} alt="" />
               </div>
-              <div className="text">Bitkeep</div>
+              <div className="text">Coin98</div>
             </div>
           </div>
           {/* close botton */}

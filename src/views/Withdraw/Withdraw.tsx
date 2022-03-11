@@ -125,7 +125,7 @@ const Withdraw: React.FC<{}> = () => {
               <div className="amount-box">
                 <div className="amount">Amount</div>
                 <div className="balance">
-                  Balance:
+                  Staked:
                   <span>{fullStakedBalance}</span>
                 </div>
               </div>
@@ -142,7 +142,7 @@ const Withdraw: React.FC<{}> = () => {
               </div>
               <div className="weight-box">
                 <div className="weight">
-                  Weight:
+                  Boost:
                   <span>
                     {" "}
                     {new BigNumber(farm.allocPoint).div(farm.totalPoolWeight).toFixed(3)}{" "}
@@ -172,7 +172,7 @@ const Withdraw: React.FC<{}> = () => {
               <div className="amount-box">
                 <div className="amount">Amount</div>
                 <div className="balance">
-                  Balance:
+                  Staked:
                   <span>0</span>
                 </div>
               </div>

@@ -95,6 +95,7 @@ const Stake: React.FC<{}> = () => {
   }, [fullStakedBalance, setWithdrawValue]);
 
   const [lockDay, setLockDay] = useState(0);
+  const [boost, setBoost] = useState(0);
 
   const { onStake } = useStake(farmId, isLocal, farm.decimals);
   const { onUnstake } = useUnstake(farmId, farm.decimals);
@@ -158,7 +159,9 @@ const Stake: React.FC<{}> = () => {
           moveValue = parent.offsetWidth;
         }
         let cale = parent.offsetWidth / 52;
-        setdragValue(parseInt(String(moveValue / cale)));
+        let num = parseInt(String(moveValue / cale));
+        setdragValue(num);
+        setBoost(new BigNumber(num).times(0.02).toNumber());
         target.style.left = moveValue + "px";
         line.style.width = moveValue + "px";
       }
@@ -195,7 +198,9 @@ const Stake: React.FC<{}> = () => {
           moveValue = parent.offsetWidth;
         }
         let cale = parent.offsetWidth / 52;
-        setdragValue(parseInt(String(moveValue / cale)));
+        let num = parseInt(String(moveValue / cale));
+        setdragValue(num);
+        setBoost(new BigNumber(num).times(0.02).toNumber());
         target.style.left = moveValue + "px";
         line.style.width = moveValue + "px";
       }
@@ -248,7 +253,7 @@ const Stake: React.FC<{}> = () => {
               <div className="amount-box">
                 <div className="amount">Amount</div>
                 <div className="balance">
-                  Available:
+                  Balance:
                   <span>{fullBalance} </span>
                 </div>
               </div>
@@ -268,7 +273,8 @@ const Stake: React.FC<{}> = () => {
                   Boost:
                   <span>
                     {" "}
-                    {new BigNumber(farm.allocPoint).div(farm.totalPoolWeight).toFixed(3)}{" "}
+                    {/* {new BigNumber(farm.allocPoint).div(farm.totalPoolWeight).toFixed(3)}{" "} */}
+                    {boost}
                   </span>
                 </div>
                 <div className="est">
@@ -285,7 +291,8 @@ const Stake: React.FC<{}> = () => {
                   Boost:
                   <span>
                     {" "}
-                    {new BigNumber(farm.allocPoint).div(farm.totalPoolWeight).toFixed(3)}{" "}
+                    {/* {new BigNumber(farm.allocPoint).div(farm.totalPoolWeight).toFixed(3)}{" "} */}
+                    {boost}
                   </span>
                 </div>
               </div>
@@ -302,7 +309,7 @@ const Stake: React.FC<{}> = () => {
               <div className="amount-box">
                 <div className="amount">Amount</div>
                 <div className="balance">
-                  Available:
+                  Balance:
                   <span>{fullBalance} </span>
                 </div>
               </div>

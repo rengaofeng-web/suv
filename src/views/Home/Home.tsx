@@ -295,7 +295,7 @@ const HomeStyle = styled.div`
         }
         position: relative;
         transform: translate(-50px, 0);
-        .right-text{
+        .right-text {
           position: relative;
         }
         .sanjiao {

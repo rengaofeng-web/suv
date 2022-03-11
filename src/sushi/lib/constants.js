@@ -58,7 +58,7 @@ export const addressMap = {
 }
 
 export const supportedChainId = 43113 // bsc test net
-// export const supportedChainId = 250; // bsc main net
+// export const supportedChainId = 43114; // bsc main net
 export const chainExplorerUrls = {
   '56': 'https://bscscan.com/',
   '97': 'https://testnet.bscscan.com/',
@@ -151,7 +151,7 @@ export const contractAddresses = {
 export const supportedPools = [
   //token
   {
-    pid: 1,
+    pid: 0,
     lpAddresses: {
       43114: '0xA8A91D4234f0354e7dCeD215A977a26f67472AF3', // rvs-busd
       43113: '0xdDA5122129dC6C410db0f82a72C5032d390d683D', // rvs-busd pair

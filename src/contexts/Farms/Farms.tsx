@@ -12,7 +12,7 @@ const Farms: React.FC = ({ children }) => {
   const sushi = useSushi();
   const farms = getFarms(sushi);
   // let pidArr = farms.map((item: Farm) => item.pid);
-  let pidArr = [0, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  let pidArr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
   const { balances: stakedValue, totalW: totalPoolWeight } = useFarmInfo(pidArr);
   const [farmInfos, setFarmInfos] = useState([]);
   const block = useBlock();
