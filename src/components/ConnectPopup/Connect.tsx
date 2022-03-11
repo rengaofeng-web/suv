@@ -124,22 +124,20 @@ const Connect: React.FC<Props> = (props) => {
             <div
               className="connection-mode-item"
               onClick={() => {
-                connectNetwork(1);
+                connectNetwork(3);
               }}
             >
-              <div
-                className="connect-logo"
-                onClick={() => {
-                  connectNetwork(3);
-                }}
-              >
+              <div className="connect-logo">
                 <img src={CoinbaseIcon} alt="" />
               </div>
               <div className="text">Coinbase Wallet</div>
             </div>
-            <div className="connection-mode-item" onClick={()=>{
-                connectNetwork(3)
-            }}>
+            <div
+              className="connection-mode-item"
+              onClick={() => {
+                connectNetwork(3);
+              }}
+            >
               <div className="connect-logo ">
                 <img src={Coin98Icon} alt="" />
               </div>
