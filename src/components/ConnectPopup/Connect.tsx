@@ -95,9 +95,9 @@ const Connect: React.FC<Props> = (props) => {
     closeConnect();
   };
 
-  useEffect(() => {
-    connectWallet(1);
-  }, []);
+  // useEffect(() => {
+  //   connectWallet(1);
+  // }, []);
   return (
     <ConnectStyle style={{ display: show ? "block" : "none" }}>
       <div className="mask">
