@@ -15,7 +15,7 @@ import { getMasterChefContract, getLocalCoinAddress } from "../../sushi/utils";
 import { getContract } from "../../utils/erc20";
 import coinLogo from "src/assets/imgs/logo/logo1024.svg";
 import heoEthLogo from "src/assets/imgs/heo_eth.png";
-import useTokenBalance from "src/hooks/useTokenBalance";
+import useTokenBalance from "src/hooks/useTokenBalance"; //获取代币余额
 import { getFullDisplayBalance, getDisplayBalance } from "src/utils/formatBalance";
 import useETHBalance from "src/hooks/useETHBalance";
 import BigNumber from "bignumber.js";
@@ -46,32 +46,34 @@ const Stake: React.FC<{}> = () => {
   const { ethereum, account } = useWallet();
   const [count, setCount] = useState(0);
   const lpContract = useMemo(() => {
+    //lp合同
     return getContract(ethereum as provider, farm.lpTokenAddress);
   }, [ethereum, farm.lpTokenAddress]);
   const tokenContract = useMemo(() => {
+    //代币合同
     return getContract(ethereum as provider, farm.tokenAddress);
   }, [ethereum, farm.tokenAddress]);
 
   const [depositValue, setDepositValue] = useState("");
   const [withdrawValue, setWithdrawValue] = useState("");
 
-  const targetTokenAddress = farm.poolType == 1 ? farm.tokenAddress : farm.lpTokenAddress;
-  const targetTokenAddressLowerCase = farm.tokenAddress && farm.tokenAddress.toLowerCase();
+  const targetTokenAddress = farm.poolType == 1 ? farm.tokenAddress : farm.lpTokenAddress; //目标令牌地址
+  const targetTokenAddressLowerCase = farm.tokenAddress && farm.tokenAddress.toLowerCase(); //目标令牌地址小写
   const localCoinAddressLowerCase =
-    getLocalCoinAddress(sushi) && getLocalCoinAddress(sushi).toLowerCase();
-  const isLocal = targetTokenAddressLowerCase === localCoinAddressLowerCase && farm.poolType == 1;
+    getLocalCoinAddress(sushi) && getLocalCoinAddress(sushi).toLowerCase(); //本地硬币地址小写
+  const isLocal = targetTokenAddressLowerCase === localCoinAddressLowerCase && farm.poolType == 1; //是否是本地
 
-  const tokenBalance = useTokenBalance(targetTokenAddress);
+  const tokenBalance = useTokenBalance(targetTokenAddress); //代币余额
 
-  // eth means local coin pool
-  const ethBalance = useETHBalance();
-  // only valid for local coin
+  // eth means local coin pool  eth是指当地的硬币池
+  const ethBalance = useETHBalance(); //eth均衡
+  // only valid for local coin  仅对本地硬币有效
   var ethBalanceVar = ethBalance.plus(tokenBalance);
-  // keep 0.0003 in wallet as operation gas fee
+  // keep 0.0003 in wallet as operation gas fee  在钱包中存放0.0003作为操作气体费用
   if (ethBalance.isGreaterThan(new BigNumber("300000000000000")))
     ethBalanceVar = ethBalanceVar.minus(new BigNumber("300000000000000"));
 
-  // valid for all pools
+  // valid for all pools 适用于所有池
   let maxEth = ethBalance;
   if (ethBalance.isGreaterThan(new BigNumber("300000000000000")))
     maxEth = maxEth.minus(new BigNumber("300000000000000"));
@@ -101,11 +103,11 @@ const Stake: React.FC<{}> = () => {
   const { onStake } = useStake(farmId, isLocal, farm.decimals);
   const { onUnstake } = useUnstake(farmId, farm.decimals);
 
-  const maxWETH = isLocal ? tokenBalance : new BigNumber(0);
+  const maxWETH = isLocal ? tokenBalance : new BigNumber(0); //代币余额
 
-  const allowance = useAllowance(farm.poolType == 1 ? tokenContract : lpContract);
-  const maxAvail = maxBalance.isLessThan(allowance) ? maxBalance : allowance;
-  const maxBalanceStr = getFullDisplayBalance(maxAvail, farm.decimals);
+  const allowance = useAllowance(farm.poolType == 1 ? tokenContract : lpContract); //津贴
+  const maxAvail = maxBalance.isLessThan(allowance) ? maxBalance : allowance; //最大效用
+  const maxBalanceStr = getFullDisplayBalance(maxAvail, farm.decimals); //最大平衡
   const totalValue = maxAvail.times(lpTokenPrice).div(new BigNumber(10).pow(farm.decimals));
   const depositInU = new BigNumber(depositValue ? depositValue : 0).times(farm.price);
   //console.log('total value = ' + totalValue.toFixed(8) + ', depositInU = ' + depositInU)

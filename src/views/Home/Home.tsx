@@ -139,7 +139,7 @@ const HomeStyle = styled.div`
         /* padding-left: 379px; */
         width: 1200px;
         margin: auto;
-        overflow-x: hidden;
+        /* overflow-x: hidden; */
         padding-top: 60px;
         display: flex;
         .left-img {
@@ -288,7 +288,7 @@ const HomeStyle = styled.div`
       .content {
         width: 1200px;
         margin: auto;
-        overflow-x: hidden;
+        /* overflow-x: hidden; */
         padding-top: 60px;
         display: flex;
         .left-img {

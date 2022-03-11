@@ -79,19 +79,19 @@ const Connect: React.FC<Props> = (props) => {
     }
   };
   const connectWallet = (type: number) => {
-    if (type === 1) {
-      connect(injected, (err) => {
-        console.log(err);
-      });
-    } else if (type === 2) {
-      connect(walletconnect, (err) => {
-        console.log(err);
-      });
-    } else if (type === 3) {
-      connect(WalletLinkConnect, (err) => {
-        console.log(err);
-      });
-    }
+    // if (type === 1) {
+    //   connect(injected, (err) => {
+    //     console.log(err);
+    //   });
+    // } else if (type === 2) {
+    //   connect(walletconnect, (err) => {
+    //     console.log(err);
+    //   });
+    // } else if (type === 3) {
+    //   connect(WalletLinkConnect, (err) => {
+    //     console.log(err);
+    //   });
+    // }
     closeConnect();
   };
 
