@@ -42,7 +42,7 @@ const Details: React.FC<{}> = () => {
     await onReward();
     setRewardPending(false);
   }, [setRewardPending, onReward]);
-  console.log(farm);
+  // console.log(farm);
   return (
     <DetailsStyle>
       <div className="content-box">
