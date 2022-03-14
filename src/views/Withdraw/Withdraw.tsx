@@ -41,10 +41,6 @@ const Withdraw: React.FC<{}> = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
   const [withdrawValue, setWithdrawValue] = useState("");
 
   // withdraw

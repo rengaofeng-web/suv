@@ -98,7 +98,7 @@ const Stake: React.FC<{}> = () => {
   }, [fullStakedBalance, setWithdrawValue]);
 
   const [lockDay, setLockDay] = useState(0);
-  const [boost, setBoost] = useState(1);
+  const [boost, setBoost] = useState("0.00");
 
   const { onStake } = useStake(farmId, isLocal, farm.decimals);
   const { onUnstake } = useUnstake(farmId, farm.decimals);
@@ -164,7 +164,7 @@ const Stake: React.FC<{}> = () => {
         let cale = parent.offsetWidth / 52;
         let num = parseInt(String(moveValue / cale));
         setdragValue(num);
-        setBoost(new BigNumber(1).plus(new BigNumber(num).times(0.02)).toNumber());
+        setBoost(new BigNumber(num).times(0.02).toFixed(2));
         target.style.left = moveValue + "px";
         line.style.width = moveValue + "px";
       }
@@ -203,7 +203,7 @@ const Stake: React.FC<{}> = () => {
         let cale = parent.offsetWidth / 52;
         let num = parseInt(String(moveValue / cale));
         setdragValue(num);
-        setBoost(new BigNumber(1).plus(new BigNumber(num).times(0.02)).toNumber());
+        setBoost(new BigNumber(num).times(0.02).toFixed(2));
 
         target.style.left = moveValue + "px";
         line.style.width = moveValue + "px";

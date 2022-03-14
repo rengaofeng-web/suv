@@ -15,6 +15,8 @@ import ConnectButton from "../ConnectButton/ConnectButton"; //connect button
 const Header: React.FC<{}> = () => {
   const isM = isMobile();
   const nav = useRef(null);
+  const survivor_select = useRef(null);
+  const survivor = useRef(null);
   let [homeState, setState] = useState(false);
   const chengeState = () => {
     homeState ? setState(false) : setState(true);
@@ -50,6 +52,9 @@ const Header: React.FC<{}> = () => {
         if (select && select.classList.contains("select")) select.style.display = "none";
         brother[i].classList.remove("active");
       }
+      let survivorSelect = survivor_select.current as HTMLDivElement;
+      survivorSelect.classList.remove("survivor-select-active");
+      survivor.current?.classList.remove("survivor-active");
     }
   };
   // 手机端显示导航
@@ -160,14 +165,22 @@ const Header: React.FC<{}> = () => {
             </div>
             <div
               className="item survivor"
+              ref={survivor}
               onClick={(e: React.MouseEvent<HTMLDivElement>) => {
                 e.stopPropagation ? e.stopPropagation() : (e.cancelable = true);
+                removeStats(isM ? true : false);
+                let target = e.target as HTMLDivElement;
+                if (target.classList.contains("survivor")) {
+                  target.classList.add("survivor-active");
+                  let children = target.children;
+                  children[0].classList.add("survivor-select-active");
+                }
               }}
             >
               Survivor {isM ? <span>(Coming soon)</span> : null}
               {/* select */}
               {isM ? null : (
-                <div className="survivor-select">
+                <div className="survivor-select" ref={survivor_select}>
                   <div className="select-item">
                     Coming
                     <br />
@@ -182,13 +195,19 @@ const Header: React.FC<{}> = () => {
               <div className="select">
                 <div className="select-con">
                   <div className="select-item">
-                    <a href="/#">Discord</a>
+                    <a href="https://discord.gg/wZnUMKPeak" target={"_blank"}>
+                      Discord
+                    </a>
                   </div>
                   <div className="select-item">
-                    <a href="/#">Telegram</a>
+                    <a href="https://t.me/survivorfinance" target={"_blank"}>
+                      Telegram
+                    </a>
                   </div>
                   <div className="select-item">
-                    <a href="/#">Twitter</a>
+                    <a href="https://twitter.com/Survivor_Fi" target={"_blank"}>
+                      Twitter
+                    </a>
                   </div>
                 </div>
               </div>
@@ -202,10 +221,12 @@ const Header: React.FC<{}> = () => {
                     <a href="/#">FAQ</a>
                   </div>
                   <div className="select-item">
-                    <a href="/#">Docs</a>
+                    <a href="https://docs.survivor.finance/" target={"_blank"}>
+                      Docs
+                    </a>
                   </div>
                   <div className="select-item">
-                    <a href="/#">Readmap</a>
+                    <a href="/#">Roadmap</a>
                   </div>
                   <div className="select-item">
                     <a href="/#">Audit</a>
@@ -371,19 +392,33 @@ const HeaderStyle = styled.div`
         margin-left: 7px;
         margin-right: 37px;
         .survivor-select {
-          display: none;
-          color: #eff316;
+          position: absolute;
+          left: -14%;
+          display: block;
           text-align: center;
-          line-height: 18px;
-          font-weight: normal;
-          font-size: 14px;
+          font-family: "Roboto";
+          font-style: normal;
+          font-weight: 500;
+          font-size: 18px;
+          line-height: 21px;
+          color: #e82a7a;
+          width: 99px;
+          height: 64px;
+          background: rgba(255, 255, 255, 0.35);
+          backdrop-filter: blur(3px);
+          border-radius: 10px;
+          box-sizing: border-box;
+          padding-top: 11px;
+          opacity: 0;
+          transition: all 0.6s ease-in-out;
         }
       }
-      .survivor:hover {
-        color: #fff;
+
+      .survivor-select-active {
+        opacity: 1 !important;
       }
-      .survivor:hover .survivor-select {
-        display: block;
+      .survivor-active {
+        color: #fff;
       }
       .survivor::after {
         display: none;

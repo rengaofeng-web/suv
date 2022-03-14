@@ -42,7 +42,7 @@ const Details: React.FC<{}> = () => {
     await onReward();
     setRewardPending(false);
   }, [setRewardPending, onReward]);
-
+  console.log(farm);
   return (
     <DetailsStyle>
       <div className="content-box">
@@ -81,8 +81,13 @@ const Details: React.FC<{}> = () => {
               </div>
             </div>
             <div className="data-item">
-              <div className="data-name">Weight</div>
-              <div className="data-con">{farm.allocPoint || 0}</div>
+              <div className="data-name">Staked</div>
+              <div className="data-con">
+                $
+                {new BigNumber(farm.allocPoint || 0)
+                  .div(new BigNumber(10).pow(farm.decimals))
+                  .toFixed(2)}
+              </div>
             </div>
             <div className="data-item">
               <div className="data-name">Pending rewards</div>
@@ -99,7 +104,7 @@ const Details: React.FC<{}> = () => {
               <div className="data-con">{farm.apy}</div>
             </div>
             <div className="data-item">
-              <div className="data-name">My liquidity</div>
+              <div className="data-name">Boost</div>
               <div className="data-con">
                 {new BigNumber(farm.userStaked || 0)
                   .div(new BigNumber(10).pow(farm.decimals))

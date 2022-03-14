@@ -16,11 +16,7 @@ import { useWallet } from "use-wallet";
 import ArrowPic from "src/assets/images/logo.svg";
 
 import useFarms from "src/hooks/useFarms";
-import {
-  getEarned,
-  getLocalCoinAddress,
-  getMasterChefContract,
-} from "src/sushi/utils";
+import { getEarned, getLocalCoinAddress, getMasterChefContract } from "src/sushi/utils";
 
 import useApprove from "src/hooks/useApprove";
 import useStakedBalance from "src/hooks/useStakedBalance";
@@ -159,14 +155,8 @@ const PoolStyle = styled.div`
       0 calc(100% - 35px),
       0 35px
     );
-    background: linear-gradient(
-          -45deg,
-          transparent 23px,
-          rgba(4, 10, 58, 0.3) 0
-        )
-        bottom right,
-      linear-gradient(45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom
-        left,
+    background: linear-gradient(-45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom right,
+      linear-gradient(45deg, transparent 23px, rgba(4, 10, 58, 0.3) 0) bottom left,
       linear-gradient(135deg, #2cb0de 26px, rgba(4, 10, 58, 0.3) 0) top left,
       linear-gradient(-135deg, #2cb0de 26px, rgba(4, 10, 58, 0.3) 0) top right;
     background-size: 50% 50%;
@@ -392,24 +382,12 @@ const PoolStyle = styled.div`
                   rgba(4, 10, 58, 0.3) 0
                 )
                 bottom right,
-              linear-gradient(
-                  45deg,
-                  rgba(51, 191, 235, 1) 0.28rem,
-                  rgba(4, 10, 58, 0.3) 0
-                )
-                bottom left,
-              linear-gradient(
-                  135deg,
-                  rgba(51, 191, 235, 1) 0.28rem,
-                  rgba(4, 10, 58, 0.3) 0
-                )
-                top left,
-              linear-gradient(
-                  -135deg,
-                  rgba(51, 191, 235, 1) 0.28rem,
-                  rgba(4, 10, 58, 0.3) 0
-                )
-                top right;
+              linear-gradient(45deg, rgba(51, 191, 235, 1) 0.28rem, rgba(4, 10, 58, 0.3) 0) bottom
+                left,
+              linear-gradient(135deg, rgba(51, 191, 235, 1) 0.28rem, rgba(4, 10, 58, 0.3) 0) top
+                left,
+              linear-gradient(-135deg, rgba(51, 191, 235, 1) 0.28rem, rgba(4, 10, 58, 0.3) 0) top
+                right;
             background-size: cover;
             background-repeat: no-repeat;
             border: 0.03rem solid rgba(51, 191, 235, 1);

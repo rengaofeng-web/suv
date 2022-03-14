@@ -36,7 +36,7 @@ const Home: React.FC = (props) => {
               </div>
               <div className="right-text">
                 {!isM ? <div className="sanjiao"></div> : null}
-                <div className="title">What is survivor?</div>
+                <div className="title">What is survivor</div>
                 <div className="article">
                   Survivor is an open world survival game running on Avalanche. Players will
                   cooperate or fight against each other for resources needed to survive. You can
@@ -123,6 +123,7 @@ const HomeStyle = styled.div`
     .content-top {
       position: absolute;
       width: 100%;
+      height: 474px;
       top: 100px;
       background: linear-gradient(
         89.9deg,

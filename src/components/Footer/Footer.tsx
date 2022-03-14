@@ -75,7 +75,9 @@ const Footer: React.FC<{}> = () => {
               </div>
               <div className="menu-item">
                 <div className="item">
-                  <a href="/#">Docs</a>
+                  <a href="https://docs.survivor.finance/" target={"_blank"}>
+                    Docs
+                  </a>
                 </div>
                 <div className="item">
                   <a href="/#">Audit</a>
@@ -94,7 +96,7 @@ const Footer: React.FC<{}> = () => {
                 <div className="price-data">
                   <div className="top">
                     <div className="text">price</div>
-                    <div className="price">$669.3</div>
+                    <div className="price">$0.005</div>
                   </div>
                   <div className="chart">
                     <div className="trend">
@@ -104,7 +106,7 @@ const Footer: React.FC<{}> = () => {
                         style={{ width: "100%", marginTop: "5px" }}
                       />
                     </div>
-                    <div className="num rise">+2.82%</div>
+                    {/* <div className="num rise">+2.82%</div> */}
                   </div>
                 </div>
               </div>
@@ -113,21 +115,21 @@ const Footer: React.FC<{}> = () => {
           <div className="right">
             <div className="trademark-bg">
               <div className="trademark">
-                <a href="/#">
+                <a href="https://twitter.com/Survivor_Fi" target={"_blank"}>
                   <img src={!isM ? foot_twitter : foot_twitter_mobile} alt="" />
                 </a>
               </div>
             </div>
             <div className="trademark-bg">
               <div className="trademark">
-                <a href="/#">
+                <a href="https://t.me/survivorfinance" target={"_blank"}>
                   <img src={!isM ? foot_telegram : foot_telegram_mobile} alt="" />
                 </a>
               </div>
             </div>
             <div className="trademark-bg">
               <div className="trademark">
-                <a href="/#">
+                <a href="https://discord.gg/wZnUMKPeak" target={"_blank"}>
                   <img src={!isM ? foot_discord : foot_discord_mobile} alt="" />
                 </a>
               </div>
@@ -339,14 +341,17 @@ const FooterStyle = styled.div`
     .right {
       width: 400px;
       display: flex;
-      justify-content: space-around;
+      /* justify-content: space-around; */
       /* padding-left: 102px; */
+      justify-content: right;
       padding-top: 56px;
       .trademark-bg {
         width: 58px;
-
         border-radius: 50%;
-        /* margin-right: 32px; */
+        margin-right: 32px;
+      }
+      .trademark-bg:last-child {
+        margin-right: 0;
       }
       .trademark {
         width: 100%;

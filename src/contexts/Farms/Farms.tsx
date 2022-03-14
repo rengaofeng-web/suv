@@ -49,7 +49,7 @@ const Farms: React.FC = ({ children }) => {
     const realFarmApr =
       apyNum && apyNum.isLessThan(1000)
         ? `${new BigNumber(apyNum.times(100).toFixed(0)).toNumber().toLocaleString("en-US")}%`
-        : "100,000%";
+        : "1,000,000%";
     return {
       ...farm,
       ...stakedValue[index],
