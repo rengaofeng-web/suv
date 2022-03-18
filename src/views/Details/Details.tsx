@@ -12,16 +12,18 @@ import useFarm from "src/hooks/useFarm";
 import useSushi from "src/hooks/useSushi";
 import { useWeb3React } from "@web3-react/core";
 import { getContract } from "src/utils/erc20";
-import { getMasterChefContract } from "src/sushi/utils";
+import { getMasterChefContract, } from "src/sushi/utils";
 import useRedeem from "src/hooks/useRedeem";
 import { Web3Provider } from "@ethersproject/providers";
 import { provider } from "web3-core";
 import BigNumber from "bignumber.js";
 import useEarnings from "src/hooks/useEarnings";
 import useReward from "src/hooks/useReward";
-
+import useStakedBoostAmount from "src/hooks/useStakedBoostAmount";
+import { getUserInfo } from "src/sushi/utils";
 const Details: React.FC<{}> = () => {
   const context = useWeb3React<Web3Provider>();
+  const sushi = useSushi();
   const { connector, library, chainId, account, activate, deactivate, active, error } = context;
   const isM: boolean = isMobile();
   const histroy = useHistory();
@@ -31,10 +33,12 @@ const Details: React.FC<{}> = () => {
 
   const farm = useFarm(farmId);
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
+  // useMemo(() => {
+  //   if (farmId) {
+  let amount = useStakedBoostAmount(farmId);
+  // console.log(masterChefContract);
+  // }
+  // }, [sushi, farmId]);
   const [rewardPending, setRewardPending] = useState(false);
   const { onReward } = useReward(farmId);
   const handleHarvest = useCallback(async () => {
@@ -43,6 +47,11 @@ const Details: React.FC<{}> = () => {
     setRewardPending(false);
   }, [setRewardPending, onReward]);
   // console.log(farm);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <DetailsStyle>
       <div className="content-box">
@@ -82,12 +91,7 @@ const Details: React.FC<{}> = () => {
             </div>
             <div className="data-item">
               <div className="data-name">Staked</div>
-              <div className="data-con">
-                $
-                {new BigNumber(farm.allocPoint || 0)
-                  .div(new BigNumber(10).pow(farm.decimals))
-                  .toFixed(2)}
-              </div>
+              <div className="data-con">${amount.times(farm.price).toFixed(2)}</div>
             </div>
             <div className="data-item">
               <div className="data-name">Pending rewards</div>

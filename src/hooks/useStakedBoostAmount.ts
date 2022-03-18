@@ -1,18 +1,18 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from "react";
 
-import BigNumber from 'bignumber.js'
-import { useWallet } from 'use-wallet'
+import BigNumber from "bignumber.js";
+import { useWallet } from "use-wallet";
 
-import { getBoostAmount, getMasterChefContract } from '../sushi/utils'
-import useSushi from './useSushi'
-import useBlock from './useBlock'
-import { Web3Provider } from '@ethersproject/providers'
-import { useWeb3React } from '@web3-react/core'
-import { injected, walletconnect } from 'src/contexts/Metamask/connectors'
+import { getBoostAmount, getMasterChefContract } from "../sushi/utils";
+import useSushi from "./useSushi";
+import useBlock from "./useBlock";
+import { Web3Provider } from "@ethersproject/providers";
+import { useWeb3React } from "@web3-react/core";
+import { injected, walletconnect } from "src/contexts/Metamask/connectors";
 
 const useStakedBoostAmount = (pid: number) => {
-  const [balance, setBalance] = useState(new BigNumber(0))
-  const context = useWeb3React<any>()
+  const [balance, setBalance] = useState(new BigNumber(0));
+  const context = useWeb3React<any>();
   const {
     connector,
     library,
@@ -23,23 +23,24 @@ const useStakedBoostAmount = (pid: number) => {
     deactivate: reset,
     active,
     error,
-  } = context
-  const sushi = useSushi()
-  const masterChefContract = getMasterChefContract(sushi)
-  const block = useBlock()
+  } = context;
+  const sushi = useSushi();
+  const masterChefContract = getMasterChefContract(sushi);
+
+  const block = useBlock();
 
   const fetchBalance = useCallback(async () => {
-    const balance = await getBoostAmount(masterChefContract, pid, account)
-    setBalance(new BigNumber(balance))
-  }, [account, pid, sushi])
+    const balance = await getBoostAmount(masterChefContract, pid, account);
+    setBalance(new BigNumber(balance));
+  }, [account, pid, sushi]);
 
   useEffect(() => {
     if (account && sushi) {
-      fetchBalance()
+      fetchBalance();
     }
-  }, [account, pid, setBalance, block, sushi])
+  }, [account, pid, setBalance, block, sushi]);
 
-  return balance
-}
+  return balance;
+};
 
-export default useStakedBoostAmount
+export default useStakedBoostAmount;

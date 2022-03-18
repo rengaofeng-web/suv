@@ -52,9 +52,11 @@ const Header: React.FC<{}> = () => {
         if (select && select.classList.contains("select")) select.style.display = "none";
         brother[i].classList.remove("active");
       }
-      let survivorSelect = survivor_select.current as HTMLDivElement;
-      survivorSelect.classList.remove("survivor-select-active");
-      survivor.current?.classList.remove("survivor-active");
+      if (!isM) {
+        let survivorSelect = survivor_select.current as HTMLDivElement;
+        survivorSelect.classList.remove("survivor-select-active");
+        survivor.current?.classList.remove("survivor-active");
+      }
     }
   };
   // 手机端显示导航

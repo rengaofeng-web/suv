@@ -3,17 +3,25 @@ import styled from "styled-components";
 import { Web3Provider } from "@ethersproject/providers";
 import { useWeb3React } from "@web3-react/core";
 import { chainName, chainRPCs, supportedChainId } from "src/sushi/lib/constants";
-
+import { getMasterChefContract } from "src/sushi/utils";
+import useSetMasterChef from "src/hooks/useSetMasterChef";
+import useSushi from "src/hooks/useSushi";
 import Coin98Icon from "../../assets/wallet_logo/Coin98.svg";
 import CoinbaseIcon from "../../assets/wallet_logo/Coinbase.svg";
 import MetamaskIcon from "../../assets/wallet_logo/metamask.svg";
-import { injected, walletconnect, WalletLinkConnect } from "src/contexts/Metamask/connectors";
+import {
+  injected,
+  walletconnect,
+  WalletLinkConnect,
+  Coin98Connect,
+} from "src/contexts/Metamask/connectors";
 
 interface Props {
   change: Function;
 }
 const Connect: React.FC<Props> = (props) => {
   const context = useWeb3React<Web3Provider>();
+  const sushi = useSushi();
 
   let { change } = props;
   let show = sessionStorage.getItem("show") ? Number(sessionStorage.getItem("show")) : 0;
@@ -78,26 +86,47 @@ const Connect: React.FC<Props> = (props) => {
       // handle other "switch" errors
     }
   };
-  const connectWallet = (type: number) => {
-    // if (type === 1) {
-    //   connect(injected, (err) => {
-    //     console.log(err);
-    //   });
-    // } else if (type === 2) {
-    //   connect(walletconnect, (err) => {
-    //     console.log(err);
-    //   });
-    // } else if (type === 3) {
-    //   connect(WalletLinkConnect, (err) => {
-    //     console.log(err);
-    //   });
-    // }
+  const connectWallet = async (type: number) => {
+    if (type === 1) {
+      // console.log("metaMask");
+      connect(injected, (err) => {
+        console.log(err);
+      });
+    } else if (type === 2) {
+      connect(walletconnect, (err) => {
+        console.log(err);
+      });
+    } else if (type === 3) {
+      // console.log("coinbase");
+      connect(WalletLinkConnect, (err) => {
+        console.log(err);
+      });
+    } else if (type === 4) {
+      // console.log("coin98");
+      Coin98Connect.on("connect", () => {
+        console.log("成功");
+      });
+      try {
+        await Coin98Connect.connect();
+      } catch (e) {
+        console.log(e);
+      }
+    }
     closeConnect();
   };
 
   useEffect(() => {
     connectWallet(1);
+    // useSetMasterChef()
+    // let chef = getMasterChefContract(sushi);
+    // chef.options.address='123456'
+    // console.log(sushi, chef);
   }, []);
+  useEffect(() => {
+    // let chef = getMasterChefContract(sushi);
+    // if (chef) chef.options.address = "0x25F7eC164719FBE9Eece3F2DE42b5E770434b36C";
+    // console.log(chef);
+  });
   return (
     <ConnectStyle style={{ display: show ? "block" : "none" }}>
       <div className="mask">
@@ -135,10 +164,10 @@ const Connect: React.FC<Props> = (props) => {
             <div
               className="connection-mode-item"
               onClick={() => {
-                connectNetwork(1);
+                connectNetwork(4);
               }}
             >
-              <div className="connect-logo ">
+              <div className="connect-logo">
                 <img src={Coin98Icon} alt="" />
               </div>
               <div className="text">Coin98</div>

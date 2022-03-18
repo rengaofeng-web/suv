@@ -26,9 +26,7 @@ export class Sushi {
     } else {
       realProvider = provider
     }
-
     this.web3 = new Web3(realProvider)
-
     if (testing) {
       this.testing = new EVM(realProvider)
       this.snapshot = this.testing.snapshot()
@@ -77,8 +75,9 @@ export class Sushi {
         account.address.toLowerCase() !== newAccount.address.toLowerCase())
     ) {
       throw new Error(`Loaded account address mismatch.
-        Expected ${account.address}, got ${newAccount ? newAccount.address : null
-        }`)
+        Expected ${account.address}, got ${
+        newAccount ? newAccount.address : null
+      }`)
     }
   }
 

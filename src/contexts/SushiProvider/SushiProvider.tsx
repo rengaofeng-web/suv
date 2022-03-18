@@ -39,7 +39,6 @@ const SushiProvider: React.FC = ({ children }) => {
   window.sushi = sushi;
   // @ts-ignore
   window.eth = library?.provider;
-
   useEffect(() => {
     if (library) {
       const chainId = Number(chainId2);

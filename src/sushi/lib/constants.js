@@ -157,7 +157,7 @@ export const supportedPools = [
       43113: '0xdDA5122129dC6C410db0f82a72C5032d390d683D', // rvs-busd pair
     },
     tokenAddresses: {
-      43114: '0x610d1887a7D9fA93719bCe0bb43F59be09fc2223', // rvs
+      43114: '0x610d1887a7D9fA93719bCe0bb43F59be09fc2223', // rvs  
       43113: '0xd30E6004949eb5bD395BB0bb167cEd0Eb3975319', // rvs
     },
     baseTokenAddresses: {

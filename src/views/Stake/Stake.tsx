@@ -28,20 +28,16 @@ import useReward from "src/hooks/useReward";
 import useStakedLockTime from "src/hooks/useStakedLockTime";
 import useStakedBoostAmount from "src/hooks/useStakedBoostAmount";
 import useApprove from "src/hooks/useApprove";
+import useSetMasterChef from "src/hooks/useSetMasterChef";
 const Stake: React.FC<{}> = () => {
   const { farmId } = useParams();
   const history = useHistory();
   const farm = useFarm(farmId);
   useEffect(() => {
-    console.log(farm);
     window.scrollTo(0, 0);
   }, []);
   const lpTokenPrice = 100;
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
+  // useSetMasterChef(farmId-0);
   const sushi = useSushi();
   const { ethereum, account } = useWallet();
   const [count, setCount] = useState(0);
@@ -92,7 +88,6 @@ const Stake: React.FC<{}> = () => {
   const fullStakedBalance = useMemo(() => {
     return getFullDisplayBalance(stakedBalance, farm.decimals, farm.showDecimals);
   }, [stakedBalance, farm.decimals]);
-
   const handleWithdrawSelectMax = useCallback(() => {
     setWithdrawValue(fullStakedBalance);
   }, [fullStakedBalance, setWithdrawValue]);
@@ -125,7 +120,6 @@ const Stake: React.FC<{}> = () => {
   }, [depositValue, lockDay, totalValue, maxBalanceStr, depositInU, maxEth, maxWETH, onStake]);
 
   const { onApprove } = useApprove(farm.poolType == 1 ? farm.tokenContract : farm.lpContract);
-
   const [approvePending, setApprovePending] = useState(false);
   const handleApprove = useCallback(async () => {
     setApprovePending(true);
@@ -215,6 +209,7 @@ const Stake: React.FC<{}> = () => {
     document.ontouchstart = dragStart;
     document.ontouchend = dragEnd;
   }
+ 
   return (
     <StakeStyle>
       <div className="content-box">

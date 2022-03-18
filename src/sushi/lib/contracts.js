@@ -7,6 +7,7 @@ import SushiAbi from './abi/sushi.json'
 import UNIV2PairAbi from './abi/uni_v2_lp.json'
 import WETHAbi from './abi/weth.json'
 import HelperAbi from './abi/helper.json'
+import HelperAbi1 from './abi/helper1.json'
 import {
   contractAddresses,
   SUBTRACT_GAS_LIMIT,
@@ -29,6 +30,11 @@ export class Contracts {
     this.nft = new this.web3.eth.Contract(NftAbi)
     this.baseCoin = new this.web3.eth.Contract(WETHAbi)
     this.helper = new this.web3.eth.Contract(HelperAbi)
+    this.helper1 = new this.web3.eth.Contract(
+      HelperAbi1,
+      '0x329409487abc40f58042793f1556e3312845FD0C',
+    )
+
     if (contractAddresses.bridge1[networkId]) {
       this.bridge1 = new this.web3.eth.Contract(ERC20Abi)
       this.bridge1Pair = new this.web3.eth.Contract(UNIV2PairAbi)
@@ -47,7 +53,9 @@ export class Contracts {
         tokenAddress: pool.tokenAddresses[networkId],
         baseTokenAddress: pool.baseTokenAddresses[networkId],
         lpContract: new this.web3.eth.Contract(UNIV2PairAbi),
-        tokenContract: pool.nftType ? new this.web3.eth.Contract(IERC721) : new this.web3.eth.Contract(ERC20Abi),
+        tokenContract: pool.nftType
+          ? new this.web3.eth.Contract(IERC721)
+          : new this.web3.eth.Contract(ERC20Abi),
         baseTokenContract: new this.web3.eth.Contract(ERC20Abi),
       }),
     )
@@ -62,12 +70,8 @@ export class Contracts {
         contract.setProvider(provider)
         if (address) contract.options.address = address
         else console.error('Contract address not found in network', networkId)
-      } catch {
-
-      }
-
+      } catch {}
     }
-
 
     setProvider(this.sushi, contractAddresses.sushi[networkId])
     setProvider(this.masterChef, contractAddresses.masterChef[networkId])
@@ -88,13 +92,19 @@ export class Contracts {
       setProvider(this.bridge3Pair, contractAddresses.bridge3Pair[networkId])
     }
     this.pools.forEach(
-      ({ lpContract, lpAddress, tokenContract, tokenAddress, baseTokenContract, baseTokenAddress }) => {
+      ({
+        lpContract,
+        lpAddress,
+        tokenContract,
+        tokenAddress,
+        baseTokenContract,
+        baseTokenAddress,
+      }) => {
         setProvider(lpContract, lpAddress)
         setProvider(tokenContract, tokenAddress)
         setProvider(baseTokenContract, baseTokenAddress)
       },
     )
-
   }
 
   setDefaultAccount(account) {

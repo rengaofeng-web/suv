@@ -45,7 +45,7 @@ const Farms: React.FC = ({ children }) => {
             .div(new BigNumber(10).pow(farm.decimals))
             .times(farmInfos[index])
         : new BigNumber(1000);
-    1;
+    ;
     const realFarmApr =
       apyNum && apyNum.isLessThan(1000)
         ? `${new BigNumber(apyNum.times(100).toFixed(0)).toNumber().toLocaleString("en-US")}%`
