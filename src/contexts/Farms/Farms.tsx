@@ -36,45 +36,45 @@ const Farms: React.FC = ({ children }) => {
     const apyNum =
       stakedValue[index] && stakedValue[index].totalAmount > 0
         ? sushiPrice
-            // .times(farm.pid == 0 ? 3 : 1)
-            .times(SUSHI_PER_BLOCK)
-            .times(BLOCKS_PER_YEAR)
-            .times(stakedValue[index].allocPoint)
-            .div(totalPoolWeight)
-            .div(stakedValue[index].totalAmount)
-            .div(new BigNumber(10).pow(farm.decimals))
-            .times(farmInfos[index])
+          // .times(farm.pid == 0 ? 3 : 1)
+          .times(SUSHI_PER_BLOCK)
+          .times(BLOCKS_PER_YEAR)
+          .times(stakedValue[index].allocPoint)
+          .div(totalPoolWeight)
+          .div(stakedValue[index].totalAmount)
+          .div(new BigNumber(10).pow(farm.decimals))
+          .times(farmInfos[index])
         : new BigNumber(1000);
     ;
-    const realFarmApr =
-      apyNum && apyNum.isLessThan(1000)
-        ? `${new BigNumber(apyNum.times(100).toFixed(0)).toNumber().toLocaleString("en-US")}%`
-        : "1,000,000%";
-    return {
-      ...farm,
-      ...stakedValue[index],
-      stakedValue1: new BigNumber(stakedValue[index]?.totalAmount || 0)
-        .div(new BigNumber(10).pow(farm.decimals))
-        .times(farmInfos[index])
-        .toFixed(2),
-      apy: realFarmApr,
-      totalPoolWeight,
-      price: farmInfos[index],
-    };
-  });
-  // console.log(newFarms);
+  const realFarmApr =
+    apyNum && apyNum.isLessThan(1000)
+      ? `${new BigNumber(apyNum.times(100).toFixed(0)).toNumber().toLocaleString("en-US")}%`
+      : "1,000,000%";
+  return {
+    ...farm,
+    ...stakedValue[index],
+    stakedValue1: new BigNumber(stakedValue[index]?.totalAmount || 0)
+      .div(new BigNumber(10).pow(farm.decimals))
+      .times(farmInfos[index])
+      .toFixed(2),
+    apy: realFarmApr,
+    totalPoolWeight,
+    price: farmInfos[index],
+  };
+});
+// console.log(newFarms);
 
-  // console.log(farmInfos);
-  return (
-    <Context.Provider
-      value={{
-        farms: newFarms,
-        unharvested,
-      }}
-    >
-      {children}
-    </Context.Provider>
-  );
+// console.log(farmInfos);
+return (
+  <Context.Provider
+    value={{
+      farms: newFarms,
+      unharvested,
+    }}
+  >
+    {children}
+  </Context.Provider>
+);
 };
 
 export default Farms;

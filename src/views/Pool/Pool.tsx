@@ -14,7 +14,7 @@ import useSushi from "src/hooks/useSushi";
 import BigNumber from "bignumber.js";
 import { useWallet } from "use-wallet";
 import ArrowPic from "src/assets/images/logo.svg";
-
+import useGetPoolInfo from 'src/hooks/useGetUserInfo'
 import useFarms from "src/hooks/useFarms";
 import {
   getEarned,
@@ -59,52 +59,9 @@ const Pool: React.FC<{}> = () => {
   const sushi = useSushi();
   // 数据模拟
   const { farmRows } = useFarmRows();
-  // console.log(farmRows);
-  let chef = getHelperChefContract1(sushi);
-  let chefAdd = "0xD82247C326d131a8FE90453452c9e5F27B63c128";
-  let pids = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
-  let acc = "0xA4ad10B1Ed820E70FA45a088c2b3d9ca6590ca0d";
-  let token = [
-    "0x760E94bF9074518f6bE4a7C60908191a48DE23Fc",
-    "0x90927eE57012B5Ad75c6AB64Fd72E97aB4BA079F",
-    "0x8C4B94087EBE3e59f4150e973ac958e7de538461",
-    "0x3C216aDE605759e957a36caC69B3c53b28552db4",
-    "0x5Dddfcc9F7ce7fAaEE529c1B3b88c812F4E3Dfb0",
-    "0xd00ae08403B9bbb9124bB305C09058E32C39A48c",
-    "0x8e93c8E63e054729dAa5D56b3f9Da262a834016F",
-    "0x95ef6B0a5DCBBa4b0a02778013ac1080C9BD7D1c",
-    "0x8653C7A7e490Cfc09d12bC6f46775D085CeAcBb9",
-    "0xeedFa3e9FEf3A2ADA86C5850a01aa6b1CafF47a4",
-    "0x3dFD94E5dcd0AaC03bDEC6f4686F6eC995BDa00b",
-    "0xe69F09c050577aBa6DB21c442F8feD8F86e61F58",
-    "0x0Cd3a513Fce417cEc2bf3040A127bFe22641C074",
-    "0x7aAB006B994b29cc63B914Ca6a2DdF7731141B50",
-  ];
-  let fars = [
-    "0xD82247C326d131a8FE90453452c9e5F27B63c128",
-    "0xD82247C326d131a8FE90453452c9e5F27B63c128",
-    "0x0d1eBdfF5f72FF891fcf03785173aEf0E4D26013",
-    "0x0f0E921bCb85296B89ef9356DA3DD8a2DA98d7E5",
-    "0x379DDA509aF22cCb4AA14c781c006a0f652bf074",
-    "0x7a4EacF701b9d20b6F5A0d1201d1676803c3b97C",
-    "0x94FF5485a150646E93c31182d6Ef8805aDDD6AaD",
-    "0x39862C66130978cD69d2F93Aaa7260d02CC64054",
-    "0x75b7a14D41a44Ff22C24e415dFe226195E5A9e41",
-    "0xD82247C326d131a8FE90453452c9e5F27B63c128",
-    "0xD82247C326d131a8FE90453452c9e5F27B63c128",
-    "0xD82247C326d131a8FE90453452c9e5F27B63c128",
-    "0xD82247C326d131a8FE90453452c9e5F27B63c128",
-    "0xD82247C326d131a8FE90453452c9e5F27B63c128",
-  ];
-  useEffect(() => {
-    getin();
-  });
-  const getin = useCallback(async () => {
-    if (chef) {
-      let data = await getUserInfo(chef, chefAdd, pids, acc, token, fars);
-      console.log(data);
-    }
-  }, [chef]);
+  console.log(farmRows);
+  
+  
   return (
     <PoolStyle>
       <div className="content">
