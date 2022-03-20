@@ -26,7 +26,7 @@ const useIsIDAI = (
   } = context
   const sushi = useSushi()
   let flag
-  if (pid === 2 || pid === 3 || pid === 4 || pid === 5 || pid === 6 || pid === 12 || pid === 13) {
+  if (pid === 2 || pid === 3 || pid === 4 || pid === 5 || pid === 6 || pid === 7 || pid === 8) {
     flag=true
   } else {
     flag=false
