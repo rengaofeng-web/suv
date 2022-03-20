@@ -31,8 +31,7 @@ const Details: React.FC<{}> = () => {
   const [inputValue, setInputValue] = useState<undefined | string>(undefined);
   //const { apyDefault } = useApyDefault({ pid: farmId })
 
-  const farm = useFarm(farmId);
-
+  const farm = useFarm(farmId)
   // useMemo(() => {
   //   if (farmId) {
   let amount = useStakedBoostAmount(farmId);
@@ -50,6 +49,7 @@ const Details: React.FC<{}> = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    document.querySelector('.App').scrollTo(0, 0)
   }, []);
 
   return (
@@ -134,7 +134,7 @@ const Details: React.FC<{}> = () => {
           >
             WITHDRAW
           </div>
-          <div className="harvest" onClick={rewardPending ? () => {} : handleHarvest}>
+          <div className="harvest" onClick={rewardPending ? () => { } : handleHarvest}>
             {rewardPending ? "Pending Harvest" : "HARVEST"}
           </div>
         </div>

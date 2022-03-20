@@ -12,7 +12,7 @@ import { useWallet } from "use-wallet";
 import { provider } from "web3-core";
 import useFarm from "../../hooks/useFarm";
 import { getMasterChefContract, getLocalCoinAddress } from "../../sushi/utils";
-import { getContract } from "../../utils/erc20";
+import { getContract, createMastContract } from "../../utils/erc20";
 import coinLogo from "src/assets/imgs/logo/logo1024.svg";
 import heoEthLogo from "src/assets/imgs/heo_eth.png";
 import useTokenBalance from "src/hooks/useTokenBalance"; //获取代币余额
@@ -35,6 +35,7 @@ const Stake: React.FC<{}> = () => {
   const farm = useFarm(farmId);
   useEffect(() => {
     window.scrollTo(0, 0);
+    document.querySelector('.App').scrollTo(0,0)
   }, []);
   const lpTokenPrice = 100;
   // useSetMasterChef(farmId-0);
@@ -49,7 +50,6 @@ const Stake: React.FC<{}> = () => {
     //代币合同
     return getContract(ethereum as provider, farm.tokenAddress);
   }, [ethereum, farm.tokenAddress]);
-
   const [depositValue, setDepositValue] = useState("");
   const [withdrawValue, setWithdrawValue] = useState("");
 
@@ -209,7 +209,6 @@ const Stake: React.FC<{}> = () => {
     document.ontouchstart = dragStart;
     document.ontouchend = dragEnd;
   }
- 
   return (
     <StakeStyle>
       <div className="content-box">
@@ -331,11 +330,11 @@ const Stake: React.FC<{}> = () => {
             </div>
           </div>
           {new BigNumber(farm.userAllowance).isLessThanOrEqualTo(0) ? (
-            <div className="approve" onClick={approvePending ? () => {} : handleApprove}>
+            <div className="approve" onClick={approvePending ? () => { } : handleApprove}>
               {approvePending ? "Pending APPROVE" : "APPROVE"}
             </div>
           ) : (
-            <div className="stake" onClick={pendingDeposit ? () => {} : handleDeposit}>
+            <div className="stake" onClick={pendingDeposit ? () => { } : handleDeposit}>
               {pendingDeposit ? "Pending Stake" : "Stake"}
             </div>
           )}

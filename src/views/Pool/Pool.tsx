@@ -59,9 +59,7 @@ const Pool: React.FC<{}> = () => {
   const sushi = useSushi();
   // 数据模拟
   const { farmRows } = useFarmRows();
-  console.log(farmRows);
-  
-  
+  // console.log(farmRows);
   return (
     <PoolStyle>
       <div className="content">
