@@ -91,7 +91,6 @@ const useFarmInfo = (pids: number[]) => {
   const fetchAllStakedValueHttp = useCallback(async () => {
     getInfos().then((farmInfo) => {
       const balances: Array<any> = farmInfo?.map((item: any, index: number) => {
-        console.log(farmInfo)
         return {
           tokenBalance: item.balance,
           userStaked: item.userData0,
