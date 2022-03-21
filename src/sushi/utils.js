@@ -756,8 +756,10 @@ export const nftMint = async (nftContract, account, number) => {
 export const nftBalance = async (nftContract, account) => {
   if (!account) return new BigNumber(0)
   try {
-    const balance = await nftContract.methods.balanceOf(account).call()
-    return new BigNumber(balance)
+    if(nftContract){
+      const balance = await nftContract.methods.balanceOf(account).call()
+      return new BigNumber(balance)
+    }
   } catch (e) {
     console.log(e)
     return new BigNumber(0)
@@ -810,8 +812,9 @@ export const getFarmInfo = async (
     return []
   }
 }
+// 查询池子信息+用户信息+用户钱包余额+可调用用户钱包多少币+小数位数
 export const getUserInfo = async (
-  Contract,
+  helperContract,
   masterchef,
   pids,
   account,
@@ -819,13 +822,31 @@ export const getUserInfo = async (
   farms,
 ) => {
   try {
-    if (Contract) {
-      let res = await Contract.methods
+    if (helperContract) {
+      let res = await helperContract.methods
         .getUserInfo(masterchef, pids, account, token, farms)
         .call()
       return res || []
     }
   } catch (e) {
+    console.log(e)
+  }
+}
+// 查询所有池子信息
+export const getPoolInfo=async(helperContract,masterchef,pids)=>{
+  try{
+    let res=await helperContract.methods.getPoolInfo(masterchef,pids).call();
+    return res || [];
+  }catch(e){
+    console.log(e)
+  }
+}
+// 查询单个池子信息
+export const getPoolInfoOne=async(helperContract,masterChef,pid)=>{
+  try{
+    let res =await helperContract.methods.poolInfoOne(masterChef,pid).call();
+    return res
+  }catch(e){
     console.log(e)
   }
 }

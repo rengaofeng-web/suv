@@ -12,6 +12,8 @@ import {
   getHttpTotalLPWethValue2,
   getFarms,
   getTotalWeight,
+  getHelperChefContract1,
+  getPoolInfoOne
 } from '../sushi/utils'
 import { StakedValue } from './useAllStakedValue'
 import axios from 'axios'
@@ -38,16 +40,15 @@ const useFarmCardInfo = (pid: number, isNft?: boolean) => {
   const farms = getFarms(sushi)
   const masterChefAddress = getMasterChefAddress(sushi)
   const masterChefContract = getMasterChefContract(sushi)
-  const helperContract = getHelperChefContract(sushi)
-  const [balances, setBalance] = useState([] as Array<StakedValue>)
+  const helperContract1 = getHelperChefContract1(sushi)
+  const [balances, setBalance] = useState([])
   const block = useBlock()
 
   const getInfos = useCallback(async () => {
-    let farmInfo1 = await getFarmInfo(
-      helperContract,
+    let farmInfo1 = await getPoolInfoOne(
+      helperContract1,
       masterChefAddress,
-      [pid],
-      account || '0x61a6e964fe93DA08745F46A95Fe13BAc2a0f2289',
+      pid,
     )
     // console.log(farmInfo1)
     // setFarmInfo(farmInfo1)
@@ -61,13 +62,15 @@ const useFarmCardInfo = (pid: number, isNft?: boolean) => {
     //decimals
     //pending0
     //pending1
-  }, [account, sushi, helperContract, masterChefContract])
+    let info=await getInfos();
+    setBalance(info)
+  }, [account, sushi, helperContract1, masterChefContract])
 
   useEffect(() => {
-    if (helperContract?.options?.address && sushi) {
+    if (helperContract1?.options?.address && sushi) {
       fetchAllStakedValueHttp()
     }
-  }, [account, helperContract, setBalance, sushi, masterChefContract, block])
+  }, [account, helperContract1, setBalance, sushi, masterChefContract, block])
 
   return balances
 }

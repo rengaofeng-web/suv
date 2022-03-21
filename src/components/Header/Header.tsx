@@ -1,10 +1,12 @@
 import React, { useState, useRef, useEffect, ReactElement, ReactEventHandler } from "react";
 import styled from "styled-components";
 import { useHistory, withRouter, RouteComponentProps } from "react-router-dom";
-
+import { Web3Provider } from "@ethersproject/providers";
+import { useWeb3React } from "@web3-react/core";
 import isMobile from "is-mobile";
-import { Control } from "react-keeper";
-
+// import { Control } from "react-keeper";
+import useFarmRows from "src/hooks/useFarmRows";
+import { nftBalance } from "src/sushi/utils";
 // pc图片导入
 import logo from "../../assets/PC-config/home/top_logo_white.svg";
 // mobile图片导入
@@ -14,6 +16,18 @@ import Connect from "../ConnectPopup/Connect"; //connect popup
 import ConnectButton from "../ConnectButton/ConnectButton"; //connect button
 const Header: React.FC<{}> = () => {
   const isM = isMobile();
+  const { farmRows } = useFarmRows();
+  const context = useWeb3React<any>();
+  const {
+    connector,
+    library,
+    chainId: chainId2,
+    account,
+    activate: connect,
+    deactivate,
+    active,
+    error,
+  } = context;
   const nav = useRef(null);
   const survivor_select = useRef(null);
   const survivor = useRef(null);
@@ -72,7 +86,46 @@ const Header: React.FC<{}> = () => {
     }
   };
   const history = useHistory();
-
+  const nftPools = farmRows.filter((item) => item.nftType && item.poolType === 3);
+  // 判断跳转哪个页面
+  const isJump = () => {
+    let p1 = new Promise(async (resolve, reject) => {
+      let res = await nftBalance(nftPools[0].tokenContract, account)
+      resolve(res?.toNumber())
+    })
+    let p2 = new Promise(async (resolve, reject) => {
+      let res = await nftBalance(nftPools[1].tokenContract, account)
+      resolve(res?.toNumber())
+    })
+    let p3 = new Promise(async (resolve, reject) => {
+      let res = await nftBalance(nftPools[2].tokenContract, account)
+      resolve(res?.toNumber())
+    })
+    let p4 = new Promise(async (resolve, reject) => {
+      let res = await nftBalance(nftPools[3].tokenContract, account)
+      resolve(res?.toNumber())
+    })
+    let p5 = new Promise(async (resolve, reject) => {
+      let res = await nftBalance(nftPools[4].tokenContract, account)
+      resolve(res?.toNumber())
+    })
+    Promise.all([p1, p2, p3, p4, p5]).then((result) => {
+      // console.log(result)
+      const count: any = [];
+      result.forEach((item, i) => {
+        if (item !== 0) {
+          count.push(item)
+        }
+      })
+      if (count.length > 0) {
+        history.push("/owned");
+      } else {
+        history.push("/ownedNone");
+      }
+    }).catch((error) => {
+      console.log(error)
+    })
+  }
   useEffect(() => {
     document.body.onclick = () => {
       isM ? removeStats(true) : removeStats(false);
@@ -157,7 +210,8 @@ const Header: React.FC<{}> = () => {
                     onClick={(e: React.MouseEvent<HTMLDivElement>) => {
                       e.stopPropagation ? e.stopPropagation() : (e.cancelable = true);
                       removeStats(isM ? true : false);
-                      history.push("/owned");
+
+                      isJump()
                     }}
                   >
                     Owned

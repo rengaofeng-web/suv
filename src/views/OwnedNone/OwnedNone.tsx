@@ -1,7 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import { Control } from "react-keeper";
+// import { Control } from "react-keeper";
 import isMobile from "is-mobile";
+import { useHistory, withRouter, RouteComponentProps } from "react-router-dom";
+
 // 组件导入
 import Footer from "../../components/Footer/Footer"; //footer
 // 图片导入
@@ -10,6 +12,8 @@ import mobile_wholeBg from "../../assets/Phone-config/bg1.jpg"; // mobile 整体
 import mobile_noCard from "../../assets/Phone-config/NFT/NO-CARD.png"; // mobile 右边的大飞船
 const OwnedNone: React.FC<{}> = () => {
   const isM: boolean = isMobile();
+  const history = useHistory();
+
   return (
     <OwnedStyle>
       <div className="container">
@@ -22,7 +26,7 @@ const OwnedNone: React.FC<{}> = () => {
           <div
             className="goButton"
             onClick={() => {
-              Control.go("/suvBox");
+              history.push("/suvBox");
             }}
           >
             GO
@@ -159,7 +163,7 @@ const OwnedStyle = styled.div`
         content: "";
         position: absolute;
         top: 44%;
-        left: 292.5px;
+        left: 292.6px;
         width: 20px;
         height: 3px;
         background: linear-gradient(-45deg, transparent 2px, #fff 0) bottom right;

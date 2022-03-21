@@ -12,6 +12,7 @@ import feichuan4 from "../../assets/PC-config/NFT/feichuan4.png";
 import feichuan3 from "../../assets/PC-config/NFT/feichuan3.png";
 import { useWallet } from "use-wallet";
 import useFarmRows from "src/hooks/useFarmRows";
+
 import { nftBalance } from "src/sushi/utils";
 import useStakedBalance from "src/hooks/useStakedBalance";
 import { Web3Provider } from "@ethersproject/providers";
@@ -20,9 +21,20 @@ const Owned: React.FC<{}> = () => {
   const isM: boolean = isMobile();
   const leftButton = useRef(null);
   const rightButton = useRef(null);
-  const { account } = useWallet();
+  sessionStorage.setItem("ownedIndex", '0');
+  // const { account } = useWallet();
   const { farmRows } = useFarmRows();
-
+  const context = useWeb3React<any>();
+  const {
+    connector,
+    library,
+    chainId: chainId2,
+    account,
+    activate: connect,
+    deactivate,
+    active,
+    error,
+  } = context;
   const nftPools = farmRows.filter((item) => item.nftType && item.poolType === 3);
 
   const [cards, setCards] = useState([]);
@@ -33,19 +45,31 @@ const Owned: React.FC<{}> = () => {
       loop: false,
       slidesPerView: !isM ? 3 : 2,
     });
+    let index = sessionStorage.getItem("ownedIndex")
+      ? parseInt(sessionStorage.getItem("ownedIndex"))
+      : 0;
+    mySwiper.slideTo(index);
     if (leftButton.current) {
       let left_button = leftButton.current as HTMLDivElement;
       left_button.onclick = () => {
         mySwiper.slidePrev();
+        let index = parseInt(sessionStorage.getItem("ownedIndex"));
+        index--;
+        if (index <= 0) return false;
+        sessionStorage.setItem("ownedIndex", index.toString());
       };
     }
     if (rightButton.current) {
       let right_button = rightButton.current as HTMLDivElement;
       right_button.onclick = () => {
+        let index = parseInt(sessionStorage.getItem("ownedIndex"));
+        index++;
+        if (index > 3) return false;
+        sessionStorage.setItem("ownedIndex", index.toString());
         mySwiper.slideNext();
       };
     }
-  });
+  }, []);
   return (
     <OwnedSttyle>
       <div className="content">
@@ -87,7 +111,7 @@ const CardCon = (props: any) => {
   const [nftAmount, setNftAmount] = useState("0");
   const fetchNFTAmount = async () => {
     const result = await nftBalance(props.farm.tokenContract, account);
-    setNftAmount(result.toString());
+    setNftAmount(result?.toString());
   };
   useEffect(() => {
     fetchNFTAmount();

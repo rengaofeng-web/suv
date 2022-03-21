@@ -14,7 +14,7 @@ import useSushi from "src/hooks/useSushi";
 import BigNumber from "bignumber.js";
 import { useWallet } from "use-wallet";
 import ArrowPic from "src/assets/images/logo.svg";
-
+import useGetPoolInfo from 'src/hooks/useGetUserInfo'
 import useFarms from "src/hooks/useFarms";
 import {
   getEarned,
@@ -60,7 +60,6 @@ const Pool: React.FC<{}> = () => {
   // 数据模拟
   const { farmRows } = useFarmRows();
   // console.log(farmRows);
-
   return (
     <PoolStyle>
       <div className="content">

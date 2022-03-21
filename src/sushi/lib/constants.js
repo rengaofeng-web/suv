@@ -101,7 +101,8 @@ export const contractAddresses = {
     1: '0xc2edad668740f1aa35e4d8f227fb8e17dca888cd',
     3: '0x3552fc1e1FfC28F410387B20aa0DC2775352142A',
     43114: '0x25F7eC164719FBE9Eece3F2DE42b5E770434b36C',
-    43113: '0x4Ea828c72fb4A8862165E96455f7035840f78Cf6',
+    // 43113: '0x4Ea828c72fb4A8862165E96455f7035840f78Cf6',//old
+    43113: '0xD82247C326d131a8FE90453452c9e5F27B63c128',//new
     97: '0x714B8229a1A60D264E5CdF1ACeC3A3f39020A2f2',
   },
   helper: {
@@ -324,7 +325,7 @@ export const supportedPools = [
     fee: '0%',
   },
   {
-    pid: 13,
+    pid: 7,
     lpAddresses: {
       56: '0xA8A91D4234f0354e7dCeD215A977a26f67472AF3', // rvs-busd
       97: '0xdDA5122129dC6C410db0f82a72C5032d390d683D', // rvs-busd pair
@@ -348,7 +349,7 @@ export const supportedPools = [
     fee: '0%',
   },
   {
-    pid: 14,
+    pid: 8,
     lpAddresses: {
       56: '0xA8A91D4234f0354e7dCeD215A977a26f67472AF3', // rvs-busd
       97: '0xdDA5122129dC6C410db0f82a72C5032d390d683D', // rvs-busd pair
@@ -372,7 +373,7 @@ export const supportedPools = [
     fee: '0%',
   },
   {
-    pid: 15,
+    pid: 9,
     lpAddresses: {
       56: '0xA8A91D4234f0354e7dCeD215A977a26f67472AF3', // rvs-busd
       97: '0xdDA5122129dC6C410db0f82a72C5032d390d683D', // rvs-busd pair
@@ -396,7 +397,7 @@ export const supportedPools = [
     fee: '0%',
   },
   {
-    pid: 8,
+    pid: 10,
     lpAddresses: {
       56: '0xA8A91D4234f0354e7dCeD215A977a26f67472AF3', // rvs-busd
       43113: '0xaA1373d9ab4E0E7b938b32A8Dc9d1534E3FBDaEc', // rvs-busd pair
@@ -423,7 +424,7 @@ export const supportedPools = [
   },
 
   {
-    pid: 9,
+    pid: 11,
     lpAddresses: {
       56: '0xA8A91D4234f0354e7dCeD215A977a26f67472AF3', // rvs-busd
       97: '0xdDA5122129dC6C410db0f82a72C5032d390d683D', // rvs-busd pair
@@ -448,7 +449,7 @@ export const supportedPools = [
     nftType: true,
   },
   {
-    pid: 10,
+    pid: 12,
     lpAddresses: {
       56: '0xa527a61703d82139f8a06bc30097cc9caa2df5a6', // CAKE-WBNB, need bridge wbnb-busd
       97: '0x3D24D404f4aFd860188fa7F96A902AEB59cE886b', // CAKE-WBNB, need bridge wbnb-busd
@@ -473,7 +474,7 @@ export const supportedPools = [
     nftType: true,
   },
   {
-    pid: 11,
+    pid: 13,
     lpAddresses: {
       56: '0xe9e7cea3dedca5984780bafc599bd69add087d56', // busd
       97: '0x816070dd4eD4b5a16E71ad72CF215b31f16Ba6c2', // BUSD
@@ -499,7 +500,7 @@ export const supportedPools = [
     nftType: true,
   },
   {
-    pid: 12,
+    pid: 14,
     lpAddresses: {
       97: '0xc221d0D92a88C780c49bc96C07720b6121fd80a0', // USDT-BUSD
       56: '0xc15fa3e22c912a276550f3e5fe3b0deb87b55acd',
