@@ -51,7 +51,7 @@ const Details: React.FC<{}> = () => {
     window.scrollTo(0, 0);
     document.querySelector('.App').scrollTo(0, 0)
   }, []);
-
+  
   return (
     <DetailsStyle>
       <div className="content-box">
